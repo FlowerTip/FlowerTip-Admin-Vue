@@ -1,6 +1,6 @@
-# guigu-admin-template
+# FlowerTip-Admin
 
-一个基于 Vue 3 + TypeScript + Vite 技术架构的系统模版
+一个基于 Vue3 + TypeScript + Element Plus + Axios + Vue Router@4 开发的企业级后台管理系统
 
 ## 功能列表
 
@@ -15,3 +15,5 @@
 - [ ] 5. 字典查询
 
 - [ ] 6. 表格组件
+
+- [ ] 7. 权限管理
