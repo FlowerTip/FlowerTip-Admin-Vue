@@ -1,0 +1,27 @@
+/* nprogress 进度条样式 */
+#nprogress .bar {
+  background-color: var(--el-color-primary) !important;
+}
+
+/* element-plus 抽屉样式 */
+.el-drawer {
+  .el-drawer__header {
+    margin-bottom: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #E4E7ED;
+  }
+
+  .el-drawer__footer {
+    border-top: 1px solid #E4E7ED;
+  }
+}
+
+/* element-plus 弹窗样式 */
+.el-dialog {
+  .el-dialog__header {
+    border-bottom: 1px solid #E4E7ED;
+  }
+  .el-dialog__footer {
+    border-top: 1px solid #E4E7ED;
+  }
+}

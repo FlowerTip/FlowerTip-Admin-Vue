@@ -1,0 +1,801 @@
+<template>
+  <div class="header-right-info">
+    <!-- 当前时间 -->
+    <div v-if="settingStore.showHeaderBar" class="current-time">
+      <span class="ymd">{{ ymd }}</span>
+      <span class="hms">{{ hms }}</span>
+    </div>
+    <!-- 消息通知 -->
+    <div class="message-box">
+      <el-popover
+        :width="300"
+        trigger="click"
+        popper-class="popover-box"
+        popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px;"
+      >
+        <template #reference>
+          <el-icon class="msg-icon">
+            <el-badge
+              :value="200"
+              :max="99"
+              is-dot
+              :offset="[-5, 0]"
+              class="item"
+              :color="settingStore.color"
+            >
+              <Bell />
+            </el-badge>
+          </el-icon>
+        </template>
+        <template #default>
+          <div class="message-box-wrapper">
+            <el-tabs
+              v-model="activeName"
+              class="demo-tabs"
+              @tab-click="handleClick"
+            >
+              <el-tab-pane label="通知消息" name="first">
+                <div class="message-item" v-for="i in 20" :key="i">
+                  <div class="left-icon">
+                    <el-icon class="icon-style">
+                      <ChatLineRound />
+                    </el-icon>
+                  </div>
+                  <div class="right-box">
+                    <span class="content">一键三连GuiGu-Admin-Template</span>
+                    <span class="time">2024-06-04 09:38</span>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="报警消息" name="second">
+                <div class="message-item" v-for="i in 20" :key="i">
+                  <div class="left-icon">
+                    <el-icon class="icon-style">
+                      <BellFilled />
+                    </el-icon>
+                  </div>
+                  <div class="right-box">
+                    <span class="content">一键三连GuiGu-Admin-Template</span>
+                    <span class="time">2024-06-04 09:38</span>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="待办消息" name="third">
+                <div class="message-item" v-for="i in 20" :key="i">
+                  <div class="left-icon">
+                    <el-icon class="icon-style">
+                      <Message />
+                    </el-icon>
+                  </div>
+                  <div class="right-box">
+                    <span class="content">一键三连GuiGu-Admin-Template</span>
+                    <span class="time">2024-06-04 09:38</span>
+                  </div>
+                </div>
+              </el-tab-pane>
+            </el-tabs>
+          </div>
+        </template>
+      </el-popover>
+    </div>
+    <!-- 全屏按钮 -->
+    <div class="screen-box" @click="toggleFullScreen">
+      <svg
+        v-if="!isFullScreen"
+        t="1717408008762"
+        class="icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="9338"
+        id="mx_n_1717408008762"
+        width="400"
+        height="400"
+      >
+        <path
+          d="M285.866667 810.666667H384v42.666666H213.333333v-170.666666h42.666667v98.133333l128-128 29.866667 29.866667-128 128z m494.933333 0l-128-128 29.866667-29.866667 128 128V682.666667h42.666666v170.666666h-170.666666v-42.666666h98.133333zM285.866667 256l128 128-29.866667 29.866667-128-128V384H213.333333V213.333333h170.666667v42.666667H285.866667z m494.933333 0H682.666667V213.333333h170.666666v170.666667h-42.666666V285.866667l-128 128-29.866667-29.866667 128-128z"
+          :fill="settingStore.showHeaderBar ? '#ffffff' : '#606266'"
+          p-id="9339"
+        ></path>
+      </svg>
+      <svg
+        v-else
+        t="1717408038796"
+        class="icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="9805"
+        width="400"
+        height="400"
+      >
+        <path
+          d="M354.133333 682.666667H256v-42.666667h170.666667v170.666667H384v-98.133334L243.2 853.333333l-29.866667-29.866666L354.133333 682.666667z m358.4 0l140.8 140.8-29.866666 29.866666-140.8-140.8V810.666667h-42.666667v-170.666667h170.666667v42.666667h-98.133334zM354.133333 384L213.333333 243.2l29.866667-29.866667L384 354.133333V256h42.666667v170.666667H256V384h98.133333z m358.4 0H810.666667v42.666667h-170.666667V256h42.666667v98.133333L823.466667 213.333333l29.866666 29.866667L712.533333 384z"
+          :fill="settingStore.showHeaderBar ? '#ffffff' : '#606266'"
+          p-id="9806"
+        ></path>
+      </svg>
+    </div>
+    <!-- 个人信息 -->
+    <div class="user-info">
+      <el-dropdown placement="bottom-end" @command="handleCommand">
+        <span class="el-dropdown-link">
+          {{ userStore.username }}
+          <el-icon class="el-icon--right">
+            <arrow-down />
+          </el-icon>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="user"
+              ><el-icon> <Avatar /> </el-icon>个人中心</el-dropdown-item
+            >
+            <el-dropdown-item command="setting"
+              ><el-icon> <ChromeFilled /> </el-icon>主题设置</el-dropdown-item
+            >
+            <el-dropdown-item command="logout" divided
+              ><el-icon> <SwitchButton /> </el-icon>退出登录</el-dropdown-item
+            >
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </div>
+  </div>
+
+  <!-- 主题设置抽屉 -->
+  <el-drawer
+    append-to-body
+    modal-class="drawer-wrapper"
+    v-model="drawer"
+    title="主题设置"
+    direction="rtl"
+    :size="290"
+  >
+    <div class="drawer-box">
+      <div class="divider-item">
+        <el-divider>
+          <div class="title">
+            <el-icon class="icon-style">
+              <Box />
+            </el-icon>
+            <span class="title-txt">布局设置</span>
+          </div>
+        </el-divider>
+        <div class="wrapper">
+          <div class="nav-group">
+            <div class="nav-layout">
+              <!-- 第一种 经典导航 -->
+              <div
+                class="nav-style-item"
+                :class="[settingStore.layout == 'simplebar' ? 'is-active' : '']"
+                @click.stop="toggleLayout('simplebar')"
+              >
+                <div class="left-box"></div>
+                <div class="right-box">
+                  <div class="bot-box-wrap"></div>
+                </div>
+              </div>
+              <div class="layout-title">经典导航</div>
+            </div>
+            <div class="nav-layout">
+              <!-- 第二种 左侧导航 -->
+              <div
+                class="nav-style-item"
+                :class="[settingStore.layout == 'sidebar' ? 'is-active' : '']"
+                @click.stop="toggleLayout('sidebar')"
+              >
+                <div class="left-box"></div>
+                <div class="right-box">
+                  <div class="top-box-wrap"></div>
+                  <div class="bot-box-wrap"></div>
+                </div>
+              </div>
+              <div class="layout-title">简约导航</div>
+            </div>
+          </div>
+          <div class="nav-group">
+            <div class="nav-layout">
+              <!-- 第三种 顶部导航 -->
+              <div
+                class="nav-style-item"
+                :class="[settingStore.layout == 'topbar' ? 'is-active' : '']"
+                @click.stop="toggleLayout('topbar')"
+              >
+                <div class="top-box"></div>
+                <div class="bot-box"></div>
+              </div>
+              <div class="layout-title">大屏导航</div>
+            </div>
+            <div class="nav-layout">
+              <!-- 第四种 混合导航 -->
+              <div
+                class="nav-style-item style3"
+                :class="[settingStore.layout == 'mixbar' ? 'is-active' : '']"
+                @click.stop="toggleLayout('mixbar')"
+              >
+                <div class="top-box"></div>
+                <div class="bot-box">
+                  <div class="right-box-wrap"></div>
+                  <div class="left-box-wrap"></div>
+                </div>
+              </div>
+              <div class="layout-title">混合导航</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="divider-item">
+        <el-divider>
+          <div class="title">
+            <el-icon class="icon-style">
+              <ChromeFilled />
+            </el-icon>
+            <span class="title-txt">搭配设置</span>
+          </div>
+        </el-divider>
+        <div class="wrapper">
+          <div class="color-layout">
+            <div
+              class="color-item"
+              v-for="(color, index) in themeColors"
+              :key="index"
+              :style="{ backgroundColor: color }"
+              @click="changeThemeColor(color, true)"
+            ></div>
+          </div>
+          <div class="current-layout">
+            <div class="color-value">风格搭配：{{ currentColor }}</div>
+            <div
+              class="color-item"
+              :style="{ backgroundColor: currentColor }"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="divider-item">
+        <el-divider>
+          <div class="title">
+            <el-icon class="icon-style">
+              <Setting />
+            </el-icon>
+            <span class="title-txt">界面设置</span>
+          </div>
+        </el-divider>
+        <div class="wrapper">
+          <div class="item">
+            <span class="right-txt">顶部区域</span>
+            <el-switch
+              v-model="settingStore.showHeaderBar"
+              :disabled="settingStore.layout === 'simplebar'"
+            />
+          </div>
+          <div class="item">
+            <span class="right-txt">系统名称</span>
+            <el-switch
+              v-model="settingStore.showHeaderLogo"
+              :disabled="settingStore.showHeaderBar"
+            />
+          </div>
+          <div class="item">
+            <span class="right-txt">面包屑</span>
+            <el-switch
+              v-model="settingStore.showBreadcrumb"
+              dataset-key="showBreadcrumb"
+              :disabled="!settingStore.showHeaderBar"
+            />
+          </div>
+          <div class="item">
+            <span class="right-txt">标签栏</span>
+            <el-switch v-model="settingStore.showTagsView" />
+          </div>
+          <div class="item">
+            <span class="right-txt">页脚</span>
+            <el-switch v-model="settingStore.showFooterBar" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </el-drawer>
+  <!-- 个人中心抽屉 -->
+  <el-drawer
+    append-to-body
+    modal-class="drawer-wrapper"
+    v-model="userDrawer"
+    title="个人中心"
+    direction="rtl"
+    :size="290"
+  >
+    <div class="drawer-box">
+      <div class="divider-item">
+        <el-divider>
+          <div class="title">
+            <el-icon class="icon-style">
+              <Avatar />
+            </el-icon>
+            <span class="title-txt">个人简介</span>
+          </div>
+        </el-divider>
+        <div class="wrapper">
+          <div class="author-layout">
+            <h1>高级前端进阶</h1>
+            <h2>深夜改BUG，专注于前端开发</h2>
+            <h3>
+              一个前端进阶路上的学习者，有输入就要有输出，愿你前端技术学习的热忱永远不会被辜负
+            </h3>
+          </div>
+          <div class="project-layout">
+            掘金地址：<el-link
+              href="https://juejin.cn/user/2295436009546920/posts"
+              target="_blank"
+              type="primary"
+              >狗尾巴花的尖</el-link
+            >
+          </div>
+          <div class="project-layout">
+            博客地址：<el-link
+              href="https://flowertip.github.io/vitepress-blog/"
+              target="_blank"
+              type="primary"
+              >狗尾巴花的知识库</el-link
+            >
+          </div>
+          <div class="project-layout">
+            源码地址：<el-link
+              href="https://gitee.com/CodeTV/guigu-admin-template"
+              target="_blank"
+              type="primary"
+              >后台管理系统模版</el-link
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </el-drawer>
+</template>
+
+<script lang="ts" setup>
+import screenfull from "screenfull";
+import { ref, computed, onBeforeUnmount, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { ElMessage, ElMessageBox, TabsPaneContext } from "element-plus";
+import {
+  ArrowDown,
+  Bell,
+  ChatLineRound,
+  BellFilled,
+  Message,
+  Setting,
+  Box,
+  ChromeFilled,
+  Avatar,
+  SwitchButton,
+} from "@element-plus/icons-vue";
+import useUserStore from "@/store/modules/userStore";
+import useSettingStore from "@/store/modules/settingStore";
+import useTagsViewStore from "@/store/modules/tagsViewStore";
+import { useRefreshTime } from "@/hooks/useRefreshTime";
+import defaultSetting from "@/setting";
+const settingStore = useSettingStore();
+const userStore = useUserStore();
+const tagsViewStore = useTagsViewStore();
+
+const { currentTime, clearTimer } = useRefreshTime();
+
+const $route = useRoute();
+const router = useRouter();
+
+onBeforeUnmount(() => {
+  clearTimer();
+});
+const drawer = ref(false);
+let userDrawer = ref(false);
+
+const DEFAULT_PRIMARY = defaultSetting.color;
+const currentColor = ref(DEFAULT_PRIMARY);
+const changeThemeColor = (color: string | null, isTip: boolean) => {
+  settingStore.updateSetting({
+    layout: settingStore.layout,
+    showFooterBar: settingStore.showFooterBar,
+    showHeaderBar: settingStore.showHeaderBar,
+    showHeaderLogo: settingStore.showHeaderLogo,
+    showTagsView: settingStore.showTagsView,
+    showBreadcrumb: settingStore.showBreadcrumb,
+    color,
+  });
+  if (!color) {
+    color = DEFAULT_PRIMARY;
+    ElMessage({
+      type: "success",
+      message: `主题颜色已重置为 ${DEFAULT_PRIMARY}`,
+    });
+  }
+  // 计算主题颜色变化
+  document.documentElement.style.setProperty("--el-color-primary", color);
+  document.documentElement.style.setProperty(
+    "--el-color-primary-light-3",
+    color
+  );
+  document.documentElement.style.setProperty(
+    "--el-color-primary-dark-2",
+    color
+  );
+  document.documentElement.style.setProperty(
+    "--el-color-primary-light-5",
+    color
+  );
+
+  currentColor.value = color;
+
+  drawer.value = false;
+  if (isTip) {
+    ElMessage({
+      type: "success",
+      message: `主题设置成功`,
+    });
+  }
+};
+
+const handleCommand = (command: string) => {
+  if (command === "logout") {
+    ElMessageBox.confirm("确认要退出登录. 是否继续?", "退出登录", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning",
+    })
+      .then(async () => {
+        settingStore.updateSetting(defaultSetting);
+        changeThemeColor(defaultSetting.color, false);
+        tagsViewStore.tabsMenuList.forEach((item) => {
+          tagsViewStore.removeTab(item.path);
+        });
+        await userStore.logout();
+        router.replace({
+          path: "/login",
+          query: { redirect: $route.path },
+        });
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消操作",
+        });
+      });
+  } else if (command === "setting") {
+    drawer.value = true;
+  } else {
+    userDrawer.value = true;
+  }
+};
+
+const ymd = computed(() => {
+  const splitTime = currentTime.value.split(" ");
+  return Array.isArray(splitTime) && splitTime[0];
+});
+
+const hms = computed(() => {
+  const splitTime = currentTime.value.split(" ");
+  return Array.isArray(splitTime) && splitTime[1];
+});
+
+let isFullScreen = ref(screenfull.isFullscreen);
+
+const activeName = ref("first");
+
+const handleClick = (tab: TabsPaneContext, event: Event) => {
+  console.log(tab, event);
+};
+
+const toggleLayout = (layout: string) => {
+  settingStore.updateSetting({
+    layout,
+    showHeaderBar: layout === "simplebar" ? false : true,
+    showFooterBar: settingStore.showFooterBar,
+    showHeaderLogo: settingStore.showHeaderLogo,
+    showTagsView: settingStore.showTagsView,
+    showBreadcrumb: settingStore.showBreadcrumb,
+    color: settingStore.color,
+  });
+  drawer.value = false;
+  ElMessage({
+    type: "success",
+    message: `主题设置成功`,
+  });
+};
+
+const themeColors = ref([
+  "#67C23A",
+  "#409EFF",
+  "#F56C6C",
+  "#3170FF",
+  "#fcd3d3",
+  "#f3d19e",
+  "#b3e19d",
+  "#529b2e",
+]);
+
+onMounted(() => {
+  changeThemeColor(DEFAULT_PRIMARY, false);
+  screenfull.on("change", () => {
+    if (screenfull.isFullscreen) isFullScreen.value = true;
+    else isFullScreen.value = false;
+  });
+});
+const toggleFullScreen = () => {
+  if (!screenfull.isEnabled) ElMessage.warning("当前您的浏览器不支持全屏 ❌");
+  screenfull.toggle();
+};
+</script>
+
+<style lang="scss" scoped>
+.header-right-info {
+  width: 282px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .user-info {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    .el-dropdown-link {
+      height: 40px;
+      line-height: 40px;
+      color: #fff;
+    }
+  }
+
+  .current-time {
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+
+    span {
+      width: 80px;
+      font-size: 14px;
+      color: #eaf0ff;
+      line-height: 18px;
+    }
+  }
+
+  .screen-box {
+    width: 42px;
+    color: #fff;
+    height: 100%;
+
+    svg {
+      width: 30px;
+      height: 49px;
+      cursor: pointer;
+      color: #fff;
+    }
+  }
+
+  .message-box {
+    padding-top: 14px;
+    cursor: pointer;
+    margin-right: 2px;
+    .msg-icon {
+      font-size: 24px;
+      color: #fff;
+    }
+  }
+}
+
+.popover-box {
+  .message-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--el-border-color);
+    cursor: pointer;
+
+    .left-icon {
+      flex: 1;
+
+      .icon-style {
+        font-size: 28px;
+      }
+    }
+
+    .right-box {
+      flex: 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .content {
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  .el-tab-pane {
+    max-height: 260px;
+    overflow-y: auto;
+  }
+}
+
+.drawer-box {
+  .title {
+    display: flex;
+    align-items: center;
+
+    icon-style {
+      font-size: 26px;
+    }
+
+    .title-txt {
+      padding-left: 4px;
+    }
+  }
+
+  .wrapper {
+    min-height: 120px;
+
+    .project-layout {
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .author-layout {
+      font-size: 14px;
+      color: #303133;
+      padding-bottom: 20px;
+
+      h1 {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 40px;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 16px;
+        line-height: 40px;
+      }
+
+      h3 {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .color-layout {
+      display: flex;
+      padding-top: 20px;
+
+      .color-item {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .current-layout {
+      padding-top: 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+
+      .color-value {
+        padding-right: 10px;
+      }
+
+      .color-item {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+    }
+
+    .item {
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .layout-title {
+      font-size: 14px;
+      color: #303133;
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    .nav-group {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      padding-top: 20px;
+    }
+
+    .nav-layout {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-style-item {
+      width: 45%;
+      height: 36px;
+      overflow: hidden;
+      background-color: #f0f2f5;
+      border-radius: 4px;
+      box-shadow: 0 0px 2.5px 0 rgba(0, 0, 0, 0.18);
+      cursor: pointer;
+      display: flex;
+
+      &.style3 {
+        flex-direction: column;
+      }
+
+      &.is-active {
+        position: relative;
+
+        &::before {
+          content: "∨";
+          position: absolute;
+          right: 10px;
+          bottom: 4px;
+          width: 22px;
+          height: 22px;
+          font-size: 22px;
+          color: var(--el-color-primary);
+        }
+      }
+
+      .left-box {
+        width: 33.3333%;
+        background-color: #000;
+      }
+
+      .right-box {
+        flex: 1;
+
+        .top-box-wrap {
+          width: 100%;
+          height: 25%;
+          background-color: #fff;
+        }
+      }
+
+      .top-box {
+        width: 100%;
+        height: 25%;
+        background-color: #000;
+      }
+
+      .bot-box {
+        flex: 1;
+        width: 100%;
+        display: flex;
+
+        .left-box-wrap {
+          width: 33.33%;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+</style>
