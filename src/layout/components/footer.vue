@@ -1,10 +1,12 @@
 <template>
   <div class="content-rightbar-footer">
-    2024 © Guigu-Admin-Template By FlowerTip.
+    2024 © {{ defaultSetting.title }} By FlowerTip.
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import defaultSetting from "@/setting";
+</script>
 
 <style lang="scss" scoped>
 // .content-rightbar-footer {
