@@ -1,19 +1,46 @@
 <template>
   <div class="table-box">
-    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
-      :total="total" :updateTableList="updateTableList" :loading="loading">
+    <ProTable
+      ref="proTableRef"
+      :tableColumns="columns"
+      :conditionList="conditionList"
+      :tableData="tableData"
+      :total="total"
+      :updateTableList="updateTableList"
+      :loading="loading"
+    >
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button type="primary" :icon="CirclePlus" @click="openAddRoleDrawer">新增角色</el-button>
+        <el-button type="primary" :icon="CirclePlus" @click="openAddRoleDrawer"
+          >新增角色</el-button
+        >
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button type="primary" link :icon="User" @click="batchPermission(slotData.scope.row)"
-          :disabled="slotData.scope.row.roleName === '超级管理员'">分配权限</el-button>
-        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)"
-          :disabled="slotData.scope.row.roleName === '超级管理员'">编辑角色</el-button>
-        <el-button type="primary" link :icon="Delete" @click="deleteRadio(slotData.scope.row)"
-          :disabled="slotData.scope.row.roleName === '超级管理员'">删除角色</el-button>
+        <el-button
+          type="primary"
+          link
+          :icon="User"
+          @click="batchPermission(slotData.scope.row)"
+          :disabled="slotData.scope.row.roleName === '超级管理员'"
+          >分配权限</el-button
+        >
+        <el-button
+          type="primary"
+          link
+          :icon="EditPen"
+          @click="modifiyInfo(slotData.scope.row)"
+          :disabled="slotData.scope.row.roleName === '超级管理员'"
+          >编辑角色</el-button
+        >
+        <el-button
+          type="primary"
+          link
+          :icon="Delete"
+          @click="deleteRadio(slotData.scope.row)"
+          :disabled="slotData.scope.row.roleName === '超级管理员'"
+          >删除角色</el-button
+        >
       </template>
     </ProTable>
     <!-- 分配权限 -->
@@ -25,12 +52,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
-import {
-  CirclePlus,
-  Delete,
-  User,
-  EditPen,
-} from "@element-plus/icons-vue";
+import { CirclePlus, Delete, User, EditPen } from "@element-plus/icons-vue";
 import { dayjs, ElMessage, ElMessageBox } from "element-plus";
 import { PagainationType } from "@/types";
 import ProTable from "@/components/ProTable/index.vue";
@@ -68,14 +90,14 @@ const columns = reactive([
     prop: "roleName",
     label: "角色名称",
     isShowColumn: true,
-    width: 100
+    width: 100,
   },
   {
     id: 2,
     prop: "remark",
     label: "备注信息",
     isShowColumn: true,
-    width: 120
+    width: 120,
   },
   {
     id: 3,
@@ -83,7 +105,7 @@ const columns = reactive([
     label: "更新时间",
     isShowColumn: true,
     sortable: true,
-    width: 160
+    width: 160,
   },
   {
     id: 4,
@@ -92,7 +114,7 @@ const columns = reactive([
     fixed: "right",
     isShowColumn: true,
     type: "slot",
-    width: 300
+    width: 300,
   },
 ]);
 
@@ -135,19 +157,19 @@ const openAddRoleDrawer = () => {
   RoleDialogRef.value!.acceptParams({
     api: reqSaveRole,
     rowData: {
-      roleName: '',
-      remark: '',
+      roleName: "",
+      remark: "",
     },
-    getTableList: updateTableList
-  })
+    getTableList: updateTableList,
+  });
 };
 
 const modifiyInfo = (row: any) => {
   RoleDialogRef.value!.acceptParams({
     api: reqSaveRole,
     rowData: row,
-    getTableList: updateTableList
-  })
+    getTableList: updateTableList,
+  });
 };
 
 const deleteRadio = (row: any) => {
@@ -185,9 +207,9 @@ const batchPermission = (row: any) => {
   const params = {
     roleId: row.id,
     api: reqBatchPermission,
-    getTableList: updateTableList
-  }
-  RoleDrawerRef.value!.acceptParams(params)
+    getTableList: updateTableList,
+  };
+  RoleDrawerRef.value!.acceptParams(params);
 };
 </script>
 

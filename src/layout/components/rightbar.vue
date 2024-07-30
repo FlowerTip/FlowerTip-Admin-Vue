@@ -411,19 +411,19 @@ const changeThemeColor = (color: string | null, isTip: boolean) => {
   }
   // 计算主题颜色变化
   document.documentElement.style.setProperty("--el-color-primary", color);
-  
+
   document.documentElement.style.setProperty(
     "--el-color-primary-light-3",
-    '#66A3FF'
+    "#66A3FF"
   );
   document.documentElement.style.setProperty(
     "--el-color-primary-light-5",
-    '#66A3FF'
+    "#66A3FF"
   );
 
   document.documentElement.style.setProperty(
     "--el-color-primary-light-7",
-    '#E6F0FF'
+    "#E6F0FF"
   );
 
   currentColor.value = color;

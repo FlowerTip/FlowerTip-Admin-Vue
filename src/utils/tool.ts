@@ -196,25 +196,25 @@ export function filterAsyncRoutes(
 }
 
 /**
- * 
+ *
  * @param date 日期时间
  * @param type 格式化的类型
  * @returns 格式化好的日期时间
  */
-export function formatTime(date = new Date(), type = 'datetime') {
-  let formatStr = '';
+export function formatTime(date = new Date(), type = "datetime") {
+  let formatStr = "";
   switch (type) {
-    case 'datetime':
-      formatStr = 'YYYY-MM-DD HH:mm:ss';
+    case "datetime":
+      formatStr = "YYYY-MM-DD HH:mm:ss";
       break;
-    case 'date':
-      formatStr = 'YYYY-MM-DD';
+    case "date":
+      formatStr = "YYYY-MM-DD";
       break;
-    case 'time':
-      formatStr = 'HH:mm:ss';
+    case "time":
+      formatStr = "HH:mm:ss";
       break;
     default:
-      formatStr = 'YYYY-MM-DD HH:mm:ss';
+      formatStr = "YYYY-MM-DD HH:mm:ss";
   }
   return dayjs(date).format(formatStr);
 }

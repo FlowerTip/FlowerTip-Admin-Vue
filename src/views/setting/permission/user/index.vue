@@ -238,7 +238,7 @@ const columns = reactive([
     label: "用户名称",
     fixed: "left",
     isShowColumn: true,
-    width: 140
+    width: 140,
   },
   {
     id: 2,
@@ -246,7 +246,7 @@ const columns = reactive([
     label: "用户密码",
     fixed: "left",
     isShowColumn: true,
-    width: 140
+    width: 140,
   },
   {
     id: 4,
@@ -255,7 +255,7 @@ const columns = reactive([
     fixed: "right",
     isShowColumn: true,
     type: "slot",
-    width: 300
+    width: 300,
   },
 ]);
 

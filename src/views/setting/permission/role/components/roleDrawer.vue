@@ -5,26 +5,34 @@
     </template>
     <template #default>
       <div class="form-layout-wrapper">
-        <el-tree ref="treeRef" style="max-width: 600px" :data="treeData" show-checkbox default-expand-all node-key="id"
-          :props="defaultProps" check-strictly />
+        <el-tree
+          ref="treeRef"
+          style="max-width: 600px"
+          :data="treeData"
+          show-checkbox
+          default-expand-all
+          node-key="id"
+          :props="defaultProps"
+          check-strictly
+        />
       </div>
     </template>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="drawerConfirm" :loading="loading">保存</el-button>
+        <el-button type="primary" @click="drawerConfirm" :loading="loading"
+          >保存</el-button
+        >
         <el-button @click="drawerCancel">取消</el-button>
       </div>
     </template>
   </el-drawer>
 </template>
 
-<script lang='ts' setup>
+<script lang="ts" setup>
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import { reqTableList } from "@/api/menu";
-import {
-  reqGetPermission,
-} from "@/api/role";
+import { reqGetPermission } from "@/api/role";
 import { formatTime } from "@/utils/tool";
 
 type tableDataItem = {
@@ -61,7 +69,7 @@ const drawerConfirm = async () => {
       ElMessage.success({ message: `分配权限成功` });
       dialogProps.value.getTableList!({
         currentPage: 1,
-        pageSize: 20
+        pageSize: 20,
       });
       drawerVisiable.value = false;
       loading.value = false;
@@ -70,11 +78,11 @@ const drawerConfirm = async () => {
       console.log(err);
     }
   }
-}
+};
 
 const drawerCancel = () => {
   drawerVisiable.value = false;
-}
+};
 
 // props 定义
 const dialogProps = ref<any>();
@@ -84,7 +92,7 @@ const getPermission = async (reqParams: any) => {
   if (code === 200) {
     const menus = data.list.map((item: tableDataItem) => ({
       ...item,
-      updateTime: formatTime(item.updateTime, 'datetime'),
+      updateTime: formatTime(item.updateTime, "datetime"),
     }));
     treeData.value = menus as any;
     getSelectPerssion();

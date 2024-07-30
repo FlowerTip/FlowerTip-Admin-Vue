@@ -10,7 +10,8 @@ const exportTale = (
   const currDateTime = dayjs().format("YYYY年MM月DD日HH点mm分ss秒");
   const instance = new ElMapExportTable(
     {
-      column, data
+      column,
+      data,
     },
     {
       progress: progressCallBack, // 进度条回调

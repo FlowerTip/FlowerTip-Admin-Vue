@@ -1,19 +1,40 @@
 <template>
-  <el-dialog v-model="dialogVisible" :title="title" destroy-on-close width="500px">
+  <el-dialog
+    v-model="dialogVisible"
+    :title="title"
+    destroy-on-close
+    width="500px"
+  >
     <div class="form-layout-wrapper">
-      <el-form ref="dialogFormRef" label-suffix=" :" :model="dialogForm" :rules="dialogFormRules" label-width="auto"
-        class="form-container">
+      <el-form
+        ref="dialogFormRef"
+        label-suffix=" :"
+        :model="dialogForm"
+        :rules="dialogFormRules"
+        label-width="auto"
+        class="form-container"
+      >
         <el-form-item label="角色名称" prop="roleName">
-          <el-input v-model="dialogForm.roleName" placeholder="请输入角色名称" />
+          <el-input
+            v-model="dialogForm.roleName"
+            placeholder="请输入角色名称"
+          />
         </el-form-item>
         <el-form-item label="备注信息" prop="remark">
-          <el-input v-model="dialogForm.remark" type="textarea" :rows="5" placeholder="请输入角色备注信息" />
+          <el-input
+            v-model="dialogForm.remark"
+            type="textarea"
+            :rows="5"
+            placeholder="请输入角色备注信息"
+          />
         </el-form-item>
       </el-form>
     </div>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="dialogConfirm" :loading="loading">保存</el-button>
+        <el-button type="primary" @click="dialogConfirm" :loading="loading"
+          >保存</el-button
+        >
         <el-button @click="dialogCancel">取消</el-button>
       </div>
     </template>
@@ -23,7 +44,7 @@
 <script setup lang="ts" name="menuDialog">
 import { ref, reactive } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
-import { formatTime } from '@/utils/tool'
+import { formatTime } from "@/utils/tool";
 
 // 弹窗是否显示状态
 const dialogVisible = ref(false);
@@ -61,7 +82,7 @@ const dialogConfirm = () => {
         ElMessage.success({ message: `${title.value}成功` });
         dialogProps.value.getTableList!({
           currentPage: 1,
-          pageSize: 20
+          pageSize: 20,
         });
         dialogVisible.value = false;
         loading.value = false;
@@ -91,7 +112,7 @@ const dialogProps = ref<any>();
 // 接收父组件参数
 const acceptParams = (params: any): void => {
   const row: any = params.rowData;
-  title.value = row!.id ? '编辑角色' : "新增角色";
+  title.value = row!.id ? "编辑角色" : "新增角色";
   dialogForm.value = row;
   dialogProps.value = params;
   dialogVisible.value = true;
