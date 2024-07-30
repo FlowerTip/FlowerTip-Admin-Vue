@@ -56,13 +56,13 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         //   target: env.VITE_SERVE,
         //   // 需要代理跨域
         //   changeOrigin: true,
-        //   rewrite: (path) => path.replace(/^\/api/, ""),
+        //   rewrite: (path: string) => path.replace(/^\/api/, ""),
         // },
         [env.VITE_APP_BASE_API]: {
           target: "http://49.232.248.193:9000",
           // 需要代理跨域
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          rewrite: (path: string) => path.replace(/^\/api/, ""),
         },
       },
     },

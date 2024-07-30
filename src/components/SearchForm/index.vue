@@ -1,87 +1,32 @@
 <template>
   <div v-if="showSearchBtn" class="search-form-box">
-    <el-form
-      :inline="true"
-      :model="searchForm"
-      ref="searchFormRef"
-      label-width="100px"
-    >
+    <el-form :inline="true" :model="searchForm" ref="searchFormRef" label-width="100px">
       <el-row>
-        <el-col
-          :xl="cond.span || 6"
-          :lg="cond.lgSpan || 8"
-          :md="cond.mdSpan || 12"
-          :sm="cond.smSpan || 24"
-          :xs="cond.xsSpan || 24"
-          v-for="cond in sliceCodList"
-          :key="cond.id"
-        >
-          <el-form-item
-            :label="cond.label + '：'"
-            :prop="cond.prop"
-            class="flex-form-item"
-          >
+        <el-col :xl="cond.span || 6" :lg="cond.lgSpan || 8" :md="cond.mdSpan || 12" :sm="cond.smSpan || 24"
+          :xs="cond.xsSpan || 24" v-for="cond in sliceCodList" :key="cond.id">
+          <el-form-item :label="cond.label + '：'" :prop="cond.prop" class="flex-form-item">
             <!-- 输入框 -->
-            <el-input
-              v-if="cond.type === 'input'"
-              v-model="searchForm[cond.prop] as unknown as any"
-              :placeholder="cond.placeholder"
-              clearable
-            />
+            <el-input v-if="cond.type === 'input'" v-model="searchForm[cond.prop] as unknown as any"
+              :placeholder="cond.placeholder" clearable />
             <!-- 下拉框 -->
-            <el-select
-              v-else-if="cond.type === 'select'"
-              v-model="searchForm[cond.prop] as unknown as any"
-              :placeholder="cond.placeholder"
-              clearable
-            >
-              <el-option
-                v-for="op in cond.optionList"
-                :key="op.value"
-                :label="op.label"
-                :value="op.value"
-              />
+            <el-select v-else-if="cond.type === 'select'" v-model="searchForm[cond.prop] as unknown as any"
+              :placeholder="cond.placeholder" clearable>
+              <el-option v-for="op in cond.optionList" :key="op.value" :label="op.label" :value="op.value" />
             </el-select>
             <!-- 日期组合 -->
-            <el-date-picker
-              v-else-if="cond.type === 'daterange'"
-              v-model="searchForm[cond.prop] as unknown as any"
-              type="daterange"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-            />
+            <el-date-picker v-else-if="cond.type === 'daterange'" v-model="searchForm[cond.prop] as unknown as any"
+              type="daterange" start-placeholder="开始日期" end-placeholder="结束日期" />
             <!-- 日期时间 -->
-            <el-date-picker
-              v-else-if="cond.type === 'datetime'"
-              v-model="searchForm[cond.prop] as unknown as any"
-              type="datetime"
-              value-format="YYYY-MM-DD HH:mm:ss"
-              placeholder="请选择日期时间"
-              style="width: 100%"
-            />
+            <el-date-picker v-else-if="cond.type === 'datetime'" v-model="searchForm[cond.prop] as unknown as any"
+              type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="请选择日期时间" style="width: 100%" />
           </el-form-item>
         </el-col>
-        <el-col
-          :xl="xlSpanCount"
-          :lg="lgSpanCount"
-          :md="mdSpanCount"
-          :xs="xsSpanCount"
-          :sm="smSpanCount"
-          class="el-col-wrapper"
-        >
+        <el-col :xl="xlSpanCount" :lg="lgSpanCount" :md="mdSpanCount" :xs="xsSpanCount" :sm="smSpanCount"
+          class="el-col-wrapper">
           <el-form-item class="btn-group-item flex-end">
-            <el-button type="primary" :icon="Search" @click="search"
-              >查询</el-button
-            >
-            <el-button plain :icon="RefreshRight" @click="reset"
-              >重置</el-button
-            >
-            <el-button
-              v-show="showFoldBtn"
-              type="primary"
-              link
-              @click="toggleFold"
-            >
+            <el-button type="primary" :icon="Search" @click="search">查询</el-button>
+            <el-button plain :icon="RefreshRight" @click="reset">重置</el-button>
+            <el-button v-show="showFoldBtn" type="primary" link @click="toggleFold">
               {{ conditionFold ? "展开" : "收起" }}
               <el-icon v-if="conditionFold">
                 <ArrowDown />
@@ -112,10 +57,17 @@ const foldDefaultObj = {
   xl: 3,
   lg: 2,
   md: 1,
-  sm: 1,
-  xs: 1,
+  sm: 0,
+  xs: 0,
 };
-const { currentBreakpoint } = useBreakpoint();
+
+const heightDefaultObj = {
+  xl: 0,
+  lg: 0,
+  md: 0,
+  sm: 50,
+  xs: 50,
+};
 
 const props = defineProps([
   "toggleFoldCallBack",
@@ -128,12 +80,12 @@ const searchFormRef = ref();
 
 const conditionFold = ref(true);
 
-const initConditionFoldLen = foldDefaultObj[currentBreakpoint.value];
+const { currentBreakpoint } = useBreakpoint();
 
-console.log(initConditionFoldLen, "initConditionFoldLen");
+const initConditionFoldLen = ref(3);
 
 const showFoldBtn = computed(() => {
-  return props.conditionList.length > initConditionFoldLen;
+  return props.conditionList.length > initConditionFoldLen.value;
 });
 
 const showSearchBtn = computed(() => {
@@ -143,13 +95,13 @@ const showSearchBtn = computed(() => {
 
 const xlSpanCount = computed(() => {
   let totalSpan = 0;
-  if (initConditionFoldLen > 0) {
+  if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
       totalSpan = props.conditionList.reduce((prev: number, next: any) => {
         return prev + next.span;
       }, 0);
     } else {
-      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen);
+      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen.value);
       totalSpan = sliceCondList.reduce((prev: number, next: any) => {
         return prev + next.span;
       }, 0);
@@ -164,13 +116,13 @@ const xlSpanCount = computed(() => {
 
 const lgSpanCount = computed(() => {
   let totalSpan = 0;
-  if (initConditionFoldLen > 0) {
+  if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
       totalSpan = props.conditionList.reduce((prev: number, next: any) => {
         return prev + next.lgSpan;
       }, 0);
     } else {
-      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen);
+      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen.value);
       totalSpan = sliceCondList.reduce((prev: number, next: any) => {
         return prev + next.lgSpan;
       }, 0);
@@ -183,17 +135,15 @@ const lgSpanCount = computed(() => {
   return 24 - (totalSpan % 24);
 });
 
-console.log(lgSpanCount.value, "lgSpanCount");
-
 const mdSpanCount = computed(() => {
   let totalSpan = 0;
-  if (initConditionFoldLen > 0) {
+  if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
       totalSpan = props.conditionList.reduce((prev: number, next: any) => {
         return prev + next.mdSpan;
       }, 0);
     } else {
-      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen);
+      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen.value);
       totalSpan = sliceCondList.reduce((prev: number, next: any) => {
         return prev + next.mdSpan;
       }, 0);
@@ -208,13 +158,13 @@ const mdSpanCount = computed(() => {
 
 const smSpanCount = computed(() => {
   let totalSpan = 0;
-  if (initConditionFoldLen > 0) {
+  if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
       totalSpan = props.conditionList.reduce((prev: number, next: any) => {
         return prev + next.smSpan;
       }, 0);
     } else {
-      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen);
+      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen.value);
       totalSpan = sliceCondList.reduce((prev: number, next: any) => {
         return prev + next.smSpan;
       }, 0);
@@ -229,13 +179,13 @@ const smSpanCount = computed(() => {
 
 const xsSpanCount = computed(() => {
   let totalSpan = 0;
-  if (initConditionFoldLen > 0) {
+  if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
       totalSpan = props.conditionList.reduce((prev: number, next: any) => {
         return prev + next.xsSpan;
       }, 0);
     } else {
-      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen);
+      const sliceCondList = props.conditionList.slice(0, initConditionFoldLen.value);
       totalSpan = sliceCondList.reduce((prev: number, next: any) => {
         return prev + next.xsSpan;
       }, 0);
@@ -248,21 +198,30 @@ const xsSpanCount = computed(() => {
   return 24 - (totalSpan % 24);
 });
 
-console.log(xlSpanCount.value, "rSpanCount@@@");
-
+const rowCount = computed(() => {
+  return parseInt(
+    (props.conditionList.length / (initConditionFoldLen.value + 1)) as any
+  );
+})
+const foldHeight = computed(() => {
+  let height = 0;
+  const defaultHeight = heightDefaultObj[currentBreakpoint.value];
+  if (conditionFold.value) {
+    height = defaultHeight;
+  } else {
+    height = rowCount.value * 50;
+  }
+  return height;
+})
 const toggleFold = () => {
   conditionFold.value = !conditionFold.value;
-  const rowCount = parseInt(
-    (props.conditionList.length / (initConditionFoldLen + 1)) as any
-  );
-  const foldHeight = conditionFold.value ? 0 : rowCount * 50;
-  props.toggleFoldCallBack(foldHeight);
+  props.toggleFoldCallBack(foldHeight.value);
 };
 
 const sliceCodList = computed(() => {
   return props.conditionList.slice(
     0,
-    conditionFold.value ? initConditionFoldLen : props.conditionList.length
+    conditionFold.value ? initConditionFoldLen.value === 0 ? 1 : initConditionFoldLen.value : props.conditionList.length
   );
 });
 
@@ -272,6 +231,8 @@ onMounted(() => {
   props.conditionList.forEach((cond: any) => {
     searchForm[cond.prop] = cond.type === "datetimerange" ? [] : "";
   });
+  initConditionFoldLen.value = foldDefaultObj[currentBreakpoint.value]
+  console.log(initConditionFoldLen.value, 'initConditionFoldLen@@@@');
 });
 
 const search = () => {

@@ -1,4 +1,3 @@
-// useBreakpoint.ts
 import { ref, onMounted, onUnmounted } from "vue";
 
 type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl";

@@ -8,16 +8,7 @@
       :total="total"
       :updateTableList="updateTableList"
       :loading="loading"
-      :selectionChange="selectionChange"
-      rowKey="id"
     >
-      <el-table-column
-        type="selection"
-        align="center"
-        width="55"
-        :reserve-selection="true"
-        fixed="left"
-      ></el-table-column>
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
         <el-button type="primary" :icon="CirclePlus" @click="openAddRoleDrawer"
@@ -149,7 +140,7 @@ import {
   CirclePlus,
   Delete,
   User,
-  Remove,
+  // Remove,
   EditPen,
 } from "@element-plus/icons-vue";
 import {
@@ -247,6 +238,7 @@ const columns = reactive([
     label: "用户名称",
     fixed: "left",
     isShowColumn: true,
+    width: 140
   },
   {
     id: 2,
@@ -254,6 +246,7 @@ const columns = reactive([
     label: "用户密码",
     fixed: "left",
     isShowColumn: true,
+    width: 140
   },
   {
     id: 4,
@@ -262,6 +255,7 @@ const columns = reactive([
     fixed: "right",
     isShowColumn: true,
     type: "slot",
+    width: 300
   },
 ]);
 
@@ -330,11 +324,6 @@ const insertRoleConfirm = () => {
     }
   });
 };
-const selectRow = ref([]);
-const selectionChange = (val: any) => {
-  console.log(val, "val");
-  selectRow.value = val;
-};
 
 const deleteRadio = (row: any) => {
   ElMessageBox.confirm("此操作将删除这条数据，是否继续?", "删除提示", {
@@ -345,39 +334,6 @@ const deleteRadio = (row: any) => {
     .then(async () => {
       const { code, data }: any = await reqDelUser({
         ids: [row.id],
-      });
-      if (code === 200) {
-        ElMessage({
-          type: "success",
-          message: data.message,
-        });
-        updateTableList({
-          pageSize: 20,
-          currentPage: 1,
-        });
-      }
-    })
-    .catch(() => {
-      ElMessage({
-        type: "info",
-        message: "取消删除",
-      });
-    });
-};
-
-const deleteSelect = () => {
-  if (selectRow.value.length === 0) {
-    ElMessage.warning("请选择要删除的数据");
-    return;
-  }
-  ElMessageBox.confirm("此操作将删除选择的数据，是否继续?", "删除提示", {
-    cancelButtonText: "取消",
-    confirmButtonText: "确认",
-    type: "warning",
-  })
-    .then(async () => {
-      const { code, data }: any = await reqDelUser({
-        ids: selectRow.value.map((item: any) => item.id),
       });
       if (code === 200) {
         ElMessage({

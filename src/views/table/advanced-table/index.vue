@@ -304,7 +304,7 @@ const conditionList = reactive([
     lgSpan: 8,
     mdSpan: 12,
     smSpan: 24,
-    xsSPan: 24,
+    xsSpan: 24,
   },
   {
     id: 2,
@@ -326,7 +326,7 @@ const conditionList = reactive([
     lgSpan: 8,
     mdSpan: 12,
     smSpan: 24,
-    xsSPan: 24,
+    xsSpan: 24,
   },
   {
     id: 3,
@@ -348,7 +348,7 @@ const conditionList = reactive([
     lgSpan: 8,
     mdSpan: 12,
     smSpan: 24,
-    xsSPan: 24,
+    xsSpan: 24,
   },
   {
     id: 4,
@@ -360,7 +360,7 @@ const conditionList = reactive([
     lgSpan: 8,
     mdSpan: 12,
     smSpan: 24,
-    xsSPan: 24,
+    xsSpan: 24,
   },
   {
     id: 5,
@@ -371,7 +371,7 @@ const conditionList = reactive([
     lgSpan: 8,
     mdSpan: 12,
     smSpan: 24,
-    xsSPan: 24,
+    xsSpan: 24,
   },
 ]);
 // 表格配置项

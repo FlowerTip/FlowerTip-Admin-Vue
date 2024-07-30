@@ -1,12 +1,8 @@
 <template>
   <div class="pro-table-wrapper">
     <!-- 搜索条件区域 -->
-    <SearchForm
-      :toggleFoldCallBack="toggleFoldCallBack"
-      :updateTableList="updateTableList"
-      :conditionList="conditionList"
-      :hiddenSearch="hiddenSearch"
-    />
+    <SearchForm :toggleFoldCallBack="toggleFoldCallBack" :updateTableList="updateTableList"
+      :conditionList="conditionList" :hiddenSearch="hiddenSearch" />
     <div class="pro-table">
       <!-- 工具栏区域 -->
       <div class="pro-table-toolbox">
@@ -14,12 +10,7 @@
           <slot name="tableHeaderLeft" />
         </div>
         <div class="toolbox-right-buttons">
-          <el-button
-            v-show="conditionList.length > 0"
-            link
-            class="popover-btn"
-            @click="toggleSearch"
-          >
+          <el-button v-show="conditionList.length > 0" link class="popover-btn" @click="toggleSearch">
             <el-icon class="el-icon--right">
               <Search />
             </el-icon>
@@ -37,68 +28,30 @@
             </el-icon>
             显示列
           </el-button>
-          <el-popover
-            ref="popoverRef"
-            trigger="click"
-            virtual-triggering
-            persistent
-          >
+          <el-popover ref="popoverRef" trigger="click" virtual-triggering persistent>
             <div class="column-wrapper">
               <div class="top-btn-group">
-                <span class="top-title"
-                  ><el-checkbox
-                    v-model="selectAll"
-                    :indeterminate="isIndeterminate"
-                    @change="handleCheckAllChange"
-                  ></el-checkbox
-                  ><span class="title-text">列设置</span></span
-                >
-                <el-button type="primary" link @click="resetColumn"
-                  >重置</el-button
-                >
+                <span class="top-title"><el-checkbox v-model="selectAll" :indeterminate="isIndeterminate"
+                    @change="handleCheckAllChange"></el-checkbox><span class="title-text">列设置</span></span>
+                <el-button type="primary" link @click="resetColumn">重置</el-button>
               </div>
-              <el-checkbox-group
-                class="switch-group-box"
-                v-model="checkedCities"
-                @change="handleCheckedCitiesChange"
-              >
+              <el-checkbox-group class="switch-group-box" v-model="checkedCities" @change="handleCheckedCitiesChange">
                 <div class="item">
                   <p class="switch-title">固定在左侧</p>
-                  <div
-                    v-for="col in leftFixedColumns"
-                    :key="col.id"
-                    class="switch-box-item"
-                  >
-                    <el-checkbox
-                      :value="col.id"
-                      :label="col.label"
-                    ></el-checkbox>
+                  <div v-for="col in leftFixedColumns" :key="col.id" class="switch-box-item">
+                    <el-checkbox :value="col.id" :label="col.label"></el-checkbox>
                   </div>
                 </div>
                 <div class="item">
                   <p class="switch-title">不固定</p>
-                  <div
-                    v-for="col in noFixedColumns"
-                    :key="col.id"
-                    class="switch-box-item"
-                  >
-                    <el-checkbox
-                      :value="col.id"
-                      :label="col.label"
-                    ></el-checkbox>
+                  <div v-for="col in noFixedColumns" :key="col.id" class="switch-box-item">
+                    <el-checkbox :value="col.id" :label="col.label"></el-checkbox>
                   </div>
                 </div>
                 <div class="item">
                   <p class="switch-title">固定在右侧</p>
-                  <div
-                    v-for="col in rightFixedColumns"
-                    :key="col.id"
-                    class="switch-box-item"
-                  >
-                    <el-checkbox
-                      :value="col.id"
-                      :label="col.label"
-                    ></el-checkbox>
+                  <div v-for="col in rightFixedColumns" :key="col.id" class="switch-box-item">
+                    <el-checkbox :value="col.id" :label="col.label"></el-checkbox>
                   </div>
                 </div>
               </el-checkbox-group>
@@ -108,57 +61,29 @@
         </div>
       </div>
       <!-- 表格内容区域 -->
-      <el-table
-        ref="elTableRef"
-        :data="tableData"
-        class="pro-table-eleTableBox"
-        :header-cell-style="
-          () => ({
-            'background-color': settingStore.color,
-            color: '#fff',
-            border: 'none',
-            'font-size': '16px',
-            'font-weight': 400,
-          })
-        "
-        :row-key="rowKey"
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        :max-height="maxHeight"
-        v-loading="loading"
-        element-loading-text="正在加载"
-        @selection-change="selectionChange"
-      >
+      <el-table ref="elTableRef" :data="tableData" class="pro-table-eleTableBox" :header-cell-style="() => ({
+          'background-color': settingStore.color,
+          color: '#fff',
+          border: 'none',
+          'font-size': '16px',
+          'font-weight': 400,
+        })
+        " :row-key="rowKey" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" :max-height="maxHeight"
+        v-loading="loading" element-loading-text="正在加载" @selection-change="selectionChange">
         <!-- 默认插槽 -->
         <slot v-if="showDefaultSlot" />
         <!-- 表格展示列 -->
         <template v-for="item in columns" :key="item.id">
           <!-- color 颜色背景块 -->
-          <el-table-column
-            v-if="item.type === 'color'"
-            :prop="item.prop"
-            :label="item.label"
-            align="center"
-            :sortable="item.sortable ?? false"
-            :width="item.width ?? 'auto'"
-            :fixed="item.fixed ?? false"
-          >
+          <el-table-column v-if="item.type === 'color'" :prop="item.prop" :label="item.label" align="center"
+            :sortable="item.sortable ?? false" :width="item.width ?? 'auto'" :fixed="item.fixed ?? false">
             <template #default="scope">
-              <div
-                class="color-item"
-                :style="{ 'background-color': scope.row[item.prop] }"
-              ></div>
+              <div class="color-item" :style="{ 'background-color': scope.row[item.prop] }"></div>
             </template>
           </el-table-column>
           <!-- 图片 -->
-          <el-table-column
-            v-else-if="item.type === 'image'"
-            :prop="item.prop"
-            :label="item.label"
-            align="center"
-            :sortable="item.sortable ?? false"
-            :width="item.width ?? 'auto'"
-            :fixed="item.fixed ?? false"
-          >
+          <el-table-column v-else-if="item.type === 'image'" :prop="item.prop" :label="item.label" align="center"
+            :sortable="item.sortable ?? false" :width="item.width ?? 'auto'" :fixed="item.fixed ?? false">
             <template #default="scope">
               <div class="image-item">
                 <img :src="scope.row[item.prop]" :alt="item.prop" />
@@ -166,40 +91,22 @@
             </template>
           </el-table-column>
           <!-- 操作按钮列 -->
-          <el-table-column
-            v-else-if="item.type === 'slot'"
-            label="操作"
-            align="center"
-            :fixed="item.fixed"
-            :min-width="item.width"
-          >
+          <el-table-column v-else-if="item.type === 'slot'" label="操作" align="center" :fixed="item.fixed"
+            :min-width="item.width">
             <template #default="scope">
               <slot name="operation" :scope="scope"></slot>
             </template>
           </el-table-column>
-          <el-table-column
-            v-else
-            :prop="item.prop"
-            :label="item.label"
-            align="center"
-            :sortable="item.sortable ?? false"
-            :width="item.width ?? 'auto'"
-            :fixed="item.fixed ?? false"
-          ></el-table-column>
+          <el-table-column v-else :prop="item.prop" :label="item.label" align="center"
+            :sortable="item.sortable ?? false" :min-width="item.width ?? 'auto'"
+            :fixed="item.fixed ?? false"></el-table-column>
         </template>
       </el-table>
       <!-- 分页器区域 -->
-      <el-pagination
-        v-if="total > 0"
-        v-model:current-page="pagination.currentPage"
-        v-model:page-size="pagination.pageSize"
-        :page-sizes="[10, 20, 50, 100]"
-        :background="background"
-        layout="->, total, sizes, prev, pager, next, jumper"
-        :total="total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
+      <el-pagination v-if="total > 0" v-model:current-page="pagination.currentPage"
+        v-model:page-size="pagination.pageSize" :page-sizes="[10, 20, 50, 100]" :background="background"
+        layout="->, total, sizes, prev, pager, next, jumper" :total="total" @size-change="handleSizeChange"
+        @current-change="handleCurrentChange" />
     </div>
   </div>
 </template>
@@ -217,6 +124,17 @@ import useSettingStore from "@/store/modules/settingStore";
 import { CheckboxValueType } from "element-plus";
 import { Refresh, Tools, Search } from "@element-plus/icons-vue";
 import SearchForm from "@/components/SearchForm/index.vue";
+import { useBreakpoint } from "@/hooks/useBreakpoint.ts";
+
+const { currentBreakpoint } = useBreakpoint();
+
+const heightDefaultObj = {
+  xl: 0,
+  lg: 0,
+  md: 0,
+  sm: 50,
+  xs: 50,
+};
 
 const elTableRef = ref();
 const clearSelection = () => {
@@ -292,20 +210,21 @@ const background = ref(true);
 const hiddenSearch = ref(false);
 
 const maxHeight = ref<number | string>("auto");
-
 const chInstance = ref(0);
 
 onMounted(() => {
-  setTableHeight();
-  window.addEventListener("resize", () => setTableHeight());
+  setTableHeight(heightDefaultObj[currentBreakpoint.value]);
+  window.addEventListener("resize", () => setTableHeight(heightDefaultObj[currentBreakpoint.value]));
 });
 onBeforeUnmount(() => {
-  window.removeEventListener("resize", () => setTableHeight());
+  window.removeEventListener("resize", () => setTableHeight(heightDefaultObj[currentBreakpoint.value]));
 });
 const toggleFoldCallBack = (condHeight: number) => {
   setTableHeight(condHeight);
   chInstance.value = condHeight;
 };
+
+
 const setTableHeight = (condHeight = 0) => {
   const instance = condHeight ? condHeight : chInstance.value;
   const { showFooterBar, showTagsView, showBreadcrumb, showHeaderBar } =
@@ -340,7 +259,7 @@ const setTableHeight = (condHeight = 0) => {
 };
 
 watchEffect(() => {
-  setTableHeight();
+  setTableHeight(heightDefaultObj[currentBreakpoint.value]);
 });
 
 const handleSizeChange = (val: number) => {
@@ -517,6 +436,7 @@ const resetColumn = () => {
   width: 80px;
   height: 80px;
   margin: 0 auto;
+
   img {
     width: 100%;
     height: 100%;
