@@ -1,24 +1,75 @@
 <template>
   <div class="table-box">
-    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
-      :total="total" :updateTableList="updateTableList" :loading="loading" :selectionChange="selectionChange"
-      rowKey="id">
-      <el-table-column type="selection" align="center" width="55" :reserve-selection="true"
-        fixed="left"></el-table-column>
+    <ProTable
+      ref="proTableRef"
+      :tableColumns="columns"
+      :conditionList="conditionList"
+      :tableData="tableData"
+      :total="total"
+      :updateTableList="updateTableList"
+      :loading="loading"
+      :selectionChange="selectionChange"
+      rowKey="id"
+    >
+      <el-table-column
+        type="selection"
+        align="center"
+        width="55"
+        :reserve-selection="true"
+        fixed="left"
+      ></el-table-column>
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button v-permission="['btn.advanced-table.add']" type="primary" :icon="CirclePlus"
-          @click="openAddRoleDrawer">新增学员</el-button>
-        <el-button v-permission="['btn.advanced-table.del']" type="danger" :icon="Remove"
-          @click="deleteSelect">删除学员</el-button>
-        <el-button v-permission="['btn.advanced-table.import']" :icon="Upload" @click="importTable">导入数据</el-button>
-        <el-button v-permission="['btn.advanced-table.export']" :icon="Download" @click="exportTable">导出数据</el-button>
+        <el-button
+          v-permission="['btn.advanced-table.add']"
+          type="primary"
+          :icon="CirclePlus"
+          @click="openAddRoleDrawer"
+          >新增学员</el-button
+        >
+        <el-button
+          v-permission="['btn.advanced-table.del']"
+          type="danger"
+          :icon="Remove"
+          @click="deleteSelect"
+          >删除学员</el-button
+        >
+        <el-button
+          v-permission="['btn.advanced-table.import']"
+          :icon="Upload"
+          @click="importTable"
+          >导入数据</el-button
+        >
+        <el-button
+          v-permission="['btn.advanced-table.export']"
+          :icon="Download"
+          @click="exportTable"
+          >导出数据</el-button
+        >
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button type="primary" link :icon="View" @click="viewInfo(slotData.scope.row)">查看</el-button>
-        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)">编辑</el-button>
-        <el-button type="primary" link :icon="Delete" @click="deleteRadio(slotData.scope.row)">删除</el-button>
+        <el-button
+          type="primary"
+          link
+          :icon="View"
+          @click="viewInfo(slotData.scope.row)"
+          >查看</el-button
+        >
+        <el-button
+          type="primary"
+          link
+          :icon="EditPen"
+          @click="modifiyInfo(slotData.scope.row)"
+          >编辑</el-button
+        >
+        <el-button
+          type="primary"
+          link
+          :icon="Delete"
+          @click="deleteRadio(slotData.scope.row)"
+          >删除</el-button
+        >
       </template>
     </ProTable>
     <!-- 新增学员 || 编辑学员抽屉 -->
@@ -48,12 +99,7 @@ import {
   Download,
   EditPen,
 } from "@element-plus/icons-vue";
-import {
-  ElMessage,
-  ElMessageBox,
-  ElLoading,
-  dayjs,
-} from "element-plus";
+import { ElMessage, ElMessageBox, ElLoading, dayjs } from "element-plus";
 
 const proTableRef = ref();
 const loading = ref(false);
@@ -239,8 +285,8 @@ const openAddRoleDrawer = () => {
   const params = {
     dialogForm: {},
     api: reqSaveTable,
-    getTableList: updateTableList
-  }
+    getTableList: updateTableList,
+  };
   StudentDrawerRef.value!.acceptParams(params);
 };
 
@@ -248,7 +294,6 @@ const selectRow = ref([]);
 const selectionChange = (val: any) => {
   selectRow.value = val;
 };
-
 
 const deleteRadio = (row: any) => {
   ElMessageBox.confirm("此操作将删除该学员，是否继续?", "删除提示", {
@@ -315,8 +360,8 @@ const deleteSelect = () => {
 const InfoDrawerRef = ref();
 const viewInfo = (row: any) => {
   const params = {
-    detailInfo: row
-  }
+    detailInfo: row,
+  };
   InfoDrawerRef.value!.acceptParams(params);
 };
 
@@ -324,14 +369,14 @@ const modifiyInfo = (row: any) => {
   const params = {
     dialogForm: { ...row },
     api: reqSaveTable,
-    getTableList: updateTableList
-  }
+    getTableList: updateTableList,
+  };
   StudentDrawerRef.value!.acceptParams(params);
 };
 
 const ImportDialogRef = ref();
 const importTable = () => {
-  const params = {}
+  const params = {};
   ImportDialogRef.value!.acceptParams(params);
 };
 

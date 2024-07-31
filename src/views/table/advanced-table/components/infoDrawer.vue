@@ -55,7 +55,7 @@
   </el-drawer>
 </template>
 
-<script lang='ts' setup>
+<script lang="ts" setup>
 import { computed, ref } from "vue";
 
 const drawerVisiable = ref(false);
@@ -63,8 +63,8 @@ const drawerVisiable = ref(false);
 const dialogProps = ref();
 
 const detailInfo = computed(() => {
-  return dialogProps.value.detailInfo
-})
+  return dialogProps.value.detailInfo;
+});
 
 // 接收父组件参数
 const acceptParams = (params: any): void => {
@@ -76,7 +76,6 @@ const acceptParams = (params: any): void => {
 defineExpose({
   acceptParams,
 });
-
 </script>
 
 <style lang="scss" scoped>

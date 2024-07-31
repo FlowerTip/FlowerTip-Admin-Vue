@@ -62,16 +62,8 @@ import {
 import ProTable from "@/components/ProTable/index.vue";
 import UserDialog from "./components/userDialog.vue";
 import RoleDialog from "./components/roleDialog.vue";
-import {
-  CirclePlus,
-  Delete,
-  User,
-  EditPen,
-} from "@element-plus/icons-vue";
-import {
-  ElMessage,
-  ElMessageBox,
-} from "element-plus";
+import { CirclePlus, Delete, User, EditPen } from "@element-plus/icons-vue";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 const proTableRef = ref();
 const loading = ref(false);
@@ -147,7 +139,6 @@ onMounted(() => {
   });
 });
 
-
 const UserDialogRef = ref();
 const openAddRoleDrawer = () => {
   const params = {
@@ -157,8 +148,8 @@ const openAddRoleDrawer = () => {
       password: "",
     },
     getTableList: updateTableList,
-  }
-  UserDialogRef.value!.acceptParams(params)
+  };
+  UserDialogRef.value!.acceptParams(params);
 };
 
 const deleteRadio = (row: any) => {
@@ -196,7 +187,7 @@ const batchPermission = (row: any) => {
   const params = {
     userId: row.id,
     api: reqBatchRole,
-    getTableList: updateTableList
+    getTableList: updateTableList,
   };
   RoleDialogRef.value!.acceptParams(params);
 };

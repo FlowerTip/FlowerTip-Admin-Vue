@@ -1,18 +1,37 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="分配权限" destroy-on-close width="500px">
+  <el-dialog
+    v-model="dialogVisible"
+    title="分配权限"
+    destroy-on-close
+    width="500px"
+  >
     <div class="form-layout-wrapper">
-      <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">
+      <el-checkbox
+        v-model="checkAll"
+        :indeterminate="isIndeterminate"
+        @change="handleCheckAllChange"
+      >
         全选
       </el-checkbox>
-      <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-        <el-checkbox v-for="item in treeData" :key="item.id" :label="item.roleName" :value="item.id">
+      <el-checkbox-group
+        v-model="checkedCities"
+        @change="handleCheckedCitiesChange"
+      >
+        <el-checkbox
+          v-for="item in treeData"
+          :key="item.id"
+          :label="item.roleName"
+          :value="item.id"
+        >
           {{ item.roleName }}
         </el-checkbox>
       </el-checkbox-group>
     </div>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="dialogConfirm" :loading="loading">保存</el-button>
+        <el-button type="primary" @click="dialogConfirm" :loading="loading"
+          >保存</el-button
+        >
         <el-button @click="dialogCancel">取消</el-button>
       </div>
     </template>
@@ -21,14 +40,9 @@
 
 <script setup lang="ts" name="menuDialog">
 import { ref } from "vue";
-import {
-  ElMessage,
-  CheckboxValueType,
-} from "element-plus";
+import { ElMessage, CheckboxValueType } from "element-plus";
 import { reqRoleList } from "@/api/role";
-import {
-  reqGetRole,
-} from "@/api/user";
+import { reqGetRole } from "@/api/user";
 
 let treeData = ref<any>([]);
 
@@ -50,7 +64,7 @@ const handleCheckedCitiesChange = (value: CheckboxValueType[]) => {
 type tableDataItem = {
   username: string;
   password: string;
-}
+};
 
 const getPermission = async (reqParams: any) => {
   const { code, data }: any = await reqRoleList(reqParams);
@@ -126,7 +140,7 @@ const acceptParams = (params: any): void => {
   checkedCities.value = [];
   dialogProps.value = params;
   dialogVisible.value = true;
-  getPermission({})
+  getPermission({});
 };
 
 // 暴露给父组件的方法

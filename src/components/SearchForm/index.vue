@@ -306,15 +306,15 @@ onMounted(() => {
     searchForm[cond.prop] = cond.type === "datetimerange" ? [] : "";
   });
   setCondFoldHeight();
-  window.addEventListener('resize', setCondFoldHeight)
+  window.addEventListener("resize", setCondFoldHeight);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('resize', setCondFoldHeight)
-})
+  window.removeEventListener("resize", setCondFoldHeight);
+});
 const setCondFoldHeight = () => {
   initConditionFoldLen.value = foldDefaultObj[currentBreakpoint.value];
-}
+};
 const search = () => {
   props.updateTableList({
     pageSize: 20,

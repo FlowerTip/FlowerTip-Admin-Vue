@@ -27,32 +27,28 @@
     </div>
     <template #footer>
       <div class="dialog-footer">
-        <el-button type="primary" @click="dialogConfirm">
-          确认
-        </el-button>
+        <el-button type="primary" @click="dialogConfirm"> 确认 </el-button>
         <el-button @click="dialogCancel">取消</el-button>
       </div>
     </template>
   </el-dialog>
 </template>
 
-<script lang='ts' setup>
-import { ref } from 'vue';
-import {
-  UploadFilled,
-} from "@element-plus/icons-vue";
+<script lang="ts" setup>
+import { ref } from "vue";
+import { UploadFilled } from "@element-plus/icons-vue";
 
 const dialogVisible = ref(false);
 
 const dialogProps = ref();
 
 const dialogConfirm = () => {
-  dialogVisible.value = false
-}
+  dialogVisible.value = false;
+};
 
 const dialogCancel = () => {
-  dialogVisible.value = false
-}
+  dialogVisible.value = false;
+};
 
 // 接收父组件参数
 const acceptParams = (params: any): void => {
