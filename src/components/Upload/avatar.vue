@@ -21,6 +21,7 @@
         :src="imageUrl"
         class="avatar"
         :style="avatarStyle"
+        alt="avatar"
       />
       <!-- 上传图标显示区域 -->
       <el-icon v-else class="avatar-uploader-icon" :style="avatarStyle">

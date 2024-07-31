@@ -1,11 +1,11 @@
 <template>
-  <i v-if="isShowIconSvg" class="el-icon" :style="setIconSvgStyle">
+  <em v-if="isShowIconSvg" class="el-icon" :style="setIconSvgStyle">
     <component :is="getIconName" />
-  </i>
+  </em>
   <div v-else-if="isShowIconImg" :style="setIconImgOutStyle">
-    <img :src="getIconName" :style="setIconSvgInsStyle" />
+    <img :src="getIconName" :style="setIconSvgInsStyle" alt="icon" />
   </div>
-  <i v-else :class="getIconName" :style="setIconSvgStyle" />
+  <em v-else :class="getIconName" :style="setIconSvgStyle" />
 </template>
 
 <script lang="ts">
