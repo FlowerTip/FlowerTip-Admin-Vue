@@ -1,6 +1,6 @@
 <template>
   <div class="content-rightbar-footer">
-    2024 © {{ defaultSetting.title }} By FlowerTip.
+    2024 © {{ defaultSetting.title }} By FlowerTip：免费开源的企业级后台管理系统
   </div>
 </template>
 

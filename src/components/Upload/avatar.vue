@@ -28,16 +28,16 @@
       </el-icon>
       <!-- 操作按钮组遮罩层 -->
       <div v-if="imageUrl" class="upload-hover">
-        <div v-if="!isEditModel" class="btn-item" @click.stop="editImg">
+        <div class="btn-item" @click.stop="editImg">
           <el-icon class="icon-style">
             <Edit />
           </el-icon>
           编辑
         </div>
-        <div v-if="isEditModel" class="btn-item" @click.stop="previewAvatar">
+        <div class="btn-item" @click.stop="previewAvatar">
           <el-icon class="icon-style"> <ZoomIn /> </el-icon>查看
         </div>
-        <div v-if="!isEditModel" class="btn-item" @click.stop="delAvatar">
+        <div class="btn-item" @click.stop="delAvatar">
           <el-icon class="icon-style"> <Delete /> </el-icon>删除
         </div>
       </div>

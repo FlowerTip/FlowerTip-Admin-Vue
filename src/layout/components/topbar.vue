@@ -107,7 +107,7 @@ const authMenuList: RouteRecordRaw[] = userStore.authMenuList.filter(
 <style lang="scss">
 .header-menu {
   flex: 1;
-  min-width: 730px;
+  min-width: 100px;
   .top-menu {
     height: $base-top-menu-height;
     border: 0px;

@@ -104,7 +104,7 @@ import {
   ArrowDown,
   ArrowUp,
 } from "@element-plus/icons-vue";
-import { reactive, ref, computed, onMounted } from "vue";
+import { reactive, ref, computed, onMounted, onUnmounted } from "vue";
 import { SearchFormInterFace } from "@/types";
 import { useBreakpoint } from "@/hooks/useBreakpoint.ts";
 
@@ -305,10 +305,16 @@ onMounted(() => {
   props.conditionList.forEach((cond: any) => {
     searchForm[cond.prop] = cond.type === "datetimerange" ? [] : "";
   });
-  initConditionFoldLen.value = foldDefaultObj[currentBreakpoint.value];
-  console.log(initConditionFoldLen.value, "initConditionFoldLen@@@@");
+  setCondFoldHeight();
+  window.addEventListener('resize', setCondFoldHeight)
 });
 
+onUnmounted(() => {
+  window.removeEventListener('resize', setCondFoldHeight)
+})
+const setCondFoldHeight = () => {
+  initConditionFoldLen.value = foldDefaultObj[currentBreakpoint.value];
+}
 const search = () => {
   props.updateTableList({
     pageSize: 20,

@@ -40,11 +40,11 @@ const columns = reactive([
   {
     id: 1,
     prop: "name",
-    label: "权限菜单名称",
+    label: "菜单名称",
     isShowColumn: true,
     align: "left",
   },
-  { id: 2, prop: "code", label: "菜单权限值", isShowColumn: true },
+  { id: 2, prop: "code", label: "权限值", isShowColumn: true },
   {
     id: 3,
     prop: "typeLabel",

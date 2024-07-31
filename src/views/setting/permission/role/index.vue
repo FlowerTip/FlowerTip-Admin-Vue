@@ -173,7 +173,7 @@ const modifiyInfo = (row: any) => {
 };
 
 const deleteRadio = (row: any) => {
-  ElMessageBox.confirm("此操作将删除这条数据，是否继续?", "删除提示", {
+  ElMessageBox.confirm("此操作将删除该角色，是否继续?", "删除提示", {
     cancelButtonText: "取消",
     confirmButtonText: "确认",
     type: "warning",

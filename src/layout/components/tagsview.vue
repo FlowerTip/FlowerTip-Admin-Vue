@@ -230,29 +230,31 @@ const tabClick = (tabItem: TabsPaneContext) => {
 
     :deep(.el-tabs__header) {
       margin: 0;
-      height: 30px;
+      height: 26px;
+      border-bottom: 0 !important;
     }
 
     :deep(.el-tabs__item) {
-      height: 30px;
+      height: 26px;
       border: 0px;
+      padding: 0 14px !important;
 
       &.is-active {
         background-color: var(--el-color-primary);
-        border-radius: 30px;
+        border-radius: 26px;
         color: #fff;
       }
     }
 
     :deep(.el-tabs__nav-prev) {
-      height: 30px;
-      line-height: 30px;
+      height: 26px;
+      line-height: 26px;
       border-right: 1px solid #dcdfe6;
     }
 
     :deep(.el-tabs__nav-next) {
-      height: 30px;
-      line-height: 30px;
+      height: 26px;
+      line-height: 26px;
       border-left: 1px solid #dcdfe6;
     }
   }
@@ -263,7 +265,7 @@ const tabClick = (tabItem: TabsPaneContext) => {
     border-left: 1px solid #dcdfe6;
     border-bottom: 1px solid #dcdfe6;
     border-right: 1px solid #dcdfe6;
-    line-height: 30px;
+    line-height: 26px;
     text-align: center;
 
     .el-dropdown-link {
