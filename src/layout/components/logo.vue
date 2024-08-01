@@ -1,5 +1,10 @@
 <template>
-  <div class="header-logo" :class="{'hidden-md-and-down' : settingStore.layout === 'mixbar'}" >{{defaultSetting.title }}</div>
+  <div
+    class="header-logo"
+    :class="{ 'hidden-md-and-down': settingStore.layout === 'mixbar' }"
+  >
+    {{ defaultSetting.title }}
+  </div>
 </template>
 
 <script lang="ts" setup>

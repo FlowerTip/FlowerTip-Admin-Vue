@@ -189,7 +189,11 @@
         </template>
         <!-- 无表格数据，空列表 -->
         <template #empty>
-          <el-empty class="hidden-lg-and-down" description="暂无表格数据，请重新查询" :image-size="200">
+          <el-empty
+            class="hidden-lg-and-down"
+            description="暂无表格数据，请重新查询"
+            :image-size="200"
+          >
             <template #image>
               <img src="../../assets/images/empty.png" alt="empty" />
             </template>
