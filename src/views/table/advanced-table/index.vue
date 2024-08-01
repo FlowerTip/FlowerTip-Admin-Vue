@@ -231,7 +231,7 @@ const columns = reactive([
   { id: 6, prop: "hobby", label: "兴趣", width: 200, isShowColumn: true },
   { id: 7, prop: "sexLabel", label: "性别", width: 60, isShowColumn: true },
   { id: 8, prop: "school", label: "学校", width: 200, isShowColumn: true },
-  { id: 9, prop: "time", label: "档案时间", width: 160, isShowColumn: true },
+  { id: 9, prop: "time", label: "档案时间", width: 160, isShowColumn: true, sortable: true },
   {
     id: 11,
     prop: "operation",
@@ -270,9 +270,11 @@ const updateTableList = async (reqParams: PagainationType) => {
       time: dayjs(item.time).format("YYYY-MM-DD HH:mm:ss"),
     }));
     total.value = data.total;
+    proTableRef.value!.clearSelection();
     setTimeout(() => {
       loading.value = false;
     }, 1000);
+
   }
 };
 

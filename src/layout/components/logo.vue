@@ -1,9 +1,12 @@
 <template>
-  <div class="header-logo hidden-md-and-down">{{ defaultSetting.title }}</div>
+  <div class="header-logo" :class="{'hidden-md-and-down' : settingStore.layout === 'mixbar'}" >{{defaultSetting.title }}</div>
 </template>
 
 <script lang="ts" setup>
 import defaultSetting from "@/setting";
+import useSettingStore from "@/store/modules/settingStore";
+
+const settingStore = useSettingStore();
 </script>
 
 <style lang="scss" scoped>

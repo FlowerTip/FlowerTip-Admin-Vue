@@ -12,6 +12,7 @@ const useSettingStore = defineStore({
       showBreadcrumb: defaultSetting.showBreadcrumb,
       layout: defaultSetting.layout,
       color: defaultSetting.color,
+      themeName: defaultSetting.themeName,
     };
   },
   actions: {
@@ -23,6 +24,7 @@ const useSettingStore = defineStore({
       this.showBreadcrumb = data.showBreadcrumb;
       this.layout = data.layout;
       this.color = data.color;
+      this.themeName = data.themeName;
     },
   },
 });

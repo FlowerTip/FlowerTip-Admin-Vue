@@ -195,7 +195,7 @@ const batchPermission = (row: any) => {
 const modifiyInfo = (row: any) => {
   UserDialogRef.value!.acceptParams({
     api: reqSaveUser,
-    rowData: row,
+    rowData: {...row},
     getTableList: updateTableList,
   });
 };

@@ -6,5 +6,6 @@ export default {
   showHeaderBar: true,
   layout: "mixbar", // mixbar || topbar || sidebar || simplebar
   title: "FlowerTip Admin",
-  color: "#3170FF",
+  color: "#3170FF",  // #409EFF || #3170FF || #A8EFCB || #00BFFF
+  themeName: 'fashionThemeColors' // classicThemeColors || fashionThemeColors || freshThemeColors || coolThemeColors
 };

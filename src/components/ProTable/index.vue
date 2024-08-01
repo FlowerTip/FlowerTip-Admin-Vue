@@ -187,6 +187,15 @@
             :fixed="item.fixed ?? false"
           ></el-table-column>
         </template>
+        <!-- 无表格数据，空列表 -->
+        <template #empty>
+          <el-empty class="hidden-lg-and-down" description="暂无表格数据，请重新查询" :image-size="200">
+            <template #image>
+              <img src="../../assets/images/empty.png" alt="empty" />
+            </template>
+          </el-empty>
+          <span class="hidden-xl-only">暂无表格数据，请重新查询</span>
+        </template>
       </el-table>
       <!-- 分页器区域 -->
       <el-pagination
@@ -547,5 +556,11 @@ const resetColumn = () => {
     width: 100%;
     height: 100%;
   }
+}
+
+.empty-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

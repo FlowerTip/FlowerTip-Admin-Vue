@@ -57,7 +57,6 @@
             <el-form-item>
               <el-button
                 class="login-btn"
-                :color="settingStore.color"
                 type="primary"
                 :loading="loginLoading"
                 @click="handleLogin"
@@ -82,11 +81,9 @@ import { useRouter, useRoute } from "vue-router";
 import VerifyCode from "@/components/VerifyCode/index.vue";
 import defaultSetting from "@/setting";
 import useUserStore from "@/store/modules/userStore";
-import useSettingStore from "@/store/modules/settingStore";
 import { ElMessage } from "element-plus";
 
 const userStore = useUserStore();
-const settingStore = useSettingStore();
 
 const router = useRouter();
 const route = useRoute();

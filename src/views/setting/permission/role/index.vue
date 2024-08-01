@@ -167,7 +167,7 @@ const openAddRoleDrawer = () => {
 const modifiyInfo = (row: any) => {
   RoleDialogRef.value!.acceptParams({
     api: reqSaveRole,
-    rowData: row,
+    rowData: {...row},
     getTableList: updateTableList,
   });
 };
