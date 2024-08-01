@@ -5,22 +5,14 @@
       <!-- <img src="/favicon.svg" alt="sidebar-logo" /> -->
       <span class="system-name">{{ defaultSetting.title }}</span>
     </div>
-    <el-menu
-      :default-active="currentRoute.path as string"
-      class="sidebar-menu"
-      :collapse="isCollapse"
-      :background-color="menuConfig.baseSidebarMenuBackground"
-      :text-color="menuConfig.baseSidebarMenuTextColor"
-      :active-text-color="menuConfig.baseSidebarMenuActiveTextColor"
-      unique-opened
-    >
-      <sidebar-item
-        v-for="menu in userStore.authMenuList"
-        :key="menu.path"
-        :item="menu"
-        :base-path="menu.path"
-      ></sidebar-item>
-    </el-menu>
+    <el-scrollbar :min-size="10">
+      <el-menu :default-active="currentRoute.path as string" class="sidebar-menu" :collapse="isCollapse"
+        :background-color="menuConfig.baseSidebarMenuBackground" :text-color="menuConfig.baseSidebarMenuTextColor"
+        :active-text-color="menuConfig.baseSidebarMenuActiveTextColor" unique-opened>
+        <sidebar-item v-for="menu in userStore.authMenuList" :key="menu.path" :item="menu"
+          :base-path="menu.path"></sidebar-item>
+      </el-menu>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -38,7 +30,6 @@ const currentRoute = useRoute();
 console.log(currentRoute.name, "currentRoute");
 const settingStore = useSettingStore();
 const userStore = useUserStore();
-
 const menuConfig = ref({
   baseSidebarMenuBackground: config.baseSidebarMenuBackground,
   baseSidebarMenuTextColor: config.baseSidebarMenuTextColor,
@@ -49,17 +40,22 @@ defineProps(["isCollapse"]);
 </script>
 
 <style lang="scss" scoped>
+:deep(.el-scrollbar__wrap) {
+  height: calc(100vh - $base-top-menu-height) !important;
+}
 .sidebar-logo {
   width: 100%;
-  height: 50px;
+  height: $base-top-menu-height;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.4) !important;
   box-sizing: border-box;
+
   img {
     height: 50%;
   }
+
   .system-name {
     color: #fff;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",

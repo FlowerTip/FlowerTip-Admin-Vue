@@ -17,20 +17,20 @@ const option = {
     trigger: "item",
     // formatter: "{b}<br/>监管单位总数：{c} (家)",
   },
-  visualMap: {
-    // show: false,
-    min: 0,
-    max: 1000,
-    text: [">100", "无"],
-    // textStyle: {
-    //   color: "#fff",
-    // },
-    // realtime: false,
-    calculable: true,
-    inRange: {
-      color: ["#c45656", "#f89898", "#fab6b6", "#fcd3d3", "#fde2e2", "#fef0f0"],
-    },
-  },
+  // visualMap: {
+  //   show: false,
+  //   min: 0,
+  //   max: 1000,
+  //   text: [">100", "无"],
+  //   textStyle: {
+  //     color: "#fff",
+  //   },
+  //   realtime: false,
+  //   calculable: true,
+  //   inRange: {
+  //     color: ["#c45656", "#f89898", "#fab6b6", "#fcd3d3", "#fde2e2", "#fef0f0"],
+  //   },
+  // },
   geo: [
     {
       name: "北京市",
