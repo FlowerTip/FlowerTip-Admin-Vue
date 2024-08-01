@@ -2,10 +2,22 @@
   <div class="content-aside" v-if="showSide">
     <el-scrollbar :min-size="10">
       <!-- 侧边栏菜单 :collapse="isCollapse"-->
-      <el-menu :default-active="defaultActive" class="sidebar-menu" :collapse="isCollapse" :collapse-transition="false"
-        :background-color="menuConfig.baseSidebarMenuBackground" :text-color="menuConfig.baseSidebarMenuTextColor"
-        :active-text-color="menuConfig.baseSidebarMenuActiveTextColor" unique-opened>
-        <sidebar-item v-for="menu in menuList" :key="menu.path" :item="menu" :base-path="menu.path"></sidebar-item>
+      <el-menu
+        :default-active="defaultActive"
+        class="sidebar-menu"
+        :collapse="isCollapse"
+        :collapse-transition="false"
+        :background-color="menuConfig.baseSidebarMenuBackground"
+        :text-color="menuConfig.baseSidebarMenuTextColor"
+        :active-text-color="menuConfig.baseSidebarMenuActiveTextColor"
+        unique-opened
+      >
+        <sidebar-item
+          v-for="menu in menuList"
+          :key="menu.path"
+          :item="menu"
+          :base-path="menu.path"
+        ></sidebar-item>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -45,7 +57,7 @@ const defaultActive = computed(() => {
 const showSide = computed(() => {
   return props.showHeaderBar
     ? !(props.isCollapse || currentRoute.name === "home") &&
-    settingStore.layout !== "topbar"
+        settingStore.layout !== "topbar"
     : !props.isCollapse;
 });
 

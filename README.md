@@ -3,6 +3,7 @@
 > 一个基于 Vue3 + TypeScript + Element Plus + Axios + Vue Router@4 + Vite 开发的企业级后台管理系统
 
 ## 项目预览
+
 项目预览地址：http://49.232.248.193/#/login
 
 ## 项目模块
@@ -27,7 +28,7 @@
 
 ## 安装启动
 
-这里推荐的是 `pnpm` 来管理和安装我们的包，Node环境建议18及以上
+这里推荐的是 `pnpm` 来管理和安装我们的包，Node 环境建议 18 及以上
 
 ```bash
 
@@ -44,25 +45,25 @@
 ## 项目展示
 
 1. 登录页
-![登录页面](docs/image.png)
+   ![登录页面](docs/image.png)
 
 2. 驾驶舱
-![驾驶舱页面](docs/image-1.png)
+   ![驾驶舱页面](docs/image-1.png)
 
 3. 系统管理
-    - 用户管理
-      ![用户管理](docs/image-2.png)
-    - 角色管理
-      ![角色管理](docs/image-3.png)
-    - 菜单管理
-      ![菜单管理](docs/image-4.png)
+
+   - 用户管理
+     ![用户管理](docs/image-2.png)
+   - 角色管理
+     ![角色管理](docs/image-3.png)
+   - 菜单管理
+     ![菜单管理](docs/image-4.png)
 
 4. 主题设置
-![主题设置](docs/image-5.png)
-
+   ![主题设置](docs/image-5.png)
 
 ## 支持打赏
 
 如果本项目对您有帮助，愿意支持打赏一下作者，可以捐赠一杯咖啡
-![支付宝收款码](docs/image-8.png) 
+![支付宝收款码](docs/image-8.png)
 ![微信收款码](docs/image-9.png)

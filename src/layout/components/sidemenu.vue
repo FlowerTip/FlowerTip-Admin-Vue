@@ -6,11 +6,21 @@
       <span class="system-name">{{ defaultSetting.title }}</span>
     </div>
     <el-scrollbar :min-size="10">
-      <el-menu :default-active="currentRoute.path as string" class="sidebar-menu" :collapse="isCollapse"
-        :background-color="menuConfig.baseSidebarMenuBackground" :text-color="menuConfig.baseSidebarMenuTextColor"
-        :active-text-color="menuConfig.baseSidebarMenuActiveTextColor" unique-opened>
-        <sidebar-item v-for="menu in userStore.authMenuList" :key="menu.path" :item="menu"
-          :base-path="menu.path"></sidebar-item>
+      <el-menu
+        :default-active="currentRoute.path as string"
+        class="sidebar-menu"
+        :collapse="isCollapse"
+        :background-color="menuConfig.baseSidebarMenuBackground"
+        :text-color="menuConfig.baseSidebarMenuTextColor"
+        :active-text-color="menuConfig.baseSidebarMenuActiveTextColor"
+        unique-opened
+      >
+        <sidebar-item
+          v-for="menu in userStore.authMenuList"
+          :key="menu.path"
+          :item="menu"
+          :base-path="menu.path"
+        ></sidebar-item>
       </el-menu>
     </el-scrollbar>
   </div>
