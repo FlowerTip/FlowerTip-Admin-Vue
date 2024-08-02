@@ -131,7 +131,7 @@
               ><el-icon> <Avatar /> </el-icon>个人中心</el-dropdown-item
             >
             <el-dropdown-item command="setting"
-              ><el-icon> <ChromeFilled /> </el-icon>主题设置</el-dropdown-item
+              ><el-icon> <ChromeFilled /> </el-icon>偏好设置</el-dropdown-item
             >
             <el-dropdown-item command="logout" divided
               ><el-icon> <SwitchButton /> </el-icon>退出登录</el-dropdown-item
@@ -141,13 +141,15 @@
       </el-dropdown>
     </div>
   </div>
-
-  <!-- 主题设置抽屉 -->
+  <div v-if="defaultSetting.showSetting" class="setting-btn" @click="openRightSetting">
+    <el-icon class="setting-icon"><Setting /></el-icon>
+  </div>
+  <!-- 偏好设置抽屉 -->
   <el-drawer
     append-to-body
     modal-class="drawer-wrapper"
     v-model="drawer"
-    title="主题设置"
+    title="偏好设置"
     direction="rtl"
     :size="290"
   >
@@ -470,6 +472,10 @@ const changeThemeColor = (colorThemeName: any, showTip = true) => {
   }
 };
 
+const openRightSetting = () => {
+  drawer.value = true;
+}
+
 const handleCommand = (command: string) => {
   if (command === "logout") {
     ElMessageBox.confirm("确认要退出登录. 是否继续?", "退出登录", {
@@ -551,6 +557,24 @@ const toggleFullScreen = () => {
 </script>
 
 <style lang="scss" scoped>
+.setting-btn{
+  z-index: 3000;
+  position: fixed;
+  right: 0;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: var(--el-color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  .setting-icon {
+    font-size: 26px;
+    color: #fff;
+  }
+}
 .header-right-info {
   width: 282px;
   height: 100%;

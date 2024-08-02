@@ -25,7 +25,7 @@ body,
   overflow: hidden;
   font-size: 16px;
   font-family: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC',
-  'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 
 .app-container {
@@ -49,6 +49,11 @@ body,
   }
 }
 
-.el-button:focus {  
+.el-button:focus {
   outline: none !important;
+}
+
+/* 表格loading层级 */
+.el-loading-mask {
+  z-index: 9 !important;
 }

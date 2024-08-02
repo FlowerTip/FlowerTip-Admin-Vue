@@ -64,6 +64,7 @@ const dialogFormRules = reactive({
       message: "请输入用户名称",
       trigger: "blur",
     },
+    { min: 2, max: 6, message: '名称字符在2个到6个之间', trigger: 'blur' },
   ],
   password: [
     {
