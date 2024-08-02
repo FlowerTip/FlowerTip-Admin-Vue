@@ -64,8 +64,10 @@
               >
             </el-form-item>
             <el-form-item class="tip">
-              <p>1. 添加账号，登录超级管理员账号添加用户且分配角色权限</p>
-              <p>2. 系统后台服务器配置不稳定，速度慢，仅限学习技术使用</p>
+              <h4>温馨提示：</h4>
+              <p>1.超级管理员登入添加系统用户账号分配角色权限使用</p>
+              <p>2.权限操作涉及的页面在系统管理的权限管理模块使用</p>
+              <p>3.系统服务器配置不稳定，速度慢，仅限学习技术使用</p>
             </el-form-item>
           </el-form>
         </div>
@@ -152,7 +154,6 @@ const handleLogin = async () => {
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
-
         &.first {
           background-image: url(../../assets/login/wendang.png);
         }
@@ -177,7 +178,7 @@ const handleLogin = async () => {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px 16px;
+      padding: 16px 16px 0 16px;
       background-color: rgba(0, 0, 0, 0.3);
 
       .login-logo {
@@ -188,7 +189,7 @@ const handleLogin = async () => {
         color: #ffffff;
         letter-spacing: 0.5px;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 18px;
 
         img {
           width: 100%;
@@ -203,16 +204,20 @@ const handleLogin = async () => {
         }
 
         .el-form-item {
-          margin-bottom: 20px;
+          margin-bottom: 18px;
         }
 
         .tip {
           width: 100%;
-
+          h4 {
+            font-weight: 600;
+            font-size: 18px;
+            color: #fff;
+          }
           p {
             width: 100%;
             color: #fff;
-            line-height: 26px;
+            line-height: 28px;
           }
         }
       }

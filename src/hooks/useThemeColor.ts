@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import useSettingStore from "@/store/modules/settingStore";
 import defaultSetting from "@/setting";
 
@@ -119,7 +119,9 @@ const useThemeColor = () => {
       themeName: colorThemeName,
     });
   };
-
+  onMounted(() => {
+    currentTheme.value = settingStore.themeName || defaultSetting.themeName;
+  })
   return {
     toggleThemeColor,
     currentTheme,

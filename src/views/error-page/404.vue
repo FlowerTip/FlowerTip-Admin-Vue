@@ -8,7 +8,7 @@
         <h2>404</h2>
       </template>
       <template #sub-title>
-        <h4>抱歉, 没找到您要访问的页面</h4>
+        <h4>抱歉, 没找到您想要访问的页面</h4>
       </template>
       <template #extra>
         <el-button type="primary" @click="backHome">返回首页</el-button>
@@ -29,7 +29,7 @@ const backHome = () => {
 
 <style lang="scss" scoped>
 .page-container {
-  background-color: #fff;
+  background-color: #F2F3F5;
   height: 100vh;
 }
 

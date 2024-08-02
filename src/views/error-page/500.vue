@@ -29,7 +29,7 @@ const backHome = () => {
 
 <style lang="scss" scoped>
 .page-container {
-  background-color: #fff;
+  background-color: #F2F3F5;
   height: 100vh;
 }
 

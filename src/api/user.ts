@@ -37,7 +37,7 @@ enum API {
 }
 
 export const reqLogin = (data: LoginRequestParams) =>
-  Promise.resolve(instance.post<any, LoginResponseResult>(API.LOGIN_URL, data));
+  Promise.resolve(instance.post<any, Response.LoginRes>(API.LOGIN_URL, data));
 
 export const reqUserInfo = () =>
   Promise.resolve(instance.get(API.USERINFO_URL));
