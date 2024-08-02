@@ -1,8 +1,5 @@
 import instance from "@/utils/request";
-import {
-  LoginRequestParams,
-  PagainationType,
-} from "@/types";
+import { LoginRequestParams, PagainationType } from "@/types";
 
 import { getToken } from "@/utils/auth";
 
