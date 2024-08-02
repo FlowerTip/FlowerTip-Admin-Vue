@@ -121,7 +121,7 @@ const useThemeColor = () => {
   };
   onMounted(() => {
     currentTheme.value = settingStore.themeName || defaultSetting.themeName;
-  })
+  });
   return {
     toggleThemeColor,
     currentTheme,

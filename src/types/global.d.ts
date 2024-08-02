@@ -6,7 +6,7 @@
 declare interface LoginParams {
   username: string;
   password: string;
-  code?: string
+  code?: string;
 }
 
 /**
@@ -21,19 +21,17 @@ declare namespace Login {
   }
 }
 
-
-
 interface ResponseData {
   code: number;
   data: {
     list?: any[];
     message: string;
-  }
+  };
 }
 declare namespace Response {
   interface LoginRes extends ResponseData {
     data: {
       token: string;
-    }
+    };
   }
 }
