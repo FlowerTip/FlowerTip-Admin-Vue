@@ -141,7 +141,11 @@
       </el-dropdown>
     </div>
   </div>
-  <div v-if="defaultSetting.showSetting" class="setting-btn" @click="openRightSetting">
+  <div
+    v-if="defaultSetting.showSetting"
+    class="setting-btn"
+    @click="openRightSetting"
+  >
     <el-icon class="setting-icon"><Setting /></el-icon>
   </div>
   <!-- 偏好设置抽屉 -->
@@ -474,7 +478,7 @@ const changeThemeColor = (colorThemeName: any, showTip = true) => {
 
 const openRightSetting = () => {
   drawer.value = true;
-}
+};
 
 const handleCommand = (command: string) => {
   if (command === "logout") {
@@ -557,7 +561,7 @@ const toggleFullScreen = () => {
 </script>
 
 <style lang="scss" scoped>
-.setting-btn{
+.setting-btn {
   z-index: 3000;
   position: fixed;
   right: 0;
