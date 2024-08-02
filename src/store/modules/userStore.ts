@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { getToken, setToken, removeToken, getFlatMenuList } from "@/utils/auth";
 import { filterAsyncRoutes } from "@/utils/tool";
 import { reqLogin, reqUserInfo, reqLogout } from "@/api/user";
-import { LoginResponseResult, StatePermission } from "@/types";
+import { StatePermission } from "@/types";
 import router from "@/router";
 import { RouteRecordRaw } from "vue-router";
 import { anyRoute, staticRoutes, asyncRoute } from "@/router/modules/routes";

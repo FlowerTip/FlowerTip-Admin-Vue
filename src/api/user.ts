@@ -1,7 +1,6 @@
 import instance from "@/utils/request";
 import {
   LoginRequestParams,
-  LoginResponseResult,
   PagainationType,
 } from "@/types";
 
