@@ -562,7 +562,6 @@ const toggleFullScreen = () => {
 
 <style lang="scss" scoped>
 .setting-btn {
-  z-index: 3000;
   position: fixed;
   right: 0;
   top: 50%;
@@ -574,6 +573,7 @@ const toggleFullScreen = () => {
   align-items: center;
   cursor: pointer;
   border-radius: 5px;
+  z-index: 99;
   .setting-icon {
     font-size: 26px;
     color: #fff;

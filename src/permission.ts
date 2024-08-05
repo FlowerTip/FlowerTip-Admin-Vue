@@ -35,20 +35,28 @@ router.beforeEach(async (to, _, next) => {
         next();
       } else {
         try {
-          await userStore.getUserInfo();
-          next({
-            ...to,
-            replace: true,
-          });
+          const res = await userStore.getUserInfo();
+          console.log(res, 'res!@@@@');
+          if (res.length === 0) {
+            next({
+              path: '/403'
+            })
+          } else {
+            next({
+              ...to,
+              replace: true,
+            });
+          }
           NProgress.done(); // 结束进度条
         } catch (error: any) {
-          removeToken();
           ElMessage({
             type: "error",
-            message: "登录过期，需要重新登录",
+            message: "登录失败，页面自动刷新尝试重新登录",
           });
-          window.location.reload();
-          next({ path: "/login", query: { redirect: to?.path } });
+          setTimeout(async () => {
+            await userStore.logout();
+            next({ path: "/login", query: { redirect: to?.path } });
+          }, 1000)
         }
       }
     }

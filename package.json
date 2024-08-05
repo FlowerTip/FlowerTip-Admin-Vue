@@ -28,6 +28,7 @@
   "dependencies": {
     "@dataview/datav-vue3": "0.0.0-test.1672506674342",
     "@element-plus/icons-vue": "^2.1.0",
+    "@vueuse/core": "^10.11.0",
     "axios": "^1.4.0",
     "echarts": "^5.4.2",
     "echarts-liquidfill": "^3.1.0",

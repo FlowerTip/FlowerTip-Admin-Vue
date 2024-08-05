@@ -22,7 +22,15 @@ export const staticRoutes: RouteRecordRaw[] = [
       title: "登录",
     },
   },
-
+  {
+    path: "/403",
+    name: "403",
+    component: () => import("@/views/error-page/403.vue"),
+    meta: {
+      hidden: true,
+      title: "403",
+    },
+  },
   {
     path: "/404",
     name: "404",
@@ -30,6 +38,15 @@ export const staticRoutes: RouteRecordRaw[] = [
     meta: {
       hidden: true,
       title: "404",
+    },
+  },
+  {
+    path: "/500",
+    name: "500",
+    component: () => import("@/views/error-page/500.vue"),
+    meta: {
+      hidden: true,
+      title: "500",
     },
   },
 ];

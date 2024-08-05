@@ -48,19 +48,24 @@ const useUserStore = defineStore({
       );
       this.backMenuList = menuList;
       this.permissionButtonList = result.data.buttons;
-      //左侧菜单需要数组
-      this.authMenuList = [...menuList, anyRoute] as any;
-      //当前的路由器仅仅注册常量路由,路由器还需要注册任意路由、过滤完的异步路由----router.addRoute
-      router.addRoute({
-        path: "/",
-        meta: {
-          hidden: true,
-        },
-        redirect: this.authMenuList[0].path,
-      });
-      this.authMenuList.forEach((item) => {
-        router.addRoute(item as unknown as RouteRecordRaw);
-      });
+      if (menuList.length > 0) {
+        //左侧菜单需要数组
+        this.authMenuList = [...menuList, anyRoute] as any;
+        //当前的路由器仅仅注册常量路由,路由器还需要注册任意路由、过滤完的异步路由----router.addRoute
+        router.addRoute({
+          path: "/",
+          meta: {
+            hidden: true,
+          },
+          redirect: this.authMenuList[0].path,
+        });
+        this.authMenuList.forEach((item) => {
+          router.addRoute(item as unknown as RouteRecordRaw);
+        });
+      } else {
+        this.authMenuList = [];
+      }
+      return Promise.resolve(menuList)
     },
     async logout() {
       this.token = "";

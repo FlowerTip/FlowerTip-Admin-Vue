@@ -22,50 +22,27 @@
       <el-col :span="10" :xs="22">
         <div class="right-form">
           <h3 class="login-logo">{{ defaultSetting.title }}</h3>
-          <el-form
-            :model="loginFormData"
-            :rules="loginFormRules"
-            class="login-form"
-          >
+          <el-form :model="loginFormData" :rules="loginFormRules" class="login-form">
             <el-form-item prop="username">
-              <el-input
-                v-model="loginFormData.username"
-                :prefix-icon="User"
-                placeholder="账户名不能为空"
-              />
+              <el-input v-model="loginFormData.username" :prefix-icon="User" placeholder="账户名不能为空" />
             </el-form-item>
             <el-form-item prop="password">
-              <el-input
-                type="password"
-                show-password
-                v-model="loginFormData.password"
-                :prefix-icon="Lock"
-                placeholder="密码不能为空"
-              />
+              <el-input type="password" show-password v-model="loginFormData.password" :prefix-icon="Lock"
+                placeholder="密码不能为空" />
             </el-form-item>
             <el-form-item prop="code">
               <div class="code-wrapper">
-                <el-input
-                  v-model="loginFormData.code"
-                  :prefix-icon="Picture"
-                  placeholder="图形验证码"
-                />
+                <el-input v-model="loginFormData.code" :prefix-icon="Picture" placeholder="图形验证码" />
                 <VerifyCode :updateImgCode="updateImgCode"></VerifyCode>
               </div>
             </el-form-item>
 
             <el-form-item>
-              <el-button
-                class="login-btn"
-                type="primary"
-                :loading="loginLoading"
-                @click="handleLogin"
-                >登录</el-button
-              >
+              <el-button class="login-btn" type="primary" :loading="loginLoading" @click="handleLogin">登录</el-button>
             </el-form-item>
             <el-form-item class="tip">
               <h4>温馨提示：</h4>
-              <p>1.超级管理员登入添加系统用户账号分配角色权限使用</p>
+              <p>1.系统管理员登入添加系统用户账号分配角色权限使用</p>
               <p>2.权限操作涉及的页面在系统管理的权限管理模块使用</p>
               <p>3.系统服务器配置不稳定，速度慢，仅限学习技术使用</p>
             </el-form-item>
@@ -90,7 +67,7 @@ const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
 const loginFormData = reactive({
-  username: "超级管理员",
+  username: "系统管理员",
   password: "123456",
   code: "",
 });
@@ -134,6 +111,7 @@ const handleLogin = async () => {
 
 <style lang="scss">
 .login-container {
+  position: relative;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -154,6 +132,7 @@ const handleLogin = async () => {
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
+
         &.first {
           background-image: url(../../assets/login/wendang.png);
         }
@@ -209,11 +188,13 @@ const handleLogin = async () => {
 
         .tip {
           width: 100%;
+
           h4 {
             font-weight: 600;
             font-size: 18px;
             color: #fff;
           }
+
           p {
             width: 100%;
             color: #fff;
@@ -229,6 +210,22 @@ const handleLogin = async () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .theme-wrapper {
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .switch-name {
+      font-size: 14px;
+      color: #fff;
+      text-align: center;
+    }
   }
 }
 </style>

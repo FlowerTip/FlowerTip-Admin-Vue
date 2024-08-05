@@ -19,10 +19,18 @@
 
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
+import useUserStore from "@/store/modules/userStore";
+
+const userStore = useUserStore();
 
 const router = useRouter();
 
 const backHome = () => {
+  if (userStore.authMenuList.length === 0) {
+    userStore.logout();
+    router.replace("/login");
+    return;
+  }
   router.replace("/");
 };
 </script>

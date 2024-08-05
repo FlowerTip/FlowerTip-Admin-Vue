@@ -22,7 +22,7 @@
           link
           :icon="User"
           @click="batchPermission(slotData.scope.row)"
-          :disabled="slotData.scope.row.username === '超级管理员'"
+          :disabled="slotData.scope.row.username === '系统管理员'"
           >分配角色</el-button
         >
         <el-button
@@ -30,7 +30,7 @@
           link
           :icon="EditPen"
           @click="modifiyInfo(slotData.scope.row)"
-          :disabled="slotData.scope.row.username === '超级管理员'"
+          :disabled="slotData.scope.row.username === '系统管理员'"
           >编辑用户</el-button
         >
         <el-button
@@ -38,7 +38,7 @@
           link
           :icon="Delete"
           @click="deleteRadio(slotData.scope.row)"
-          :disabled="slotData.scope.row.username === '超级管理员'"
+          :disabled="slotData.scope.row.username === '系统管理员'"
           >删除用户</el-button
         >
       </template>
