@@ -400,7 +400,9 @@ const exportTable = () => {
   });
   const list = JSON.stringify(selectRow.value);
   const data = JSON.parse(list);
-  const filterColumn = columns.filter(col => col.prop !== 'operation' && col.label !== '操作');
+  const filterColumn = columns.filter(
+    (col) => col.prop !== "operation" && col.label !== "操作"
+  );
   const config = filterColumn.map((item) => {
     return {
       title: item.label,

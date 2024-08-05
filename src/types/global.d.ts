@@ -41,8 +41,8 @@ declare namespace Response {
  */
 declare namespace GolabalSetting {
   /**
-   * Element Plus 的尺寸大小 
+   * Element Plus 的尺寸大小
    *  'large' | 'default' | 'small'
    */
-  type SizeType = 'large' | 'default' | 'small';
+  type SizeType = "large" | "default" | "small";
 }

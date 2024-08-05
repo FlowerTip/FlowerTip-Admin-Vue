@@ -65,7 +65,7 @@ const useUserStore = defineStore({
       } else {
         this.authMenuList = [];
       }
-      return Promise.resolve(menuList)
+      return Promise.resolve(menuList);
     },
     async logout() {
       this.token = "";

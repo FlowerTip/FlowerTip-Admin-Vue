@@ -36,11 +36,11 @@ router.beforeEach(async (to, _, next) => {
       } else {
         try {
           const res = await userStore.getUserInfo();
-          console.log(res, 'res!@@@@');
+          console.log(res, "res!@@@@");
           if (res.length === 0) {
             next({
-              path: '/403'
-            })
+              path: "/403",
+            });
           } else {
             next({
               ...to,
@@ -56,7 +56,7 @@ router.beforeEach(async (to, _, next) => {
           setTimeout(async () => {
             await userStore.logout();
             next({ path: "/login", query: { redirect: to?.path } });
-          }, 1000)
+          }, 1000);
         }
       }
     }
