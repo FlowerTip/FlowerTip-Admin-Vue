@@ -1,49 +1,62 @@
 <template>
-  <div class="tree-box" ref="treeDiv">
-    <div class="search-wrapper">
-      <el-input
-        v-model="filterText"
-        placeholder="输入关键字进行过滤"
-        class="search-input"
-      />
-      <el-dropdown
-        ref="dropdownRef"
-        trigger="contextmenu"
-        @command="dropCommand"
-      >
-        <span class="el-dropdown-link">
-          <el-icon class="more-btn" @click="openMore">
-            <More />
-          </el-icon>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="unfold">展开全部</el-dropdown-item>
-            <el-dropdown-item command="fold">折叠全部</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+  <div class="dialog-table">
+    <div class="tree-box" ref="treeDiv">
+      <div class="search-wrapper">
+        <el-input
+          v-model="filterText"
+          placeholder="输入关键字进行过滤"
+          class="search-input"
+          :prefix-icon="Search"
+        />
+        <el-dropdown
+          ref="dropdownRef"
+          trigger="contextmenu"
+          @command="dropCommand"
+        >
+          <span class="el-dropdown-link">
+            <el-icon class="more-btn" @click="openMore">
+              <More />
+            </el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="unfold">展开全部</el-dropdown-item>
+              <el-dropdown-item command="fold">折叠全部</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
+      <el-scrollbar :max-height="maxHeight">
+        <el-tree
+          ref="treeRef"
+          node-key="id"
+          :data="data"
+          :props="defaultProps"
+          @node-click="handleNodeClick"
+          :default-expand-all="expandAll"
+          highlight-current
+          :filter-node-method="filterNode"
+          :current-node-key="-1"
+          :expand-on-click-node="false"
+          :show-checkbox="false"
+        />
+      </el-scrollbar>
     </div>
-    <el-scrollbar :max-height="maxHeight">
-      <el-tree
-        ref="treeRef"
-        node-key="id"
-        :data="data"
-        :props="defaultProps"
-        @node-click="handleNodeClick"
-        :default-expand-all="expandAll"
-        highlight-current
-        :filter-node-method="filterNode"
-        :current-node-key="-1"
-        :expand-on-click-node="false"
-      />
-    </el-scrollbar>
+    <div class="right-wrapper">
+      <div class="radio-group">
+        <div class="radio-item active">待提交</div>
+        <div class="radio-item">待审核</div>
+        <div class="radio-item">已驳回</div>
+        <div class="radio-item">已通过</div>
+        <div class="radio-item">已备案</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ElTree, DropdownInstance } from "element-plus";
-import { More } from "@element-plus/icons-vue";
+import { More, Search } from "@element-plus/icons-vue";
 import { ref, watch, onMounted, nextTick } from "vue";
 import { useElementSize } from "@vueuse/core";
 
@@ -159,6 +172,48 @@ const dataSource: Tree[] = [
       },
     ],
   },
+  {
+    id: 15,
+    label: "天津市",
+    children: [
+      {
+        id: 16,
+        label: "滨海新区",
+        children: [
+          {
+            id: 17,
+            label: "惠民街道",
+          },
+          {
+            id: 18,
+            label: "万达儿街道",
+          },
+        ],
+      },
+      {
+        id: 19,
+        label: "回族区",
+        children: [
+          {
+            id: 20,
+            label: "会哇哈街道",
+          },
+          {
+            id: 21,
+            label: "五四广场街道",
+          },
+          {
+            id: 22,
+            label: "大广街道",
+          },
+          {
+            id: 22,
+            label: "二级街道",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 const treeDiv = ref(null);
@@ -185,13 +240,44 @@ watch(filterText, (val) => {
 </script>
 
 <style lang="scss" scoped>
+.dialog-table {
+  height: 100%;
+  display: flex;
+  .right-wrapper {
+    flex: 1;
+    background-color: #fff;
+    margin-left: 10px;
+    .radio-group {
+      display: flex;
+      align-items: center;
+      .radio-item {
+        margin-right: 10px;
+        width: 80px;
+        text-align: center;
+        padding: 6px;
+        border-radius: 40px;
+        background-color: #999;
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+        &:last-child {
+          margin-right: 0;
+        }
+        &.active {
+          background-color: var(--el-color-primary);
+        }
+      }
+    }
+  }
+}
 .tree-box {
   width: 220px;
   background-color: #fff;
-  padding: 20px;
+  padding: 10px 5px;
   height: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 4px;
 
   .search-wrapper {
     display: flex;
