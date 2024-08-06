@@ -2,8 +2,17 @@
   <div class="dialog-table">
     <div class="tree-box" ref="treeDiv">
       <div class="search-wrapper">
-        <el-input v-model="filterText" placeholder="输入关键字进行过滤" class="search-input" :prefix-icon="Search" />
-        <el-dropdown ref="dropdownRef" trigger="contextmenu" @command="dropCommand">
+        <el-input
+          v-model="filterText"
+          placeholder="输入关键字进行过滤"
+          class="search-input"
+          :prefix-icon="Search"
+        />
+        <el-dropdown
+          ref="dropdownRef"
+          trigger="contextmenu"
+          @command="dropCommand"
+        >
           <span class="el-dropdown-link">
             <el-icon class="more-btn" @click="openMore">
               <More />
@@ -18,17 +27,32 @@
         </el-dropdown>
       </div>
       <el-scrollbar :max-height="maxHeight">
-        <el-tree ref="treeRef" node-key="id" :data="data" :props="defaultProps" @node-click="handleNodeClick"
-          :default-expand-all="expandAll" highlight-current :filter-node-method="filterNode" :current-node-key="-1"
-          :expand-on-click-node="false" :show-checkbox="false" />
+        <el-tree
+          ref="treeRef"
+          node-key="id"
+          :data="data"
+          :props="defaultProps"
+          @node-click="handleNodeClick"
+          :default-expand-all="expandAll"
+          highlight-current
+          :filter-node-method="filterNode"
+          :current-node-key="-1"
+          :expand-on-click-node="false"
+          :show-checkbox="false"
+        />
       </el-scrollbar>
     </div>
     <div class="right-wrapper">
       <div class="condition">
         <span class="label">物流状态（单选）：</span>
         <div class="radio-group" @click="radioClick">
-          <div class="radio-item" :class="{ 'active': radio.id === radioIndex }" v-for="radio in radioList"
-            :key="radio.id" :data-id="radio.id">
+          <div
+            class="radio-item"
+            :class="{ active: radio.id === radioIndex }"
+            v-for="radio in radioList"
+            :key="radio.id"
+            :data-id="radio.id"
+          >
             <el-icon v-if="radio.icon" class="radio-icon">
               <component :is="radio.icon"></component>
             </el-icon>
@@ -39,8 +63,13 @@
       <div class="condition">
         <span class="label">上班状态（多选）：</span>
         <div class="checkbox-group" @click="checkboxClick">
-          <div class="radio-item" :class="{ 'active': checkboxIndex.includes(checkbox.id) }"
-            v-for="checkbox in radioList" :key="checkbox.id" :data-id="checkbox.id">
+          <div
+            class="radio-item"
+            :class="{ active: checkboxIndex.includes(checkbox.id) }"
+            v-for="checkbox in radioList"
+            :key="checkbox.id"
+            :data-id="checkbox.id"
+          >
             <el-icon v-if="checkbox.icon" class="radio-icon">
               <component :is="checkbox.icon"></component>
             </el-icon>
@@ -61,29 +90,29 @@ import { useElementSize } from "@vueuse/core";
 const radioList = [
   {
     id: -1,
-    label: '全部'
+    label: "全部",
   },
   {
     id: 1,
-    label: '待提交',
-    icon: Edit
+    label: "待提交",
+    icon: Edit,
   },
   {
     id: 2,
-    label: '待审核',
-    icon: Edit
+    label: "待审核",
+    icon: Edit,
   },
   {
     id: 3,
-    label: '已驳回',
-    icon: Edit
+    label: "已驳回",
+    icon: Edit,
   },
   {
     id: 4,
-    label: '已通过',
-    icon: Edit
+    label: "已通过",
+    icon: Edit,
   },
-]
+];
 
 const radioIndex = ref(-1);
 
@@ -91,9 +120,11 @@ const radioClick = (event: any) => {
   const { id } = event.target.dataset;
   if (!id) return;
   radioIndex.value = id * 1;
-  const radioLabel = radioList.find(radio => radio.id == id)?.label
-  ElMessage.success("点击了id值为：" + radioIndex.value + "；label值为：" + radioLabel);
-}
+  const radioLabel = radioList.find((radio) => radio.id == id)?.label;
+  ElMessage.success(
+    "点击了id值为：" + radioIndex.value + "；label值为：" + radioLabel
+  );
+};
 
 const checkboxIndex = ref<number[]>([-1]);
 const checkboxClick = (event: any) => {
@@ -108,17 +139,16 @@ const checkboxClick = (event: any) => {
     }
   } else {
     if (idNum === -1) {
-      checkboxIndex.value = [idNum]
-      ElMessage.success("点击了ids值为：" + "[" + checkboxIndex.value + "]")
+      checkboxIndex.value = [idNum];
+      ElMessage.success("点击了ids值为：" + "[" + checkboxIndex.value + "]");
       return;
     }
     const currIndex = checkboxIndex.value.findIndex((idVal) => idVal === -1);
     currIndex !== -1 && checkboxIndex.value.splice(currIndex, 1);
-    checkboxIndex.value.push(idNum)
+    checkboxIndex.value.push(idNum);
   }
   ElMessage.success("点击了ids值为：" + "[" + checkboxIndex.value + "]");
-}
-
+};
 
 const dropdownRef = ref<DropdownInstance>();
 const expandAll = ref(true); // 初始时展开所有
@@ -406,7 +436,11 @@ watch(filterText, (val) => {
   }
 }
 
-:deep(.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content) {
+:deep(
+    .el-tree--highlight-current
+      .el-tree-node.is-current
+      > .el-tree-node__content
+  ) {
   background-color: var(--el-color-primary);
   color: #fff;
 }
