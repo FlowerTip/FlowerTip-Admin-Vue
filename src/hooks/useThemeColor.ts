@@ -14,7 +14,7 @@ const useThemeColor = () => {
     classicThemeColors: "经典主题",
     fashionThemeColors: "时尚主题",
     freshThemeColors: "清新主题",
-    coolThemeColors: "酷炫主题",
+    coolThemeColors: "热情主题",
   });
   const currentThemeName = computed(() => {
     return formatThemeName.value[currentTheme.value];
@@ -32,12 +32,12 @@ const useThemeColor = () => {
     ], // 经典配色
     fashionThemeColors: [
       "#3170FF",
-      "#2A63DB",
-      "#2356B8",
-      "#1E4A95",
-      "#4A92FF",
-      "#7AB8FF",
-      "#A9D6FF",
+      "#296DFF",
+      "#4F8DFF",
+      "#75AAFF",
+      "#9CC5FF",
+      "#C2DDFF",
+      "#E8F3FF",
     ], // 时尚配色
     freshThemeColors: [
       "#67C23A",
@@ -49,14 +49,14 @@ const useThemeColor = () => {
       "#f0f9eb",
     ], // 清新配色
     coolThemeColors: [
-      "#fc97af",
-      "#87f7cf",
-      "#f7f494",
-      "#72ccff",
-      "#f7c5a0",
-      "#d4a4eb",
-      "#d2f5a6",
-    ], // 酷炫配色
+      "#BF145B",
+      "#E5206C",
+      "#EA457F",
+      "#EF6B95",
+      "#F593AF",
+      "#FABDCC",
+      "#FFE8ED",
+    ], // 热情配色
   });
   const DEFAULT_THEME = defaultSetting.themeName;
   const DEFAULT_PRIMARY = defaultSetting.color;

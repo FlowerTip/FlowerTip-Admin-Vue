@@ -293,7 +293,7 @@
               :class="{ 'active-bg': currentTheme == 'coolThemeColors' }"
               @click="changeThemeColor('coolThemeColors')"
             >
-              酷炫主题
+              热情主题
             </h4>
             <div class="color-layout">
               <div

@@ -3,7 +3,6 @@ import store from "./store";
 import { ElMessage } from "element-plus";
 import useUserStore from "./store/modules/userStore";
 import { getPageTitle } from "@/utils/tool";
-import { removeToken } from "@/utils/auth";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
@@ -23,7 +22,6 @@ router.beforeEach(async (to, _, next) => {
   NProgress.start();
   document.title = getPageTitle(to);
   const token = userStore.token;
-
   const username = userStore.username;
   // 登录成功
   if (token) {

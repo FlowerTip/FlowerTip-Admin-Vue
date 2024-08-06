@@ -98,7 +98,7 @@ export const asyncRoute = [
         path: "dialog-table",
         component: () => import("@/views/table/dialog-table/index.vue"),
         meta: {
-          title: "弹窗表格",
+          title: "表格筛选",
           icon: "ele-Menu",
         },
       },
