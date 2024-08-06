@@ -33,18 +33,11 @@ router.beforeEach(async (to, _, next) => {
         next();
       } else {
         try {
-          const res = await userStore.getUserInfo();
-          console.log(res, "res!@@@@");
-          if (res.length === 0) {
-            next({
-              path: "/403",
-            });
-          } else {
-            next({
-              ...to,
-              replace: true,
-            });
-          }
+          await userStore.getUserInfo();
+          next({
+            ...to,
+            replace: true,
+          });
           NProgress.done(); // 结束进度条
         } catch (error: any) {
           ElMessage({
