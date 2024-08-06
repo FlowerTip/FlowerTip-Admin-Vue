@@ -1,11 +1,11 @@
 <template>
   <div class="bar-wrapper">
-    <BarChart :chartOption="chartOption" style="width: 100%; height: 100%;"/>
+    <BarChart :chartOption="chartOption" style="width: 100%; height: 100%" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive } from "vue";
 import BarChart from "@/components/Chart/bar.vue";
 
 const chartOption = reactive({

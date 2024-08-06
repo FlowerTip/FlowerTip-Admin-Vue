@@ -12,21 +12,21 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { useThrottleFn, useDebounceFn } from '@vueuse/core';
+import { ref } from "vue";
+import { useThrottleFn, useDebounceFn } from "@vueuse/core";
 
 const throttleCount = ref(0);
 const debounceCount = ref(0);
 
 const throttleFn = useThrottleFn(() => {
-  console.log('@@@@useThrottleFn');
+  console.log("@@@@useThrottleFn");
   throttleCount.value++;
-}, 1000)
+}, 1000);
 
 const debounceFn = useDebounceFn(() => {
-  console.log('@@@@useDebounceFn');
+  console.log("@@@@useDebounceFn");
   debounceCount.value++;
-}, 1000)
+}, 1000);
 </script>
 
 <style lang="scss" scoped>

@@ -3,8 +3,12 @@
     <div class="upload-item">
       <h3>圆形上传</h3>
       <div class="wrapper">
-        <AvatarUpload type="circle" ref="uploadRef1" :disabled="false"
-          v-model:image-url="form.avatarUrl">
+        <AvatarUpload
+          type="circle"
+          ref="uploadRef1"
+          :disabled="false"
+          v-model:image-url="form.avatarUrl"
+        >
           <template #tip>限制为2MB，只能上传PNG，JPG，GIF格式</template>
         </AvatarUpload>
       </div>

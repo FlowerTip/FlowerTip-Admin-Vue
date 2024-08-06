@@ -1,11 +1,11 @@
 <template>
   <div class="pie-wrapper">
-    <PieChart :chartOption="chartOption" style="width: 100%; height: 100%;"/>
+    <PieChart :chartOption="chartOption" style="width: 100%; height: 100%" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive } from "vue";
 import PieChart from "@/components/Chart/pie.vue";
 
 const chartOption = reactive({

@@ -8,21 +8,27 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue';
+import { ref } from "vue";
 import { dayjs } from "element-plus";
 
 const formatStr = "YYYY-MM-DD HH:mm:ss";
 
 const currDateTime = ref(dayjs().format(formatStr));
 
-const currWeekBeginTime = ref(dayjs(dayjs().subtract(6, 'day')).format(formatStr))
-const currWeekEndTime = ref(dayjs().format(formatStr))
+const currWeekBeginTime = ref(
+  dayjs(dayjs().subtract(6, "day")).format(formatStr)
+);
+const currWeekEndTime = ref(dayjs().format(formatStr));
 
-const currMonthBeginTime = ref(dayjs(dayjs().subtract(29, 'day')).format(formatStr))
-const currMonthEndTime = ref(dayjs().format(formatStr))
+const currMonthBeginTime = ref(
+  dayjs(dayjs().subtract(29, "day")).format(formatStr)
+);
+const currMonthEndTime = ref(dayjs().format(formatStr));
 
-const currYearBeginTime = ref(dayjs(dayjs().subtract(364, 'day')).format(formatStr))
-const currYearEndTime = ref(dayjs().format(formatStr))
+const currYearBeginTime = ref(
+  dayjs(dayjs().subtract(364, "day")).format(formatStr)
+);
+const currYearEndTime = ref(dayjs().format(formatStr));
 </script>
 
 <style lang="scss" scoped>

@@ -14,8 +14,8 @@ import defaultSetting from "@/setting";
 
 const size = ref<GolabalSetting.SizeType>("default");
 const btnConfig = ref({
-  autoInsertSpace: false
-})
+  autoInsertSpace: false,
+});
 
 onMounted(() => {
   const { toggleThemeColor } = useThemeColor();
