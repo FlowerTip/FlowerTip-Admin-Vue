@@ -218,7 +218,7 @@ export const asyncRoute = [
         path: "dayjs-tool",
         component: () => import("@/views/tool/dayjs/index.vue"),
         meta: {
-          title: "日期操作",
+          title: "时间操作",
           icon: "ele-Menu",
         },
       },
@@ -227,7 +227,7 @@ export const asyncRoute = [
         path: "throttle-tool",
         component: () => import("@/views/tool/throttle/index.vue"),
         meta: {
-          title: "事件节流",
+          title: "防抖节流",
           icon: "ele-Menu",
         },
       },
@@ -242,10 +242,10 @@ export const asyncRoute = [
       hidden: false,
     },
     component: () => import("@/layout/index.vue"),
-    redirect: "https://flowertip.github.io/vitepress-blog/",
+    redirect: "https://juejin.cn/column/7388686221892976703",
     children: [
       {
-        path: "https://flowertip.github.io/vitepress-blog/",
+        path: "https://juejin.cn/column/7388686221892976703",
         name: "vitepress-blog",
         meta: { title: "在线文档", icon: "ele-Menu", hidden: false },
       },

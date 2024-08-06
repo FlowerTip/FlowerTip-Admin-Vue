@@ -1,5 +1,5 @@
 <template>
-  <ElConfigProvider :size="size">
+  <ElConfigProvider :size="size" :button="btnConfig">
     <div class="app-container">
       <router-view></router-view>
     </div>
@@ -13,6 +13,9 @@ import useThemeColor from "@/hooks/useThemeColor";
 import defaultSetting from "@/setting";
 
 const size = ref<GolabalSetting.SizeType>("default");
+const btnConfig = ref({
+  autoInsertSpace: false
+})
 
 onMounted(() => {
   const { toggleThemeColor } = useThemeColor();
