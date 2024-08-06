@@ -1,12 +1,36 @@
 <template>
-  <el-dialog v-model="dialogVisible" :title="title" destroy-on-close :fullscreen="false">
-    <div class="preview-wrapper" v-loading="loading" element-loading-text="正在加载文档">
-      <vue-office-docx v-if="dialogProps.type === 'docx'" :src="dialogProps.url" style="width: 100%; height: 100%;"
-        @rendered="renderedHandler" @error="errorHandler" />
-      <vue-office-pdf v-else-if="dialogProps.type === 'pdf'" :src="dialogProps.url" style="width: 100%; height: 100%;"
-        @rendered="renderedHandler" @error="errorHandler" />
-      <vue-office-excel v-else-if="dialogProps.type === 'excel'" :src="dialogProps.url"
-        style="width: 100%; height: 100%;" @rendered="renderedHandler" @error="errorHandler" />
+  <el-dialog
+    v-model="dialogVisible"
+    :title="title"
+    destroy-on-close
+    :fullscreen="false"
+  >
+    <div
+      class="preview-wrapper"
+      v-loading="loading"
+      element-loading-text="正在加载文档"
+    >
+      <vue-office-docx
+        v-if="dialogProps.type === 'docx'"
+        :src="dialogProps.url"
+        style="width: 100%; height: 100%"
+        @rendered="renderedHandler"
+        @error="errorHandler"
+      />
+      <vue-office-pdf
+        v-else-if="dialogProps.type === 'pdf'"
+        :src="dialogProps.url"
+        style="width: 100%; height: 100%"
+        @rendered="renderedHandler"
+        @error="errorHandler"
+      />
+      <vue-office-excel
+        v-else-if="dialogProps.type === 'excel'"
+        :src="dialogProps.url"
+        style="width: 100%; height: 100%"
+        @rendered="renderedHandler"
+        @error="errorHandler"
+      />
     </div>
   </el-dialog>
 </template>
@@ -15,15 +39,15 @@
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 //引入VueOfficeDocx组件
-import VueOfficeDocx from '@vue-office/docx';
+import VueOfficeDocx from "@vue-office/docx";
 //引入VueOfficeExcel组件
-import VueOfficeExcel from '@vue-office/excel';
+import VueOfficeExcel from "@vue-office/excel";
 //引入VueOfficePdf组件
-import VueOfficePdf from '@vue-office/pdf';
+import VueOfficePdf from "@vue-office/pdf";
 //引入相关样式
-import '@vue-office/docx/lib/index.css'
+import "@vue-office/docx/lib/index.css";
 //引入相关样式
-import '@vue-office/excel/lib/index.css'
+import "@vue-office/excel/lib/index.css";
 
 // 弹窗是否显示状态
 const dialogVisible = ref(false);
@@ -34,13 +58,12 @@ const loading = ref<boolean>(false);
 
 const renderedHandler = () => {
   loading.value = false;
-}
+};
 
 const errorHandler = () => {
   loading.value = false;
   ElMessage.warning({ message: "文档加载失败" });
-}
-
+};
 
 // props定义
 const dialogProps = ref<any>();

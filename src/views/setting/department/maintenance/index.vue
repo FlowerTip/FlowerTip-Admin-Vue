@@ -8,35 +8,34 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import PreviewDialog from '@/components/Preview/index.vue';
-
+import { ref } from "vue";
+import PreviewDialog from "@/components/Preview/index.vue";
 
 const PreviewDialogRef = ref();
 
 const previewDoc = () => {
   const params = {
-    url: 'http://static.shanhuxueyuan.com/test.docx',
-    type: 'docx'
-  }
-  PreviewDialogRef.value.acceptParams(params)
-}
+    url: "http://static.shanhuxueyuan.com/test.docx",
+    type: "docx",
+  };
+  PreviewDialogRef.value.acceptParams(params);
+};
 
 const previewPdf = () => {
   const params = {
-    url: 'http://static.shanhuxueyuan.com/test.pdf',
-    type: 'pdf'
-  }
-  PreviewDialogRef.value.acceptParams(params)
-}
+    url: "http://static.shanhuxueyuan.com/test.pdf",
+    type: "pdf",
+  };
+  PreviewDialogRef.value.acceptParams(params);
+};
 
 const previewExcel = () => {
   const params = {
-    url: 'http://static.shanhuxueyuan.com/test.xlsx',
-    type: 'excel'
-  }
-  PreviewDialogRef.value.acceptParams(params)
-}
+    url: "http://static.shanhuxueyuan.com/test.xlsx",
+    type: "excel",
+  };
+  PreviewDialogRef.value.acceptParams(params);
+};
 </script>
 
 <style lang="scss" scoped>
