@@ -38,7 +38,7 @@ export const reqLogin = (data: LoginRequestParams) =>
 export const reqUserInfo = () =>
   Promise.resolve(instance.get<any, Response.UserInfoRes>(API.USERINFO_URL));
 
-export const reqLogout = (status: boolean) =>
+export const reqLogout = (status: GolabalSetting.LogoutParams) =>
   Promise.resolve(instance.post(API.LOGOUT_URL, { status }));
 
 export const reqPermissionMenus = (username: string) =>
@@ -50,7 +50,7 @@ export const reqTableList = (data: PagainationType) =>
 export const reqSaveTable = (data: Login.SaveStudent) =>
   Promise.resolve(instance.post(API.ADD_ROLE_INFO, data));
 
-export const reqDelTable = (data: any) =>
+export const reqDelTable = (data: GolabalSetting.DelStudentParams) =>
   Promise.resolve(instance.post(API.DEL_ROLE_INFO, data));
 
 export const reqUploadAvatar = (data: any) =>
