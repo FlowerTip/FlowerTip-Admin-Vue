@@ -37,11 +37,11 @@ declare namespace Response {
   interface UserInfoRes extends ResponseData {
     data: {
       checkUser: {
-        username: string
-      },
-      list: string[],
-      buttons: string[]
-    }
+        username: string;
+      };
+      list: string[];
+      buttons: string[];
+    };
   }
 }
 

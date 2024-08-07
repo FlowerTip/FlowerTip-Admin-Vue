@@ -16,7 +16,7 @@ NProgress.configure({
 });
 
 // 路由白名单
-const whiteRouteList = ['/403', '/404', '/500'];
+const whiteRouteList = ["/403", "/404", "/500"];
 const userStore = useUserStore(store);
 
 // 全局前置守卫
@@ -42,7 +42,7 @@ router.beforeEach(async (to, _, next) => {
           });
           NProgress.done(); // 结束进度条
         } catch (error: any) {
-          console.log(error, 'erer');
+          console.log(error, "erer");
           ElMessage({
             type: "error",
             message: "登录失败，页面自动刷新尝试重新登录",

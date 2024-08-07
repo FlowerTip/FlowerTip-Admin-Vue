@@ -1,5 +1,5 @@
 import axios from "axios";
-import router from '@/router'
+import router from "@/router";
 import { ElMessage } from "element-plus";
 import useUserStore from "@/store/modules/userStore";
 
@@ -24,7 +24,7 @@ instance.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log(error, '@@@error');
+    console.log(error, "@@@error");
     //处理网络错误
     let msgText = "";
     let statusCode = error.response.statusCode;
@@ -32,19 +32,19 @@ instance.interceptors.response.use(
     switch (statusCode) {
       case 401:
         msgText = "token过期";
-        router.replace('/login')
+        router.replace("/login");
         break;
       case 403:
         msgText = "无权访问";
-        router.replace('/403')
+        router.replace("/403");
         break;
       case 404:
         msgText = "请求地址错误";
-        router.replace('/404')
+        router.replace("/404");
         break;
       case 500:
         msgText = "服务器出现问题";
-        router.replace('/500')
+        router.replace("/500");
         break;
       default:
         msgText = "无网络";
