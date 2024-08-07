@@ -6,6 +6,7 @@ import { StatePermission } from "@/types";
 import router from "@/router";
 import { RouteRecordRaw } from "vue-router";
 import { anyRoute, staticRoutes, asyncRoute } from "@/router/modules/routes";
+import { ElMessage } from "element-plus";
 
 const useUserStore = defineStore({
   id: "user",
@@ -40,42 +41,43 @@ const useUserStore = defineStore({
       return Promise.resolve(result.data);
     },
     async getUserInfo() {
-      const result = await reqUserInfo();
-      this.username = result.data.checkUser.username;
-      const menuList = filterAsyncRoutes(
-        asyncRoute as unknown as RouteRecordRaw[],
-        result.data.list.map((item: any) => item.code)
-      );
-      this.backMenuList = menuList;
-      this.permissionButtonList = result.data.buttons;
-      if (menuList.length > 0) {
-        //左侧菜单需要数组
-        this.authMenuList = [...menuList, anyRoute] as any;
-        //当前的路由器仅仅注册常量路由,路由器还需要注册任意路由、过滤完的异步路由----router.addRoute
-        router.addRoute({
-          path: "/",
-          meta: {
-            hidden: true,
-          },
-          redirect: this.authMenuList[0].path,
-        });
-        this.authMenuList.forEach((item) => {
-          router.addRoute(item as unknown as RouteRecordRaw);
-        });
-      } else {
-        this.authMenuList = [];
+      const { code, data } = await reqUserInfo();
+      if (code === 200) {
+        this.username = data.checkUser.username;
+        if (data.list.length > 0) {
+          const menuList = filterAsyncRoutes(
+            asyncRoute as unknown as RouteRecordRaw[],
+            data.list.map((item: any) => item.code)
+          );
+          this.backMenuList = menuList;
+          this.permissionButtonList = data.buttons;
+          //左侧菜单需要数组
+          this.authMenuList = [...menuList, anyRoute] as any;
+          //当前的路由器仅仅注册常量路由,路由器还需要注册任意路由、过滤完的异步路由----router.addRoute
+          router.addRoute({
+            path: "/",
+            meta: {
+              hidden: true,
+            },
+            redirect: this.authMenuList[0].path,
+          });
+          this.authMenuList.forEach((item) => {
+            router.addRoute(item as unknown as RouteRecordRaw);
+          });
+        } else {
+          ElMessage.error("无权限访问任何页面，请联系管理员处理");
+          this.logout(false);
+        }
       }
-      return Promise.resolve(menuList);
+      return Promise.resolve(data.list);
     },
-    async logout() {
-      this.token = "";
-      this.username = "";
-      this.authMenuList = [];
-      this.sidebarMenuList = [];
-      this.permissionButtonList = [];
-      await reqLogout(true);
+    async logout(isRefresh = true) {
       removeToken();
-      window.location.reload();
+      this.$reset()
+      if (isRefresh) {
+        await reqLogout(true);
+        window.location.reload();
+      }
     },
     updateLeftMenus(data: RouteRecordRaw[]) {
       this.sidebarMenuList = data;

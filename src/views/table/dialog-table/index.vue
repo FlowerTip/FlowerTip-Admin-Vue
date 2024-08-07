@@ -44,7 +44,7 @@
     </div>
     <div class="right-wrapper">
       <div class="condition">
-        <span class="label">物流状态（单选）：</span>
+        <span class="label">账单状态（单选）：</span>
         <div class="radio-group" @click="radioClick">
           <div
             class="radio-item"
@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="condition">
-        <span class="label">上班状态（多选）：</span>
+        <span class="label">报销状态（多选）：</span>
         <div class="checkbox-group" @click="checkboxClick">
           <div
             class="radio-item"

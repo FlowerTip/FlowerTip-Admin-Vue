@@ -4,6 +4,7 @@
     :title="title"
     destroy-on-close
     :fullscreen="false"
+    width="65%"
   >
     <div
       class="preview-wrapper"

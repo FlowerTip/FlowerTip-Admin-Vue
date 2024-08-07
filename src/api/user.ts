@@ -36,7 +36,7 @@ export const reqLogin = (data: LoginRequestParams) =>
   Promise.resolve(instance.post<any, Response.LoginRes>(API.LOGIN_URL, data));
 
 export const reqUserInfo = () =>
-  Promise.resolve(instance.get(API.USERINFO_URL));
+  Promise.resolve(instance.get<any, Response.UserInfoRes>(API.USERINFO_URL));
 
 export const reqLogout = (status: boolean) =>
   Promise.resolve(instance.post(API.LOGOUT_URL, { status }));

@@ -24,7 +24,7 @@ declare namespace Login {
 interface ResponseData {
   code: number;
   data: {
-    list?: any[];
+    list?: unknown[];
     message: string;
   };
 }
@@ -33,6 +33,15 @@ declare namespace Response {
     data: {
       token: string;
     };
+  }
+  interface UserInfoRes extends ResponseData {
+    data: {
+      checkUser: {
+        username: string
+      },
+      list: string[],
+      buttons: string[]
+    }
   }
 }
 

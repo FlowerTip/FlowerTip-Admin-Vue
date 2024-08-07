@@ -231,6 +231,15 @@ export const asyncRoute = [
           icon: "ele-Menu",
         },
       },
+      {
+        name: "preview-file",
+        path: "preview-file",
+        component: () => import("@/views/tool/preview/index.vue"),
+        meta: {
+          title: "文档预览",
+          icon: "ele-Menu",
+        },
+      },
     ],
   },
   {

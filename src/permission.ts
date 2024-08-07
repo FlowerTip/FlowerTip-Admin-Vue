@@ -15,6 +15,8 @@ NProgress.configure({
   minimum: 0.3, // 初始化时的最小百分比
 });
 
+// 路由白名单
+const whiteRouteList = ['/403', '/404', '/500'];
 const userStore = useUserStore(store);
 
 // 全局前置守卫
@@ -40,12 +42,13 @@ router.beforeEach(async (to, _, next) => {
           });
           NProgress.done(); // 结束进度条
         } catch (error: any) {
+          console.log(error, 'erer');
           ElMessage({
             type: "error",
             message: "登录失败，页面自动刷新尝试重新登录",
           });
           setTimeout(async () => {
-            await userStore.logout();
+            await userStore.logout(false);
             next({ path: "/login", query: { redirect: to?.path } });
           }, 1000);
         }
@@ -56,6 +59,9 @@ router.beforeEach(async (to, _, next) => {
     if (to.path === "/login") {
       next();
     } else {
+      if (whiteRouteList.includes(to.path)) {
+        return next();
+      }
       next({ path: "/login", query: { redirect: to?.path } });
     }
   }

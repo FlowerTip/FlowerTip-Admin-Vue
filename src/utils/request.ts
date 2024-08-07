@@ -1,11 +1,12 @@
 import axios from "axios";
+import router from '@/router'
 import { ElMessage } from "element-plus";
 import useUserStore from "@/store/modules/userStore";
 
 // 创建axios实例
 const instance = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
-  timeout: 50000,
+  timeout: 5000,
 });
 
 // 请求拦截器
@@ -23,22 +24,27 @@ instance.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    console.log(error, '@@@error');
     //处理网络错误
     let msgText = "";
-    let statusCode = error.response.status;
+    let statusCode = error.response.statusCode;
 
     switch (statusCode) {
       case 401:
         msgText = "token过期";
+        router.replace('/login')
         break;
       case 403:
         msgText = "无权访问";
+        router.replace('/403')
         break;
       case 404:
         msgText = "请求地址错误";
+        router.replace('/404')
         break;
       case 500:
         msgText = "服务器出现问题";
+        router.replace('/500')
         break;
       default:
         msgText = "无网络";
