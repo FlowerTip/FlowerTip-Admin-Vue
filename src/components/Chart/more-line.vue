@@ -10,7 +10,7 @@ const settingStore = useSettingStore();
 const props = defineProps({
   chartOption: {
     type: Object,
-    default: () => {},
+    default: () => ({}),
   },
 });
 const icon = props.chartOption.icon;

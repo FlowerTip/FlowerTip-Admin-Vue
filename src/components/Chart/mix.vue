@@ -9,7 +9,7 @@ import { ref, onMounted, onBeforeMount } from "vue";
 const props = defineProps({
   chartOption: {
     type: Object,
-    default: () => {},
+    default: () => ({}),
   },
 });
 

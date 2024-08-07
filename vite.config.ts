@@ -14,7 +14,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
   console.log(command);
 
   // 获取各种环境下对应的变量
-  let env = loadEnv(mode, process.cwd());
+  const env = loadEnv(mode, process.cwd());
   return {
     base: "./",
     plugins: [

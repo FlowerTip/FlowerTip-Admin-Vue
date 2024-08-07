@@ -27,7 +27,7 @@ instance.interceptors.response.use(
     console.log(error, "@@@error");
     //处理网络错误
     let msgText = "";
-    let statusCode = error.response.statusCode;
+    const statusCode = error.response.statusCode;
 
     switch (statusCode) {
       case 401:

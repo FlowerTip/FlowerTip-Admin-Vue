@@ -14,7 +14,9 @@ import { ref, onMounted } from "vue";
 import useThemeColor from "@/hooks/useThemeColor";
 import defaultSetting from "@/setting";
 
-const size = ref<GolabalSetting.SizeType>("default");
+type SizeType = "large" | "default" | "small";
+
+const size = ref<SizeType>("default");
 const btnConfig = ref({
   autoInsertSpace: false,
 });

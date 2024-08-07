@@ -15,7 +15,7 @@ const useTagsViewStore = defineStore({
       }
     },
     // Remove Tabs
-    async removeTab(tabPath: string, isCurrent: boolean = true) {
+    async removeTab(tabPath: string, isCurrent = true) {
       if (this.tabsMenuList.length === 1) return;
       if (isCurrent) {
         this.tabsMenuList.forEach((item, index) => {

@@ -11,7 +11,7 @@ import useSettingStore from "@/store/modules/settingStore";
 const props = defineProps({
   chartOption: {
     type: Object,
-    default: () => {},
+    default: () => ({}),
   },
 });
 

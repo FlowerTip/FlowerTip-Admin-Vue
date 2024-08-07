@@ -1,3 +1,4 @@
+/* eslint-disable prefer-rest-params */
 import { RouteRecordRaw } from "vue-router";
 import defaultSetting from "@/setting";
 import { dayjs } from "element-plus";
@@ -16,12 +17,12 @@ export const getUrlWithParams = (): string => {
 };
 
 export function normalizeStringPosix(path: string, allowAboveRoot: boolean) {
-  var res = "";
-  var lastSegmentLength = 0;
-  var lastSlash = -1;
-  var dots = 0;
-  var code;
-  for (var i = 0; i <= path.length; ++i) {
+  let res = "";
+  let lastSegmentLength = 0;
+  let lastSlash = -1;
+  let dots = 0;
+  let code;
+  for (let i = 0; i <= path.length; ++i) {
     if (i < path.length) code = path.charCodeAt(i);
     else if (code === 47 /*/*/) break;
     else code = 47 /*/*/;
@@ -36,7 +37,7 @@ export function normalizeStringPosix(path: string, allowAboveRoot: boolean) {
           res.charCodeAt(res.length - 2) !== 46 /*.*/
         ) {
           if (res.length > 2) {
-            var lastSlashIndex = res.lastIndexOf("/");
+            const lastSlashIndex = res.lastIndexOf("/");
             if (lastSlashIndex !== res.length - 1) {
               if (lastSlashIndex === -1) {
                 res = "";
@@ -82,16 +83,16 @@ export function normalizeStringPosix(path: string, allowAboveRoot: boolean) {
  * link 代码来源 path-browserify@1.0.1 包
  * @returns
  */
-export function resolve(...args: any) {
+export function resolve(...args: IArguments[]) {
   console.log(args);
 
-  var resolvedPath = "";
-  var resolvedAbsolute = false;
-  var cwd;
+  let resolvedPath = "";
+  let resolvedAbsolute = false;
+  let cwd;
 
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path;
-    if (i >= 0) path = arguments[i];
+  for (let i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    let path = "";
+    if (i >= 0) path = arguments[i] as unknown as string;
     else {
       if (cwd === undefined)
         // cwd = process.cwd();
@@ -166,7 +167,7 @@ export function flatChildren(data: any): any {
 export function generateUUID(): string {
   let uuid = "";
   for (let i = 0; i < 32; i++) {
-    let random = (Math.random() * 16) | 0;
+    const random = (Math.random() * 16) | 0;
     if (i === 8 || i === 12 || i === 16 || i === 20) uuid += "-";
     uuid += (i === 12 ? 4 : i === 16 ? (random & 3) | 8 : random).toString(16);
   }

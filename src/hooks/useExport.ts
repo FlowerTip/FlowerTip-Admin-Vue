@@ -4,7 +4,7 @@ import { ElMapExportTable } from "table-excel";
 const exportTale = (
   column: any,
   data: any,
-  name: string = "导出数据",
+  name = "导出数据",
   progressCallBack: (progress: number) => void
 ) => {
   const currDateTime = dayjs().format("YYYY年MM月DD日HH点mm分ss秒");
