@@ -3,7 +3,6 @@ import { createApp } from "vue";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/display.css";
-// @ts-expect-error 忽略检测ts类型
 import zhCn from "element-plus/dist/locale/zh-cn.mjs";
 import "virtual:svg-icons-register";
 

@@ -170,7 +170,7 @@ const contentRightBarClassName = computed(() => {
       width: 100%;
       height: calc(100% - $base-footer-bar-height);
       margin-left: 0;
-      transition: margin-left 0.25s ease;
+      transition: margin-left 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       .nav-bar {
         width: 100%;
         background-color: #fff;

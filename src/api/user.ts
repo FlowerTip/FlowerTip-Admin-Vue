@@ -47,7 +47,7 @@ export const reqPermissionMenus = (username: string) =>
 export const reqTableList = (data: PagainationType) =>
   Promise.resolve(instance.post(API.ROLE_LIST, data));
 
-export const reqSaveTable = (data: any) =>
+export const reqSaveTable = (data: Login.SaveStudent) =>
   Promise.resolve(instance.post(API.ADD_ROLE_INFO, data));
 
 export const reqDelTable = (data: any) =>

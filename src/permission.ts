@@ -3,7 +3,6 @@ import store from "./store";
 import { ElMessage } from "element-plus";
 import useUserStore from "./store/modules/userStore";
 import { getPageTitle } from "@/utils/tool";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
@@ -41,7 +40,7 @@ router.beforeEach(async (to, _, next) => {
             replace: true,
           });
           NProgress.done(); // 结束进度条
-        } catch (error: any) {
+        } catch (error) {
           console.log(error, "erer");
           ElMessage({
             type: "error",

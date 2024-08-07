@@ -42,7 +42,7 @@ export interface MetaProps {
 }
 
 export interface StatePermission {
-  token: any;
+  token: string;
   username: string;
   permissionButtonList: string[];
   backMenuList: RouteRecordRaw[];

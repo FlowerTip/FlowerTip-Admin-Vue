@@ -165,7 +165,7 @@ const contentRightBarClassName = computed(() => {
       width: calc(100% - $base-sidebar-menu-width);
       height: calc(100% - $base-footer-bar-height);
       margin-left: $base-sidebar-menu-width;
-      transition: margin-left 0.25s ease;
+      transition: margin-left 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       .nav-bar {
         width: calc(100% - $base-sidebar-menu-width);
         background-color: #fff;

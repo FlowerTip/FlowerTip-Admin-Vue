@@ -1,7 +1,11 @@
-import { App } from "vue";
+import { App, Directive } from "vue";
 import permission from "./modules/permission.ts";
 
-const directivesList: any = {
+type DirectiveConfig = {
+  [key: string]: Directive
+}
+
+const directivesList: DirectiveConfig = {
   permission,
 };
 const directives = {

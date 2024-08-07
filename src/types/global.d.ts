@@ -19,12 +19,26 @@ declare namespace Login {
     username: string;
     password: string;
   }
+
+  interface SaveStudent {
+    username: string;
+    age: number;
+    address: string;
+    sex: number;
+    big: number;
+    color: string;
+    hobby: string;
+    school: string;
+    time: Date;
+    avatarUrl: string;
+  }
+
 }
 
 interface ResponseData {
   code: number;
   data: {
-    list?: unknown[];
+    list?: any[];
     message: string;
   };
 }
