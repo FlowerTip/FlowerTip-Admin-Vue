@@ -32,7 +32,6 @@ declare namespace Login {
     time: Date;
     avatarUrl: string;
   }
-
 }
 
 interface ResponseData {

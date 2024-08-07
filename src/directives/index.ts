@@ -2,8 +2,8 @@ import { App, Directive } from "vue";
 import permission from "./modules/permission.ts";
 
 type DirectiveConfig = {
-  [key: string]: Directive
-}
+  [key: string]: Directive;
+};
 
 const directivesList: DirectiveConfig = {
   permission,
