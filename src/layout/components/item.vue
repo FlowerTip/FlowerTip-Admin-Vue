@@ -1,7 +1,5 @@
-<template #title>
-  <svg-icon v-if="icon" :name="icon" />
-  <span v-if="title">{{ title }}</span>
-</template>
+<svg-icon v-if="icon" :name="icon" />
+<template #title>{{ title }}</template>
 
 <script lang="ts">
 export default {

@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="simplebar-layout">
     <div class="mixbar-header" :class="[hasShowHeaderBar ? 'hide-header' : '']">
       <!-- 左侧logo -->
       <Logo v-if="settingStore.showHeaderLogo" />
@@ -11,12 +11,8 @@
       <div class="content-rightbar" :class="contentRightBarClassName">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb
-            v-if="!hasHideBreadcrumb"
-            :isCollapse="isCollapse"
-            :toggleCollapse="toggleCollapse"
-            :showHeaderBar="settingStore.showHeaderBar"
-          />
+          <Breadcrumb v-if="!hasHideBreadcrumb" :isCollapse="isCollapse" :toggleCollapse="toggleCollapse"
+            :showHeaderBar="false" />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>
@@ -71,7 +67,7 @@ const hasShowFooterBar = computed(() => {
 });
 
 const hasShowHeaderBar = computed(() => {
-  return !settingStore.showHeaderBar;
+  return settingStore.layout === 'simplebar' || !settingStore.showHeaderBar;
 });
 
 const classObjName = computed({
@@ -98,17 +94,13 @@ const contentRightBarClassName = computed(() => {
 </script>
 
 <style lang="scss">
-.layout {
+.simplebar-layout {
   width: 100%;
   height: 100%;
 
   /* 顶部区域 */
   .mixbar-header {
     width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 999;
     color: #fff;
     height: $base-top-menu-height;
     background-color: $base-top-menu-background;
@@ -117,6 +109,7 @@ const contentRightBarClassName = computed(() => {
     text-align: center;
     line-height: $base-top-menu-height;
     padding: 0 10px;
+
     &.hide-header {
       display: none;
     }
@@ -124,25 +117,22 @@ const contentRightBarClassName = computed(() => {
 
   /* 底部区域 */
   .mixbar-content {
+    width: 100%;
     height: 100%;
-    padding-top: $base-top-menu-height + $base-breadcrumb-height +
-      $base-tagsView-height;
-
+    display: flex;
+    overflow: hidden;
     /* 侧边栏菜单 */
     .content-aside {
       width: $base-sidebar-menu-width;
-      position: fixed;
-      left: 0;
-      top: $base-top-menu-height;
       background-color: $base-sidebar-menu-background;
-      height: calc(100% - $base-top-menu-height);
-
+      transition: width 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       .sidebar-menu {
+        width: 100%;
         border-right: 0px;
 
         .el-sub-menu {
           &.is-active {
-            > .el-sub-menu__title {
+            >.el-sub-menu__title {
               color: #fff;
             }
 
@@ -159,7 +149,6 @@ const contentRightBarClassName = computed(() => {
         }
 
         .el-sub-menu__title {
-          // height: $menu-item-height;
           font-size: 15px;
           border-bottom: 1px solid $menu-item-border-color;
         }
@@ -178,32 +167,21 @@ const contentRightBarClassName = computed(() => {
 
     /* 右侧视图区域 */
     .content-rightbar {
-      width: calc(100% - $base-sidebar-menu-width);
-      height: calc(100% - $base-footer-bar-height);
-      margin-left: $base-sidebar-menu-width;
-      transition: margin-left 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       .nav-bar {
-        width: calc(100% - $base-sidebar-menu-width);
         background-color: #fff;
-        position: fixed;
-        left: $base-sidebar-menu-width;
-        top: $base-top-menu-height;
-        z-index: 999;
       }
 
       .view-layout {
         box-sizing: border-box;
-        height: 100%;
         padding: 6px;
+        flex: 1;
+        overflow-y: auto;
       }
 
       .content-rightbar-footer {
-        width: calc(100% - $base-sidebar-menu-width);
-        position: fixed;
-        left: 186px;
-        bottom: 0;
-        z-index: 999;
         background-color: #fff;
         font-size: 14px;
         color: #555;
@@ -212,112 +190,37 @@ const contentRightBarClassName = computed(() => {
         text-align: center;
         border-top: 1px solid #e4e7ed;
       }
-
-      /* 隐藏底部高度设置为100% */
-      &.no-padding-bottom {
-        height: 100%;
-      }
     }
 
     /* 收缩菜单状态下 */
     &.collapse-menu {
       .content-aside {
-        width: 0;
+        width: $base-collapse-sidebar-menu-width;
         border-right: 0;
-      }
-
-      .content-rightbar {
-        width: 100%;
-        margin-left: 0;
-
-        .nav-bar {
+        .sidebar-menu {
           width: 100%;
-          left: 0;
-        }
+          .el-menu-item {
+            padding: 0;
 
-        .content-rightbar-footer {
-          width: 100%;
-          left: 0;
-        }
-      }
-    }
-
-    /* 面包屑隐藏状态下 */
-    &.hide-breadcrumb {
-      padding-top: $base-top-menu-height + $base-tagsView-height;
-
-      &.hide-tagsView {
-        padding-top: $base-top-menu-height;
-      }
-    }
-
-    /* 标签栏隐藏状态下 */
-    &.hide-tagsView {
-      padding-top: $base-top-menu-height + $base-breadcrumb-height;
-
-      &.hide-breadcrumb {
-        padding-top: $base-top-menu-height;
-      }
-    }
-
-    /* 顶部隐藏状态下 */
-    &.hide-header {
-      padding-top: $base-breadcrumb-height + $base-tagsView-height;
-
-      &.hide-breadcrumb {
-        padding-top: $base-tagsView-height;
-
-        &.hide-tagsView {
-          padding-top: 0;
-        }
-      }
-
-      &.hide-tagsView {
-        padding-top: $base-breadcrumb-height;
-
-        &.hide-breadcrumb {
-          padding-top: 0;
-        }
-      }
-
-      &.collapse-menu {
-        .content-aside {
-          width: 0;
-          border-right: 0;
-        }
-
-        .content-rightbar {
-          width: 100%;
-          margin-left: 0;
-
-          .nav-bar {
-            width: 100%;
-            left: 0;
+            .el-menu-tooltip__trigger {
+              padding: 0;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
           }
-
-          .content-rightbar-footer {
-            width: 100%;
-            left: 0;
+          .el-sub-menu {
+            .el-sub-menu__title {
+              padding: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
           }
         }
       }
 
-      .content-aside {
-        width: $base-sidebar-menu-width;
-        height: 100%;
-        top: 0px;
-      }
-
-      .content-rightbar {
-        width: calc(100% - $base-sidebar-menu-width);
-        margin-left: $base-sidebar-menu-width;
-
-        .nav-bar {
-          width: calc(100% - $base-sidebar-menu-width);
-          left: $base-sidebar-menu-width;
-          top: 0;
-        }
-      }
     }
   }
 }

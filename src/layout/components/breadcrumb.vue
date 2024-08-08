@@ -71,7 +71,7 @@ const toggleCollapse = () => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .breadcrumb {
   display: flex;
   align-items: center;
@@ -96,7 +96,7 @@ const toggleCollapse = () => {
   }
 }
 
-.right-wrapper {
+:deep(.right-wrapper) {
   .user-info {
     .el-dropdown-link {
       color: var(--el-text-color-regular) !important;
@@ -111,10 +111,6 @@ const toggleCollapse = () => {
 
   .screen-box {
     color: var(--el-text-color-regular) !important;
-
-    svg {
-      color: var(--el-text-color-regular) !important;
-    }
   }
 
   .message-box {

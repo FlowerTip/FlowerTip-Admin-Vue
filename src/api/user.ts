@@ -38,7 +38,7 @@ export const reqLogin = (data: LoginRequestParams) =>
 export const reqUserInfo = () =>
   Promise.resolve(instance.get<any, Response.UserInfoRes>(API.USERINFO_URL));
 
-export const reqLogout = (status: GolabalSetting.LogoutParams) =>
+export const reqLogout = (status: boolean) =>
   Promise.resolve(instance.post(API.LOGOUT_URL, { status }));
 
 export const reqPermissionMenus = (username: string) =>

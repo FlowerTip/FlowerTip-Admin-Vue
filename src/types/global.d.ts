@@ -62,9 +62,6 @@ declare namespace Response {
  * 全局设置的类型声明
  */
 declare namespace GolabalSetting {
-  interface LogoutParams {
-    status: boolean;
-  }
   interface DelStudentParams {
     ids: number[];
   }

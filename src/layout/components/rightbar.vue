@@ -7,33 +7,18 @@
     </div>
     <!-- 消息通知 -->
     <div class="message-box">
-      <el-popover
-        :width="300"
-        trigger="click"
-        popper-class="popover-box"
-        popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px;"
-      >
+      <el-popover :width="300" trigger="click" popper-class="popover-box"
+        popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px;">
         <template #reference>
           <el-icon class="msg-icon">
-            <el-badge
-              :value="200"
-              :max="99"
-              is-dot
-              :offset="[-5, 0]"
-              class="item"
-              :color="settingStore.color"
-            >
+            <el-badge :value="200" :max="99" is-dot :offset="[-5, 0]" class="item" :color="settingStore.color">
               <Bell />
             </el-badge>
           </el-icon>
         </template>
         <template #default>
           <div class="message-box-wrapper">
-            <el-tabs
-              v-model="activeName"
-              class="demo-tabs"
-              @tab-click="handleClick"
-            >
+            <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
               <el-tab-pane label="通知消息" name="first">
                 <div class="message-item" v-for="i in 20" :key="i">
                   <div class="left-icon">
@@ -80,40 +65,17 @@
     </div>
     <!-- 全屏按钮 -->
     <div class="screen-box" @click="toggleFullScreen">
-      <svg
-        v-if="!isFullScreen"
-        t="1717408008762"
-        class="icon"
-        viewBox="0 0 1024 1024"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        p-id="9338"
-        id="mx_n_1717408008762"
-        width="400"
-        height="400"
-      >
+      <svg v-if="!isFullScreen" t="1717408008762" class="icon" viewBox="0 0 1024 1024" version="1.1"
+        xmlns="http://www.w3.org/2000/svg" p-id="9338" id="mx_n_1717408008762" width="400" height="400">
         <path
           d="M285.866667 810.666667H384v42.666666H213.333333v-170.666666h42.666667v98.133333l128-128 29.866667 29.866667-128 128z m494.933333 0l-128-128 29.866667-29.866667 128 128V682.666667h42.666666v170.666666h-170.666666v-42.666666h98.133333zM285.866667 256l128 128-29.866667 29.866667-128-128V384H213.333333V213.333333h170.666667v42.666667H285.866667z m494.933333 0H682.666667V213.333333h170.666666v170.666667h-42.666666V285.866667l-128 128-29.866667-29.866667 128-128z"
-          :fill="settingStore.showHeaderBar ? '#ffffff' : '#606266'"
-          p-id="9339"
-        ></path>
+          :fill="settingStore.layout !== 'simplebar' ? '#ffffff' : '#606266'" p-id="9339"></path>
       </svg>
-      <svg
-        v-else
-        t="1717408038796"
-        class="icon"
-        viewBox="0 0 1024 1024"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        p-id="9805"
-        width="400"
-        height="400"
-      >
+      <svg v-else t="1717408038796" class="icon" viewBox="0 0 1024 1024" version="1.1"
+        xmlns="http://www.w3.org/2000/svg" p-id="9805" width="400" height="400">
         <path
           d="M354.133333 682.666667H256v-42.666667h170.666667v170.666667H384v-98.133334L243.2 853.333333l-29.866667-29.866666L354.133333 682.666667z m358.4 0l140.8 140.8-29.866666 29.866666-140.8-140.8V810.666667h-42.666667v-170.666667h170.666667v42.666667h-98.133334zM354.133333 384L213.333333 243.2l29.866667-29.866667L384 354.133333V256h42.666667v170.666667H256V384h98.133333z m358.4 0H810.666667v42.666667h-170.666667V256h42.666667v98.133333L823.466667 213.333333l29.866666 29.866667L712.533333 384z"
-          :fill="settingStore.showHeaderBar ? '#ffffff' : '#606266'"
-          p-id="9806"
-        ></path>
+          :fill="settingStore.layout !== 'simplebar' ? '#ffffff' : '#606266'" p-id="9806"></path>
       </svg>
     </div>
     <!-- 个人信息 -->
@@ -127,36 +89,27 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item command="user"
-              ><el-icon> <Avatar /> </el-icon>个人中心</el-dropdown-item
-            >
-            <el-dropdown-item command="setting"
-              ><el-icon> <ChromeFilled /> </el-icon>偏好设置</el-dropdown-item
-            >
-            <el-dropdown-item command="logout" divided
-              ><el-icon> <SwitchButton /> </el-icon>退出登录</el-dropdown-item
-            >
+            <el-dropdown-item command="user"><el-icon>
+                <Avatar />
+              </el-icon>个人中心</el-dropdown-item>
+            <el-dropdown-item command="setting"><el-icon>
+                <ChromeFilled />
+              </el-icon>偏好设置</el-dropdown-item>
+            <el-dropdown-item command="logout" divided><el-icon>
+                <SwitchButton />
+              </el-icon>退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
     </div>
   </div>
-  <div
-    v-if="defaultSetting.showSetting"
-    class="setting-btn"
-    @click="openRightSetting"
-  >
-    <el-icon class="setting-icon"><Setting /></el-icon>
+  <div v-if="defaultSetting.showSetting" class="setting-btn" @click="openRightSetting">
+    <el-icon class="setting-icon">
+      <Setting />
+    </el-icon>
   </div>
   <!-- 偏好设置抽屉 -->
-  <el-drawer
-    append-to-body
-    modal-class="drawer-wrapper"
-    v-model="drawer"
-    title="偏好设置"
-    direction="rtl"
-    :size="290"
-  >
+  <el-drawer append-to-body modal-class="drawer-wrapper" v-model="drawer" title="偏好设置" direction="rtl" :size="290">
     <div class="drawer-box">
       <div class="divider-item">
         <el-divider>
@@ -171,11 +124,8 @@
           <div class="nav-group">
             <div class="nav-layout">
               <!-- 第一种 经典导航 -->
-              <div
-                class="nav-style-item"
-                :class="[settingStore.layout == 'simplebar' ? 'is-active' : '']"
-                @click.stop="toggleLayout('simplebar')"
-              >
+              <div class="nav-style-item" :class="[settingStore.layout == 'simplebar' ? 'is-active' : '']"
+                @click.stop="toggleLayout('simplebar')">
                 <div class="left-box"></div>
                 <div class="right-box">
                   <div class="bot-box-wrap"></div>
@@ -185,11 +135,8 @@
             </div>
             <div class="nav-layout">
               <!-- 第二种 左侧导航 -->
-              <div
-                class="nav-style-item"
-                :class="[settingStore.layout == 'sidebar' ? 'is-active' : '']"
-                @click.stop="toggleLayout('sidebar')"
-              >
+              <div class="nav-style-item" :class="[settingStore.layout == 'sidebar' ? 'is-active' : '']"
+                @click.stop="toggleLayout('sidebar')">
                 <div class="left-box"></div>
                 <div class="right-box">
                   <div class="top-box-wrap"></div>
@@ -202,11 +149,8 @@
           <div class="nav-group">
             <div class="nav-layout">
               <!-- 第三种 顶部导航 -->
-              <div
-                class="nav-style-item"
-                :class="[settingStore.layout == 'topbar' ? 'is-active' : '']"
-                @click.stop="toggleLayout('topbar')"
-              >
+              <div class="nav-style-item" :class="[settingStore.layout == 'topbar' ? 'is-active' : '']"
+                @click.stop="toggleLayout('topbar')">
                 <div class="top-box"></div>
                 <div class="bot-box"></div>
               </div>
@@ -214,11 +158,8 @@
             </div>
             <div class="nav-layout">
               <!-- 第四种 混合导航 -->
-              <div
-                class="nav-style-item style3"
-                :class="[settingStore.layout == 'mixbar' ? 'is-active' : '']"
-                @click.stop="toggleLayout('mixbar')"
-              >
+              <div class="nav-style-item style3" :class="[settingStore.layout == 'mixbar' ? 'is-active' : '']"
+                @click.stop="toggleLayout('mixbar')">
                 <div class="top-box"></div>
                 <div class="bot-box">
                   <div class="right-box-wrap"></div>
@@ -241,80 +182,53 @@
         </el-divider>
         <div class="wrapper">
           <div class="color-layout-wrapper">
-            <h4
-              :class="{ 'active-bg': currentTheme == 'classicThemeColors' }"
-              @click="changeThemeColor('classicThemeColors')"
-            >
+            <h4 :class="{ 'active-bg': currentTheme == 'classicThemeColors' }"
+              @click="changeThemeColor('classicThemeColors')">
               经典主题
             </h4>
             <div class="color-layout">
-              <div
-                class="color-item"
-                v-for="(color, index) in themeColorName.classicThemeColors"
-                :key="index"
-                :style="{ backgroundColor: color }"
-              ></div>
+              <div class="color-item" v-for="(color, index) in themeColorName.classicThemeColors" :key="index"
+                :style="{ backgroundColor: color }"></div>
             </div>
           </div>
           <div class="color-layout-wrapper">
-            <h4
-              :class="{ 'active-bg': currentTheme == 'fashionThemeColors' }"
-              @click="changeThemeColor('fashionThemeColors')"
-            >
+            <h4 :class="{ 'active-bg': currentTheme == 'fashionThemeColors' }"
+              @click="changeThemeColor('fashionThemeColors')">
               时尚主题
             </h4>
             <div class="color-layout">
-              <div
-                class="color-item"
-                v-for="(color, index) in themeColorName.fashionThemeColors"
-                :key="index"
-                :style="{ backgroundColor: color }"
-              ></div>
+              <div class="color-item" v-for="(color, index) in themeColorName.fashionThemeColors" :key="index"
+                :style="{ backgroundColor: color }"></div>
             </div>
           </div>
           <div class="color-layout-wrapper">
-            <h4
-              :class="{ 'active-bg': currentTheme == 'freshThemeColors' }"
-              @click="changeThemeColor('freshThemeColors')"
-            >
+            <h4 :class="{ 'active-bg': currentTheme == 'freshThemeColors' }"
+              @click="changeThemeColor('freshThemeColors')">
               清新主题
             </h4>
             <div class="color-layout">
-              <div
-                class="color-item"
-                v-for="(color, index) in themeColorName.freshThemeColors"
-                :key="index"
-                :style="{ backgroundColor: color }"
-              ></div>
+              <div class="color-item" v-for="(color, index) in themeColorName.freshThemeColors" :key="index"
+                :style="{ backgroundColor: color }"></div>
             </div>
           </div>
           <div class="color-layout-wrapper">
-            <h4
-              :class="{ 'active-bg': currentTheme == 'coolThemeColors' }"
-              @click="changeThemeColor('coolThemeColors')"
-            >
+            <h4 :class="{ 'active-bg': currentTheme == 'coolThemeColors' }"
+              @click="changeThemeColor('coolThemeColors')">
               热情主题
             </h4>
             <div class="color-layout">
-              <div
-                class="color-item"
-                v-for="(color, index) in themeColorName.coolThemeColors"
-                :key="index"
-                :style="{ backgroundColor: color }"
-              ></div>
+              <div class="color-item" v-for="(color, index) in themeColorName.coolThemeColors" :key="index"
+                :style="{ backgroundColor: color }"></div>
             </div>
           </div>
           <div class="current-layout">
             <div class="color-value">
               当前风格：<span :style="{ color: currentColor }">{{
                 currentThemeName
-              }}</span>
+                }}</span>
               主题颜色：
             </div>
-            <div
-              class="color-item"
-              :style="{ backgroundColor: currentColor }"
-            ></div>
+            <div class="color-item" :style="{ backgroundColor: currentColor }"></div>
           </div>
         </div>
       </div>
@@ -330,25 +244,18 @@
         <div class="wrapper">
           <div class="item">
             <span class="right-txt">顶部区域</span>
-            <el-switch
-              v-model="settingStore.showHeaderBar"
-              :disabled="settingStore.layout === 'simplebar'"
-            />
+            <el-switch v-model="settingStore.showHeaderBar" :disabled="settingStore.layout === 'simplebar'"
+              @change="toggleHeaderBar" />
           </div>
           <div class="item">
             <span class="right-txt">系统名称</span>
-            <el-switch
-              v-model="settingStore.showHeaderLogo"
-              :disabled="settingStore.showHeaderBar"
-            />
+            <el-switch v-model="settingStore.showHeaderLogo"
+              :disabled="settingStore.showHeaderBar || settingStore.layout === 'simplebar'" />
           </div>
           <div class="item">
             <span class="right-txt">面包屑</span>
-            <el-switch
-              v-model="settingStore.showBreadcrumb"
-              dataset-key="showBreadcrumb"
-              :disabled="!settingStore.showHeaderBar"
-            />
+            <el-switch v-model="settingStore.showBreadcrumb" dataset-key="showBreadcrumb"
+              :disabled="!settingStore.showHeaderBar" />
           </div>
           <div class="item">
             <span class="right-txt">标签栏</span>
@@ -363,14 +270,7 @@
     </div>
   </el-drawer>
   <!-- 个人中心抽屉 -->
-  <el-drawer
-    append-to-body
-    modal-class="drawer-wrapper"
-    v-model="userDrawer"
-    title="个人中心"
-    direction="rtl"
-    :size="290"
-  >
+  <el-drawer append-to-body modal-class="drawer-wrapper" v-model="userDrawer" title="个人中心" direction="rtl" :size="290">
     <div class="drawer-box">
       <div class="divider-item">
         <el-divider>
@@ -390,28 +290,16 @@
             </h3>
           </div>
           <div class="project-layout">
-            掘金地址：<el-link
-              href="https://juejin.cn/user/2295436009546920/posts"
-              target="_blank"
-              type="primary"
-              >狗尾巴花的尖</el-link
-            >
+            掘金地址：<el-link href="https://juejin.cn/user/2295436009546920/posts" target="_blank"
+              type="primary">狗尾巴花的尖</el-link>
           </div>
           <div class="project-layout">
-            博客地址：<el-link
-              href="https://flowertip.github.io/vitepress-blog/"
-              target="_blank"
-              type="primary"
-              >狗尾巴花的知识库</el-link
-            >
+            博客地址：<el-link href="https://flowertip.github.io/vitepress-blog/" target="_blank"
+              type="primary">狗尾巴花的知识库</el-link>
           </div>
           <div class="project-layout">
-            源码地址：<el-link
-              href="https://gitee.com/CodeTV/guigu-admin-template"
-              target="_blank"
-              type="primary"
-              >后台管理系统模版</el-link
-            >
+            源码地址：<el-link href="https://gitee.com/CodeTV/guigu-admin-template" target="_blank"
+              type="primary">后台管理系统模版</el-link>
           </div>
         </div>
       </div>
@@ -549,6 +437,18 @@ const toggleLayout = (layout: string) => {
 };
 
 onMounted(() => {
+  if (defaultSetting.layout === 'simplebar') {
+    settingStore.updateSetting({
+    layout: settingStore.layout,
+    showHeaderBar: false,
+    showFooterBar: settingStore.showFooterBar,
+    showHeaderLogo: settingStore.showHeaderLogo,
+    showTagsView: settingStore.showTagsView,
+    showBreadcrumb: settingStore.showBreadcrumb,
+    color: settingStore.color,
+    themeName: settingStore.themeName,
+  });
+  }
   screenfull.on("change", () => {
     if (screenfull.isFullscreen) isFullScreen.value = true;
     else isFullScreen.value = false;
@@ -558,6 +458,15 @@ const toggleFullScreen = () => {
   if (!screenfull.isEnabled) ElMessage.warning("当前您的浏览器不支持全屏 ❌");
   screenfull.toggle();
 };
+
+const toggleHeaderBar = (val: string | number | boolean) => {
+  if (!val) {
+    toggleLayout('simplebar');
+  } else {
+    toggleLayout('mixbar');
+  }
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -574,11 +483,13 @@ const toggleFullScreen = () => {
   cursor: pointer;
   border-radius: 5px;
   z-index: 99;
+
   .setting-icon {
     font-size: 26px;
     color: #fff;
   }
 }
+
 .header-right-info {
   width: 282px;
   height: 100%;
@@ -721,6 +632,7 @@ const toggleFullScreen = () => {
 
     .color-layout-wrapper {
       margin-bottom: 20px;
+
       &:nth-child(4) {
         margin-bottom: 0;
       }
@@ -736,6 +648,7 @@ const toggleFullScreen = () => {
         cursor: pointer;
         border-radius: 4px;
         color: #656565;
+
         &.active-bg {
           background-color: var(--el-color-primary);
           color: #fff;

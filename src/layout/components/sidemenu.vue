@@ -1,7 +1,7 @@
 <template>
-  <div class="content-aside" v-if="!isCollapse">
+  <div class="content-aside">
     <!-- 侧边栏菜单 :collapse="isCollapse"-->
-    <div v-if="settingStore.layout == 'simplebar'" class="sidebar-logo">
+    <div v-if="settingStore.layout == 'simplebar' && !isCollapse" class="sidebar-logo">
       <!-- <img src="/favicon.svg" alt="sidebar-logo" /> -->
       <span class="system-name">{{ defaultSetting.title }}</span>
     </div>
@@ -10,13 +10,14 @@
         :default-active="currentRoute.path as string"
         class="sidebar-menu"
         :collapse="isCollapse"
+        :collapse-transition="false"
         :background-color="menuConfig.baseSidebarMenuBackground"
         :text-color="menuConfig.baseSidebarMenuTextColor"
         :active-text-color="menuConfig.baseSidebarMenuActiveTextColor"
         unique-opened
       >
         <sidebar-item
-          v-for="menu in userStore.authMenuList"
+          v-for="menu in userStore.authMenuList.filter(menu => !menu.meta?.hidden)"
           :key="menu.path"
           :item="menu"
           :base-path="menu.path"
@@ -51,6 +52,7 @@ defineProps(["isCollapse"]);
 
 <style lang="scss" scoped>
 :deep(.el-scrollbar__wrap) {
+  width: 100% !important;
   height: calc(100vh - $base-top-menu-height) !important;
 }
 .sidebar-logo {

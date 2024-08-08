@@ -9,6 +9,9 @@ $base-top-menu-active-text-color: #3170FF;
 
 // 侧边栏菜单
 $base-sidebar-menu-width: 186px;
+// 收缩菜单最小宽度为0px，大于0px的，建议设置范围在宽度30px到64px之间
+$base-collapse-sidebar-menu-width: 50px; 
+
 $base-sidebar-menu-background: #32363D;
 $base-sidebar-menu-text-color: #A6AEC1;
 $base-sidebar-menu-active-text-color: #fff;

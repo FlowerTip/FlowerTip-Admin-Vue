@@ -109,6 +109,6 @@ const resolvePath = (routePath: string) => {
   if (isExternalFn(props.basePath)) {
     return props.basePath;
   }
-  return resolve(props.basePath, routePath);
+  return resolve(props.basePath as unknown as IArguments, routePath as unknown as IArguments);
 };
 </script>
