@@ -11,8 +11,12 @@
       <div class="content-rightbar" :class="contentRightBarClassName">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb v-if="!hasHideBreadcrumb" :isCollapse="isCollapse" :toggleCollapse="toggleCollapse"
-            :showHeaderBar="settingStore.showHeaderBar" />
+          <Breadcrumb
+            v-if="!hasHideBreadcrumb"
+            :isCollapse="isCollapse"
+            :toggleCollapse="toggleCollapse"
+            :showHeaderBar="settingStore.showHeaderBar"
+          />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>
@@ -132,7 +136,7 @@ const contentRightBarClassName = computed(() => {
 
         .el-sub-menu {
           &.is-active {
-            >.el-sub-menu__title {
+            > .el-sub-menu__title {
               color: #fff;
             }
 
@@ -191,7 +195,6 @@ const contentRightBarClassName = computed(() => {
         text-align: center;
         border-top: 1px solid #e4e7ed;
       }
-
     }
 
     /* 收缩菜单状态下 */

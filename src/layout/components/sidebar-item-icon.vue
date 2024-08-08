@@ -1,23 +1,40 @@
 <template v-if="!item.meta || !item.meta.hidden">
-  <template v-if="
-    hasOneShowingChild(item.children, item) &&
-    (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-    !item.alwaysShow
-  ">
-    <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }"
-      :to="resolvePath(onlyOneChild.path)" @click="menuItemClick(resolvePath(onlyOneChild.path))">
+  <template
+    v-if="
+      hasOneShowingChild(item.children, item) &&
+      (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
+      !item.alwaysShow
+    "
+  >
+    <el-menu-item
+      :index="resolvePath(onlyOneChild.path)"
+      :class="{ 'submenu-title-noDropdown': !isNest }"
+      :to="resolvePath(onlyOneChild.path)"
+      @click="menuItemClick(resolvePath(onlyOneChild.path))"
+    >
       <svg-icon v-if="onlyOneChild.meta.icon" :name="onlyOneChild.meta.icon" />
       <template #title>{{ onlyOneChild.meta.title }}</template>
     </el-menu-item>
   </template>
 
-  <el-sub-menu v-else ref="subMenuRef" :index="resolvePath(item.path)" popper-append-to-body>
+  <el-sub-menu
+    v-else
+    ref="subMenuRef"
+    :index="resolvePath(item.path)"
+    popper-append-to-body
+  >
     <template #title>
       <svg-icon v-if="item.meta.icon" :name="item.meta.icon" />
       <span>{{ item.meta.title }}</span>
     </template>
-    <sidebar-item v-for="child in item.children" :key="child.path" is-nest :item="child"
-      :base-path="resolvePath(child.path)" class="nest-menu" />
+    <sidebar-item
+      v-for="child in item.children"
+      :key="child.path"
+      is-nest
+      :item="child"
+      :base-path="resolvePath(child.path)"
+      class="nest-menu"
+    />
   </el-sub-menu>
 </template>
 
@@ -32,7 +49,7 @@ import { isExternalFn } from "@/utils/validate";
 import { resolve } from "@/utils/tool";
 import type { ElSubMenu } from "element-plus";
 import { ref } from "vue";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
@@ -41,9 +58,9 @@ const menuItemClick = (path: string) => {
   if (isExternalFn(path)) {
     window.open(path, "_blank");
   } else {
-    router.push(path)
+    router.push(path);
   }
-}
+};
 const subMenuRef = ref<InstanceType<typeof ElSubMenu>>();
 
 const props = defineProps({
@@ -101,7 +118,10 @@ const resolvePath = (routePath: string) => {
   if (isExternalFn(props.basePath)) {
     return props.basePath;
   }
-  return resolve(props.basePath as unknown as IArguments, routePath as unknown as IArguments);
+  return resolve(
+    props.basePath as unknown as IArguments,
+    routePath as unknown as IArguments
+  );
 };
 </script>
 

@@ -9,7 +9,7 @@
       <Rightbar />
     </div>
     <div class="mixbar-content" :class="classObjName">
-      <Sidebar v-if="false"/>
+      <Sidebar v-if="false" />
       <div class="content-rightbar" :class="contentRightBarClassName">
         <div class="nav-bar">
           <!-- 面包屑 -->

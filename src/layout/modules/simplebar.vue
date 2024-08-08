@@ -11,8 +11,12 @@
       <div class="content-rightbar" :class="contentRightBarClassName">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb v-if="!hasHideBreadcrumb" :isCollapse="isCollapse" :toggleCollapse="toggleCollapse"
-            :showHeaderBar="false" />
+          <Breadcrumb
+            v-if="!hasHideBreadcrumb"
+            :isCollapse="isCollapse"
+            :toggleCollapse="toggleCollapse"
+            :showHeaderBar="false"
+          />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>
@@ -67,7 +71,7 @@ const hasShowFooterBar = computed(() => {
 });
 
 const hasShowHeaderBar = computed(() => {
-  return settingStore.layout === 'simplebar' || !settingStore.showHeaderBar;
+  return settingStore.layout === "simplebar" || !settingStore.showHeaderBar;
 });
 
 const classObjName = computed({
@@ -132,7 +136,7 @@ const contentRightBarClassName = computed(() => {
 
         .el-sub-menu {
           &.is-active {
-            >.el-sub-menu__title {
+            > .el-sub-menu__title {
               color: #fff;
             }
 
@@ -220,7 +224,6 @@ const contentRightBarClassName = computed(() => {
           }
         }
       }
-
     }
   }
 }

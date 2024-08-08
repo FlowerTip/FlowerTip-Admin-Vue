@@ -3,10 +3,23 @@
   <div class="content-aside">
     <el-scrollbar>
       <!-- 侧边栏菜单 :collapse="isCollapse"-->
-      <el-menu mode="vertical" :collapse-transition="false" :default-active="defaultActive" class="sidebar-menu" :collapse="isCollapse"
-        :background-color="menuConfig.baseSidebarMenuBackground" :text-color="menuConfig.baseSidebarMenuTextColor"
-        :active-text-color="menuConfig.baseSidebarMenuActiveTextColor" unique-opened>
-        <sidebar-item v-for="menu in menuList" :key="menu.path" :item="menu" :base-path="menu.path"></sidebar-item>
+      <el-menu
+        mode="vertical"
+        :collapse-transition="false"
+        :default-active="defaultActive"
+        class="sidebar-menu"
+        :collapse="isCollapse"
+        :background-color="menuConfig.baseSidebarMenuBackground"
+        :text-color="menuConfig.baseSidebarMenuTextColor"
+        :active-text-color="menuConfig.baseSidebarMenuActiveTextColor"
+        unique-opened
+      >
+        <sidebar-item
+          v-for="menu in menuList"
+          :key="menu.path"
+          :item="menu"
+          :base-path="menu.path"
+        ></sidebar-item>
       </el-menu>
     </el-scrollbar>
   </div>
