@@ -1,25 +1,21 @@
 <template>
-  <suspense>
-    <template #default>
-      <component :is="layoutComponents[com]"></component>
-    </template>
-    <template #fallback>
-      <Loading />
-    </template>
-  </suspense>
+  <component :is="layoutComponents[com]"></component>
 </template>
 
 <script lang="ts" setup>
-import Loading from "@/components/Loading/index.vue";
+import mixbar from "./modules/mixbar.vue";
+import topbar from "./modules/topbar.vue";
+import sidebar from "./modules/sidebar.vue";
+import simplebar from "./modules/simplebar.vue";
 import useSettingStore from "@/store/modules/settingStore";
-import { computed, defineAsyncComponent } from "vue";
+import { computed } from "vue";
 
 const settingStore = useSettingStore();
 const layoutComponents: any = {
-  mixbar: defineAsyncComponent(() => import("./modules/mixbar.vue")),
-  topbar: defineAsyncComponent(() => import("./modules/topbar.vue")),
-  sidebar: defineAsyncComponent(() => import("./modules/sidebar.vue")),
-  simplebar: defineAsyncComponent(() => import("./modules/simplebar.vue")),
+  mixbar,
+  topbar,
+  sidebar,
+  simplebar,
 };
 const com = computed(() => {
   return settingStore.layout;

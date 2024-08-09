@@ -13,12 +13,8 @@
       <div class="content-rightbar" :class="contentRightBarClassName">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb
-            v-if="!hasHideBreadcrumb"
-            :isCollapse="hasCollapseMenu"
-            :toggleCollapse="toggleCollapse"
-            :showHeaderBar="settingStore.showHeaderBar"
-          />
+          <Breadcrumb v-if="!hasHideBreadcrumb" :isCollapse="hasCollapseMenu" :toggleCollapse="toggleCollapse"
+            :showHeaderBar="settingStore.showHeaderBar" />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>
@@ -26,7 +22,9 @@
         <div class="view-layout">
           <router-view v-slot="{ Component, route }">
             <transition appear name="fade-transform" mode="out-in">
-              <component :is="Component" :key="route.fullPath" />
+              <keep-alive>
+                <component :is="Component" :key="route.fullPath" />
+              </keep-alive>
             </transition>
           </router-view>
         </div>
@@ -139,6 +137,7 @@ const contentRightBarClassName = computed(() => {
     height: calc(100% - $base-top-menu-height);
     display: flex;
     overflow: hidden;
+
     /* 侧边栏菜单 */
     .content-aside {
       width: 0;
@@ -150,6 +149,7 @@ const contentRightBarClassName = computed(() => {
       height: 100%;
       display: flex;
       flex-direction: column;
+
       .nav-bar {
         box-sizing: border-box;
         width: 100%;

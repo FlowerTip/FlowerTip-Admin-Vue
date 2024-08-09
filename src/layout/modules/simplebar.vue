@@ -7,16 +7,11 @@
       <Rightbar />
     </div>
     <div class="mixbar-content" :class="classObjName">
-      <SideMenu :isCollapse="hasCollapseMenu" />
+      <SideMenu />
       <div class="content-rightbar" :class="contentRightBarClassName">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb
-            v-if="!hasHideBreadcrumb"
-            :isCollapse="isCollapse"
-            :toggleCollapse="toggleCollapse"
-            :showHeaderBar="false"
-          />
+          <Breadcrumb v-if="!hasHideBreadcrumb" :showHeaderBar="false" />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>
@@ -24,7 +19,9 @@
         <div class="view-layout">
           <router-view v-slot="{ Component, route }">
             <transition appear name="fade-transform" mode="out-in">
-              <component :is="Component" :key="route.fullPath" />
+              <keep-alive>
+                <component :is="Component" :key="route.fullPath" />
+              </keep-alive>
             </transition>
           </router-view>
         </div>
@@ -42,21 +39,15 @@ import Tagsview from "../components/tagsview.vue";
 import Tipfooter from "../components/footer.vue";
 import SideMenu from "../components/sidemenu.vue";
 
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import useSettingStore from "@/store/modules/settingStore";
 const settingStore = useSettingStore();
-const isCollapse = ref(false);
-
-const toggleCollapse = () => {
-  isCollapse.value = !isCollapse.value;
-};
+import useAppStore from "@/store/modules/appStore";
+const appStore = useAppStore();
 
 const currentRoute = useRoute();
 
-const hasCollapseMenu = computed(() => {
-  return isCollapse.value;
-});
 
 const hasHideBreadcrumb = computed(() => {
   return !settingStore.showBreadcrumb;
@@ -77,14 +68,14 @@ const hasShowHeaderBar = computed(() => {
 const classObjName = computed({
   get() {
     return {
-      "collapse-menu": hasCollapseMenu.value,
+      "collapse-menu": appStore.isCollapsed,
       "hide-breadcrumb": hasHideBreadcrumb.value,
       "hide-tagsView": hasHideTagsView.value,
       "hide-header": hasShowHeaderBar.value,
     };
   },
   set() {
-    toggleCollapse();
+    appStore.updateCollapseMenu();
   },
 });
 
@@ -125,18 +116,20 @@ const contentRightBarClassName = computed(() => {
     height: 100%;
     display: flex;
     overflow: hidden;
+
     /* 侧边栏菜单 */
     .content-aside {
       width: $base-sidebar-menu-width;
       background-color: $base-sidebar-menu-background;
       transition: width 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
       .sidebar-menu {
-        width: 100%;
+        width: $base-sidebar-menu-width;
         border-right: 0px;
 
         .el-sub-menu {
           &.is-active {
-            > .el-sub-menu__title {
+            >.el-sub-menu__title {
               color: #fff;
             }
 
@@ -174,6 +167,7 @@ const contentRightBarClassName = computed(() => {
       flex: 1;
       display: flex;
       flex-direction: column;
+
       .nav-bar {
         box-sizing: border-box;
         background-color: #fff;
@@ -204,8 +198,10 @@ const contentRightBarClassName = computed(() => {
       .content-aside {
         width: $base-collapse-sidebar-menu-width;
         border-right: 0;
+
         .sidebar-menu {
-          width: 100%;
+          width: $base-collapse-sidebar-menu-width;
+
           .el-menu-item {
             padding: 0;
 
@@ -217,6 +213,7 @@ const contentRightBarClassName = computed(() => {
               align-items: center;
             }
           }
+
           .el-sub-menu {
             .el-sub-menu__title {
               padding: 0;

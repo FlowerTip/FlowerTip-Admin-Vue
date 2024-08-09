@@ -1,18 +1,17 @@
 <template>
   <div class="content-aside">
-    <!-- 侧边栏菜单 :collapse="isCollapse"-->
+    <!-- 侧边栏菜单 -->
     <div
-      v-if="settingStore.layout == 'simplebar' && !isCollapse"
+      v-if="settingStore.layout == 'simplebar' && !appStore.isCollapsed"
       class="sidebar-logo"
     >
-      <!-- <img src="/favicon.svg" alt="sidebar-logo" /> -->
       <span class="system-name">{{ defaultSetting.title }}</span>
     </div>
     <el-scrollbar :min-size="10">
       <el-menu
         :default-active="currentRoute.path as string"
         class="sidebar-menu"
-        :collapse="isCollapse"
+        :collapse="appStore.isCollapsed"
         :collapse-transition="false"
         :background-color="menuConfig.baseSidebarMenuBackground"
         :text-color="menuConfig.baseSidebarMenuTextColor"
@@ -38,7 +37,8 @@ import { useRoute } from "vue-router";
 import defaultSetting from "@/setting";
 import useUserStore from "@/store/modules/userStore";
 import useSettingStore from "@/store/modules/settingStore";
-// import { Location } from "@element-plus/icons-vue";
+import useAppStore from "@/store/modules/appStore";
+const appStore = useAppStore();
 import config from "@/styles/config.module.scss";
 import SidebarItem from "./sidebar-item-icon.vue";
 
@@ -52,7 +52,6 @@ const menuConfig = ref({
   baseSidebarMenuActiveTextColor: config.baseSidebarMenuActiveTextColor,
 });
 
-defineProps(["isCollapse"]);
 </script>
 
 <style lang="scss" scoped>

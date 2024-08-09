@@ -45,10 +45,15 @@ const useUserStore = defineStore({
       if (code === 200) {
         this.username = data.checkUser.username;
         if (data.list.length > 0) {
-          const menuList = filterAsyncRoutes(
-            asyncRoute as unknown as RouteRecordRaw[],
-            data.list.map((item: any) => item.code)
-          );
+          let menuList = [];
+          if (process.env.NODE_ENV === 'production') {
+            menuList = filterAsyncRoutes(
+              asyncRoute as unknown as RouteRecordRaw[],
+              data.list.map((item: any) => item.code)
+            );
+          } else {
+            menuList = [...asyncRoute as unknown as RouteRecordRaw[]]
+          }
           this.backMenuList = menuList;
           this.permissionButtonList = data.buttons;
           //左侧菜单需要数组

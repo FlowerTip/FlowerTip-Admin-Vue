@@ -1,10 +1,6 @@
 <template>
   <ElConfigProvider :size="size" :button="btnConfig">
-    <div class="app-container">
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
-    </div>
+    <router-view></router-view>
   </ElConfigProvider>
 </template>
 

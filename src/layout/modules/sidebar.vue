@@ -7,14 +7,12 @@
       <Rightbar />
     </div>
     <div class="mixbar-content" :class="classObjName">
-      <SideMenu :isCollapse="hasCollapseMenu" />
+      <SideMenu />
       <div class="content-rightbar" :class="contentRightBarClassName">
         <div class="nav-bar">
           <!-- 面包屑 -->
           <Breadcrumb
             v-if="!hasHideBreadcrumb"
-            :isCollapse="isCollapse"
-            :toggleCollapse="toggleCollapse"
             :showHeaderBar="settingStore.showHeaderBar"
           />
           <!-- tagsview -->
@@ -24,7 +22,9 @@
         <div class="view-layout">
           <router-view v-slot="{ Component, route }">
             <transition appear name="fade-transform" mode="out-in">
-              <component :is="Component" :key="route.fullPath" />
+              <keep-alive>
+                <component :is="Component" :key="route.fullPath" />
+              </keep-alive>
             </transition>
           </router-view>
         </div>
@@ -42,21 +42,14 @@ import Tagsview from "../components/tagsview.vue";
 import Tipfooter from "../components/footer.vue";
 import SideMenu from "../components/sidemenu.vue";
 
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import useSettingStore from "@/store/modules/settingStore";
+import useAppStore from "@/store/modules/appStore";
 const settingStore = useSettingStore();
-const isCollapse = ref(false);
-
-const toggleCollapse = () => {
-  isCollapse.value = !isCollapse.value;
-};
+const appStore = useAppStore();
 
 const currentRoute = useRoute();
-
-const hasCollapseMenu = computed(() => {
-  return isCollapse.value;
-});
 
 const hasHideBreadcrumb = computed(() => {
   return !settingStore.showBreadcrumb;
@@ -77,14 +70,14 @@ const hasShowHeaderBar = computed(() => {
 const classObjName = computed({
   get() {
     return {
-      "collapse-menu": hasCollapseMenu.value,
+      "collapse-menu": appStore.isCollapsed,
       "hide-breadcrumb": hasHideBreadcrumb.value,
       "hide-tagsView": hasHideTagsView.value,
       "hide-header": hasShowHeaderBar.value,
     };
   },
   set() {
-    toggleCollapse();
+    appStore.updateCollapseMenu();
   },
 });
 

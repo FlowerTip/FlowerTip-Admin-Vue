@@ -3,9 +3,15 @@ import { defineStore } from "pinia";
 const useAppStore = defineStore({
   id: "app",
   state: () => {
-    return {};
+    return {
+      isCollapsed: false
+    };
   },
-  actions: {},
+  actions: {
+    updateCollapseMenu() {
+      this.isCollapsed = !this.isCollapsed;
+    }
+  },
 });
 
 export default useAppStore;

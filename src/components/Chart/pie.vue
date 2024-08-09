@@ -20,6 +20,8 @@ const settingStore = useSettingStore();
 const uuid = generateUUID() + "PieChart";
 
 let myChart: any = null;
+let sidebarMenuNode: HTMLDivElement;
+
 const name = props.chartOption.name;
 const text = props.chartOption.text;
 const subtext = props.chartOption.subtext;
@@ -80,13 +82,15 @@ onMounted(() => {
   myChart = echarts.init(document.getElementById(uuid));
   myChart.setOption(option);
   window.addEventListener("resize", resizeChart);
-  const sidebarMenuNode = document.getElementsByClassName("content-aside")[0];
+  sidebarMenuNode = document.getElementsByClassName("content-aside")[0] as HTMLDivElement;
   sidebarMenuNode &&
     sidebarMenuNode.addEventListener("transitionend", resizeChart);
 });
 
 onBeforeMount(() => {
   window.removeEventListener("resize", resizeChart);
+  sidebarMenuNode &&
+    sidebarMenuNode.removeEventListener("transitionend", resizeChart);
 });
 
 const resizeChart = useDebounceFn(() => {

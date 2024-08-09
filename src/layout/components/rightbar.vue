@@ -591,18 +591,18 @@ const toggleHeaderBar = (val: string | number | boolean) => {
   position: fixed;
   right: 0;
   top: 50%;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   background-color: var(--el-color-primary);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 6px;
   z-index: 99;
 
   .setting-icon {
-    font-size: 26px;
+    font-size: 24px;
     color: #fff;
   }
 }

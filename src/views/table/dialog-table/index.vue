@@ -436,6 +436,7 @@ watch(filterText, (val) => {
   }
 }
 
+/* 处理el-tree文本过长的问题 */
 :deep(
     .el-tree--highlight-current
       .el-tree-node.is-current
@@ -445,6 +446,15 @@ watch(filterText, (val) => {
   color: #fff;
   .el-icon {
     color: #fff;
+  }
+}
+
+:deep(.el-tree-node__content) {
+  height: auto;
+  min-height: var(--el-tree-node-content-height);
+  .el-tree-node__label {
+    text-wrap: wrap;
+    padding: 6px 0;
   }
 }
 </style>

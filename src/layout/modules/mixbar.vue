@@ -5,13 +5,11 @@
       <Logo v-if="settingStore.showHeaderLogo" />
       <!-- 中间菜单 -->
       <Topbar v-if="settingStore.layout == 'mixbar'" />
-      <TopMenu v-if="settingStore.layout == 'topbar'" />
       <!-- 右侧区域 -->
       <Rightbar />
     </div>
     <div class="mixbar-content" :class="classObjName">
       <Sidebar
-        :isCollapse="isCollapse"
         :showHeaderBar="settingStore.showHeaderBar"
       />
       <div class="content-rightbar">
@@ -19,8 +17,6 @@
           <!-- 面包屑 -->
           <Breadcrumb
             v-if="!hasHideBreadcrumb"
-            :isCollapse="isCollapse"
-            :toggleCollapse="toggleCollapse"
             :showHeaderBar="settingStore.showHeaderBar"
           />
           <!-- tagsview -->
@@ -30,7 +26,9 @@
         <div class="view-layout">
           <router-view v-slot="{ Component, route }">
             <transition appear name="fade-transform" mode="out-in">
-              <component :is="Component" :key="route.fullPath" />
+              <keep-alive>
+                <component :is="Component" :key="route.fullPath" />
+              </keep-alive>
             </transition>
           </router-view>
         </div>
@@ -44,27 +42,24 @@
 import { useRoute } from "vue-router";
 import Logo from "../components/logo.vue";
 import Topbar from "../components/topbar.vue";
-import TopMenu from "../components/topmenu.vue";
 import Rightbar from "../components/rightbar.vue";
 import Breadcrumb from "../components/breadcrumb.vue";
 import Tagsview from "../components/tagsview.vue";
 import Tipfooter from "../components/footer.vue";
 import Sidebar from "../components/sidebar.vue";
 
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import useSettingStore from "@/store/modules/settingStore";
-const settingStore = useSettingStore();
-const isCollapse = ref(false);
-const currentRoute = useRoute();
+import useAppStore from "@/store/modules/appStore";
 
-const toggleCollapse = () => {
-  isCollapse.value = !isCollapse.value;
-};
+const appStore = useAppStore();
+const settingStore = useSettingStore();
+const currentRoute = useRoute();
 
 const hasCollapseMenu = computed(() => {
   return !settingStore.showHeaderBar
-    ? isCollapse.value
-    : isCollapse.value || currentRoute.name == "cockpit";
+    ? appStore.isCollapsed
+    : appStore.isCollapsed || currentRoute.name == "cockpit";
 });
 
 const hasHideBreadcrumb = computed(() => {
@@ -105,7 +100,7 @@ const classObjName = computed({
     };
   },
   set() {
-    toggleCollapse();
+    appStore.updateCollapseMenu();
   },
 });
 </script>

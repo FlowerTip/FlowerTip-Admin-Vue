@@ -201,6 +201,51 @@ export const asyncRoute = [
           icon: "ele-Menu",
         },
       },
+      {
+        name: "line-chart",
+        path: "line-chart",
+        component: () => import("@/views/chart/line/index.vue"),
+        meta: {
+          title: "折线图表",
+          icon: "ele-Menu",
+        },
+      },
+      {
+        name: "map-chart",
+        path: "map-chart",
+        component: () => import("@/views/chart/map/index.vue"),
+        meta: {
+          title: "地图图表",
+          icon: "ele-Menu",
+        },
+      },
+      {
+        name: "mix-chart",
+        path: "mix-chart",
+        component: () => import("@/views/chart/mix/index.vue"),
+        meta: {
+          title: "混合图表",
+          icon: "ele-Menu",
+        },
+      },
+      {
+        name: "moreLine-chart",
+        path: "moreLine-chart",
+        component: () => import("@/views/chart/moreLine/index.vue"),
+        meta: {
+          title: "多折线图表",
+          icon: "ele-Menu",
+        },
+      },
+      {
+        name: "moreBar-chart",
+        path: "moreBar-chart",
+        component: () => import("@/views/chart/moreBar/index.vue"),
+        meta: {
+          title: "多柱状图表",
+          icon: "ele-Menu",
+        },
+      },
     ],
   },
   {

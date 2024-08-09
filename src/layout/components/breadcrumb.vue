@@ -1,23 +1,16 @@
 <template>
   <div class="breadcrumb">
     <div class="left-wrapper">
-      <span
-        v-show="showToggleCollapse"
-        class="toggle-btn"
-        @click="toggleCollapse"
-      >
+      <span v-show="showToggleCollapse" class="toggle-btn" @click="toggleCollapse">
         <el-icon size="20px">
-          <Fold v-show="!isCollapse" />
-          <Expand v-show="isCollapse" />
+          <Fold v-show="!appStore.isCollapsed" />
+          <Expand v-show="appStore.isCollapsed" />
         </el-icon>
       </span>
       <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item
-          v-for="route in matched"
-          :key="route.path"
-          :to="{ name: route.name }"
-          >{{ route.meta.title }}</el-breadcrumb-item
-        >
+        <el-breadcrumb-item v-for="route in matched" :key="route.path" :to="{ name: route.name }">
+          {{ route.meta.title }}
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div v-if="!showHeaderBar" class="right-wrapper">
@@ -32,10 +25,12 @@ import { useRoute } from "vue-router";
 import Rightbar from "../components/rightbar.vue";
 import useUserStore from "@/store/modules/userStore";
 import useSettingStore from "@/store/modules/settingStore";
+import useAppStore from "@/store/modules/appStore";
 import { Fold, Expand, ArrowRight } from "@element-plus/icons-vue";
 
 const settingStore = useSettingStore();
 const userStore = useUserStore();
+const appStore = useAppStore();
 
 const showToggleCollapse = computed(() => {
   return settingStore.layout !== "topbar" || !settingStore.showHeaderBar;
@@ -52,22 +47,20 @@ const matched = computed(() => {
       title: "驾驶舱",
     },
   };
-  if (route.matched[0].path == "/") {
+  const firstMatched = route.matched[0];
+  if (firstMatched.path == "/" || firstMatched.path == "/home") {
     return [{ ...firstEle }];
   } else {
     return [
-      // {
-      //   ...firstEle,
-      // },
       ...route.matched,
     ];
   }
 });
 
-const props = defineProps(["isCollapse", "toggleCollapse", "showHeaderBar"]);
+defineProps(["showHeaderBar"]);
 
 const toggleCollapse = () => {
-  props.toggleCollapse();
+  appStore.updateCollapseMenu();
 };
 </script>
 
@@ -116,6 +109,7 @@ const toggleCollapse = () => {
   .message-box {
     padding-top: 6px !important;
     margin-right: 8px !important;
+
     .msg-icon {
       color: var(--el-text-color-regular) !important;
     }

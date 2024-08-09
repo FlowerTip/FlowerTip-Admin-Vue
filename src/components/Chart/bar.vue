@@ -22,6 +22,8 @@ const BarChart = ref(null);
 
 let myChart: any = null;
 
+let sidebarMenuNode: HTMLDivElement;
+
 const option = {
   tooltip: {
     trigger: "item",
@@ -58,13 +60,15 @@ onMounted(() => {
   myChart = echarts.init(BarChart.value);
   myChart.setOption(option);
   window.addEventListener("resize", resizeChart);
-  const sidebarMenuNode = document.getElementsByClassName("content-aside")[0];
+  sidebarMenuNode = document.getElementsByClassName("content-aside")[0] as HTMLDivElement;
   sidebarMenuNode &&
     sidebarMenuNode.addEventListener("transitionend", resizeChart);
 });
 
 onBeforeMount(() => {
   window.removeEventListener("resize", resizeChart);
+  sidebarMenuNode &&
+    sidebarMenuNode.removeEventListener("transitionend", resizeChart);
 });
 
 const resizeChart = useDebounceFn(() => {
