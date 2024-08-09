@@ -443,5 +443,8 @@ watch(filterText, (val) => {
   ) {
   background-color: var(--el-color-primary);
   color: #fff;
+  .el-icon {
+    color: #fff;
+  }
 }
 </style>

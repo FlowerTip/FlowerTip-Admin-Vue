@@ -5,6 +5,7 @@
 <script lang="ts" setup>
 import * as echarts from "echarts";
 import { ref, onMounted, onBeforeMount, watch } from "vue";
+import { useDebounceFn } from "@vueuse/core";
 import useSettingStore from "@/store/modules/settingStore";
 import BJGeoJson from "../../../mock/map";
 
@@ -138,16 +139,18 @@ echarts.registerMap("BeiJing", BJGeoJson as unknown as string);
 onMounted(() => {
   myChart = echarts.init(MapChart.value);
   myChart.setOption(option);
-  window.addEventListener("resize", () => {
-    myChart.resize();
-  });
+  window.addEventListener("resize", resizeChart);
+  const sidebarMenuNode = document.getElementsByClassName('content-aside')[0];
+  sidebarMenuNode && sidebarMenuNode.addEventListener('transitionend', resizeChart);
 });
 
 onBeforeMount(() => {
-  window.removeEventListener("resize", () => {
-    myChart.resize();
-  });
+  window.removeEventListener("resize", resizeChart);
 });
+
+const resizeChart = useDebounceFn(() => {
+  myChart.resize();
+}, 100)
 
 watch(
   () => settingStore.color,

@@ -22,9 +22,9 @@
         </div>
         <!-- 二级路由占位区域 -->
         <div class="view-layout">
-          <router-view v-slot="{ Component }">
-            <transition name="fade">
-              <component :is="Component" />
+          <router-view v-slot="{ Component, route }">
+            <transition appear name="fade-transform" mode="out-in">
+              <component :is="Component" :key="route.fullPath" />
             </transition>
           </router-view>
         </div>
@@ -129,7 +129,7 @@ const contentRightBarClassName = computed(() => {
     .content-aside {
       width: $base-sidebar-menu-width;
       background-color: $base-sidebar-menu-background;
-      transition: width 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: width 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       .sidebar-menu {
         width: 100%;
         border-right: 0px;
@@ -175,6 +175,7 @@ const contentRightBarClassName = computed(() => {
       display: flex;
       flex-direction: column;
       .nav-bar {
+        box-sizing: border-box;
         background-color: #fff;
       }
 
@@ -183,9 +184,11 @@ const contentRightBarClassName = computed(() => {
         padding: 6px;
         flex: 1;
         overflow-y: auto;
+        overflow-x: hidden;
       }
 
       .content-rightbar-footer {
+        box-sizing: border-box;
         background-color: #fff;
         font-size: 14px;
         color: #555;

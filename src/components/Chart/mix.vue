@@ -5,6 +5,7 @@
 <script lang="ts" setup>
 import * as echarts from "echarts";
 import { ref, onMounted, onBeforeMount } from "vue";
+import { useDebounceFn } from "@vueuse/core";
 
 const props = defineProps({
   chartOption: {
@@ -103,16 +104,18 @@ const option = {
 onMounted(() => {
   myChart = echarts.init(mixChart.value);
   myChart.setOption(option);
-  window.addEventListener("resize", () => {
-    myChart.resize();
-  });
+  window.addEventListener("resize", resizeChart);
+  const sidebarMenuNode = document.getElementsByClassName('content-aside')[0];
+  sidebarMenuNode && sidebarMenuNode.addEventListener('transitionend', resizeChart);
 });
 
 onBeforeMount(() => {
-  window.removeEventListener("resize", () => {
-    myChart.resize();
-  });
+  window.removeEventListener("resize", resizeChart);
 });
+
+const resizeChart = useDebounceFn(() => {
+  myChart.resize();
+}, 100)
 </script>
 
 <style lang="scss" scoped></style>

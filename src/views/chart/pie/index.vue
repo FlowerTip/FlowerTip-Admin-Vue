@@ -1,12 +1,12 @@
 <template>
   <div class="pie-wrapper">
-    <PieChart :chartOption="chartOption" style="width: 100%; height: 100%" />
+    <MixBarChart :chartOption="chartOption" style="width: 100%; height: 100%" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive } from "vue";
-import PieChart from "@/components/Chart/pie.vue";
+import MixBarChart from "@/components/Chart/mix.vue";
 
 const chartOption = reactive({
   subtext: "总人数",

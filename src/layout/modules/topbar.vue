@@ -24,9 +24,9 @@
         </div>
         <!-- 二级路由占位区域 -->
         <div class="view-layout">
-          <router-view v-slot="{ Component }">
-            <transition name="fade">
-              <component :is="Component" />
+          <router-view v-slot="{ Component, route }">
+            <transition appear name="fade-transform" mode="out-in">
+              <component :is="Component" :key="route.fullPath" />
             </transition>
           </router-view>
         </div>
@@ -151,6 +151,7 @@ const contentRightBarClassName = computed(() => {
       display: flex;
       flex-direction: column;
       .nav-bar {
+        box-sizing: border-box;
         width: 100%;
         background-color: #fff;
       }
@@ -160,9 +161,11 @@ const contentRightBarClassName = computed(() => {
         padding: 6px;
         flex: 1;
         overflow-y: auto;
+        overflow-x: hidden;
       }
 
       .content-rightbar-footer {
+        box-sizing: border-box;
         width: 100%;
         background-color: #fff;
         font-size: 14px;

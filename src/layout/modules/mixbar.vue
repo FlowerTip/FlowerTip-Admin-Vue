@@ -10,27 +10,20 @@
       <Rightbar />
     </div>
     <div class="mixbar-content" :class="classObjName">
-      <Sidebar
-        :isCollapse="isCollapse"
-        :showHeaderBar="settingStore.showHeaderBar"
-      />
+      <Sidebar :isCollapse="isCollapse" :showHeaderBar="settingStore.showHeaderBar" />
       <div class="content-rightbar">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb
-            v-if="!hasHideBreadcrumb"
-            :isCollapse="isCollapse"
-            :toggleCollapse="toggleCollapse"
-            :showHeaderBar="settingStore.showHeaderBar"
-          />
+          <Breadcrumb v-if="!hasHideBreadcrumb" :isCollapse="isCollapse" :toggleCollapse="toggleCollapse"
+            :showHeaderBar="settingStore.showHeaderBar" />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>
         <!-- 二级路由占位区域 -->
         <div class="view-layout">
-          <router-view v-slot="{ Component }">
-            <transition name="fade">
-              <component :is="Component" />
+          <router-view v-slot="{ Component, route }">
+            <transition appear name="fade-transform" mode="out-in">
+              <component :is="Component" :key="route.fullPath" />
             </transition>
           </router-view>
         </div>
@@ -143,7 +136,7 @@ const classObjName = computed({
       width: $base-sidebar-menu-width;
       background-color: $base-sidebar-menu-background;
       height: 100%;
-      transition: width 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: width 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
       .sidebar-menu {
         border-right: 0;
@@ -167,6 +160,7 @@ const classObjName = computed({
       justify-content: space-between;
 
       .nav-bar {
+        box-sizing: border-box;
         background-color: #fff;
       }
 
@@ -175,9 +169,11 @@ const classObjName = computed({
         height: 100%;
         padding: 6px;
         overflow-y: auto;
+        overflow-x: hidden;
       }
 
       .content-rightbar-footer {
+        box-sizing: border-box;
         background-color: #fff;
         font-size: 14px;
         color: #555;
