@@ -26,7 +26,7 @@
         <div class="view-layout">
           <router-view v-slot="{ Component, route }">
             <transition appear name="fade-transform" mode="out-in">
-              <keep-alive>
+              <keep-alive :include="cacheRouteViews">
                 <component :is="Component" :key="route.fullPath" />
               </keep-alive>
             </transition>
@@ -52,6 +52,7 @@ import { useRoute } from "vue-router";
 import useSettingStore from "@/store/modules/settingStore";
 const settingStore = useSettingStore();
 const isCollapse = ref(false);
+const cacheRouteViews = ref<string[]>([]);
 
 const toggleCollapse = () => {
   isCollapse.value = !isCollapse.value;

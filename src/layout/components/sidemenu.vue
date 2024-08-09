@@ -54,9 +54,11 @@ const menuConfig = ref({
 </script>
 
 <style lang="scss" scoped>
+.el-scrollbar {
+  height: calc(100% - $base-top-menu-height);
+}
 :deep(.el-scrollbar__wrap) {
   width: 100% !important;
-  height: calc(100vh - $base-top-menu-height) !important;
 }
 .sidebar-logo {
   width: 100%;

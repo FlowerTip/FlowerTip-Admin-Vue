@@ -22,7 +22,7 @@
         <div class="view-layout">
           <router-view v-slot="{ Component, route }">
             <transition appear name="fade-transform" mode="out-in">
-              <keep-alive>
+              <keep-alive :include="cacheRouteViews">
                 <component :is="Component" :key="route.fullPath" />
               </keep-alive>
             </transition>
@@ -42,13 +42,13 @@ import Tagsview from "../components/tagsview.vue";
 import Tipfooter from "../components/footer.vue";
 import SideMenu from "../components/sidemenu.vue";
 
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import useSettingStore from "@/store/modules/settingStore";
 import useAppStore from "@/store/modules/appStore";
 const settingStore = useSettingStore();
 const appStore = useAppStore();
-
+const cacheRouteViews = ref<string[]>([]);
 const currentRoute = useRoute();
 
 const hasHideBreadcrumb = computed(() => {

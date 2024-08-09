@@ -24,7 +24,7 @@
         <div class="view-layout">
           <router-view v-slot="{ Component, route }">
             <transition appear name="fade-transform" mode="out-in">
-              <keep-alive>
+              <keep-alive :include="cacheRouteViews">
                 <component :is="Component" :key="route.fullPath" />
               </keep-alive>
             </transition>
@@ -46,13 +46,15 @@ import Tagsview from "../components/tagsview.vue";
 import Tipfooter from "../components/footer.vue";
 import Sidebar from "../components/sidebar.vue";
 
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import useSettingStore from "@/store/modules/settingStore";
 import useAppStore from "@/store/modules/appStore";
 
 const appStore = useAppStore();
 const settingStore = useSettingStore();
 const currentRoute = useRoute();
+
+const cacheRouteViews = ref<string[]>([]);
 
 const hasCollapseMenu = computed(() => {
   return !settingStore.showHeaderBar
