@@ -48,7 +48,6 @@ const appStore = useAppStore();
 
 const currentRoute = useRoute();
 
-
 const hasHideBreadcrumb = computed(() => {
   return !settingStore.showBreadcrumb;
 });
@@ -129,7 +128,7 @@ const contentRightBarClassName = computed(() => {
 
         .el-sub-menu {
           &.is-active {
-            >.el-sub-menu__title {
+            > .el-sub-menu__title {
               color: #fff;
             }
 

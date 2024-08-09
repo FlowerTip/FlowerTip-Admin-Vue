@@ -9,9 +9,7 @@
       <Rightbar />
     </div>
     <div class="mixbar-content" :class="classObjName">
-      <Sidebar
-        :showHeaderBar="settingStore.showHeaderBar"
-      />
+      <Sidebar :showHeaderBar="settingStore.showHeaderBar" />
       <div class="content-rightbar">
         <div class="nav-bar">
           <!-- 面包屑 -->

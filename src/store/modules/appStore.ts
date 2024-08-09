@@ -4,13 +4,13 @@ const useAppStore = defineStore({
   id: "app",
   state: () => {
     return {
-      isCollapsed: false
+      isCollapsed: false,
     };
   },
   actions: {
     updateCollapseMenu() {
       this.isCollapsed = !this.isCollapsed;
-    }
+    },
   },
 });
 

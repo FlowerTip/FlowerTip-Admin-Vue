@@ -51,7 +51,6 @@ const menuConfig = ref({
   baseSidebarMenuTextColor: config.baseSidebarMenuTextColor,
   baseSidebarMenuActiveTextColor: config.baseSidebarMenuActiveTextColor,
 });
-
 </script>
 
 <style lang="scss" scoped>

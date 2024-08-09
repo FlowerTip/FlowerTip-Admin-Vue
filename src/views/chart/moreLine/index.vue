@@ -1,6 +1,9 @@
 <template>
   <div class="chart-wrapper">
-    <MoreLineChart :chartOption="chartOption" style="width: 100%; height: 100%" />
+    <MoreLineChart
+      :chartOption="chartOption"
+      style="width: 100%; height: 100%"
+    />
   </div>
 </template>
 

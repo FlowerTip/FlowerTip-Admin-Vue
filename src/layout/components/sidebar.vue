@@ -2,11 +2,23 @@
   <div class="content-aside">
     <el-scrollbar>
       <!-- 侧边栏菜单 -->
-      <el-menu mode="vertical" :collapse-transition="false" :default-active="defaultActive" class="sidebar-menu"
-        :collapse="appStore.isCollapsed" :background-color="menuConfig.baseSidebarMenuBackground"
-        :text-color="menuConfig.baseSidebarMenuTextColor" :active-text-color="menuConfig.baseSidebarMenuActiveTextColor"
-        unique-opened>
-        <sidebar-item v-for="menu in menuList" :key="menu.path" :item="menu" :base-path="menu.path"></sidebar-item>
+      <el-menu
+        mode="vertical"
+        :collapse-transition="false"
+        :default-active="defaultActive"
+        class="sidebar-menu"
+        :collapse="appStore.isCollapsed"
+        :background-color="menuConfig.baseSidebarMenuBackground"
+        :text-color="menuConfig.baseSidebarMenuTextColor"
+        :active-text-color="menuConfig.baseSidebarMenuActiveTextColor"
+        unique-opened
+      >
+        <sidebar-item
+          v-for="menu in menuList"
+          :key="menu.path"
+          :item="menu"
+          :base-path="menu.path"
+        ></sidebar-item>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -19,7 +31,6 @@ import useUserStore from "@/store/modules/userStore";
 import config from "@/styles/config.module.scss";
 import SidebarItem from "./sidebar-item-icon.vue";
 import useAppStore from "@/store/modules/appStore";
-
 
 const appStore = useAppStore();
 const currentRoute = useRoute();

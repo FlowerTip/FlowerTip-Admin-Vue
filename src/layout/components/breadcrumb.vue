@@ -1,14 +1,22 @@
 <template>
   <div class="breadcrumb">
     <div class="left-wrapper">
-      <span v-show="showToggleCollapse" class="toggle-btn" @click="toggleCollapse">
+      <span
+        v-show="showToggleCollapse"
+        class="toggle-btn"
+        @click="toggleCollapse"
+      >
         <el-icon size="20px">
           <Fold v-show="!appStore.isCollapsed" />
           <Expand v-show="appStore.isCollapsed" />
         </el-icon>
       </span>
       <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item v-for="route in matched" :key="route.path" :to="{ name: route.name }">
+        <el-breadcrumb-item
+          v-for="route in matched"
+          :key="route.path"
+          :to="{ name: route.name }"
+        >
           {{ route.meta.title }}
         </el-breadcrumb-item>
       </el-breadcrumb>
@@ -51,9 +59,7 @@ const matched = computed(() => {
   if (firstMatched.path == "/" || firstMatched.path == "/home") {
     return [{ ...firstEle }];
   } else {
-    return [
-      ...route.matched,
-    ];
+    return [...route.matched];
   }
 });
 

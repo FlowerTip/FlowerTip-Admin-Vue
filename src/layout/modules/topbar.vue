@@ -13,8 +13,12 @@
       <div class="content-rightbar" :class="contentRightBarClassName">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb v-if="!hasHideBreadcrumb" :isCollapse="hasCollapseMenu" :toggleCollapse="toggleCollapse"
-            :showHeaderBar="settingStore.showHeaderBar" />
+          <Breadcrumb
+            v-if="!hasHideBreadcrumb"
+            :isCollapse="hasCollapseMenu"
+            :toggleCollapse="toggleCollapse"
+            :showHeaderBar="settingStore.showHeaderBar"
+          />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>

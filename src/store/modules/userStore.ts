@@ -46,13 +46,13 @@ const useUserStore = defineStore({
         this.username = data.checkUser.username;
         if (data.list.length > 0) {
           let menuList = [];
-          if (process.env.NODE_ENV === 'production') {
+          if (process.env.NODE_ENV === "production") {
             menuList = filterAsyncRoutes(
               asyncRoute as unknown as RouteRecordRaw[],
               data.list.map((item: any) => item.code)
             );
           } else {
-            menuList = [...asyncRoute as unknown as RouteRecordRaw[]]
+            menuList = [...(asyncRoute as unknown as RouteRecordRaw[])];
           }
           this.backMenuList = menuList;
           this.permissionButtonList = data.buttons;

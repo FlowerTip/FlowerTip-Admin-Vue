@@ -142,7 +142,9 @@ onMounted(() => {
   myChart = echarts.init(MapChart.value);
   myChart.setOption(option);
   window.addEventListener("resize", resizeChart);
-  sidebarMenuNode = document.getElementsByClassName("content-aside")[0] as HTMLDivElement;
+  sidebarMenuNode = document.getElementsByClassName(
+    "content-aside"
+  )[0] as HTMLDivElement;
   sidebarMenuNode &&
     sidebarMenuNode.addEventListener("transitionend", resizeChart);
 });
