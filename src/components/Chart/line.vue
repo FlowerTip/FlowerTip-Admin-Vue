@@ -66,8 +66,9 @@ onMounted(() => {
   myChart.setOption(option);
   window.addEventListener("resize", resizeChart);
 
-  const sidebarMenuNode = document.getElementsByClassName('content-aside')[0];
-  sidebarMenuNode && sidebarMenuNode.addEventListener('transitionend', resizeChart);
+  const sidebarMenuNode = document.getElementsByClassName("content-aside")[0];
+  sidebarMenuNode &&
+    sidebarMenuNode.addEventListener("transitionend", resizeChart);
 });
 
 onBeforeMount(() => {
@@ -76,7 +77,7 @@ onBeforeMount(() => {
 
 const resizeChart = useDebounceFn(() => {
   myChart.resize();
-}, 100)
+}, 100);
 </script>
 
 <style lang="scss" scoped></style>

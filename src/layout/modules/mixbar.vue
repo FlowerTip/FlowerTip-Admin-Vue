@@ -10,12 +10,19 @@
       <Rightbar />
     </div>
     <div class="mixbar-content" :class="classObjName">
-      <Sidebar :isCollapse="isCollapse" :showHeaderBar="settingStore.showHeaderBar" />
+      <Sidebar
+        :isCollapse="isCollapse"
+        :showHeaderBar="settingStore.showHeaderBar"
+      />
       <div class="content-rightbar">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb v-if="!hasHideBreadcrumb" :isCollapse="isCollapse" :toggleCollapse="toggleCollapse"
-            :showHeaderBar="settingStore.showHeaderBar" />
+          <Breadcrumb
+            v-if="!hasHideBreadcrumb"
+            :isCollapse="isCollapse"
+            :toggleCollapse="toggleCollapse"
+            :showHeaderBar="settingStore.showHeaderBar"
+          />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>
