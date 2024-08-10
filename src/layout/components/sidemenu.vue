@@ -7,7 +7,7 @@
     >
       <span class="system-name">{{ defaultSetting.title }}</span>
     </div>
-    <el-scrollbar :min-size="10">
+    <el-scrollbar :min-size="10" :style="scrollbarStyle">
       <el-menu
         :default-active="currentRoute.path as string"
         class="sidebar-menu"
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import defaultSetting from "@/setting";
 import useUserStore from "@/store/modules/userStore";
@@ -51,15 +51,22 @@ const menuConfig = ref({
   baseSidebarMenuTextColor: config.baseSidebarMenuTextColor,
   baseSidebarMenuActiveTextColor: config.baseSidebarMenuActiveTextColor,
 });
+const headbarHeight = "50px";
+const scrollbarStyle = computed(() => {
+  return {
+    height:
+      settingStore.layout == "simplebar"
+        ? `calc(100% - ${headbarHeight})`
+        : "100%",
+  };
+});
 </script>
 
 <style lang="scss" scoped>
-.el-scrollbar {
-  height: calc(100% - $base-top-menu-height);
-}
 :deep(.el-scrollbar__wrap) {
   width: 100% !important;
 }
+
 .sidebar-logo {
   width: 100%;
   height: $base-top-menu-height;
