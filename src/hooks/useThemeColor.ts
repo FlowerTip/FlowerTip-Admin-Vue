@@ -117,7 +117,10 @@ const useThemeColor = () => {
       showBreadcrumb: settingStore.showBreadcrumb,
       color: primaryColor,
       themeName: colorThemeName,
-      topShowCollapsed: settingStore.layout === "mixbar" ? settingStore.topShowCollapsed : false,
+      topShowCollapsed:
+        settingStore.layout === "mixbar"
+          ? settingStore.topShowCollapsed
+          : false,
     });
   };
   onMounted(() => {
