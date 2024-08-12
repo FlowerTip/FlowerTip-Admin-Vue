@@ -64,7 +64,7 @@ const useUserStore = defineStore({
             meta: {
               hidden: true,
             },
-            redirect: this.authMenuList[0].path,
+            redirect: this.authMenuList[0].redirect!,
           });
           this.authMenuList.forEach((item) => {
             router.addRoute(item as unknown as RouteRecordRaw);
