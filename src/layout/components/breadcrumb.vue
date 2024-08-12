@@ -2,7 +2,7 @@
   <div class="breadcrumb">
     <div class="left-wrapper">
       <span
-        v-show="showToggleCollapse"
+        v-if="showToggleCollapse"
         class="toggle-btn"
         @click="toggleCollapse"
       >
@@ -41,7 +41,7 @@ const userStore = useUserStore();
 const appStore = useAppStore();
 
 const showToggleCollapse = computed(() => {
-  return settingStore.layout !== "topbar" || !settingStore.showHeaderBar;
+  return (settingStore.layout !== "topbar" || !settingStore.showHeaderBar) && !settingStore.topShowCollapsed;
 });
 
 const route = useRoute();

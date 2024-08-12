@@ -13,6 +13,7 @@ const useSettingStore = defineStore({
       layout: defaultSetting.layout,
       color: defaultSetting.color,
       themeName: defaultSetting.themeName,
+      topShowCollapsed: defaultSetting.topShowCollapsed
     };
   },
   actions: {
@@ -25,6 +26,7 @@ const useSettingStore = defineStore({
       this.layout = data.layout;
       this.color = data.color;
       this.themeName = data.themeName;
+      this.topShowCollapsed = data.topShowCollapsed;
     },
   },
 });

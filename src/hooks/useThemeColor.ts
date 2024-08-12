@@ -117,6 +117,7 @@ const useThemeColor = () => {
       showBreadcrumb: settingStore.showBreadcrumb,
       color: primaryColor,
       themeName: colorThemeName,
+      topShowCollapsed: settingStore.topShowCollapsed
     });
   };
   onMounted(() => {
