@@ -43,8 +43,9 @@ const menuConfig = ref({
 <style lang="scss">
 .header-menu {
   flex: 1;
-
+  min-width: 100px;
   .top-menu {
+    width: 100%;
     height: $base-top-menu-height !important;
     border: 0px !important;
 
