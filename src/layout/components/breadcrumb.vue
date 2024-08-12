@@ -41,7 +41,10 @@ const userStore = useUserStore();
 const appStore = useAppStore();
 
 const showToggleCollapse = computed(() => {
-  return (settingStore.layout !== "topbar" || !settingStore.showHeaderBar) && !settingStore.topShowCollapsed;
+  return (
+    (settingStore.layout !== "topbar" || !settingStore.showHeaderBar) &&
+    !settingStore.topShowCollapsed
+  );
 });
 
 const route = useRoute();

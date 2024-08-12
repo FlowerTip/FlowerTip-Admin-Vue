@@ -350,9 +350,7 @@
           </div>
           <div class="item">
             <span class="right-txt">顶部收缩菜单</span>
-            <el-switch
-              v-model="settingStore.topShowCollapsed"
-            />
+            <el-switch v-model="settingStore.topShowCollapsed" />
           </div>
           <div class="item">
             <span class="right-txt">面包屑</span>
@@ -552,7 +550,7 @@ const toggleLayout = (layout: string) => {
     showBreadcrumb: settingStore.showBreadcrumb,
     color: settingStore.color,
     themeName: settingStore.themeName,
-    topShowCollapsed: settingStore.topShowCollapsed
+    topShowCollapsed: settingStore.topShowCollapsed,
   });
   drawer.value = false;
   ElMessage({
@@ -572,7 +570,7 @@ onMounted(() => {
       showBreadcrumb: settingStore.showBreadcrumb,
       color: settingStore.color,
       themeName: settingStore.themeName,
-      topShowCollapsed: settingStore.topShowCollapsed
+      topShowCollapsed: settingStore.topShowCollapsed,
     });
   }
   screenfull.on("change", () => {
