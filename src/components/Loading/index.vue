@@ -1,7 +1,7 @@
 <template>
   <div class="loading-box">
     <div class="loading-wrap">
-      <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
+      <span class="dot dot-spin"><em></em><em></em><em></em><em></em></span>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@
   animation: ant-rotate 1.2s infinite linear;
 }
 
-.dot i {
+.dot em {
   position: absolute;
   display: block;
   width: 14px;
@@ -49,24 +49,24 @@
   animation: ant-spin-move 1s infinite linear alternate;
 }
 
-.dot i:nth-child(1) {
+.dot em:nth-child(1) {
   top: 0;
   left: 0;
 }
 
-.dot i:nth-child(2) {
+.dot em:nth-child(2) {
   top: 0;
   right: 0;
   animation-delay: 0.4s;
 }
 
-.dot i:nth-child(3) {
+.dot em:nth-child(3) {
   right: 0;
   bottom: 0;
   animation-delay: 0.8s;
 }
 
-.dot i:nth-child(4) {
+.dot em:nth-child(4) {
   bottom: 0;
   left: 0;
   animation-delay: 1.2s;
