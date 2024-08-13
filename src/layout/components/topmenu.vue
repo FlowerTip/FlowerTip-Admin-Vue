@@ -1,20 +1,10 @@
 <template>
   <div class="header-menu">
-    <el-menu
-      mode="horizontal"
-      class="top-menu"
-      :default-active="currentRoute.path as string"
-      :collapse-transition="false"
-      :background-color="menuConfig.baseTopMenuBackground"
-      :text-color="menuConfig.baseTopMenuTextColor"
-      :active-text-color="settingStore.color"
-    >
-      <sidebar-item
-        v-for="menu in userStore.authMenuList"
-        :key="menu.path"
-        :item="menu"
-        :base-path="menu.path"
-      ></sidebar-item>
+    <el-menu mode="horizontal" class="top-menu" :default-active="currentRoute.path as string"
+      :collapse-transition="false" :background-color="menuConfig.baseTopMenuBackground"
+      :text-color="menuConfig.baseTopMenuTextColor" :active-text-color="settingStore.color">
+      <sidebar-item v-for="menu in userStore.authMenuList" :key="menu.path" :item="menu"
+        :base-path="menu.path"></sidebar-item>
     </el-menu>
   </div>
 </template>
@@ -40,43 +30,63 @@ const menuConfig = ref({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header-menu {
   flex: 1;
   min-width: 100px;
-  .top-menu {
-    width: 100%;
-    height: $base-top-menu-height !important;
-    border: 0px !important;
 
-    .el-menu-item,
-    .el-sub-menu .el-sub-menu__title {
-      box-sizing: border-box !important;
-      font-size: 17px;
-      height: $base-top-menu-height !important;
-      line-height: $base-top-menu-height !important;
+  :deep(.top-menu) {
+    width: 100%;
+    height: $base-top-menu-height;
+    border: 0px;
+
+    .el-menu-item {
+      box-sizing: border-box;
+      font-size: 16px;
+      height: $base-top-menu-height;
+      line-height: $base-top-menu-height;
+
       &.is-active {
-        border-bottom: 2px solid var(--el-color-primary) !important;
-        color: var(--el-color-primary) !important;
+        border-bottom: 2px solid var(--el-color-primary);
+        color: var(--el-color-primary);
       }
     }
 
     .el-sub-menu {
-      box-sizing: border-box !important;
+      .el-sub-menu__title {
+        box-sizing: border-box;
+        font-size: 16px;
+        height: $base-top-menu-height;
+        line-height: $base-top-menu-height;
+      }
+
       &.is-active {
         .el-sub-menu__title {
-          border-bottom: 2px solid var(--el-color-primary) !important;
-          color: var(--el-color-primary) !important;
+          border-bottom: 2px solid var(--el-color-primary);
+          color: var(--el-color-primary);
+        }
+      }
+    }
+
+    .el-sub-menu {
+      box-sizing: border-box;
+
+      &.is-active {
+        .el-sub-menu__title {
+          border-bottom: 2px solid var(--el-color-primary);
+          color: var(--el-color-primary);
         }
       }
     }
   }
 }
-.el-menu--popup {
+
+:deep(.el-menu--popup) {
   .nest-menu {
     .el-menu-item {
       font-size: 15px;
     }
+
     .el-sub-menu {
       .el-sub-menu__title {
         font-size: 15px;

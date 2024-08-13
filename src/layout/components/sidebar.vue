@@ -5,7 +5,7 @@
       <el-menu
         mode="vertical"
         :collapse-transition="false"
-        :default-active="defaultActive"
+        :default-active="defaultActive as string"
         class="sidebar-menu"
         :collapse="appStore.isCollapsed"
         :background-color="menuConfig.baseSidebarMenuBackground"
@@ -31,8 +31,10 @@ import useUserStore from "@/store/modules/userStore";
 import config from "@/styles/config.module.scss";
 import SidebarItem from "./sidebar-item-icon.vue";
 import useAppStore from "@/store/modules/appStore";
+import useSettingStore from "@/store/modules/settingStore";
 
 const appStore = useAppStore();
+const settingStore = useSettingStore();
 const currentRoute = useRoute();
 
 const userStore = useUserStore();
@@ -50,8 +52,12 @@ const menuList = computed(() => {
 });
 
 const defaultActive = computed(() => {
-  const str: any = props.showHeaderBar ? currentRoute.name : currentRoute.path;
-  return str;
+  if (settingStore.layout === 'mixbar') {
+    const activeName = currentRoute.meta?.parentName ? currentRoute.path : currentRoute.name
+    return activeName;
+  } else {
+    return currentRoute.name;
+  }
 });
 
 const props = defineProps(["showHeaderBar"]);

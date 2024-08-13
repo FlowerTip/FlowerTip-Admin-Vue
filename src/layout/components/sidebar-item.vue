@@ -12,7 +12,7 @@
           :index="resolvePath(onlyOneChild.path)"
           :class="{ 'submenu-title-noDropdown': !isNest }"
         >
-          <item :title="onlyOneChild.meta.title" />
+          <item :title="onlyOneChild.meta.title" :icon="onlyOneChild.meta.icon" :size="16" />
         </el-menu-item>
       </app-link>
     </template>
@@ -24,7 +24,7 @@
       popper-append-to-body
     >
       <template #title>
-        <item :title="item.meta.title" />
+        <item :title="item.meta.title" :icon="item.meta.icon" :size="16" />
       </template>
       <sidebar-item
         v-for="child in item.children"

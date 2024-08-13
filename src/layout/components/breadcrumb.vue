@@ -16,8 +16,10 @@
           v-for="route in matched"
           :key="route.path"
           :to="{ name: route.name }"
+          class="breadcrumb-item"
         >
-          {{ route.meta.title }}
+          <svg-icon v-if="route.meta.icon" :name="route.meta.icon"></svg-icon>
+          <span>{{ route.meta.title }}</span>
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -56,6 +58,7 @@ const matched = computed(() => {
     ...userStore.authMenuList[0],
     meta: {
       title: "驾驶舱",
+      icon: ''
     },
   };
   const firstMatched = route.matched[0];
@@ -94,6 +97,16 @@ const toggleCollapse = () => {
     .el-icon {
       height: 40px;
       line-height: 40px;
+    }
+  }
+
+  .breadcrumb-item {
+    :deep(.el-breadcrumb__inner) {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 4px;
+      }
     }
   }
 }

@@ -1,40 +1,23 @@
 <template v-if="!item.meta || !item.meta.hidden">
-  <template
-    v-if="
-      hasOneShowingChild(item.children, item) &&
-      (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-      !item.alwaysShow
-    "
-  >
-    <el-menu-item
-      :index="resolvePath(onlyOneChild.path)"
-      :class="{ 'submenu-title-noDropdown': !isNest }"
-      :to="resolvePath(onlyOneChild.path)"
-      @click="menuItemClick(resolvePath(onlyOneChild.path))"
-    >
-      <svg-icon v-if="onlyOneChild.meta.icon" :name="onlyOneChild.meta.icon" />
+  <template v-if="
+    hasOneShowingChild(item.children, item) &&
+    (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
+    !item.alwaysShow
+  ">
+    <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }"
+      :to="resolvePath(onlyOneChild.path)" @click="menuItemClick">
+      <svg-icon v-if="onlyOneChild.meta.icon" :name="onlyOneChild.meta.icon" :size="16" />
       <template #title>{{ onlyOneChild.meta.title }}</template>
     </el-menu-item>
   </template>
 
-  <el-sub-menu
-    v-else
-    ref="subMenuRef"
-    :index="resolvePath(item.path)"
-    popper-append-to-body
-  >
+  <el-sub-menu v-else ref="subMenuRef" :index="resolvePath(item.path)" popper-append-to-body>
     <template #title>
-      <svg-icon v-if="item.meta.icon" :name="item.meta.icon" />
+      <svg-icon v-if="item.meta.icon" :name="item.meta.icon" :size="16" />
       <span>{{ item.meta.title }}</span>
     </template>
-    <sidebar-item
-      v-for="child in item.children"
-      :key="child.path"
-      is-nest
-      :item="child"
-      :base-path="resolvePath(child.path)"
-      class="nest-menu"
-    />
+    <sidebar-item v-for="child in item.children" :key="child.path" is-nest :item="child"
+      :base-path="resolvePath(settingStore.layout === 'mixbar' ? item.path : child.path)" class="nest-menu" />
   </el-sub-menu>
 </template>
 
@@ -49,16 +32,35 @@ import { isExternalFn } from "@/utils/validate";
 import { resolve } from "@/utils/tool";
 import type { ElSubMenu } from "element-plus";
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+import useSettingStore from "@/store/modules/settingStore";
 
 const router = useRouter();
 
-const menuItemClick = (path: string) => {
+const settingStore = useSettingStore();
+
+const currentRoute = useRoute();
+
+const menuItemClick = () => {
+  const path = resolvePath(onlyOneChild.value.path);
+  console.log(onlyOneChild, path, 'path@@@@');
+
   // 外部链接
   if (isExternalFn(path)) {
     window.open(path, "_blank");
   } else {
-    router.push(path);
+    console.log(path, 'retyuinrt');
+    if (settingStore.layout === 'mixbar') {
+      if (onlyOneChild.value.meta.parentName) {
+        router.push(path);
+      } else {
+        router.push({
+          name: path
+        });
+      }
+    } else {
+      router.push(path);
+    }
   }
 };
 const subMenuRef = ref<InstanceType<typeof ElSubMenu>>();
@@ -118,10 +120,28 @@ const resolvePath = (routePath: string) => {
   if (isExternalFn(props.basePath)) {
     return props.basePath;
   }
-  return resolve(
-    props.basePath as unknown as IArguments,
-    routePath as unknown as IArguments
-  );
+
+  if (settingStore.layout === 'mixbar') {
+    if (onlyOneChild.value.meta.parentName) {
+      const currPath = `${onlyOneChild.value.meta.parentName}/${onlyOneChild.value.name}`
+      console.log(currPath, 'currPath');
+      return resolve(
+        currentRoute.matched[0].path as unknown as IArguments,
+        currPath as unknown as IArguments
+      );
+    } else {
+      return resolve(
+        props.basePath as unknown as IArguments,
+        routePath as unknown as IArguments
+      );
+    }
+  } else {
+    return resolve(
+      props.basePath as unknown as IArguments,
+      routePath as unknown as IArguments
+    );
+  }
+
 };
 </script>
 

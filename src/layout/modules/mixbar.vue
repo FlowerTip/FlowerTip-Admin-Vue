@@ -13,10 +13,7 @@
       <div class="content-rightbar">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb
-            v-if="!hasHideBreadcrumb"
-            :showHeaderBar="settingStore.showHeaderBar"
-          />
+          <Breadcrumb v-if="!hasHideBreadcrumb" :showHeaderBar="settingStore.showHeaderBar" />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>
@@ -144,10 +141,22 @@ const classObjName = computed({
         border-right: 0;
 
         .el-menu-item {
+          font-size: 15px;
           height: $menu-item-height;
 
           &.is-active {
             background-color: var(--el-color-primary);
+          }
+        }
+
+        .el-sub-menu {
+          > .el-sub-menu__title {
+            font-size: 15px;
+          }
+          &.is-active {
+            > .el-sub-menu__title {
+              color: $base-sidebar-menu-active-text-color;
+            }
           }
         }
       }
@@ -206,6 +215,16 @@ const classObjName = computed({
               align-items: center;
             }
           }
+
+          .el-sub-menu {
+            .el-sub-menu__title {
+              padding: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+
         }
       }
 

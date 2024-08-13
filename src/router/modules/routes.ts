@@ -60,7 +60,7 @@ export const asyncRoute = [
     redirect: "/home/cockpit",
     meta: {
       title: "驾驶舱",
-      icon: "ele-Menu",
+      icon: "ele-Stopwatch",
     },
     children: [
       {
@@ -69,7 +69,7 @@ export const asyncRoute = [
         component: () => import("@/views/cockpit/index.vue"),
         meta: {
           title: "驾驶舱",
-          icon: "ele-Menu",
+          icon: "ele-Stopwatch",
         },
       },
     ],
@@ -80,7 +80,7 @@ export const asyncRoute = [
     name: "table",
     meta: {
       title: "表格组件",
-      icon: "ele-Menu",
+      icon: "ele-Grid",
     },
     redirect: "/table/advanced-table",
     children: [
@@ -90,7 +90,7 @@ export const asyncRoute = [
         component: () => import("@/views/table/advanced-table/index.vue"),
         meta: {
           title: "高级表格",
-          icon: "ele-Menu",
+          icon: "ele-Film",
         },
       },
       {
@@ -99,7 +99,7 @@ export const asyncRoute = [
         component: () => import("@/views/table/dialog-table/index.vue"),
         meta: {
           title: "表格筛选",
-          icon: "ele-Menu",
+          icon: "ele-Postcard",
         },
       },
     ],
@@ -110,7 +110,7 @@ export const asyncRoute = [
     name: "upload",
     meta: {
       title: "上传组件",
-      icon: "ele-Menu",
+      icon: "ele-UploadFilled",
     },
     redirect: "/upload/avatar-upload",
     children: [
@@ -120,7 +120,7 @@ export const asyncRoute = [
         component: () => import("@/views/upload/avatar-upload/index.vue"),
         meta: {
           title: "头像上传",
-          icon: "ele-Menu",
+          icon: "ele-Avatar",
         },
       },
       {
@@ -129,7 +129,7 @@ export const asyncRoute = [
         component: () => import("@/views/upload/image-upload/index.vue"),
         meta: {
           title: "图片上传",
-          icon: "ele-Menu",
+          icon: "ele-PictureFilled",
         },
       },
       {
@@ -138,7 +138,7 @@ export const asyncRoute = [
         component: () => import("@/views/upload/file-upload/index.vue"),
         meta: {
           title: "文件上传",
-          icon: "ele-Menu",
+          icon: "ele-Files",
         },
       },
     ],
@@ -149,7 +149,7 @@ export const asyncRoute = [
     name: "form",
     meta: {
       title: "表单组件",
-      icon: "ele-Menu",
+      icon: "ele-EditPen",
     },
     redirect: "/form/basic-form",
     children: [
@@ -159,7 +159,7 @@ export const asyncRoute = [
         component: () => import("@/views/form/basic-form/index.vue"),
         meta: {
           title: "基础表单",
-          icon: "ele-Menu",
+          icon: "ele-Tickets",
         },
       },
       {
@@ -168,7 +168,7 @@ export const asyncRoute = [
         component: () => import("@/views/form/step-form/index.vue"),
         meta: {
           title: "分步表单",
-          icon: "ele-Menu",
+          icon: "ele-Reading",
         },
       },
     ],
@@ -179,7 +179,7 @@ export const asyncRoute = [
     name: "chart",
     meta: {
       title: "图表组件",
-      icon: "ele-Menu",
+      icon: "ele-TrendCharts",
     },
     redirect: "/chart/pie-chart",
     children: [
@@ -189,7 +189,7 @@ export const asyncRoute = [
         component: () => import("@/views/chart/pie/index.vue"),
         meta: {
           title: "饼图图表",
-          icon: "ele-Menu",
+          icon: "ele-PieChart",
         },
       },
       {
@@ -198,7 +198,7 @@ export const asyncRoute = [
         component: () => import("@/views/chart/bar/index.vue"),
         meta: {
           title: "柱状图表",
-          icon: "ele-Menu",
+          icon: "ele-Histogram",
         },
       },
       {
@@ -207,7 +207,7 @@ export const asyncRoute = [
         component: () => import("@/views/chart/line/index.vue"),
         meta: {
           title: "折线图表",
-          icon: "ele-Menu",
+          icon: "ele-TrendCharts",
         },
       },
       {
@@ -216,7 +216,7 @@ export const asyncRoute = [
         component: () => import("@/views/chart/map/index.vue"),
         meta: {
           title: "地图图表",
-          icon: "ele-Menu",
+          icon: "ele-WindPower",
         },
       },
       {
@@ -225,7 +225,7 @@ export const asyncRoute = [
         component: () => import("@/views/chart/mix/index.vue"),
         meta: {
           title: "混合图表",
-          icon: "ele-Menu",
+          icon: "ele-Football",
         },
       },
       {
@@ -234,7 +234,7 @@ export const asyncRoute = [
         component: () => import("@/views/chart/moreLine/index.vue"),
         meta: {
           title: "多折线图表",
-          icon: "ele-Menu",
+          icon: "ele-Collection",
         },
       },
       {
@@ -243,7 +243,7 @@ export const asyncRoute = [
         component: () => import("@/views/chart/moreBar/index.vue"),
         meta: {
           title: "多柱状图表",
-          icon: "ele-Menu",
+          icon: "ele-DataBoard",
         },
       },
     ],
@@ -264,7 +264,7 @@ export const asyncRoute = [
         component: () => import("@/views/tool/dayjs/index.vue"),
         meta: {
           title: "时间操作",
-          icon: "ele-Menu",
+          icon: "ele-Calendar",
         },
       },
       {
@@ -273,7 +273,7 @@ export const asyncRoute = [
         component: () => import("@/views/tool/throttle/index.vue"),
         meta: {
           title: "防抖节流",
-          icon: "ele-Menu",
+          icon: "ele-Timer",
         },
       },
       {
@@ -282,9 +282,73 @@ export const asyncRoute = [
         component: () => import("@/views/tool/preview/index.vue"),
         meta: {
           title: "文档预览",
-          icon: "ele-Menu",
+          icon: "ele-Printer",
         },
       },
+      {
+        name: "test",
+        path: "test",
+        component: () => import("@/views/form/test/index.vue"),
+        meta: {
+          title: "多级菜单",
+          icon: "ele-Reading",
+        },
+        redirect: '/tool/test/list',
+        children: [
+          {
+            name: "list",
+            path: "list",
+            component: () => import("@/views/form/test/list/index.vue"),
+            meta: {
+              title: "列表页面",
+              icon: "ele-Reading",
+              parentName: 'test'
+            },
+          },
+          {
+            name: "detail",
+            path: "detail",
+            component: () => import("@/views/form/test/detail/index.vue"),
+            meta: {
+              title: "添加页面",
+              icon: "ele-Reading",
+              parentName: 'test',
+            },
+          },
+          {
+            name: "demo",
+            path: "demo",
+            component: () => import("@/views/form/test/demo/index.vue"),
+            meta: {
+              title: "详情页面",
+              icon: "ele-Reading",
+              parentName: 'test',
+            },
+            children: [
+              {
+                name: "demo1",
+                path: "demo1",
+                component: () => import("@/views/form/test/demo/demo01/index.vue"),
+                meta: {
+                  title: "人员详情",
+                  icon: "ele-Reading",
+                  parentName: 'test/demo',
+                },
+              },
+              {
+                name: "demo2",
+                path: "demo2",
+                component: () => import("@/views/form/test/demo/demo02/index.vue"),
+                meta: {
+                  title: "公司详情",
+                  icon: "ele-Reading",
+                  parentName: 'test/demo',
+                },
+              }
+            ]
+          }
+        ]
+      }
     ],
   },
   {
@@ -292,7 +356,7 @@ export const asyncRoute = [
     name: "document",
     meta: {
       title: "在线文档",
-      icon: "ele-Menu",
+      icon: "ele-Link",
       hidden: false,
     },
     component: () => import("@/layout/index.vue"),
@@ -301,7 +365,7 @@ export const asyncRoute = [
       {
         path: "https://juejin.cn/column/7388686221892976703",
         name: "vitepress-blog",
-        meta: { title: "在线文档", icon: "ele-Menu", hidden: false },
+        meta: { title: "在线文档", icon: "ele-Link", hidden: false },
       },
     ],
   },
@@ -310,7 +374,7 @@ export const asyncRoute = [
     name: "project",
     meta: {
       title: "开源项目",
-      icon: "ele-Menu",
+      icon: "ele-HelpFilled",
       hidden: false,
     },
     component: () => import("@/layout/index.vue"),
@@ -319,7 +383,7 @@ export const asyncRoute = [
       {
         path: "https://gitee.com/CodeTV",
         name: "CodeTV",
-        meta: { title: "开源项目", icon: "ele-Menu", hidden: false },
+        meta: { title: "开源项目", icon: "ele-HelpFilled", hidden: false },
       },
     ],
   },
@@ -328,13 +392,13 @@ export const asyncRoute = [
     path: "/setting",
     component: () => import("@/layout/index.vue"),
     redirect: "/setting/permission",
-    meta: { title: "系统管理", icon: "ele-Menu" },
+    meta: { title: "系统管理", icon: "ele-Setting" },
     children: [
       {
         name: "permission",
         path: "/setting/permission",
         component: () => import("@/views/setting/permission/index.vue"),
-        meta: { title: "权限管理", icon: "ele-Menu" },
+        meta: { title: "权限管理", icon: "ele-UserFilled" },
         redirect: "/setting/permission/menu",
         children: [
           {
@@ -354,7 +418,7 @@ export const asyncRoute = [
               import("@/views/setting/permission/role/index.vue"),
             meta: {
               title: "角色管理",
-              icon: "ele-Menu",
+              icon: "ele-Promotion",
             },
           },
           {
@@ -364,7 +428,7 @@ export const asyncRoute = [
               import("@/views/setting/permission/user/index.vue"),
             meta: {
               title: "用户管理",
-              icon: "ele-Menu",
+              icon: "ele-Avatar",
             },
           },
         ],
@@ -373,7 +437,7 @@ export const asyncRoute = [
         name: "department",
         path: "/setting/department",
         component: () => import("@/views/setting/department/index.vue"),
-        meta: { title: "部门管理", icon: "ele-Menu" },
+        meta: { title: "部门管理", icon: "ele-Postcard" },
         redirect: "/setting/department/software",
         children: [
           {
@@ -383,7 +447,7 @@ export const asyncRoute = [
               import("@/views/setting/department/software/index.vue"),
             meta: {
               title: "软件人员",
-              icon: "ele-Menu",
+              icon: "ele-Management",
             },
           },
           {
@@ -393,7 +457,7 @@ export const asyncRoute = [
               import("@/views/setting/department/maintenance/index.vue"),
             meta: {
               title: "运维人员",
-              icon: "ele-Menu",
+              icon: "ele-VideoCamera",
             },
           },
         ],

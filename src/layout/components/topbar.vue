@@ -7,30 +7,19 @@
         <Expand v-show="appStore.isCollapsed" />
       </el-icon>
     </span>
-    <el-menu
-      :default-active="activeIndex"
-      class="top-menu"
-      mode="horizontal"
-      @select="handleSelect"
-      :background-color="menuConfig.baseTopMenuBackground"
-      :text-color="menuConfig.baseTopMenuTextColor"
-      :active-text-color="settingStore.color"
-    >
+    <el-menu :default-active="activeIndex" class="top-menu" mode="horizontal" @select="handleSelect"
+      :background-color="menuConfig.baseTopMenuBackground" :text-color="menuConfig.baseTopMenuTextColor"
+      :active-text-color="settingStore.color">
       <template v-for="menu in authMenuList">
-        <el-sub-menu
-          v-if="menu.children && menu.children[0].redirect"
-          :index="menu.path"
-          :key="menu.children[0].path"
-        >
-          <template #title>{{ menu.meta?.title }}</template>
-          <el-menu-item
-            v-for="child in menu.children"
-            :key="child.path"
-            :index="child.path"
-            >{{ child.meta?.title }}</el-menu-item
-          >
+        <el-sub-menu v-if="menu.children && menu.children[0].redirect" :index="menu.path" :key="menu.children[0].path">
+          <template #title><svg-icon v-if="menu.meta?.icon" :name="menu.meta.icon" :size="17"></svg-icon>{{
+            menu.meta?.title }}</template>
+          <el-menu-item v-for="child in menu.children" :key="child.path" :index="child.path"> <svg-icon
+              v-if="child.meta?.icon" :name="child.meta.icon" :size="17"></svg-icon>{{ child.meta?.title
+            }}</el-menu-item>
         </el-sub-menu>
         <el-menu-item v-else :key="menu.path" :index="menu.path">
+          <svg-icon v-if="menu.meta?.icon" :name="menu.meta.icon" :size="17"></svg-icon>
           {{ menu.meta?.title }}
         </el-menu-item>
       </template>
@@ -89,16 +78,26 @@ watch(
     console.log(newVal.path, newVal.fullPath, newVal.matched, "newVal");
     let keyName = "";
     const pathList = newVal.fullPath.split("/").filter((item) => item);
-    console.log(pathList, "pathList");
-    if (pathList.length === 2) {
+    if (pathList.length >= 3) {
+      if (settingStore.layout === 'mixbar') {
+        const isSecondLevel = newVal.matched[0].children.every(item => item.children && item.children.length > 0);
+        if (isSecondLevel) {
+          keyName = pathList[1]
+          activeIndex.value = `/${pathList[0]}/${pathList[1]}`;
+        } else {
+          keyName = pathList[0]
+          activeIndex.value = `/${pathList[0]}`;
+        }
+      } else {
+        keyName = pathList[1]
+        activeIndex.value = `/${pathList[0]}/${pathList[1]}`;
+      }
+    } else if (pathList.length === 2) {
       keyName = pathList[0];
       activeIndex.value = `/${pathList[0]}`;
-    } else if (pathList.length >= 3) {
-      activeIndex.value = `/${pathList[0]}/${pathList[1]}`;
-      keyName = keyName = pathList[1];
     } else {
-      activeIndex.value = "/";
       keyName = pathList[0];
+      activeIndex.value = "/";
     }
     const test = userStore.flatMenuList.find(
       (item: any) =>
@@ -124,7 +123,7 @@ const authMenuList: RouteRecordRaw[] = userStore.authMenuList.filter(
 );
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header-menu {
   flex: 1;
   min-width: 100px;
@@ -150,9 +149,14 @@ const authMenuList: RouteRecordRaw[] = userStore.authMenuList.filter(
     height: $base-top-menu-height;
     border: 0px;
 
-    .el-menu-item,
-    .el-sub-menu .el-sub-menu__title {
-      font-size: 17px;
+    .el-menu-item {
+      font-size: 16px;
+    }
+
+    .el-sub-menu {
+      :deep(.el-sub-menu__title) {
+        font-size: 16px;
+      }
     }
   }
 }

@@ -130,14 +130,14 @@ const contentRightBarClassName = computed(() => {
         .el-sub-menu {
           &.is-active {
             > .el-sub-menu__title {
-              color: #fff;
+              color: $base-sidebar-menu-active-text-color;
             }
 
             .nest-menu {
               .el-sub-menu {
                 &.is-active {
                   .el-sub-menu__title {
-                    color: #fff;
+                    color: $base-sidebar-menu-active-text-color;
                   }
                 }
               }
