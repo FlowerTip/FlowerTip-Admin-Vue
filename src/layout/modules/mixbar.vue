@@ -23,7 +23,7 @@
         <!-- 二级路由占位区域 -->
         <div class="view-layout">
           <router-view v-slot="{ Component, route }">
-            <transition appear name="fade-transform" mode="out-in">
+            <transition name="fade-transform" mode="out-in">
               <keep-alive :include="cacheRouteViews">
                 <component :is="Component" :key="route.fullPath" />
               </keep-alive>

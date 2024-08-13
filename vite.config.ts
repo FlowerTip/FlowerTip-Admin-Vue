@@ -59,7 +59,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         //   rewrite: (path: string) => path.replace(/^\/api/, ""),
         // },
         [env.VITE_APP_BASE_API]: {
-          target: "http://localhost:9000",
+          target: "http://154.8.195.58:9000",
           // 需要代理跨域
           changeOrigin: true,
           rewrite: (path: string) => path.replace(/^\/api/, ""),

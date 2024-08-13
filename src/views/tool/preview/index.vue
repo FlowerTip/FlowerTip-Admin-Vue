@@ -1,10 +1,12 @@
 <template>
-  <div class="event-wrapper">
+  <div class="preview-container">
+    <div class="event-wrapper">
     <el-button @click="previewDoc">docx预览</el-button>
     <el-button @click="previewPdf">pdf预览</el-button>
     <el-button @click="previewExcel">excel预览</el-button>
   </div>
   <PreviewDialog ref="PreviewDialogRef" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -39,7 +41,7 @@ const previewExcel = () => {
 </script>
 
 <style lang="scss" scoped>
-.event-wrapper {
+.preview-container {
   height: 100%;
   padding: 20px;
   background-color: #fff;
