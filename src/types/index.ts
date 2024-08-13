@@ -86,10 +86,10 @@ export type AvatarProps = {
 };
 
 /**
-  * [key: string] key是字符串 'mixbar' | 'topbar' | 'sidebar' | 'simplebar'
-  * 
-  * Component vue组件对应的名称 mixbar | topbar | sidebar | simplebar
-  */
+ * [key: string] key是字符串 'mixbar' | 'topbar' | 'sidebar' | 'simplebar'
+ *
+ * Component vue组件对应的名称 mixbar | topbar | sidebar | simplebar
+ */
 export type LayoutComponent = {
-  [key: string]: Component
-}
+  [key: string]: Component;
+};

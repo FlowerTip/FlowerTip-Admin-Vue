@@ -16,7 +16,7 @@ const layoutComponents: LayoutComponent = {
   mixbar,
   topbar,
   sidebar,
-  simplebar
+  simplebar,
 };
 const com = computed(() => {
   return settingStore.layout;

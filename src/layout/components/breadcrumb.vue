@@ -1,15 +1,23 @@
 <template>
   <div class="breadcrumb">
     <div class="left-wrapper">
-      <span v-if="showToggleCollapse" class="toggle-btn" @click="toggleCollapse">
+      <span
+        v-if="showToggleCollapse"
+        class="toggle-btn"
+        @click="toggleCollapse"
+      >
         <el-icon size="20px">
           <Fold v-show="!appStore.isCollapsed" />
           <Expand v-show="appStore.isCollapsed" />
         </el-icon>
       </span>
       <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item v-for="route in matched" :key="route.path" :to="{ name: route.name }"
-          class="breadcrumb-item">
+        <el-breadcrumb-item
+          v-for="route in matched"
+          :key="route.path"
+          :to="{ name: route.name }"
+          class="breadcrumb-item"
+        >
           <svg-icon v-if="route.meta.icon" :name="route.meta.icon"></svg-icon>
           <span>{{ route.meta.title }}</span>
         </el-breadcrumb-item>
@@ -46,11 +54,11 @@ const route = useRoute();
 console.log(route.matched);
 
 const matched = computed(() => {
-  const firstAuthMenu = userStore.authMenuList[0]
+  const firstAuthMenu = userStore.authMenuList[0];
   let firstEle = {
     ...firstAuthMenu,
     meta: {
-      title: firstAuthMenu.meta?.title ?? '驾驶舱',
+      title: firstAuthMenu.meta?.title ?? "驾驶舱",
       icon: firstAuthMenu.meta?.icon ?? "ele-Stopwatch",
     },
   };
