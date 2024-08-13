@@ -1,11 +1,11 @@
 <template>
   <div class="preview-container">
     <div class="event-wrapper">
-    <el-button @click="previewDoc">docx预览</el-button>
-    <el-button @click="previewPdf">pdf预览</el-button>
-    <el-button @click="previewExcel">excel预览</el-button>
-  </div>
-  <PreviewDialog ref="PreviewDialogRef" />
+      <el-button @click="previewDoc">docx预览</el-button>
+      <el-button @click="previewPdf">pdf预览</el-button>
+      <el-button @click="previewExcel">excel预览</el-button>
+    </div>
+    <PreviewDialog ref="PreviewDialogRef" />
   </div>
 </template>
 
