@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
+import { Component } from "vue";
 
 export interface TabInterFace {
   title: string;
@@ -83,3 +84,12 @@ export type AvatarProps = {
     id: number | string;
   };
 };
+
+/**
+  * [key: string] key是字符串 'mixbar' | 'topbar' | 'sidebar' | 'simplebar'
+  * 
+  * Component vue组件对应的名称 mixbar | topbar | sidebar | simplebar
+  */
+export type LayoutComponent = {
+  [key: string]: Component
+}

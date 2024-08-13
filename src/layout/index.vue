@@ -9,13 +9,14 @@ import sidebar from "./modules/sidebar.vue";
 import simplebar from "./modules/simplebar.vue";
 import useSettingStore from "@/store/modules/settingStore";
 import { computed } from "vue";
+import { LayoutComponent } from "@/types";
 
 const settingStore = useSettingStore();
-const layoutComponents: any = {
+const layoutComponents: LayoutComponent = {
   mixbar,
   topbar,
   sidebar,
-  simplebar,
+  simplebar
 };
 const com = computed(() => {
   return settingStore.layout;

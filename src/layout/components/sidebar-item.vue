@@ -15,7 +15,7 @@
           <item
             :title="onlyOneChild.meta.title"
             :icon="onlyOneChild.meta.icon"
-            :size="16"
+            :size="17"
           />
         </el-menu-item>
       </app-link>
@@ -28,7 +28,7 @@
       popper-append-to-body
     >
       <template #title>
-        <item :title="item.meta.title" :icon="item.meta.icon" :size="16" />
+        <item :title="item.meta.title" :icon="item.meta.icon" :size="17" />
       </template>
       <sidebar-item
         v-for="child in item.children"

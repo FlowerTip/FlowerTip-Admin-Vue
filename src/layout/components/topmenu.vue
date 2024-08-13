@@ -1,20 +1,10 @@
 <template>
   <div class="header-menu">
-    <el-menu
-      mode="horizontal"
-      class="top-menu"
-      :default-active="currentRoute.path as string"
-      :collapse-transition="false"
-      :background-color="menuConfig.baseTopMenuBackground"
-      :text-color="menuConfig.baseTopMenuTextColor"
-      :active-text-color="settingStore.color"
-    >
-      <sidebar-item
-        v-for="menu in userStore.authMenuList"
-        :key="menu.path"
-        :item="menu"
-        :base-path="menu.path"
-      ></sidebar-item>
+    <el-menu mode="horizontal" class="top-menu" :default-active="currentRoute.path as string"
+      :collapse-transition="false" :background-color="menuConfig.baseTopMenuBackground"
+      :text-color="menuConfig.baseTopMenuTextColor" :active-text-color="settingStore.color">
+      <sidebar-item v-for="menu in userStore.authMenuList" :key="menu.path" :item="menu"
+        :base-path="menu.path"></sidebar-item>
     </el-menu>
   </div>
 </template>
@@ -86,20 +76,6 @@ const menuConfig = ref({
           border-bottom: 2px solid var(--el-color-primary);
           color: var(--el-color-primary);
         }
-      }
-    }
-  }
-}
-
-:deep(.el-menu--popup) {
-  .nest-menu {
-    .el-menu-item {
-      font-size: 15px;
-    }
-
-    .el-sub-menu {
-      .el-sub-menu__title {
-        font-size: 15px;
       }
     }
   }
