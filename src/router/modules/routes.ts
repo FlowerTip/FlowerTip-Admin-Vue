@@ -293,7 +293,7 @@ export const asyncRoute = [
           title: "多级菜单",
           icon: "ele-Reading",
         },
-        redirect: '/tool/test/list',
+        redirect: "/tool/test/list",
         children: [
           {
             name: "list",
@@ -302,7 +302,7 @@ export const asyncRoute = [
             meta: {
               title: "列表页面",
               icon: "ele-Reading",
-              parentName: 'test'
+              parentName: "test",
             },
           },
           {
@@ -312,7 +312,7 @@ export const asyncRoute = [
             meta: {
               title: "添加页面",
               icon: "ele-Reading",
-              parentName: 'test',
+              parentName: "test",
             },
           },
           {
@@ -322,33 +322,35 @@ export const asyncRoute = [
             meta: {
               title: "详情页面",
               icon: "ele-Reading",
-              parentName: 'test',
+              parentName: "test",
             },
             children: [
               {
                 name: "demo1",
                 path: "demo1",
-                component: () => import("@/views/form/test/demo/demo01/index.vue"),
+                component: () =>
+                  import("@/views/form/test/demo/demo01/index.vue"),
                 meta: {
                   title: "人员详情",
                   icon: "ele-Reading",
-                  parentName: 'test/demo',
+                  parentName: "test/demo",
                 },
               },
               {
                 name: "demo2",
                 path: "demo2",
-                component: () => import("@/views/form/test/demo/demo02/index.vue"),
+                component: () =>
+                  import("@/views/form/test/demo/demo02/index.vue"),
                 meta: {
                   title: "公司详情",
                   icon: "ele-Reading",
-                  parentName: 'test/demo',
+                  parentName: "test/demo",
                 },
-              }
-            ]
-          }
-        ]
-      }
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {

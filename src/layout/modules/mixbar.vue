@@ -13,7 +13,10 @@
       <div class="content-rightbar">
         <div class="nav-bar">
           <!-- 面包屑 -->
-          <Breadcrumb v-if="!hasHideBreadcrumb" :showHeaderBar="settingStore.showHeaderBar" />
+          <Breadcrumb
+            v-if="!hasHideBreadcrumb"
+            :showHeaderBar="settingStore.showHeaderBar"
+          />
           <!-- tagsview -->
           <Tagsview v-if="!hasHideTagsView" />
         </div>
@@ -224,7 +227,6 @@ const classObjName = computed({
               align-items: center;
             }
           }
-
         }
       }
 

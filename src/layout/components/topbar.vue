@@ -7,19 +7,48 @@
         <Expand v-show="appStore.isCollapsed" />
       </el-icon>
     </span>
-    <el-menu :default-active="activeIndex" class="top-menu" mode="horizontal" @select="handleSelect"
-      :background-color="menuConfig.baseTopMenuBackground" :text-color="menuConfig.baseTopMenuTextColor"
-      :active-text-color="settingStore.color">
+    <el-menu
+      :default-active="activeIndex"
+      class="top-menu"
+      mode="horizontal"
+      @select="handleSelect"
+      :background-color="menuConfig.baseTopMenuBackground"
+      :text-color="menuConfig.baseTopMenuTextColor"
+      :active-text-color="settingStore.color"
+    >
       <template v-for="menu in authMenuList">
-        <el-sub-menu v-if="menu.children && menu.children[0].redirect" :index="menu.path" :key="menu.children[0].path">
-          <template #title><svg-icon v-if="menu.meta?.icon" :name="menu.meta.icon" :size="17"></svg-icon>{{
-            menu.meta?.title }}</template>
-          <el-menu-item v-for="child in menu.children" :key="child.path" :index="child.path"> <svg-icon
-              v-if="child.meta?.icon" :name="child.meta.icon" :size="17"></svg-icon>{{ child.meta?.title
-            }}</el-menu-item>
+        <el-sub-menu
+          v-if="menu.children && menu.children[0].redirect"
+          :index="menu.path"
+          :key="menu.children[0].path"
+        >
+          <template #title
+            ><svg-icon
+              v-if="menu.meta?.icon"
+              :name="menu.meta.icon"
+              :size="17"
+            ></svg-icon
+            >{{ menu.meta?.title }}</template
+          >
+          <el-menu-item
+            v-for="child in menu.children"
+            :key="child.path"
+            :index="child.path"
+          >
+            <svg-icon
+              v-if="child.meta?.icon"
+              :name="child.meta.icon"
+              :size="17"
+            ></svg-icon
+            >{{ child.meta?.title }}</el-menu-item
+          >
         </el-sub-menu>
         <el-menu-item v-else :key="menu.path" :index="menu.path">
-          <svg-icon v-if="menu.meta?.icon" :name="menu.meta.icon" :size="17"></svg-icon>
+          <svg-icon
+            v-if="menu.meta?.icon"
+            :name="menu.meta.icon"
+            :size="17"
+          ></svg-icon>
           {{ menu.meta?.title }}
         </el-menu-item>
       </template>
@@ -79,17 +108,19 @@ watch(
     let keyName = "";
     const pathList = newVal.fullPath.split("/").filter((item) => item);
     if (pathList.length >= 3) {
-      if (settingStore.layout === 'mixbar') {
-        const isSecondLevel = newVal.matched[0].children.every(item => item.children && item.children.length > 0);
+      if (settingStore.layout === "mixbar") {
+        const isSecondLevel = newVal.matched[0].children.every(
+          (item) => item.children && item.children.length > 0
+        );
         if (isSecondLevel) {
-          keyName = pathList[1]
+          keyName = pathList[1];
           activeIndex.value = `/${pathList[0]}/${pathList[1]}`;
         } else {
-          keyName = pathList[0]
+          keyName = pathList[0];
           activeIndex.value = `/${pathList[0]}`;
         }
       } else {
-        keyName = pathList[1]
+        keyName = pathList[1];
         activeIndex.value = `/${pathList[0]}/${pathList[1]}`;
       }
     } else if (pathList.length === 2) {

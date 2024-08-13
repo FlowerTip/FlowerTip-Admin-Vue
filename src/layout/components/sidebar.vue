@@ -52,8 +52,10 @@ const menuList = computed(() => {
 });
 
 const defaultActive = computed(() => {
-  if (settingStore.layout === 'mixbar') {
-    const activeName = currentRoute.meta?.parentName ? currentRoute.path : currentRoute.name
+  if (settingStore.layout === "mixbar") {
+    const activeName = currentRoute.meta?.parentName
+      ? currentRoute.path
+      : currentRoute.name;
     return activeName;
   } else {
     return currentRoute.name;

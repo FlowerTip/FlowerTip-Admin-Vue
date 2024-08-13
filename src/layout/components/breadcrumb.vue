@@ -58,7 +58,7 @@ const matched = computed(() => {
     ...userStore.authMenuList[0],
     meta: {
       title: "驾驶舱",
-      icon: ''
+      icon: "",
     },
   };
   const firstMatched = route.matched[0];

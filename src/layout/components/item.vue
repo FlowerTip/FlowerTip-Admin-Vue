@@ -1,4 +1,6 @@
-<template #title><svg-icon v-if="icon" :name="icon" :size="size" />{{ title }}</template>
+<template #title>
+  <svg-icon v-if="icon" :name="icon" :size="size" />{{ title }}
+</template>
 
 <script lang="ts">
 export default {
@@ -19,7 +21,7 @@ defineProps({
   size: {
     type: Number,
     default: 14,
-  }
+  },
 });
 </script>
 
