@@ -9,7 +9,9 @@ enum API {
 
 // 获取菜单列表接口数据
 export const reqMenuList = (data: RequestData.MenuListParam) =>
-  Promise.resolve(instance.post<any, Response.MenuListRes>(API.MENU_LIST, data));
+  Promise.resolve(
+    instance.post<any, Response.MenuListRes>(API.MENU_LIST, data)
+  );
 
 // 保存菜单接口数据
 export const reqSaveMenu = (data: RequestData.SaveMenuParam) =>

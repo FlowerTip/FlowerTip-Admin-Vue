@@ -22,23 +22,46 @@
       <el-col :span="10" :xs="22">
         <div class="right-form">
           <h3 class="login-logo">{{ defaultSetting.title }}</h3>
-          <el-form :model="loginFormData" :rules="loginFormRules" class="login-form">
+          <el-form
+            :model="loginFormData"
+            :rules="loginFormRules"
+            class="login-form"
+          >
             <el-form-item prop="username">
-              <el-input v-model="loginFormData.username" :prefix-icon="User" placeholder="账户名不能为空" />
+              <el-input
+                v-model="loginFormData.username"
+                :prefix-icon="User"
+                placeholder="账户名不能为空"
+              />
             </el-form-item>
             <el-form-item prop="password">
-              <el-input type="password" show-password v-model="loginFormData.password" :prefix-icon="Lock"
-                placeholder="密码不能为空" />
+              <el-input
+                type="password"
+                show-password
+                v-model="loginFormData.password"
+                :prefix-icon="Lock"
+                placeholder="密码不能为空"
+              />
             </el-form-item>
             <el-form-item prop="code">
               <div class="code-wrapper">
-                <el-input v-model="loginFormData.code" :prefix-icon="Picture" placeholder="图形验证码" />
+                <el-input
+                  v-model="loginFormData.code"
+                  :prefix-icon="Picture"
+                  placeholder="图形验证码"
+                />
                 <VerifyCode :updateImgCode="updateImgCode"></VerifyCode>
               </div>
             </el-form-item>
 
             <el-form-item>
-              <el-button class="login-btn" type="primary" :loading="loginLoading" @click="handleLogin">登录</el-button>
+              <el-button
+                class="login-btn"
+                type="primary"
+                :loading="loginLoading"
+                @click="handleLogin"
+                >登录</el-button
+              >
             </el-form-item>
             <el-form-item class="tip">
               <h4>温馨提示：</h4>

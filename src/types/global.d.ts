@@ -59,13 +59,9 @@ declare namespace RequestData {
     time: Date | string;
     avatarUrl: string;
   }
-  interface SaveMenuParam {
+  interface SaveMenuParam {}
 
-  }
-
-  interface DelMenuParam {
-
-  }
+  interface DelMenuParam {}
   interface MenuListParam {
     pageSize?: number;
     currentPage?: number;
@@ -77,27 +73,26 @@ declare namespace RequestData {
   }
 
   interface GetRoleParam {
-    userId: number
+    userId: number;
   }
   /**
    * reqSaveAccount 保存账号信息接口的请求参数
-   * 
+   *
    * id: number 数值类型 为可选参数，更新账号信息时需要传递id参数
-   * 
+   *
    * username: string 字符串类型 账号名为必选参数
-   * 
+   *
    * password: string 字符串类型 账号密码为必选参数
    */
   interface SaveAccountParam {
     id?: number;
     username: string;
-    password: string
+    password: string;
   }
 
   interface DelAccountParam {
-    ids: number[]
+    ids: number[];
   }
-
 }
 
 interface ResponseData {
@@ -108,7 +103,6 @@ interface ResponseData {
   };
 }
 
-
 /**
  * 响应数据类型声明
  */
@@ -118,7 +112,7 @@ declare namespace Response {
     code: string;
     level: number;
     updateTime: Date;
-  }
+  };
 
   interface LoginRes extends ResponseData {
     data: {
@@ -130,7 +124,7 @@ declare namespace Response {
     data: {
       status?: boolean;
       message: string;
-    }
+    };
   }
   interface UserInfoRes extends ResponseData {
     data: {
@@ -147,37 +141,31 @@ declare namespace Response {
     data: {
       list: Response.MenuItem[];
       message: string;
-    }
+    };
   }
 
   interface SaveStudentRes extends ResponseData {
     data: {
-      id?: number
-    }
+      id?: number;
+    };
   }
 
-  interface StudentListRes extends ResponseData {
-
-  }
+  interface StudentListRes extends ResponseData {}
 
   interface DelStudentRes extends ResponseData {
     data: {
-      message: string
-    }
+      message: string;
+    };
   }
 
   interface UploadAvatarRes extends ResponseData {
     data: {
-      url?: string,
-      message: string
-    }
+      url?: string;
+      message: string;
+    };
   }
 
-  interface PermissionMenuRes extends ResponseData {
+  interface PermissionMenuRes extends ResponseData {}
 
-  }
-
-  interface RoleListRes extends ResponseData {
-    
-  }
+  interface RoleListRes extends ResponseData {}
 }

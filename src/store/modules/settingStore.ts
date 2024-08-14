@@ -19,8 +19,8 @@ const useSettingStore = defineStore({
   actions: {
     updateSetting(settingConfig: AppTypeConfig.SettingConfig) {
       this.$patch({
-        ...settingConfig
-      })
+        ...settingConfig,
+      });
     },
   },
 });

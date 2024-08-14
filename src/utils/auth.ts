@@ -17,7 +17,9 @@ export const removeToken = () => {
  * @param {Array} menuList 菜单列表
  * @returns {Array}
  */
-export const getFlatMenuList = (menuList: AppTypeConfig.MenuOption[]): AppTypeConfig.MenuOption[] => {
+export const getFlatMenuList = (
+  menuList: AppTypeConfig.MenuOption[]
+): AppTypeConfig.MenuOption[] => {
   let result: AppTypeConfig.MenuOption[] = [];
   menuList.forEach((item) => {
     result.push(item);

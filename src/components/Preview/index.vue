@@ -67,14 +67,14 @@ const errorHandler = () => {
 };
 
 type ComponentProps = {
-  type: string,
-  url: string
-}
+  type: string;
+  url: string;
+};
 
 // props定义
 const dialogProps = ref<ComponentProps>({
   type: "",
-  url: ""
+  url: "",
 });
 // 接收父组件参数
 const acceptParams = (params: ComponentProps) => {

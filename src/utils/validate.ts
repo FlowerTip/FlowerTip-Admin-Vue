@@ -5,4 +5,4 @@
  */
 export const isExternalFn = (path: string): boolean => {
   return /^(https?:|mailto:|tel:)/.test(path);
-}
+};

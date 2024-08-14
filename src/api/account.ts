@@ -23,4 +23,3 @@ export const reqDelAccount = (data: RequestData.DelAccountParam) =>
 // 账号绑定角色信息接口
 export const reqBatchRole = (data: any) =>
   Promise.resolve(instance.post(API.BATCH_ROLE, data));
-

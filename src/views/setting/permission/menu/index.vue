@@ -1,7 +1,15 @@
 <template>
   <div class="table-box">
-    <ProTable ref="proTable" :tableColumns="columns" :tableData="tableData" :conditionList="conditionList" rowKey="id"
-      :loading="loading" :updateTableList="updateTableList" :total="total">
+    <ProTable
+      ref="proTable"
+      :tableColumns="columns"
+      :tableData="tableData"
+      :conditionList="conditionList"
+      rowKey="id"
+      :loading="loading"
+      :updateTableList="updateTableList"
+      :total="total"
+    >
     </ProTable>
   </div>
 </template>

@@ -10,7 +10,9 @@ enum API {
 
 // 用户登录接口
 export const reqLogin = (data: RequestData.loginParam) =>
-  Promise.resolve(instance.post<typeof data, Response.LoginRes>(API.LOGIN_URL, data));
+  Promise.resolve(
+    instance.post<typeof data, Response.LoginRes>(API.LOGIN_URL, data)
+  );
 
 // 获取用户信息接口
 export const reqUserInfo = () =>
@@ -18,7 +20,9 @@ export const reqUserInfo = () =>
 
 // 退出登录接口
 export const reqLogout = (status: boolean) =>
-  Promise.resolve(instance.post<typeof status, Response.LogoutRes>(API.LOGOUT_URL, { status }));
+  Promise.resolve(
+    instance.post<typeof status, Response.LogoutRes>(API.LOGOUT_URL, { status })
+  );
 
 // 获取当前登入账号拥有的角色列表接口
 export const reqGetRole = (data: RequestData.GetRoleParam) =>
