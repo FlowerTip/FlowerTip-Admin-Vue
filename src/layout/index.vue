@@ -8,7 +8,7 @@ import topbar from "./modules/topbar.vue";
 import sidebar from "./modules/sidebar.vue";
 import simplebar from "./modules/simplebar.vue";
 import useSettingStore from "@/store/modules/settingStore";
-import defaultSetting from '@/setting'
+import defaultSetting from "@/setting";
 import { computed } from "vue";
 import { LayoutComponent } from "@/types";
 
