@@ -8,6 +8,7 @@ import topbar from "./modules/topbar.vue";
 import sidebar from "./modules/sidebar.vue";
 import simplebar from "./modules/simplebar.vue";
 import useSettingStore from "@/store/modules/settingStore";
+import defaultSetting from '@/setting'
 import { computed } from "vue";
 import { LayoutComponent } from "@/types";
 
@@ -19,6 +20,6 @@ const layoutComponents: LayoutComponent = {
   simplebar,
 };
 const com = computed(() => {
-  return settingStore.layout;
+  return settingStore.layout || defaultSetting.layout;
 });
 </script>
