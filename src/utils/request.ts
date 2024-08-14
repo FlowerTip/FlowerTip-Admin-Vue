@@ -1,6 +1,6 @@
 import axios from "axios";
-import router from "@/router";
 import { ElMessage } from "element-plus";
+import router from "@/router";
 import useUserStore from "@/store/modules/userStore";
 
 // 创建axios实例

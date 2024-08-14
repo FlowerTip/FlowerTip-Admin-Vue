@@ -53,9 +53,9 @@ import "@vue-office/excel/lib/index.css";
 // 弹窗是否显示状态
 const dialogVisible = ref(false);
 // 弹窗标题
-const title = ref<string>("文档预览");
+const title = ref("文档预览");
 
-const loading = ref<boolean>(false);
+const loading = ref(false);
 
 const renderedHandler = () => {
   loading.value = false;
@@ -66,10 +66,18 @@ const errorHandler = () => {
   ElMessage.warning({ message: "文档加载失败" });
 };
 
+type ComponentProps = {
+  type: string,
+  url: string
+}
+
 // props定义
-const dialogProps = ref<any>();
+const dialogProps = ref<ComponentProps>({
+  type: "",
+  url: ""
+});
 // 接收父组件参数
-const acceptParams = (params: any): void => {
+const acceptParams = (params: ComponentProps) => {
   dialogProps.value = params;
   loading.value = true;
   dialogVisible.value = true;

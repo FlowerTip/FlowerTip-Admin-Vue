@@ -18,7 +18,7 @@ console.log(props);
 
 const mixChart = ref(null);
 
-let myChart: any = null;
+let myChart: echarts.ECharts;
 
 let sidebarMenuNode: HTMLDivElement;
 

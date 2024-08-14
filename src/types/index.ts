@@ -74,13 +74,13 @@ export type PagainationType = {
 export type AvatarUploadType = "round" | "circle";
 
 export type AvatarProps = {
-  width: string | number;
-  height: string | number;
-  type: AvatarUploadType;
-  disabled: boolean;
-  fileType: string[];
-  fileSize: number;
-  uploadParam: {
+  width?: string | number;
+  height?: string | number;
+  type?: AvatarUploadType;
+  disabled?: boolean;
+  fileType?: string[];
+  fileSize?: number;
+  uploadParam?: {
     id: number | string;
   };
 };

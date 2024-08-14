@@ -18,9 +18,9 @@ const xAxisData = props.chartOption.xAxisData;
 const unit = props.chartOption.unit;
 const data = props.chartOption.data;
 
-const BarChart = ref(null);
+const BarChart = ref<HTMLDivElement | null>(null);
 
-let myChart: any = null;
+let myChart: echarts.ECharts;
 
 let sidebarMenuNode: HTMLDivElement;
 

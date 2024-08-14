@@ -84,7 +84,7 @@
 <script setup lang="ts" name="AdvancedTable">
 import { onMounted, reactive, ref } from "vue";
 import { PagainationType } from "@/types";
-import { reqTableList, reqSaveTable, reqDelTable } from "@/api/user";
+import { reqStudentList, reqSaveStudent, reqDelStudent } from "@/api/student";
 import ProTable from "@/components/ProTable/index.vue";
 import InfoDrawer from "./components/infoDrawer.vue";
 import StudentDrawer from "./components/studentDrawer.vue";
@@ -268,7 +268,7 @@ const total = ref(0);
 
 const updateTableList = async (reqParams: PagainationType) => {
   loading.value = true;
-  const { code, data }: any = await reqTableList(reqParams);
+  const { code, data }: any = await reqStudentList(reqParams);
   if (code === 200) {
     tableData.value = data.list.map((item: tableDataItem) => ({
       ...item,
@@ -292,7 +292,7 @@ const StudentDrawerRef = ref();
 const openAddRoleDrawer = () => {
   const params = {
     dialogForm: {},
-    api: reqSaveTable,
+    api: reqSaveStudent,
     getTableList: updateTableList,
   };
   StudentDrawerRef.value!.acceptParams(params);
@@ -310,7 +310,7 @@ const deleteRadio = (row: any) => {
     type: "warning",
   })
     .then(async () => {
-      const { code, data }: any = await reqDelTable({
+      const { code, data }: any = await reqDelStudent({
         ids: [row.id],
       });
       if (code === 200) {
@@ -343,7 +343,7 @@ const deleteSelect = () => {
     type: "warning",
   })
     .then(async () => {
-      const { code, data }: any = await reqDelTable({
+      const { code, data }: any = await reqDelStudent({
         ids: selectRow.value.map((item: any) => item.id),
       });
       if (code === 200) {
@@ -376,7 +376,7 @@ const viewInfo = (row: any) => {
 const modifiyInfo = (row: any) => {
   const params = {
     dialogForm: { ...row },
-    api: reqSaveTable,
+    api: reqSaveStudent,
     getTableList: updateTableList,
   };
   StudentDrawerRef.value!.acceptParams(params);

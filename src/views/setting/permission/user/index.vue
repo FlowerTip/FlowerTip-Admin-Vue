@@ -54,11 +54,11 @@
 import { onMounted, reactive, ref } from "vue";
 import { PagainationType } from "@/types";
 import {
-  reqGetUserList,
-  reqSaveUser,
-  reqDelUser,
+  reqAccountList,
+  reqSaveAccount,
+  reqDelAccount,
   reqBatchRole,
-} from "@/api/user";
+} from "@/api/account";
 import ProTable from "@/components/ProTable/index.vue";
 import UserDialog from "./components/userDialog.vue";
 import RoleDialog from "./components/roleDialog.vue";
@@ -120,7 +120,7 @@ let tableData = ref<tableDataItem[]>([]);
 const total = ref(0);
 const updateTableList = async (reqParams: PagainationType) => {
   loading.value = true;
-  const { code, data }: any = await reqGetUserList(reqParams);
+  const { code, data }: any = await reqAccountList(reqParams);
   if (code === 200) {
     tableData.value = data.list.map((item: tableDataItem) => ({
       ...item,
@@ -142,7 +142,7 @@ onMounted(() => {
 const UserDialogRef = ref();
 const openAddRoleDrawer = () => {
   const params = {
-    api: reqSaveUser,
+    api: reqSaveAccount,
     rowData: {
       username: "",
       password: "",
@@ -159,7 +159,7 @@ const deleteRadio = (row: any) => {
     type: "warning",
   })
     .then(async () => {
-      const { code, data }: any = await reqDelUser({
+      const { code, data }: any = await reqDelAccount({
         ids: [row.id],
       });
       if (code === 200) {
@@ -194,7 +194,7 @@ const batchPermission = (row: any) => {
 
 const modifiyInfo = (row: any) => {
   UserDialogRef.value!.acceptParams({
-    api: reqSaveUser,
+    api: reqDelAccount,
     rowData: { ...row },
     getTableList: updateTableList,
   });

@@ -1,20 +1,20 @@
 import instance from "@/utils/request";
-import { PagainationType } from "@/types";
 
-// 定义一个接口的枚举类型
+// 菜单相关接口的枚举类型
 enum API {
   MENU_LIST = "/menu/menuList",
-
   ADD_MENU__INFO = "/menu/saveMenu",
-
   DEL_MENU__INFO = "/menu/delMenu",
 }
 
-export const reqTableList = (data: PagainationType) =>
-  Promise.resolve(instance.post(API.MENU_LIST, data));
+// 获取菜单列表接口数据
+export const reqMenuList = (data: RequestData.MenuListParam) =>
+  Promise.resolve(instance.post<any, Response.MenuListRes>(API.MENU_LIST, data));
 
-export const reqSaveTable = (data: any) =>
+// 保存菜单接口数据
+export const reqSaveMenu = (data: RequestData.SaveMenuParam) =>
   Promise.resolve(instance.post(API.ADD_MENU__INFO, data));
 
-export const reqDelTable = (data: any) =>
+// 删除菜单接口数据
+export const reqDelMenu = (data: RequestData.DelMenuParam) =>
   Promise.resolve(instance.post<any, any>(API.DEL_MENU__INFO, data));

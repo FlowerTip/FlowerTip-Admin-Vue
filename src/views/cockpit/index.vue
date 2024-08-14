@@ -4,15 +4,15 @@
       <el-col :span="7" :xs="24" class="left-box">
         <div class="item">
           <div class="title">用户分布</div>
-          <PieChart :chartOption="chartOption" />
+          <PieChart :chartOption="userDistOption" />
         </div>
         <div class="item">
           <div class="title">城市人数</div>
-          <BarChart :chartOption="chartOption1" />
+          <BarChart :chartOption="cityPersonOption" />
         </div>
         <div class="item">
           <div class="title">热度趋势</div>
-          <LineChart :chartOption="chartOption2" />
+          <LineChart :chartOption="hotTrendOption" />
         </div>
       </el-col>
       <el-col :span="10" :xs="24" class="mid-box">
@@ -22,7 +22,7 @@
         </div>
         <div class="item">
           <div class="title">混合布局</div>
-          <MixBarChart :chartOption="chartOption" />
+          <MixBarChart :chartOption="userDistOption" />
         </div>
       </el-col>
       <el-col :span="7" :xs="24" class="right-box">
@@ -30,20 +30,20 @@
           <div class="title">维度分析</div>
           <div class="chart-children-wrapper">
             <div class="child-item">
-              <PieChart :chartOption="chartOption5" />
+              <PieChart :chartOption="dimenAnalysisOption1" />
             </div>
             <div class="child-item">
-              <PieChart :chartOption="chartOption6" />
+              <PieChart :chartOption="dimenAnalysisOption2" />
             </div>
           </div>
         </div>
         <div class="item">
           <div class="title">年度人口</div>
-          <MoreBarChart :chartOption="chartOption4" />
+          <MoreBarChart :chartOption="yearPopulationOption" />
         </div>
         <div class="item">
           <div class="title">状态分布</div>
-          <MoreLineChart :chartOption="chartOption3" />
+          <MoreLineChart :chartOption="statusDistOption" />
         </div>
       </el-col>
     </el-row>
@@ -60,7 +60,7 @@ import MoreBarChart from "@/components/Chart/more-bar.vue";
 import MixBarChart from "@/components/Chart/mix.vue";
 import { reactive } from "vue";
 
-const chartOption = reactive({
+const userDistOption = reactive({
   subtext: "总人数",
   name: "用户分布",
   text: "4000人",
@@ -104,20 +104,20 @@ const chartOption = reactive({
   ],
 });
 
-const chartOption1 = reactive({
+const cityPersonOption = reactive({
   unit: "人",
   text: "用户人数",
   xAxisData: ["北京", "上海", "广州", "深圳", "杭州", "苏州", "西安", "郑州"],
   data: [120, 200, 150, 80, 70, 110, 130, 500],
 });
 
-const chartOption2 = reactive({
+const hotTrendOption = reactive({
   unit: "人",
   xAxisData: ["北京", "上海", "广州", "深圳", "杭州", "苏州", "西安", "郑州"],
   data: [120, 200, 150, 80, 70, 110, 130, 500],
 });
 
-const chartOption3 = reactive({
+const statusDistOption = reactive({
   legendData: ["2021年", "2022年", "2023年", "2024年"],
   icon: "round",
   unit: "人",
@@ -154,7 +154,7 @@ const chartOption3 = reactive({
   ],
 });
 
-const chartOption4 = reactive({
+const yearPopulationOption = reactive({
   legendData: ["2021年", "2022年", "2023年", "2024年"],
   icon: "round",
   unit: "人",
@@ -183,7 +183,7 @@ const chartOption4 = reactive({
   ],
 });
 
-const chartOption5 = reactive({
+const dimenAnalysisOption1 = reactive({
   subtext: "总量",
   name: "用户分布",
   text: "200人",
@@ -227,7 +227,7 @@ const chartOption5 = reactive({
   ],
 });
 
-const chartOption6 = reactive({
+const dimenAnalysisOption2 = reactive({
   subtext: "总数",
   name: "用户分布",
   text: "100人",

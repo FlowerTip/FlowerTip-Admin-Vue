@@ -21,9 +21,9 @@ const legendData = props.chartOption.legendData;
 const unit = props.chartOption.unit;
 const data = props.chartOption.data;
 
-const LineChart = ref(null);
+const LineChart = ref<HTMLDivElement | null>(null);
 
-let myChart: any = null;
+let myChart: echarts.ECharts;
 
 let sidebarMenuNode: HTMLDivElement;
 

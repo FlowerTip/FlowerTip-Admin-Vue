@@ -69,7 +69,7 @@ import type {
 } from "element-plus";
 import { ElMessage, formContextKey, formItemContextKey } from "element-plus";
 import { AvatarProps } from "@/types";
-import { reqUploadAvatar } from "@/api/user";
+import { reqUploadAvatar } from "@/api/upload";
 import { generateUUID } from "@/utils/tool";
 
 const attrs = useAttrs();

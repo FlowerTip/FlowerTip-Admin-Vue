@@ -115,8 +115,8 @@ const useThemeColor = () => {
       showHeaderLogo: settingStore.showHeaderLogo,
       showTagsView: settingStore.showTagsView,
       showBreadcrumb: settingStore.showBreadcrumb,
-      color: primaryColor,
-      themeName: colorThemeName,
+      color: currentColor.value,
+      themeName: currentTheme.value,
       topShowCollapsed:
         settingStore.layout === "mixbar"
           ? settingStore.topShowCollapsed

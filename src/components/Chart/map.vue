@@ -11,7 +11,7 @@ import BJGeoJson from "../../../mock/map";
 
 const settingStore = useSettingStore();
 const MapChart = ref(null);
-let myChart: any = null;
+let myChart: echarts.ECharts;
 
 let sidebarMenuNode: HTMLDivElement;
 
@@ -43,23 +43,21 @@ const option = {
       layoutCenter: ["50%", "45%"],
       layoutSize: "60%",
       itemStyle: {
-        normal: {
-          areaColor: settingStore.color,
-          shadowColor: "#000000",
-          shadowOffsetY: 12,
-          shadowOffsetX: 0,
-        },
-        emphasis: {
-          shadowColor: "rgba(0, 0, 0, 1)",
-          shadowBlur: 10,
-          shadowOffsetX: 5,
-          shadowOffsetY: 5,
-          borderColor: "#0CDEFF",
-          borderWidth: 1,
-          areaColor: "#c45656",
-          label: {
-            color: "#fff",
-          },
+        areaColor: settingStore.color,
+        shadowColor: "#000000",
+        shadowOffsetY: 12,
+        shadowOffsetX: 0,
+      },
+      emphasis: {
+        shadowColor: "rgba(0, 0, 0, 1)",
+        shadowBlur: 10,
+        shadowOffsetX: 5,
+        shadowOffsetY: 5,
+        borderColor: "#0CDEFF",
+        borderWidth: 1,
+        areaColor: "#c45656",
+        label: {
+          color: "#fff",
         },
       },
       label: {
@@ -91,21 +89,19 @@ const option = {
       layoutCenter: ["50%", "45%"],
       layoutSize: "60%",
       itemStyle: {
-        normal: {
-          areaColor: settingStore.color,
-          shadowColor: "#000000",
-        },
-        emphasis: {
-          shadowColor: "rgba(0, 0, 0, 1)",
-          shadowBlur: 10,
-          shadowOffsetX: 5,
-          shadowOffsetY: 5,
-          borderColor: "#0CDEFF",
-          borderWidth: 1,
-          areaColor: "#c45656",
-          label: {
-            color: "#fff",
-          },
+        areaColor: settingStore.color,
+        shadowColor: "#000000",
+      },
+      emphasis: {
+        shadowColor: "rgba(0, 0, 0, 1)",
+        shadowBlur: 10,
+        shadowOffsetX: 5,
+        shadowOffsetY: 5,
+        borderColor: "#0CDEFF",
+        borderWidth: 1,
+        areaColor: "#c45656",
+        label: {
+          color: "#fff",
         },
       },
       label: {
@@ -198,23 +194,21 @@ watch(
             layoutCenter: ["50%", "45%"],
             layoutSize: "65%",
             itemStyle: {
-              normal: {
-                areaColor: settingStore.color,
-                shadowColor: "#000000",
-                shadowOffsetY: 12,
-                shadowOffsetX: 0,
-              },
-              emphasis: {
-                shadowColor: "rgba(0, 0, 0, 1)",
-                shadowBlur: 10,
-                shadowOffsetX: 5,
-                shadowOffsetY: 5,
-                borderColor: "#0CDEFF",
-                borderWidth: 1,
-                areaColor: "#c45656",
-                label: {
-                  color: "#fff",
-                },
+              areaColor: settingStore.color,
+              shadowColor: "#000000",
+              shadowOffsetY: 12,
+              shadowOffsetX: 0,
+            },
+            emphasis: {
+              shadowColor: "rgba(0, 0, 0, 1)",
+              shadowBlur: 10,
+              shadowOffsetX: 5,
+              shadowOffsetY: 5,
+              borderColor: "#0CDEFF",
+              borderWidth: 1,
+              areaColor: "#c45656",
+              label: {
+                color: "#fff",
               },
             },
             label: {
@@ -246,21 +240,19 @@ watch(
             layoutCenter: ["50%", "45%"],
             layoutSize: "65%",
             itemStyle: {
-              normal: {
-                areaColor: settingStore.color,
-                shadowColor: "#000000",
-              },
-              emphasis: {
-                shadowColor: "rgba(0, 0, 0, 1)",
-                shadowBlur: 10,
-                shadowOffsetX: 5,
-                shadowOffsetY: 5,
-                borderColor: "#0CDEFF",
-                borderWidth: 1,
-                areaColor: "#c45656",
-                label: {
-                  color: "#fff",
-                },
+              areaColor: settingStore.color,
+              shadowColor: "#000000",
+            },
+            emphasis: {
+              shadowColor: "rgba(0, 0, 0, 1)",
+              shadowBlur: 10,
+              shadowOffsetX: 5,
+              shadowOffsetY: 5,
+              borderColor: "#0CDEFF",
+              borderWidth: 1,
+              areaColor: "#c45656",
+              label: {
+                color: "#fff",
               },
             },
             label: {

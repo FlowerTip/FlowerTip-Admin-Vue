@@ -1,19 +1,19 @@
 import { defineStore } from "pinia";
+import { RouteRecordRaw } from "vue-router";
+import { ElMessage } from "element-plus";
+import router from "@/router";
+import { StatePermission } from "@/types";
+import { anyRoute, staticRoutes, asyncRoute } from "@/router/modules/routes";
 import { getToken, setToken, removeToken, getFlatMenuList } from "@/utils/auth";
 import { filterAsyncRoutes } from "@/utils/tool";
 import { reqLogin, reqUserInfo, reqLogout } from "@/api/user";
-import { StatePermission } from "@/types";
-import router from "@/router";
-import { RouteRecordRaw } from "vue-router";
-import { anyRoute, staticRoutes, asyncRoute } from "@/router/modules/routes";
-import { ElMessage } from "element-plus";
 
 const useUserStore = defineStore({
   id: "user",
   state: (): StatePermission => {
     return {
-      token: getToken(),
-      username: "",
+      token: getToken(), // Token令牌
+      username: "", // 当前登录账号用户名
       backMenuList: [], // 后台获取的菜单
       permissionButtonList: [], // 按钮列表
       authMenuList: [], // 权限菜单
@@ -28,10 +28,7 @@ const useUserStore = defineStore({
       ] as any),
   },
   actions: {
-    async login(
-      username: Login.ReqParams["username"],
-      password: LoginParams["password"]
-    ) {
+    async login({ username, password }: RequestData.loginParam) {
       const result = await reqLogin({
         username,
         password,
@@ -49,7 +46,7 @@ const useUserStore = defineStore({
           if (process.env.NODE_ENV === "production") {
             menuList = filterAsyncRoutes(
               asyncRoute as unknown as RouteRecordRaw[],
-              data.list.map((item: any) => item.code)
+              data.list.map((item) => item.code)
             );
           } else {
             menuList = [...(asyncRoute as unknown as RouteRecordRaw[])];
@@ -57,7 +54,7 @@ const useUserStore = defineStore({
           this.backMenuList = menuList;
           this.permissionButtonList = data.buttons;
           //左侧菜单需要数组
-          this.authMenuList = [...menuList, anyRoute] as any;
+          this.authMenuList = [...menuList, anyRoute];
           //当前的路由器仅仅注册常量路由,路由器还需要注册任意路由、过滤完的异步路由----router.addRoute
           router.addRoute({
             path: "/",

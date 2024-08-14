@@ -1,20 +1,20 @@
 import router from "@/router";
 import { defineStore } from "pinia";
-import { getUrlWithParams } from "@/utils/tool.ts";
 import { TabsState, TabsMenuProps } from "@/store/types";
+
 const useTagsViewStore = defineStore({
   id: "tagsView",
   state: (): TabsState => ({
     tabsMenuList: [],
   }),
   actions: {
-    // Add Tabs
+    // 添加标签
     async addTab(tabItem: TabsMenuProps) {
       if (this.tabsMenuList.every((item) => item.path !== tabItem.path)) {
         this.tabsMenuList.push(tabItem);
       }
     },
-    // Remove Tabs
+    // 删除标签
     async removeTab(tabPath: string, isCurrent = true) {
       if (this.tabsMenuList.length === 1) return;
       if (isCurrent) {
@@ -26,12 +26,12 @@ const useTagsViewStore = defineStore({
           router.push(nextTab.path);
         });
       }
-      // set tabs
+      // 重新设置标签组
       this.tabsMenuList = this.tabsMenuList.filter(
         (item) => item.path !== tabPath
       );
     },
-    // Close Tabs On Side
+    // 关闭标签（以自身为轴心，向左或向右关闭标签）
     async closeTabsOnSide(path: string, type: "left" | "right") {
       const currentIndex = this.tabsMenuList.findIndex(
         (item) => item.path === path
@@ -46,20 +46,10 @@ const useTagsViewStore = defineStore({
         });
       }
     },
-    // Close MultipleTab
+    // 关闭其他标签
     async closeMultipleTab(tabsMenuValue?: string) {
       this.tabsMenuList = this.tabsMenuList.filter((item) => {
         return item.path === tabsMenuValue || !item.close;
-      });
-    },
-    // Set Tabs
-    async setTab(tabsMenuList: TabsMenuProps[]) {
-      this.tabsMenuList = tabsMenuList;
-    },
-    // Set Tabs Title
-    async setTabsTitle(title: string) {
-      this.tabsMenuList.forEach((item) => {
-        if (item.path == getUrlWithParams()) item.title = title;
       });
     },
   },

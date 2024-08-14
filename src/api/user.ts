@@ -1,83 +1,29 @@
 import instance from "@/utils/request";
-import { LoginRequestParams, PagainationType } from "@/types";
 
-import { getToken } from "@/utils/auth";
-
-// 定义一个接口的枚举类型
+// 用户接口相关的的枚举类型
 enum API {
   LOGIN_URL = "/user/login",
-
   USERINFO_URL = "/user/info",
-
   LOGOUT_URL = "/user/logout",
-
-  USER_LIST = "/user/userList",
-
-  SAVE_USER = "/user/saveUser",
-
-  DEL_USER = "/user/delUser",
-
-  BATCH_ROLE = "/user/batchRole",
-
   GET_ROLE = "/user/getRole",
-
-  MENU_URL = "/permission/menus",
-
-  ROLE_LIST = "/permission/roleList",
-
-  ADD_ROLE_INFO = "/permission/saveRole",
-
-  DEL_ROLE_INFO = "/permission/delRole",
-
-  UPLOAD_AVATAR = "/upload/avatar",
 }
 
-export const reqLogin = (data: LoginRequestParams) =>
-  Promise.resolve(instance.post<any, Response.LoginRes>(API.LOGIN_URL, data));
+// 用户登录接口
+export const reqLogin = (data: RequestData.loginParam) =>
+  Promise.resolve(instance.post<typeof data, Response.LoginRes>(API.LOGIN_URL, data));
 
+// 获取用户信息接口
 export const reqUserInfo = () =>
   Promise.resolve(instance.get<any, Response.UserInfoRes>(API.USERINFO_URL));
 
+// 退出登录接口
 export const reqLogout = (status: boolean) =>
-  Promise.resolve(instance.post(API.LOGOUT_URL, { status }));
+  Promise.resolve(instance.post<typeof status, Response.LogoutRes>(API.LOGOUT_URL, { status }));
 
-export const reqPermissionMenus = (username: string) =>
-  Promise.resolve(instance.get(API.MENU_URL + "?username=" + username));
-
-export const reqTableList = (data: PagainationType) =>
-  Promise.resolve(instance.post(API.ROLE_LIST, data));
-
-export const reqSaveTable = (data: Login.SaveStudent) =>
-  Promise.resolve(instance.post(API.ADD_ROLE_INFO, data));
-
-export const reqDelTable = (data: GolabalSetting.DelStudentParams) =>
-  Promise.resolve(instance.post(API.DEL_ROLE_INFO, data));
-
-export const reqUploadAvatar = (data: any) =>
+// 获取当前登入账号拥有的角色列表接口
+export const reqGetRole = (data: RequestData.GetRoleParam) =>
   Promise.resolve(
-    instance.post(API.UPLOAD_AVATAR, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${getToken()}`,
-      },
-    })
-  );
-
-export const reqGetUserList = (data: any) =>
-  Promise.resolve(instance.post(API.USER_LIST, data));
-
-export const reqSaveUser = (data: any) =>
-  Promise.resolve(instance.post(API.SAVE_USER, data));
-
-export const reqDelUser = (data: any) =>
-  Promise.resolve(instance.post(API.DEL_USER, data));
-
-export const reqBatchRole = (data: any) =>
-  Promise.resolve(instance.post(API.BATCH_ROLE, data));
-
-export const reqGetRole = (data: any) =>
-  Promise.resolve(
-    instance.get(API.GET_ROLE, {
+    instance.get<typeof data, Response.RoleListRes>(API.GET_ROLE, {
       params: data,
     })
   );

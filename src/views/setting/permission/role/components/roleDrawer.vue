@@ -31,7 +31,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
-import { reqTableList } from "@/api/menu";
+import { reqMenuList } from "@/api/menu";
 import { reqGetPermission } from "@/api/role";
 import { formatTime } from "@/utils/tool";
 
@@ -88,7 +88,7 @@ const drawerCancel = () => {
 const dialogProps = ref<any>();
 
 const getPermission = async (reqParams: any) => {
-  const { code, data }: any = await reqTableList(reqParams);
+  const { code, data }: any = await reqMenuList(reqParams);
   if (code === 200) {
     const menus = data.list.map((item: tableDataItem) => ({
       ...item,

@@ -1,15 +1,7 @@
 <template>
   <div class="table-box">
-    <ProTable
-      ref="proTable"
-      :tableColumns="columns"
-      :tableData="tableData"
-      :conditionList="conditionList"
-      rowKey="id"
-      :loading="loading"
-      :updateTableList="updateTableList"
-      :total="total"
-    >
+    <ProTable ref="proTable" :tableColumns="columns" :tableData="tableData" :conditionList="conditionList" rowKey="id"
+      :loading="loading" :updateTableList="updateTableList" :total="total">
     </ProTable>
   </div>
 </template>
@@ -18,7 +10,7 @@
 import { onMounted, reactive, ref } from "vue";
 import ProTable from "@/components/ProTable/index.vue";
 import { dayjs } from "element-plus";
-import { reqTableList } from "@/api/menu";
+import { reqMenuList } from "@/api/menu";
 
 const conditionList = reactive([
   {
@@ -54,25 +46,18 @@ const columns = reactive([
 ]);
 const loading = ref(false);
 
-type tableDataItem = {
-  name: string;
-  code: string;
-  level: number;
-  updateTime: Date;
-};
-
-const tableData = ref([]);
+const tableData = ref<Response.MenuItem[]>([]);
 const total = ref(0);
 
-const updateTableList = async (reqParams: any) => {
+const updateTableList = async (reqParams: RequestData.MenuListParam) => {
   loading.value = true;
-  const { code, data }: any = await reqTableList(reqParams);
+  const { code, data } = await reqMenuList(reqParams);
   if (code === 200) {
-    const menus = data.list.map((item: tableDataItem) => ({
+    const menus = data.list.map((item) => ({
       ...item,
       updateTime: dayjs(item.updateTime).format("YYYY-MM-DD HH:mm:ss"),
     }));
-    tableData.value = menus as any;
+    tableData.value = menus as unknown as Response.MenuItem[];
     total.value = 0;
     setTimeout(() => {
       loading.value = false;

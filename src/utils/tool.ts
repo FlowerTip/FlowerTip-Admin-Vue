@@ -1,7 +1,7 @@
-/* eslint-disable prefer-rest-params */
 import { RouteRecordRaw } from "vue-router";
-import defaultSetting from "@/setting";
 import { dayjs } from "element-plus";
+import defaultSetting from "@/setting";
+
 const mode = import.meta.env.VITE_ROUTER_MODE;
 
 /**

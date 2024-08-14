@@ -1,5 +1,4 @@
 // 本地存储
-import { MenuOptions } from "@/types";
 
 export const setToken = (token: string) => {
   localStorage.setItem("token", token);
@@ -18,8 +17,8 @@ export const removeToken = () => {
  * @param {Array} menuList 菜单列表
  * @returns {Array}
  */
-export const getFlatMenuList = (menuList: MenuOptions[]): MenuOptions[] => {
-  let result: MenuOptions[] = [];
+export const getFlatMenuList = (menuList: AppTypeConfig.MenuOption[]): AppTypeConfig.MenuOption[] => {
+  let result: AppTypeConfig.MenuOption[] = [];
   menuList.forEach((item) => {
     result.push(item);
     if (item.children) {

@@ -36,8 +36,8 @@ import type {
 } from "element-plus";
 
 type FileProps = {
-  limit: number;
-  disabled: boolean;
+  limit?: number;
+  disabled?: boolean;
 };
 
 const props = withDefaults(defineProps<FileProps>(), {

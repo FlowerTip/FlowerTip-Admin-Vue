@@ -51,9 +51,9 @@ import { Delete, Plus, ZoomIn } from "@element-plus/icons-vue";
 import { UploadFile } from "element-plus";
 
 type AvatarProps = {
-  width: string;
-  height: string;
-  disabled: boolean;
+  width?: string;
+  height?: string;
+  disabled?: boolean;
 };
 
 const props = withDefaults(defineProps<AvatarProps>(), {

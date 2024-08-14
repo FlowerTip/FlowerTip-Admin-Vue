@@ -3,7 +3,7 @@ import defaultSetting from "@/setting";
 
 const useSettingStore = defineStore({
   id: "setting",
-  state: () => {
+  state: (): AppTypeConfig.SettingConfig => {
     return {
       showFooterBar: defaultSetting.showFooterBar,
       showHeaderBar: defaultSetting.showHeaderBar,
@@ -17,16 +17,10 @@ const useSettingStore = defineStore({
     };
   },
   actions: {
-    updateSetting(data: any) {
-      this.showHeaderBar = data.showHeaderBar;
-      this.showFooterBar = data.showFooterBar;
-      this.showHeaderLogo = data.showHeaderLogo;
-      this.showTagsView = data.showTagsView;
-      this.showBreadcrumb = data.showBreadcrumb;
-      this.layout = data.layout;
-      this.color = data.color;
-      this.themeName = data.themeName;
-      this.topShowCollapsed = data.topShowCollapsed;
+    updateSetting(settingConfig: AppTypeConfig.SettingConfig) {
+      this.$patch({
+        ...settingConfig
+      })
     },
   },
 });

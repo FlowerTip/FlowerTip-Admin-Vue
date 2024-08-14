@@ -1,11 +1,12 @@
-import router from "./router";
-import store from "./store";
 import { ElMessage } from "element-plus";
-import useUserStore from "./store/modules/userStore";
-import { getPageTitle } from "@/utils/tool";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import { getPageTitle } from "@/utils/tool";
+import router from "./router";
+import store from "./store";
+import useUserStore from "./store/modules/userStore";
 
+// 进度条配置对象
 NProgress.configure({
   easing: "ease", // 动画方式
   speed: 500, // 递增进度条的速度

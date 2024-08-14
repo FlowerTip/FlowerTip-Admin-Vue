@@ -23,7 +23,7 @@ const seriesData = props.chartOption.seriesData;
 
 const MoreLineChart = ref(null);
 
-let myChart: any = null;
+let myChart: echarts.ECharts;
 
 let sidebarMenuNode: HTMLDivElement;
 

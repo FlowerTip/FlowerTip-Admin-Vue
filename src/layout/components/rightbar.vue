@@ -547,12 +547,6 @@ const toggleLayout = (layout: string) => {
   settingStore.updateSetting({
     layout,
     showHeaderBar: layout === "simplebar" ? false : true,
-    showFooterBar: settingStore.showFooterBar,
-    showHeaderLogo: settingStore.showHeaderLogo,
-    showTagsView: settingStore.showTagsView,
-    showBreadcrumb: settingStore.showBreadcrumb,
-    color: settingStore.color,
-    themeName: settingStore.themeName,
     topShowCollapsed:
       layout === "mixbar" ? settingStore.topShowCollapsed : false,
   });
@@ -566,14 +560,7 @@ const toggleLayout = (layout: string) => {
 onMounted(() => {
   if (defaultSetting.layout === "simplebar") {
     settingStore.updateSetting({
-      layout: settingStore.layout,
       showHeaderBar: false,
-      showFooterBar: settingStore.showFooterBar,
-      showHeaderLogo: settingStore.showHeaderLogo,
-      showTagsView: settingStore.showTagsView,
-      showBreadcrumb: settingStore.showBreadcrumb,
-      color: settingStore.color,
-      themeName: settingStore.themeName,
       topShowCollapsed:
         settingStore.layout === "mixbar"
           ? settingStore.topShowCollapsed

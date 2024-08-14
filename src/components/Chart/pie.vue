@@ -19,7 +19,7 @@ const props = defineProps({
 const settingStore = useSettingStore();
 const uuid = generateUUID() + "PieChart";
 
-let myChart: any = null;
+let myChart: echarts.ECharts;
 let sidebarMenuNode: HTMLDivElement;
 
 const name = props.chartOption.name;

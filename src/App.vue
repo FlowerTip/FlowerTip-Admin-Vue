@@ -4,15 +4,13 @@
   </ElConfigProvider>
 </template>
 
-<script setup lang="ts">
-import { ElConfigProvider } from "element-plus";
+<script setup lang="ts" name="App">
 import { ref, onMounted } from "vue";
-import useThemeColor from "@/hooks/useThemeColor";
+import { ElConfigProvider } from "element-plus";
 import defaultSetting from "@/setting";
+import useThemeColor from "@/hooks/useThemeColor";
 
-type SizeType = "large" | "default" | "small";
-
-const size = ref<SizeType>("default");
+const size = ref<AppTypeConfig.ElementPlusSizeType>("default");
 const btnConfig = ref({
   autoInsertSpace: false,
 });
@@ -22,5 +20,3 @@ onMounted(() => {
   toggleThemeColor(defaultSetting.themeName);
 });
 </script>
-
-<style scoped></style>
