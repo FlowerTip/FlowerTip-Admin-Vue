@@ -127,6 +127,7 @@
         v-loading="loading"
         element-loading-text="正在加载"
         @selection-change="selectionChange"
+        :border="false"
       >
         <!-- 默认插槽 -->
         <slot v-if="showDefaultSlot" />

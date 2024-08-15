@@ -118,21 +118,15 @@ const columns = reactive([
   },
 ]);
 
-type tableDataItem = {
-  roleName: string;
-  remark: string;
-  updateTime: Date;
-};
-
 // 表格数据
-let tableData = ref<tableDataItem[]>([]);
+let tableData = ref<RoleItem[]>([]);
 const total = ref(0);
 
 const updateTableList = async (reqParams: PagainationType) => {
   loading.value = true;
-  const { code, data }: any = await reqRoleList(reqParams);
+  const { code, data } = await reqRoleList(reqParams);
   if (code === 200) {
-    tableData.value = data.list.map((item: tableDataItem) => ({
+    tableData.value = data.list.map((item) => ({
       ...item,
       updateTime: dayjs(item.updateTime).format("YYYY-MM-DD HH:mm:ss"),
     }));
@@ -164,7 +158,7 @@ const openAddRoleDrawer = () => {
   });
 };
 
-const modifiyInfo = (row: any) => {
+const modifiyInfo = (row: RoleItem) => {
   RoleDialogRef.value!.acceptParams({
     api: reqSaveRole,
     rowData: { ...row },
@@ -172,15 +166,15 @@ const modifiyInfo = (row: any) => {
   });
 };
 
-const deleteRadio = (row: any) => {
+const deleteRadio = (row: RoleItem) => {
   ElMessageBox.confirm("此操作将删除该角色，是否继续?", "删除提示", {
     cancelButtonText: "取消",
     confirmButtonText: "确认",
     type: "warning",
   })
     .then(async () => {
-      const { code, data }: any = await reqDelRole({
-        ids: [row.id],
+      const { code, data } = await reqDelRole({
+        ids: [row.id as number],
       });
       if (code === 200) {
         ElMessage({
@@ -203,7 +197,7 @@ const deleteRadio = (row: any) => {
 
 // 分配权限
 const RoleDrawerRef = ref();
-const batchPermission = (row: any) => {
+const batchPermission = (row: RoleItem) => {
   const params = {
     roleId: row.id,
     api: reqBatchPermission,

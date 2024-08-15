@@ -52,7 +52,7 @@ const dialogVisible = ref(false);
 const title = ref<string>();
 
 // 表单数据
-const dialogForm = ref<any>({
+const dialogForm = ref<RoleItem>({
   roleName: "",
   remark: "",
 });
@@ -107,11 +107,15 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
+type AcceptParams = {
+  rowData: RoleItem
+}
+
 // props定义
-const dialogProps = ref<any>();
+const dialogProps = ref();
 // 接收父组件参数
-const acceptParams = (params: any): void => {
-  const row: any = params.rowData;
+const acceptParams = (params: AcceptParams) => {
+  const row = params.rowData;
   title.value = row!.id ? "编辑角色" : "新增角色";
   dialogForm.value = row;
   dialogProps.value = params;

@@ -131,13 +131,13 @@ watch(
       activeIndex.value = "/";
     }
     const test = userStore.flatMenuList.find(
-      (item: any) =>
+      (item) =>
         item.name === keyName && item.children && item.children.length > 0
     );
     if (test && test.children) {
-      userStore.updateLeftMenus(test.children as any);
+      userStore.updateLeftMenus(test.children as unknown as RouteRecordRaw[]);
     } else {
-      userStore.updateLeftMenus([] as any);
+      userStore.updateLeftMenus([]);
     }
   },
   { immediate: true }

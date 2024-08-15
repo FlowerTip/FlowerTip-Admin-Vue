@@ -5,23 +5,13 @@
     </template>
     <template #default>
       <div class="form-layout-wrapper">
-        <el-tree
-          ref="treeRef"
-          style="max-width: 600px"
-          :data="treeData"
-          show-checkbox
-          default-expand-all
-          node-key="id"
-          :props="defaultProps"
-          check-strictly
-        />
+        <el-tree ref="treeRef" style="max-width: 600px" :data="treeData" show-checkbox default-expand-all node-key="id"
+          :props="defaultProps" check-strictly />
       </div>
     </template>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="drawerConfirm" :loading="loading"
-          >保存</el-button
-        >
+        <el-button type="primary" @click="drawerConfirm" :loading="loading">保存</el-button>
         <el-button @click="drawerCancel">取消</el-button>
       </div>
     </template>
@@ -46,7 +36,7 @@ const defaultProps = {
   label: "name",
 };
 
-let treeData = ref([]);
+let treeData = ref<MenuItem[]>([]);
 
 const drawerVisiable = ref(false);
 
@@ -85,22 +75,22 @@ const drawerCancel = () => {
 };
 
 // props 定义
-const dialogProps = ref<any>();
+const dialogProps = ref();
 
-const getPermission = async (reqParams: any) => {
-  const { code, data }: any = await reqMenuList(reqParams);
+const getPermission = async (reqParams: Req.MenuListParam) => {
+  const { code, data } = await reqMenuList(reqParams);
   if (code === 200) {
-    const menus = data.list.map((item: tableDataItem) => ({
+    const menus = data.list.map((item) => ({
       ...item,
-      updateTime: formatTime(item.updateTime, "datetime"),
+      updateTime: formatTime(item.updateTime as Date, "datetime"),
     }));
-    treeData.value = menus as any;
+    treeData.value = menus;
     getSelectPerssion();
   }
 };
 
 const getSelectPerssion = async () => {
-  const { code, data }: any = await reqGetPermission({
+  const { code, data } = await reqGetPermission({
     roleId: dialogProps.value.roleId,
   });
   if (code === 200) {
@@ -108,9 +98,11 @@ const getSelectPerssion = async () => {
     treeRef.value!.setCheckedKeys(selectTreeIds);
   }
 };
-
+type AcceptParams = {
+  roleId: number;
+}
 // 接收父组件参数
-const acceptParams = (params: any): void => {
+const acceptParams = (params: AcceptParams) => {
   dialogProps.value = params;
   drawerVisiable.value = true;
   getPermission({});

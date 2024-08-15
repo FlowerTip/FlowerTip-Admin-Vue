@@ -28,7 +28,7 @@ const useUserStore = defineStore({
       ] as any),
   },
   actions: {
-    async login({ username, password }: RequestData.loginParam) {
+    async login({ username, password }: Req.loginParam) {
       const result = await reqLogin({
         username,
         password,

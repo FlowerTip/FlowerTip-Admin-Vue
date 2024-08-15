@@ -1,40 +1,19 @@
 <template>
-  <el-dialog
-    v-model="dialogVisible"
-    :title="title"
-    destroy-on-close
-    width="500px"
-  >
+  <el-dialog v-model="dialogVisible" :title="title" destroy-on-close width="500px">
     <div class="form-layout-wrapper">
-      <el-form
-        ref="dialogFormRef"
-        label-suffix=" :"
-        :model="dialogForm"
-        :rules="dialogFormRules"
-        label-width="auto"
-        class="form-container"
-      >
+      <el-form ref="dialogFormRef" label-suffix=" :" :model="dialogForm" :rules="dialogFormRules" label-width="auto"
+        class="form-container">
         <el-form-item label="用户名称" prop="username">
-          <el-input
-            v-model="dialogForm.username"
-            placeholder="请输入用户名称"
-          />
+          <el-input v-model="dialogForm.username" placeholder="请输入用户名称" />
         </el-form-item>
         <el-form-item label="用户密码" prop="password">
-          <el-input
-            show-password
-            type="password"
-            v-model="dialogForm.password"
-            placeholder="请输入用户密码"
-          />
+          <el-input show-password type="password" v-model="dialogForm.password" placeholder="请输入用户密码" />
         </el-form-item>
       </el-form>
     </div>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="dialogConfirm" :loading="loading"
-          >保存</el-button
-        >
+        <el-button type="primary" @click="dialogConfirm" :loading="loading">保存</el-button>
         <el-button @click="dialogCancel">取消</el-button>
       </div>
     </template>
@@ -52,7 +31,7 @@ const dialogVisible = ref(false);
 const title = ref<string>();
 
 // 表单数据
-const dialogForm = ref<any>({
+const dialogForm = ref<AccountItem>({
   username: "",
   password: "",
 });
@@ -86,9 +65,9 @@ const dialogConfirm = () => {
       };
       try {
         loading.value = true;
-        await dialogProps.value.api!(req);
+        await dialogProps.value?.api(req);
         ElMessage.success({ message: `${title.value}成功` });
-        dialogProps.value.getTableList!({
+        dialogProps.value?.getTableList({
           currentPage: 1,
           pageSize: 20,
         });
@@ -115,11 +94,16 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
+type AcceptParams = {
+  rowData: AccountItem;
+  api: (params: AccountItem) => Promise<any>;
+  getTableList: (params: { currentPage: number; pageSize: number; }) => Promise<Res.AccountListRes>
+}
 // props定义
-const dialogProps = ref<any>();
+const dialogProps = ref<AcceptParams>();
 // 接收父组件参数
-const acceptParams = (params: any): void => {
-  const row: any = params.rowData;
+const acceptParams = (params: AcceptParams) => {
+  const row = params.rowData;
   title.value = row!.id ? "编辑用户" : "新增用户";
   dialogForm.value = row;
   dialogProps.value = params;

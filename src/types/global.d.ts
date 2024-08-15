@@ -34,10 +34,19 @@ declare namespace AppTypeConfig {
   }
 }
 
+
+/**
+ * 删除接口的默认类型声明
+ */
+declare interface DelDefaultData {
+  ids: number[]
+}
+
+
 /**
  * 请求参数类型声明
  */
-declare namespace RequestData {
+declare namespace Req {
   interface loginParam {
     username: string;
     password: string;
@@ -59,9 +68,9 @@ declare namespace RequestData {
     time: Date | string;
     avatarUrl: string;
   }
-  interface SaveMenuParam {}
+  interface SaveMenuParam { }
 
-  interface DelMenuParam {}
+  interface DelMenuParam { }
   interface MenuListParam {
     pageSize?: number;
     currentPage?: number;
@@ -93,79 +102,170 @@ declare namespace RequestData {
   interface DelAccountParam {
     ids: number[];
   }
+
+  interface BatchRoleParam {
+    userId: number;
+    roleIds: number[];
+  }
+
+  interface AccountListParam {
+    currentPage?: number;
+    pageSize?: number;
+    username?: string;
+  }
+
+  interface BatchPermissionData {
+    roleId: number;
+    menusId: number[];
+  }
+
+  interface GetPermissionData {
+    roleId: number;
+  }
 }
 
-interface ResponseData {
-  code: number;
-  data: {
-    list?: any[];
-    message: string;
-  };
+
+interface DefaultData<T> {
+  list: T[];
+  message: string;
+}
+
+declare type AccountItem = {
+  id?: number;
+  username: string;
+  password: string;
+}
+
+
+declare type MenuItem = {
+  name: string;
+  code: string;
+  level: number;
+  updateTime: Date | string;
+};
+
+declare type StudentItem = {
+  id?: number | string;
+  username: string;
+  age: number | string;
+  address: string;
+  sex: number | string;
+  big: number | string;
+  color: string;
+  hobby: string;
+  school: string;
+  time: Date | string;
+  avatarUrl: string;
+  bigLabel?: string;
+  sexLabel?: string;
+}
+
+declare type RoleItem = {
+  id?: number | string;
+  roleName: string;
+  remark?: string;
+  updateTime?: Date | string;
 }
 
 /**
  * 响应数据类型声明
  */
-declare namespace Response {
-  type MenuItem = {
-    name: string;
-    code: string;
-    level: number;
-    updateTime: Date;
-  };
-
-  interface LoginRes extends ResponseData {
-    data: {
-      token: string;
+declare namespace Res {
+  /**
+   * 登录接口返回的数据格式
+   */
+  interface LoginData {
+    token: string;
+  }
+  /**
+   * 用户信息接口返回的数据格式
+   */
+  interface UserInfoData {
+    id: string;
+    checkUser: {
+      username: string;
     };
+    list: MenuItem[];
+    buttons: string[];
+  }
+  /**
+   * 退出登录接口返回的数据格式
+   */
+  interface LogoutData {
+    status?: boolean;
+    message: string;
+  }
+  interface MenuListData extends DefaultData<MenuItem> {
   }
 
-  interface LogoutRes extends ResponseData {
+  /**
+   * 保存学员信息接口返回的数据格式
+   */
+  interface SaveStudentData {
+    id?: number;
+  }
+  /**
+   * 学员列表接口返回的数据格式
+   */
+  interface StudentListData {
+    list: StudentItem[];
+    total: number;
+    message: string
+  }
+
+  interface DelStudentData {
+    message: string;
+  }
+
+  interface UploadAvatarData {
+    url?: string;
+    message: string;
+  }
+
+  interface PermissionMenuRes extends ResponseData { }
+
+  interface RoleListData extends DefaultData<any> {
+    list: RoleItem[];
+    total: number;
+    message: string
+  }
+
+  interface DelRoleData {
+    message: string;
+  }
+
+  interface AccountListRes extends DefaultData<AccountItem> {
+    total: number;
+  }
+
+  interface SaveAccountRes extends ResponseData {
     data: {
-      status?: boolean;
       message: string;
-    };
-  }
-  interface UserInfoRes extends ResponseData {
-    data: {
-      id: string;
-      checkUser: {
-        username: string;
-      };
-      list: Response.MenuItem[];
-      buttons: string[];
-    };
+    }
   }
 
-  interface MenuListRes extends ResponseData {
-    data: {
-      list: Response.MenuItem[];
-      message: string;
-    };
-  }
-
-  interface SaveStudentRes extends ResponseData {
-    data: {
-      id?: number;
-    };
-  }
-
-  interface StudentListRes extends ResponseData {}
-
-  interface DelStudentRes extends ResponseData {
+  interface DelAccountRes extends ResponseData {
     data: {
       message: string;
-    };
+    }
   }
 
-  interface UploadAvatarRes extends ResponseData {
+  interface BatchRoleRes extends ResponseData {
     data: {
-      url?: string;
       message: string;
-    };
+    }
   }
 
-  interface PermissionMenuRes extends ResponseData {}
+  interface SaveRoleData {
+    id?: number
+  }
 
-  interface RoleListRes extends ResponseData {}
+  
+  interface BatchPermissionData {
+    message: string;
+  }
+
+  interface GetPermissionData extends DefaultData<MenuItem> {
+
+  }
 }

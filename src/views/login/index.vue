@@ -118,7 +118,7 @@ const loginLoading = ref(false);
 const handleLogin = async () => {
   const { redirect } = route.query;
   loginLoading.value = true;
-  const res: any = await userStore.login(loginFormData);
+  const res = await userStore.login(loginFormData);
   if (res.token) {
     loginLoading.value = false;
     const redirectUrl = (redirect || "/") as string;

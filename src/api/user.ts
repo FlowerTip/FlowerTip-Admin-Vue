@@ -1,4 +1,4 @@
-import instance from "@/utils/request";
+import instance from "@/utils/service";
 
 // 用户接口相关的的枚举类型
 enum API {
@@ -9,25 +9,15 @@ enum API {
 }
 
 // 用户登录接口
-export const reqLogin = (data: RequestData.loginParam) =>
-  Promise.resolve(
-    instance.post<typeof data, Response.LoginRes>(API.LOGIN_URL, data)
-  );
+export const reqLogin = (data: Req.loginParam) => instance.post<Res.LoginData>(API.LOGIN_URL, data)
 
 // 获取用户信息接口
-export const reqUserInfo = () =>
-  Promise.resolve(instance.get<any, Response.UserInfoRes>(API.USERINFO_URL));
+export const reqUserInfo = () => instance.get<Res.UserInfoData>(API.USERINFO_URL);
 
 // 退出登录接口
-export const reqLogout = (status: boolean) =>
-  Promise.resolve(
-    instance.post<typeof status, Response.LogoutRes>(API.LOGOUT_URL, { status })
-  );
+export const reqLogout = (status: boolean) => instance.post<Res.LogoutData>(API.LOGOUT_URL, { status });
 
 // 获取当前登入账号拥有的角色列表接口
-export const reqGetRole = (data: RequestData.GetRoleParam) =>
-  Promise.resolve(
-    instance.get<typeof data, Response.RoleListRes>(API.GET_ROLE, {
-      params: data,
-    })
-  );
+export const reqGetRole = (data: Req.GetRoleParam) => instance.get<Res.RoleListData>(API.GET_ROLE, {
+  params: data,
+});

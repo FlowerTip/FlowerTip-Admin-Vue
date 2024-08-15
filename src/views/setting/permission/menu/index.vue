@@ -57,7 +57,7 @@ const loading = ref(false);
 const tableData = ref<Response.MenuItem[]>([]);
 const total = ref(0);
 
-const updateTableList = async (reqParams: RequestData.MenuListParam) => {
+const updateTableList = async (reqParams: Req.MenuListParam) => {
   loading.value = true;
   const { code, data } = await reqMenuList(reqParams);
   if (code === 200) {

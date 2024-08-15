@@ -66,8 +66,12 @@ const detailInfo = computed(() => {
   return dialogProps.value.detailInfo;
 });
 
+type AcceptParams = {
+  detailInfo: StudentItem
+}
+
 // 接收父组件参数
-const acceptParams = (params: any): void => {
+const acceptParams = (params: AcceptParams) => {
   dialogProps.value = params;
   drawerVisiable.value = true;
 };

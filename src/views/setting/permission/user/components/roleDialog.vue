@@ -1,37 +1,18 @@
 <template>
-  <el-dialog
-    v-model="dialogVisible"
-    title="分配权限"
-    destroy-on-close
-    width="500px"
-  >
+  <el-dialog v-model="dialogVisible" title="分配权限" destroy-on-close width="500px">
     <div class="form-layout-wrapper">
-      <el-checkbox
-        v-model="checkAll"
-        :indeterminate="isIndeterminate"
-        @change="handleCheckAllChange"
-      >
+      <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">
         全选
       </el-checkbox>
-      <el-checkbox-group
-        v-model="checkedCities"
-        @change="handleCheckedCitiesChange"
-      >
-        <el-checkbox
-          v-for="item in treeData"
-          :key="item.id"
-          :label="item.roleName"
-          :value="item.id"
-        >
+      <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+        <el-checkbox v-for="item in treeData" :key="item.id" :label="item.roleName" :value="item.id">
           {{ item.roleName }}
         </el-checkbox>
       </el-checkbox-group>
     </div>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="dialogConfirm" :loading="loading"
-          >保存</el-button
-        >
+        <el-button type="primary" @click="dialogConfirm" :loading="loading">保存</el-button>
         <el-button @click="dialogCancel">取消</el-button>
       </div>
     </template>
@@ -44,14 +25,15 @@ import { ElMessage, CheckboxValueType } from "element-plus";
 import { reqRoleList } from "@/api/role";
 import { reqGetRole } from "@/api/user";
 
-let treeData = ref<any>([]);
+let treeData = ref<RoleItem[]>([]);
 
 const checkAll = ref(false);
 const isIndeterminate = ref(false);
-const checkedCities = ref([]);
+const checkedCities = ref<number[]>([]);
 
 const handleCheckAllChange = (val: CheckboxValueType) => {
-  checkedCities.value = val ? treeData.value.map((item: any) => item.id) : [];
+  const selectVal = val ? treeData.value.map((item) => item.id) : []
+  checkedCities.value = selectVal as unknown as number[];
   isIndeterminate.value = false;
 };
 const handleCheckedCitiesChange = (value: CheckboxValueType[]) => {
@@ -61,36 +43,31 @@ const handleCheckedCitiesChange = (value: CheckboxValueType[]) => {
     checkedCount > 0 && checkedCount < treeData.value.length;
 };
 
-type tableDataItem = {
-  username: string;
-  password: string;
-};
-
-const getPermission = async (reqParams: any) => {
-  const { code, data }: any = await reqRoleList(reqParams);
+const getPermission = async (reqParams: AccountItem) => {
+  const { code, data } = await reqRoleList(reqParams);
   if (code === 200) {
-    const menus = data.list.map((item: tableDataItem) => ({
+    const menus = data.list.map((item) => ({
       ...item,
     }));
-    treeData.value = menus as any;
+    treeData.value = menus;
     getSelectPerssion();
   }
 };
 
 const getSelectPerssion = async () => {
-  const { code, data }: any = await reqGetRole({
+  const { code, data } = await reqGetRole({
     userId: dialogProps.value.userId,
   });
   if (code === 200) {
     const selectTreeIds = data.list;
-    checkedCities.value = selectTreeIds;
+    checkedCities.value = selectTreeIds as never[];
     if (
       checkedCities.value.length > 0 &&
       checkedCities.value.length < treeData.value.length
     ) {
       isIndeterminate.value = true;
     }
-    if (selectTreeIds.length === treeData.value.length) {
+    if (selectTreeIds?.length === treeData.value.length) {
       checkAll.value = true;
     }
   }
@@ -131,16 +108,20 @@ const dialogCancel = () => {
   dialogVisible.value = false;
 };
 
+type AcceptParams = {
+  userId: number;
+}
+
 // props定义
-const dialogProps = ref<any>();
+const dialogProps = ref();
 // 接收父组件参数
-const acceptParams = (params: any): void => {
+const acceptParams = (params: AcceptParams) => {
   isIndeterminate.value = false;
   checkAll.value = false;
   checkedCities.value = [];
   dialogProps.value = params;
   dialogVisible.value = true;
-  getPermission({});
+  getPermission({} as AccountItem);
 };
 
 // 暴露给父组件的方法

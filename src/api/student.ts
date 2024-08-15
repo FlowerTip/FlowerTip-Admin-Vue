@@ -1,4 +1,4 @@
-import instance from "@/utils/request";
+import instance from "@/utils/service";
 import { PagainationType } from "@/types";
 
 // 学员相关接口的枚举类型
@@ -9,19 +9,10 @@ enum API {
 }
 
 // 获取学员列表数据接口
-export const reqStudentList = (data: PagainationType) =>
-  Promise.resolve(
-    instance.post<typeof data, Response.StudentListRes>(API.STUDENT_LIST, data)
-  );
+export const reqStudentList = (data: PagainationType) => instance.post<Res.StudentListData>(API.STUDENT_LIST, data);
 
 // 保存学员数据接口
-export const reqSaveStudent = (data: RequestData.SaveStudentParam) =>
-  Promise.resolve(
-    instance.post<typeof data, Response.SaveStudentRes>(API.ADD_STUDENT, data)
-  );
+export const reqSaveStudent = (data: Req.SaveStudentParam) => instance.post<Res.SaveStudentData>(API.ADD_STUDENT, data);
 
 // 删除学员数据接口
-export const reqDelStudent = (data: RequestData.DelStudentParam) =>
-  Promise.resolve(
-    instance.post<typeof data, Response.DelStudentRes>(API.DEL_STUDENT, data)
-  );
+export const reqDelStudent = (data: Req.DelStudentParam) => instance.post<Res.DelStudentData>(API.DEL_STUDENT, data);

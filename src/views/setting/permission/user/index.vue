@@ -1,46 +1,19 @@
 <template>
   <div class="table-box">
-    <ProTable
-      ref="proTableRef"
-      :tableColumns="columns"
-      :conditionList="conditionList"
-      :tableData="tableData"
-      :total="total"
-      :updateTableList="updateTableList"
-      :loading="loading"
-    >
+    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
+      :total="total" :updateTableList="updateTableList" :loading="loading">
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button type="primary" :icon="CirclePlus" @click="openAddRoleDrawer"
-          >新增用户</el-button
-        >
+        <el-button type="primary" :icon="CirclePlus" @click="openAddRoleDrawer">新增用户</el-button>
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button
-          type="primary"
-          link
-          :icon="User"
-          @click="batchPermission(slotData.scope.row)"
-          :disabled="slotData.scope.row.username === '系统管理员'"
-          >分配角色</el-button
-        >
-        <el-button
-          type="primary"
-          link
-          :icon="EditPen"
-          @click="modifiyInfo(slotData.scope.row)"
-          :disabled="slotData.scope.row.username === '系统管理员'"
-          >编辑用户</el-button
-        >
-        <el-button
-          type="primary"
-          link
-          :icon="Delete"
-          @click="deleteRadio(slotData.scope.row)"
-          :disabled="slotData.scope.row.username === '系统管理员'"
-          >删除用户</el-button
-        >
+        <el-button type="primary" link :icon="User" @click="batchPermission(slotData.scope.row)"
+          :disabled="slotData.scope.row.username === '系统管理员'">分配角色</el-button>
+        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)"
+          :disabled="slotData.scope.row.username === '系统管理员'">编辑用户</el-button>
+        <el-button type="primary" link :icon="Delete" @click="deleteRadio(slotData.scope.row)"
+          :disabled="slotData.scope.row.username === '系统管理员'">删除用户</el-button>
       </template>
     </ProTable>
     <!-- 分配权限 -->
@@ -52,7 +25,6 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
-import { PagainationType } from "@/types";
 import {
   reqAccountList,
   reqSaveAccount,
@@ -111,18 +83,14 @@ const columns = reactive([
   },
 ]);
 
-type tableDataItem = {
-  username: string;
-  password: string;
-};
 // 表格数据
-let tableData = ref<tableDataItem[]>([]);
+let tableData = ref<AccountItem[]>([]);
 const total = ref(0);
-const updateTableList = async (reqParams: PagainationType) => {
+const updateTableList = async (reqParams: Req.AccountListParam) => {
   loading.value = true;
-  const { code, data }: any = await reqAccountList(reqParams);
+  const { code, data } = await reqAccountList(reqParams);
   if (code === 200) {
-    tableData.value = data.list.map((item: tableDataItem) => ({
+    tableData.value = data.list.map((item) => ({
       ...item,
     }));
     total.value = data.total;
@@ -152,20 +120,20 @@ const openAddRoleDrawer = () => {
   UserDialogRef.value!.acceptParams(params);
 };
 
-const deleteRadio = (row: any) => {
+const deleteRadio = (row: AccountItem) => {
   ElMessageBox.confirm("此操作将删除该用户，是否继续?", "删除提示", {
     cancelButtonText: "取消",
     confirmButtonText: "确认",
     type: "warning",
   })
     .then(async () => {
-      const { code, data }: any = await reqDelAccount({
-        ids: [row.id],
+      const { code } = await reqDelAccount({
+        ids: [row.id!],
       });
       if (code === 200) {
         ElMessage({
           type: "success",
-          message: data.message,
+          message: "删除成功",
         });
         updateTableList({
           pageSize: 20,
@@ -183,7 +151,7 @@ const deleteRadio = (row: any) => {
 
 const RoleDialogRef = ref();
 
-const batchPermission = (row: any) => {
+const batchPermission = (row: AccountItem) => {
   const params = {
     userId: row.id,
     api: reqBatchRole,
@@ -192,7 +160,7 @@ const batchPermission = (row: any) => {
   RoleDialogRef.value!.acceptParams(params);
 };
 
-const modifiyInfo = (row: any) => {
+const modifiyInfo = (row: AccountItem) => {
   UserDialogRef.value!.acceptParams({
     api: reqDelAccount,
     rowData: { ...row },
