@@ -34,14 +34,12 @@ declare namespace AppTypeConfig {
   }
 }
 
-
 /**
  * 删除接口的默认类型声明
  */
 declare interface DelDefaultData {
-  ids: number[]
+  ids: number[];
 }
-
 
 /**
  * 请求参数类型声明
@@ -68,9 +66,9 @@ declare namespace Req {
     time: Date | string;
     avatarUrl: string;
   }
-  interface SaveMenuParam { }
+  interface SaveMenuParam {}
 
-  interface DelMenuParam { }
+  interface DelMenuParam {}
   interface MenuListParam {
     pageSize?: number;
     currentPage?: number;
@@ -124,7 +122,6 @@ declare namespace Req {
   }
 }
 
-
 interface DefaultData<T> {
   list: T[];
   message: string;
@@ -134,8 +131,7 @@ declare type AccountItem = {
   id?: number;
   username: string;
   password: string;
-}
-
+};
 
 declare type MenuItem = {
   name: string;
@@ -158,14 +154,14 @@ declare type StudentItem = {
   avatarUrl: string;
   bigLabel?: string;
   sexLabel?: string;
-}
+};
 
 declare type RoleItem = {
   id?: number | string;
   roleName: string;
   remark?: string;
   updateTime?: Date | string;
-}
+};
 
 /**
  * 响应数据类型声明
@@ -195,8 +191,7 @@ declare namespace Res {
     status?: boolean;
     message: string;
   }
-  interface MenuListData extends DefaultData<MenuItem> {
-  }
+  interface MenuListData extends DefaultData<MenuItem> {}
 
   /**
    * 保存学员信息接口返回的数据格式
@@ -210,7 +205,7 @@ declare namespace Res {
   interface StudentListData {
     list: StudentItem[];
     total: number;
-    message: string
+    message: string;
   }
 
   interface DelStudentData {
@@ -222,12 +217,12 @@ declare namespace Res {
     message: string;
   }
 
-  interface PermissionMenuRes extends ResponseData { }
+  interface PermissionMenuRes extends ResponseData {}
 
   interface RoleListData extends DefaultData<any> {
     list: RoleItem[];
     total: number;
-    message: string
+    message: string;
   }
 
   interface DelRoleData {
@@ -241,31 +236,28 @@ declare namespace Res {
   interface SaveAccountRes extends ResponseData {
     data: {
       message: string;
-    }
+    };
   }
 
   interface DelAccountRes extends ResponseData {
     data: {
       message: string;
-    }
+    };
   }
 
   interface BatchRoleRes extends ResponseData {
     data: {
       message: string;
-    }
+    };
   }
 
   interface SaveRoleData {
-    id?: number
+    id?: number;
   }
 
-  
   interface BatchPermissionData {
     message: string;
   }
 
-  interface GetPermissionData extends DefaultData<MenuItem> {
-
-  }
+  interface GetPermissionData extends DefaultData<MenuItem> {}
 }

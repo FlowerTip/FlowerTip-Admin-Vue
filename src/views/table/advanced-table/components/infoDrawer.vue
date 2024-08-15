@@ -67,8 +67,8 @@ const detailInfo = computed(() => {
 });
 
 type AcceptParams = {
-  detailInfo: StudentItem
-}
+  detailInfo: StudentItem;
+};
 
 // 接收父组件参数
 const acceptParams = (params: AcceptParams) => {

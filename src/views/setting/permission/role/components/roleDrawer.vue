@@ -5,13 +5,23 @@
     </template>
     <template #default>
       <div class="form-layout-wrapper">
-        <el-tree ref="treeRef" style="max-width: 600px" :data="treeData" show-checkbox default-expand-all node-key="id"
-          :props="defaultProps" check-strictly />
+        <el-tree
+          ref="treeRef"
+          style="max-width: 600px"
+          :data="treeData"
+          show-checkbox
+          default-expand-all
+          node-key="id"
+          :props="defaultProps"
+          check-strictly
+        />
       </div>
     </template>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="drawerConfirm" :loading="loading">保存</el-button>
+        <el-button type="primary" @click="drawerConfirm" :loading="loading"
+          >保存</el-button
+        >
         <el-button @click="drawerCancel">取消</el-button>
       </div>
     </template>
@@ -100,7 +110,7 @@ const getSelectPerssion = async () => {
 };
 type AcceptParams = {
   roleId: number;
-}
+};
 // 接收父组件参数
 const acceptParams = (params: AcceptParams) => {
   dialogProps.value = params;

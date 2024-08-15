@@ -1,19 +1,46 @@
 <template>
   <div class="table-box">
-    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
-      :total="total" :updateTableList="updateTableList" :loading="loading">
+    <ProTable
+      ref="proTableRef"
+      :tableColumns="columns"
+      :conditionList="conditionList"
+      :tableData="tableData"
+      :total="total"
+      :updateTableList="updateTableList"
+      :loading="loading"
+    >
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button type="primary" :icon="CirclePlus" @click="openAddRoleDrawer">新增用户</el-button>
+        <el-button type="primary" :icon="CirclePlus" @click="openAddRoleDrawer"
+          >新增用户</el-button
+        >
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button type="primary" link :icon="User" @click="batchPermission(slotData.scope.row)"
-          :disabled="slotData.scope.row.username === '系统管理员'">分配角色</el-button>
-        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)"
-          :disabled="slotData.scope.row.username === '系统管理员'">编辑用户</el-button>
-        <el-button type="primary" link :icon="Delete" @click="deleteRadio(slotData.scope.row)"
-          :disabled="slotData.scope.row.username === '系统管理员'">删除用户</el-button>
+        <el-button
+          type="primary"
+          link
+          :icon="User"
+          @click="batchPermission(slotData.scope.row)"
+          :disabled="slotData.scope.row.username === '系统管理员'"
+          >分配角色</el-button
+        >
+        <el-button
+          type="primary"
+          link
+          :icon="EditPen"
+          @click="modifiyInfo(slotData.scope.row)"
+          :disabled="slotData.scope.row.username === '系统管理员'"
+          >编辑用户</el-button
+        >
+        <el-button
+          type="primary"
+          link
+          :icon="Delete"
+          @click="deleteRadio(slotData.scope.row)"
+          :disabled="slotData.scope.row.username === '系统管理员'"
+          >删除用户</el-button
+        >
       </template>
     </ProTable>
     <!-- 分配权限 -->

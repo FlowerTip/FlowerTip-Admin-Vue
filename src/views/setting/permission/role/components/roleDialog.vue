@@ -108,8 +108,8 @@ const resetForm = (formEl: FormInstance | undefined) => {
 };
 
 type AcceptParams = {
-  rowData: RoleItem
-}
+  rowData: RoleItem;
+};
 
 // props定义
 const dialogProps = ref();

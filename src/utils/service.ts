@@ -5,17 +5,17 @@ import useUserStore from "@/store/modules/userStore";
 
 interface Result {
   code: number;
-  message: string
+  message: string;
 }
 
 interface ResultData<T> extends Result {
-  data: T
+  data: T;
 }
 
 const config = {
   baseURL: import.meta.env.VITE_APP_BASE_API as string, // 请求基础路径
-  timeout: 5000,                                        // 请求超时时间，这里的单位是毫秒
-  withCredentials: true                                 // 跨域时候允许携带凭证
+  timeout: 5000, // 请求超时时间，这里的单位是毫秒
+  withCredentials: true, // 跨域时候允许携带凭证
 };
 
 const errorHandler = (statusCode: number) => {
@@ -57,10 +57,9 @@ const errorHandler = (statusCode: number) => {
     default:
       ElMessage.error("请求失败！");
   }
-}
+};
 
 class FlowerTipRequest {
-
   instance: AxiosInstance;
 
   public constructor(instanceConfig: AxiosRequestConfig) {
@@ -70,10 +69,10 @@ class FlowerTipRequest {
     this.instance.interceptors.request.use((config) => {
       const userStore = useUserStore();
       if (userStore.token) {
-        config.headers['token'] = userStore.token;
+        config.headers["token"] = userStore.token;
       }
       return config;
-    })
+    });
 
     // 响应拦截器
     this.instance.interceptors.response.use(
@@ -81,30 +80,40 @@ class FlowerTipRequest {
         return response.data;
       },
       (error) => {
-        console.log(error, '@@@error');
+        console.log(error, "@@@error");
         const { response } = error;
         // 请求超时 && 网络错误单独判断，没有 response
-        if (error.message.indexOf("timeout") !== -1) ElMessage.error("请求超时！请您稍后重试");
-        if (error.message.indexOf("Network Error") !== -1) ElMessage.error("网络错误！请您稍后重试");
+        if (error.message.indexOf("timeout") !== -1)
+          ElMessage.error("请求超时！请您稍后重试");
+        if (error.message.indexOf("Network Error") !== -1)
+          ElMessage.error("网络错误！请您稍后重试");
         // 根据返回的状态码，处理对应的错误逻辑
         if (response) errorHandler(response.status);
         // 服务器结果都没有返回(可能服务器错误可能客户端断网)，断网处理:可以跳转到500页面
-        if (!window.navigator.onLine) router.replace('/500');
+        if (!window.navigator.onLine) router.replace("/500");
         return Promise.reject(error);
       }
-    )
+    );
   }
 
   get<T>(url: string, params?: object): Promise<ResultData<T>> {
     return this.instance.get<typeof params, ResultData<T>>(url, params);
   }
 
-  post<T>(url: string, data: object | string, _config = {}): Promise<ResultData<T>> {
-    return this.instance.post<typeof data, ResultData<T>>(url, data, _config)
+  post<T>(
+    url: string,
+    data: object | string,
+    _config = {}
+  ): Promise<ResultData<T>> {
+    return this.instance.post<typeof data, ResultData<T>>(url, data, _config);
   }
 
   put<T>(url: string, params?: object, _config = {}): Promise<ResultData<T>> {
-    return this.instance.put<typeof params, ResultData<T>>(url, params, _config);
+    return this.instance.put<typeof params, ResultData<T>>(
+      url,
+      params,
+      _config
+    );
   }
 
   delete<T>(url: string, params?: object): Promise<ResultData<T>> {

@@ -1,18 +1,37 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="分配权限" destroy-on-close width="500px">
+  <el-dialog
+    v-model="dialogVisible"
+    title="分配权限"
+    destroy-on-close
+    width="500px"
+  >
     <div class="form-layout-wrapper">
-      <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">
+      <el-checkbox
+        v-model="checkAll"
+        :indeterminate="isIndeterminate"
+        @change="handleCheckAllChange"
+      >
         全选
       </el-checkbox>
-      <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-        <el-checkbox v-for="item in treeData" :key="item.id" :label="item.roleName" :value="item.id">
+      <el-checkbox-group
+        v-model="checkedCities"
+        @change="handleCheckedCitiesChange"
+      >
+        <el-checkbox
+          v-for="item in treeData"
+          :key="item.id"
+          :label="item.roleName"
+          :value="item.id"
+        >
           {{ item.roleName }}
         </el-checkbox>
       </el-checkbox-group>
     </div>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="dialogConfirm" :loading="loading">保存</el-button>
+        <el-button type="primary" @click="dialogConfirm" :loading="loading"
+          >保存</el-button
+        >
         <el-button @click="dialogCancel">取消</el-button>
       </div>
     </template>
@@ -32,7 +51,7 @@ const isIndeterminate = ref(false);
 const checkedCities = ref<number[]>([]);
 
 const handleCheckAllChange = (val: CheckboxValueType) => {
-  const selectVal = val ? treeData.value.map((item) => item.id) : []
+  const selectVal = val ? treeData.value.map((item) => item.id) : [];
   checkedCities.value = selectVal as unknown as number[];
   isIndeterminate.value = false;
 };
@@ -110,7 +129,7 @@ const dialogCancel = () => {
 
 type AcceptParams = {
   userId: number;
-}
+};
 
 // props定义
 const dialogProps = ref();
