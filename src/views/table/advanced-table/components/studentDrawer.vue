@@ -179,7 +179,7 @@ watch(
   (newVal) => {
     if (newVal) {
       ElMessage.success({ message: `${title.value}成功` });
-      dialogProps.value?.getTableList({
+      dialogProps.value.getTableList({
         currentPage: 1,
         pageSize: 20,
       });
@@ -205,7 +205,7 @@ const drawerConfirm = async () => {
       };
       try {
         loading.value = true;
-        const res = await dialogProps.value?.api(req);
+        const res = await dialogProps.value.api(req);
         if (res?.code === 200) {
           uploadParam.value.id = res.data.id as unknown as string;
           UserAvatarRef.value!.uploadServer();
@@ -235,7 +235,22 @@ type AcceptParams = {
   api: typeof reqSaveStudent;
 };
 
-const dialogProps = ref<AcceptParams>();
+const dialogProps = ref<AcceptParams>({
+  dialogForm: {
+    username: "",
+    age: "",
+    address: "",
+    sex: "",
+    big: "",
+    color: "",
+    hobby: "",
+    school: "",
+    time: "",
+    avatarUrl: "",
+  },
+  getTableList: reqStudentList,
+  api: reqSaveStudent,
+});
 
 // 接收父组件参数
 const acceptParams = (params: AcceptParams) => {

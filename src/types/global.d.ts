@@ -12,6 +12,8 @@ declare namespace AppTypeConfig {
     isFull: boolean;
     isAffix: boolean;
     isKeepAlive: boolean;
+    hidden?: boolean;
+    parentName?: string;
   }
   interface MenuOption {
     path: string;
@@ -20,6 +22,8 @@ declare namespace AppTypeConfig {
     redirect?: string;
     meta: AppTypeConfig.MetaProp;
     children?: AppTypeConfig.MenuOption[];
+    noShowingChildren?: boolean;
+    alwaysShow?: boolean;
   }
   interface SettingConfig {
     showHeaderBar?: boolean;
@@ -66,9 +70,6 @@ declare namespace Req {
     time: Date | string;
     avatarUrl: string;
   }
-  interface SaveMenuParam {}
-
-  interface DelMenuParam {}
   interface MenuListParam {
     pageSize?: number;
     currentPage?: number;
@@ -122,6 +123,9 @@ declare namespace Req {
   }
 }
 
+/**
+ * 列表接口的默认类型声明
+ */
 interface DefaultData<T> {
   list: T[];
   message: string;
@@ -191,7 +195,7 @@ declare namespace Res {
     status?: boolean;
     message: string;
   }
-  interface MenuListData extends DefaultData<MenuItem> {}
+  type MenuListData = DefaultData<MenuItem>;
 
   /**
    * 保存学员信息接口返回的数据格式
@@ -217,14 +221,10 @@ declare namespace Res {
     message: string;
   }
 
-  interface PermissionMenuRes extends ResponseData {}
-
-  interface RoleListData extends DefaultData<any> {
-    list: RoleItem[];
+  type PermissionMenuRes = ResponseData;
+  interface RoleListData extends DefaultData<RoleItem> {
     total: number;
-    message: string;
   }
-
   interface DelRoleData {
     message: string;
   }
@@ -259,5 +259,5 @@ declare namespace Res {
     message: string;
   }
 
-  interface GetPermissionData extends DefaultData<MenuItem> {}
+  type GetPermissionData = DefaultData<MenuItem>;
 }

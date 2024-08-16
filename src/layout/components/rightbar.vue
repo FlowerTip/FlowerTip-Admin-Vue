@@ -478,7 +478,7 @@ const {
   currentThemeName,
 } = useThemeColor();
 
-const changeThemeColor = (colorThemeName: any, showTip = true) => {
+const changeThemeColor = (colorThemeName: string, showTip = true) => {
   toggleThemeColor(colorThemeName);
   drawer.value = false;
   if (showTip) {

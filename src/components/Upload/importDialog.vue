@@ -50,8 +50,12 @@ const dialogCancel = () => {
   dialogVisible.value = false;
 };
 
+type AcceptParams = {
+  templateUrl: string;
+  formData: object;
+};
 // 接收父组件参数
-const acceptParams = (params: any): void => {
+const acceptParams = (params: AcceptParams): void => {
   dialogProps.value = params;
   dialogVisible.value = true;
 };

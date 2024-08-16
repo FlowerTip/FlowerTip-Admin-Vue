@@ -232,6 +232,7 @@ import { CheckboxValueType } from "element-plus";
 import { Refresh, Tools, Search } from "@element-plus/icons-vue";
 import SearchForm from "@/components/SearchForm/index.vue";
 import { useBreakpoint } from "@/hooks/useBreakpoint.ts";
+import { ColumnItem } from "./types";
 
 const { currentBreakpoint } = useBreakpoint();
 
@@ -262,7 +263,7 @@ const props = defineProps([
 
 const selfColumns = ref(props.tableColumns);
 const isIndeterminate = ref(false);
-const checkedCities = ref(selfColumns.value.map((item: any) => item.id));
+const checkedCities = ref(selfColumns.value.map((item: ColumnItem) => item.id));
 const handleCheckedCitiesChange = (value: CheckboxValueType[]) => {
   const checkedCount = value.length;
   selectAll.value = checkedCount === selfColumns.value.length;
@@ -272,9 +273,9 @@ const handleCheckedCitiesChange = (value: CheckboxValueType[]) => {
 const selectAll = ref(true);
 const handleCheckAllChange = (val: CheckboxValueType) => {
   checkedCities.value = val
-    ? selfColumns.value.map((item: any) => item.id)
+    ? selfColumns.value.map((item: ColumnItem) => item.id)
     : [];
-  selfColumns.value = selfColumns.value.map((item: any) => {
+  selfColumns.value = selfColumns.value.map((item: ColumnItem) => {
     return {
       ...item,
       isShowColumn: val,
@@ -283,23 +284,24 @@ const handleCheckAllChange = (val: CheckboxValueType) => {
   isIndeterminate.value = checkedCities.value.length === 0 ? false : !val;
 };
 
+// 表格动态列原始数据
 const columns = computed(() => {
-  return selfColumns.value.filter((col: any) =>
-    checkedCities.value.find((val: any) => val == col.id)
+  return selfColumns.value.filter((col: ColumnItem) =>
+    checkedCities.value.find((val: string | number) => val == col.id)
   );
 });
-
+// 左侧固定的动态列数据
 const leftFixedColumns = computed(() => {
-  return selfColumns.value.filter((item: any) => item.fixed === "left");
+  return selfColumns.value.filter((item: ColumnItem) => item.fixed === "left");
 });
-
+// 右侧固定的动态列数据
 const rightFixedColumns = computed(() => {
-  return selfColumns.value.filter((item: any) => item.fixed === "right");
+  return selfColumns.value.filter((item: ColumnItem) => item.fixed === "right");
 });
-
+// 非固定列的动态列数据
 const noFixedColumns = computed(() => {
   return selfColumns.value.filter(
-    (item: any) => item.fixed !== "left" && item.fixed !== "right"
+    (item: ColumnItem) => item.fixed !== "left" && item.fixed !== "right"
   );
 });
 
@@ -316,25 +318,44 @@ const pagination = reactive({
 const background = ref(true);
 const hiddenSearch = ref(false);
 
+// 初始化表格的最大高度
 const maxHeight = ref<number | string>("auto");
 const chInstance = ref(0);
 
-onMounted(() => {
-  setTableHeight(heightDefaultObj[currentBreakpoint.value]);
-  window.addEventListener("resize", () =>
-    setTableHeight(heightDefaultObj[currentBreakpoint.value])
-  );
-});
-onBeforeUnmount(() => {
-  window.removeEventListener("resize", () =>
-    setTableHeight(heightDefaultObj[currentBreakpoint.value])
-  );
-});
+// 切换搜索条件展开和折叠
 const toggleFoldCallBack = (condHeight: number) => {
   setTableHeight(condHeight);
   chInstance.value = condHeight;
 };
 
+// 分页器-每页条数发生改变逻辑函数
+const handleSizeChange = (val: number) => {
+  pagination.currentPage = 1;
+  pagination.pageSize = val;
+  props.updateTableList(pagination);
+};
+// 分页器-当前页码发生改变逻辑函数
+const handleCurrentChange = (val: number) => {
+  pagination.currentPage = val;
+  props.updateTableList(pagination);
+};
+
+// 刷新表格
+const refreshTable = () => {
+  props.updateTableList(pagination);
+};
+// 切换是否显示搜索条件
+const toggleSearch = () => {
+  hiddenSearch.value = !hiddenSearch.value;
+};
+// 重置显示列
+const resetColumn = () => {
+  checkedCities.value = selfColumns.value.map((item: ColumnItem) => item.id);
+  isIndeterminate.value = false;
+  selectAll.value = true;
+};
+
+// 设置表格的最大高度
 const setTableHeight = (condHeight = 0) => {
   const instance = hiddenSearch.value
     ? 0
@@ -376,34 +397,26 @@ watchEffect(() => {
   setTableHeight(heightDefaultObj[currentBreakpoint.value]);
 });
 
-const handleSizeChange = (val: number) => {
-  pagination.currentPage = 1;
-  pagination.pageSize = val;
-  props.updateTableList(pagination);
-};
-const handleCurrentChange = (val: number) => {
-  pagination.currentPage = val;
-  props.updateTableList(pagination);
-};
+// 初始化钩子
+onMounted(() => {
+  setTableHeight(heightDefaultObj[currentBreakpoint.value]);
+  window.addEventListener("resize", () =>
+    setTableHeight(heightDefaultObj[currentBreakpoint.value])
+  );
+});
 
+// 卸载钩子
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", () =>
+    setTableHeight(heightDefaultObj[currentBreakpoint.value])
+  );
+});
+
+// 提供内部数据，给外部组件调用
 defineExpose({
   pagination,
   clearSelection,
 });
-
-const refreshTable = () => {
-  props.updateTableList(pagination);
-};
-
-const toggleSearch = () => {
-  hiddenSearch.value = !hiddenSearch.value;
-};
-
-const resetColumn = () => {
-  checkedCities.value = selfColumns.value.map((item: any) => item.id);
-  isIndeterminate.value = false;
-  selectAll.value = true;
-};
 </script>
 
 <style lang="scss" scoped>

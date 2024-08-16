@@ -1,7 +1,7 @@
 <template v-if="!item.meta || !item.meta.hidden">
   <template
     v-if="
-      hasOneShowingChild(item.children, item) &&
+      hasOneShowingChild(item.children, item as AppTypeConfig.MenuOption) &&
       (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
       !item.alwaysShow
     "
@@ -88,25 +88,32 @@ const menuItemClick = () => {
 };
 const subMenuRef = ref<InstanceType<typeof ElSubMenu>>();
 
-const props = defineProps({
-  item: {
-    type: Object,
-    required: true,
-  },
-  isNest: {
-    type: Boolean,
-    default: false,
-  },
-  basePath: {
-    type: String,
-    default: "",
+type ComponentProps = {
+  item: any;
+  isNest?: boolean;
+  basePath: string;
+};
+
+const props = defineProps<ComponentProps>();
+
+const onlyOneChild = ref<AppTypeConfig.MenuOption>({
+  path: "",
+  name: "",
+  meta: {
+    icon: "",
+    title: "",
+    isHide: false,
+    isFull: false,
+    isAffix: false,
+    isKeepAlive: false,
   },
 });
 
-const onlyOneChild = ref<any>({});
-
-const hasOneShowingChild = (children = [], parent: any) => {
-  const showingChildren = children.filter((item: any) => {
+const hasOneShowingChild = (
+  children: AppTypeConfig.MenuOption[] = [],
+  parent: AppTypeConfig.MenuOption
+) => {
+  const showingChildren = children.filter((item) => {
     if (item.meta.hidden) {
       return false;
     } else {

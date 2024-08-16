@@ -148,24 +148,31 @@ const showSearchBtn = computed(() => {
   return props.conditionList.length > 0;
 });
 
+type ReduceNext = {
+  [key in "span" | "mdSpan" | "lgSpan" | "smSpan" | "xsSpan"]: number;
+};
+
 const xlSpanCount = computed(() => {
   let totalSpan = 0;
   if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
-      totalSpan = props.conditionList.reduce((prev: number, next: any) => {
-        return prev + next.span;
-      }, 0);
+      totalSpan = props.conditionList.reduce(
+        (prev: number, next: ReduceNext) => {
+          return prev + next.span;
+        },
+        0
+      );
     } else {
       const sliceCondList = props.conditionList.slice(
         0,
         initConditionFoldLen.value
       );
-      totalSpan = sliceCondList.reduce((prev: number, next: any) => {
+      totalSpan = sliceCondList.reduce((prev: number, next: ReduceNext) => {
         return prev + next.span;
       }, 0);
     }
   } else {
-    totalSpan = props.conditionList.reduce((prev: number, next: any) => {
+    totalSpan = props.conditionList.reduce((prev: number, next: ReduceNext) => {
       return prev + next.span;
     }, 0);
   }
@@ -176,20 +183,23 @@ const lgSpanCount = computed(() => {
   let totalSpan = 0;
   if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
-      totalSpan = props.conditionList.reduce((prev: number, next: any) => {
-        return prev + next.lgSpan;
-      }, 0);
+      totalSpan = props.conditionList.reduce(
+        (prev: number, next: ReduceNext) => {
+          return prev + next.lgSpan;
+        },
+        0
+      );
     } else {
       const sliceCondList = props.conditionList.slice(
         0,
         initConditionFoldLen.value
       );
-      totalSpan = sliceCondList.reduce((prev: number, next: any) => {
+      totalSpan = sliceCondList.reduce((prev: number, next: ReduceNext) => {
         return prev + next.lgSpan;
       }, 0);
     }
   } else {
-    totalSpan = props.conditionList.reduce((prev: number, next: any) => {
+    totalSpan = props.conditionList.reduce((prev: number, next: ReduceNext) => {
       return prev + next.lgSpan;
     }, 0);
   }
@@ -200,20 +210,23 @@ const mdSpanCount = computed(() => {
   let totalSpan = 0;
   if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
-      totalSpan = props.conditionList.reduce((prev: number, next: any) => {
-        return prev + next.mdSpan;
-      }, 0);
+      totalSpan = props.conditionList.reduce(
+        (prev: number, next: ReduceNext) => {
+          return prev + next.mdSpan;
+        },
+        0
+      );
     } else {
       const sliceCondList = props.conditionList.slice(
         0,
         initConditionFoldLen.value
       );
-      totalSpan = sliceCondList.reduce((prev: number, next: any) => {
+      totalSpan = sliceCondList.reduce((prev: number, next: ReduceNext) => {
         return prev + next.mdSpan;
       }, 0);
     }
   } else {
-    totalSpan = props.conditionList.reduce((prev: number, next: any) => {
+    totalSpan = props.conditionList.reduce((prev: number, next: ReduceNext) => {
       return prev + next.mdSpan;
     }, 0);
   }
@@ -224,20 +237,23 @@ const smSpanCount = computed(() => {
   let totalSpan = 0;
   if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
-      totalSpan = props.conditionList.reduce((prev: number, next: any) => {
-        return prev + next.smSpan;
-      }, 0);
+      totalSpan = props.conditionList.reduce(
+        (prev: number, next: ReduceNext) => {
+          return prev + next.smSpan;
+        },
+        0
+      );
     } else {
       const sliceCondList = props.conditionList.slice(
         0,
         initConditionFoldLen.value
       );
-      totalSpan = sliceCondList.reduce((prev: number, next: any) => {
+      totalSpan = sliceCondList.reduce((prev: number, next: ReduceNext) => {
         return prev + next.smSpan;
       }, 0);
     }
   } else {
-    totalSpan = props.conditionList.reduce((prev: number, next: any) => {
+    totalSpan = props.conditionList.reduce((prev: number, next: ReduceNext) => {
       return prev + next.smSpan;
     }, 0);
   }
@@ -248,20 +264,23 @@ const xsSpanCount = computed(() => {
   let totalSpan = 0;
   if (initConditionFoldLen.value > 0) {
     if (!conditionFold.value) {
-      totalSpan = props.conditionList.reduce((prev: number, next: any) => {
-        return prev + next.xsSpan;
-      }, 0);
+      totalSpan = props.conditionList.reduce(
+        (prev: number, next: ReduceNext) => {
+          return prev + next.xsSpan;
+        },
+        0
+      );
     } else {
       const sliceCondList = props.conditionList.slice(
         0,
         initConditionFoldLen.value
       );
-      totalSpan = sliceCondList.reduce((prev: number, next: any) => {
+      totalSpan = sliceCondList.reduce((prev: number, next: ReduceNext) => {
         return prev + next.xsSpan;
       }, 0);
     }
   } else {
-    totalSpan = props.conditionList.reduce((prev: number, next: any) => {
+    totalSpan = props.conditionList.reduce((prev: number, next: ReduceNext) => {
       return prev + next.xsSpan;
     }, 0);
   }
@@ -302,9 +321,11 @@ const sliceCodList = computed(() => {
 const searchForm = reactive<SearchFormInterFace>({});
 
 onMounted(() => {
-  props.conditionList.forEach((cond: any) => {
-    searchForm[cond.prop] = cond.type === "datetimerange" ? [] : "";
-  });
+  props.conditionList.forEach(
+    (cond: { prop: string | number; type: string }) => {
+      searchForm[cond.prop] = cond.type === "datetimerange" ? [] : "";
+    }
+  );
   setCondFoldHeight();
   window.addEventListener("resize", setCondFoldHeight);
 });

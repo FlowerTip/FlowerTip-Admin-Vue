@@ -62,7 +62,7 @@ const drawerVisiable = ref(false);
 
 const dialogProps = ref();
 
-const detailInfo = computed(() => {
+const detailInfo = computed<StudentItem>(() => {
   return dialogProps.value.detailInfo;
 });
 

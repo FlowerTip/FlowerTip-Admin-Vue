@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from "vue-router";
+import { RouteLocationNormalized, RouteRecordRaw } from "vue-router";
 import { dayjs } from "element-plus";
 import defaultSetting from "@/setting";
 
@@ -90,9 +90,9 @@ export function resolve(...args: IArguments[]) {
   let resolvedAbsolute = false;
   let cwd;
 
-  for (let i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+  for (let i = args.length - 1; i >= -1 && !resolvedAbsolute; i--) {
     let path = "";
-    if (i >= 0) path = arguments[i] as unknown as string;
+    if (i >= 0) path = args[i] as unknown as string;
     else {
       if (cwd === undefined)
         // cwd = process.cwd();
@@ -132,7 +132,9 @@ export function resolve(...args: IArguments[]) {
  * @param {*} to
  * @returns title
  */
-export function getPageTitle({ meta }: any): string {
+
+
+export function getPageTitle({ meta }: RouteLocationNormalized): string {
   return meta && meta.title
     ? `${meta.title} - ${defaultSetting.title}`
     : defaultSetting.title;
@@ -143,8 +145,10 @@ export function getPageTitle({ meta }: any): string {
  * @param data Array
  * @returns Array
  */
-export function flatChildren(data: any): any {
-  return data.map((item: any) => {
+export function flatChildren(
+  data: AppTypeConfig.MenuOption[]
+): AppTypeConfig.MenuOption[] {
+  return data.map((item) => {
     return {
       ...item,
       title: item.meta.title,

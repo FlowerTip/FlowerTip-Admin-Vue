@@ -54,7 +54,7 @@ const columns = reactive([
 ]);
 const loading = ref(false);
 
-const tableData = ref<Response.MenuItem[]>([]);
+const tableData = ref<MenuItem[]>([]);
 const total = ref(0);
 
 const updateTableList = async (reqParams: Req.MenuListParam) => {
@@ -65,7 +65,7 @@ const updateTableList = async (reqParams: Req.MenuListParam) => {
       ...item,
       updateTime: dayjs(item.updateTime).format("YYYY-MM-DD HH:mm:ss"),
     }));
-    tableData.value = menus as unknown as Response.MenuItem[];
+    tableData.value = menus as unknown as MenuItem[];
     total.value = 0;
     setTimeout(() => {
       loading.value = false;

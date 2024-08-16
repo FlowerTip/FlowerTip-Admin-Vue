@@ -40,6 +40,7 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-unexpected-multiline': 'error', // 禁止空余的多行
         'no-useless-escape': 'off', // 禁止不必要的转义字符
+        'no-undef': 'off', // 允许代码中出现未定义的变量而不触发警告或错误
 
         // typeScript (https://typescript-eslint.io/rules)
         '@typescript-eslint/no-unused-vars': 'error', // 禁止定义未使用的变量
@@ -47,7 +48,8 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off', // 禁止使用 any 类型
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
-        '@typescript-eslint/semi': 'off',
+        '@typescript-eslint/semi': 'off',  // 不强制在每个语句末尾使用分号
+        "@typescript-eslint/no-non-null-assertion": "off", // 不允许使用后缀运算符的非空断言(!)
 
         // eslint-plugin-vue (https://eslint.vuejs.org/rules/)
         'vue/multi-word-component-names': 'off', // 要求组件名称始终为 “-” 链接的单词

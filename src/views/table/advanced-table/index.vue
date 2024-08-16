@@ -387,7 +387,7 @@ const exportTable = () => {
     background: "rgba(0, 0, 0, 0.8)",
   });
   const list = JSON.stringify(selectRow.value);
-  const data = JSON.parse(list);
+  const data: StudentItem[] = JSON.parse(list);
   const filterColumn = columns.filter(
     (col) => col.prop !== "operation" && col.label !== "操作"
   );

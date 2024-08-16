@@ -35,12 +35,6 @@ import { reqMenuList } from "@/api/menu";
 import { reqGetPermission } from "@/api/role";
 import { formatTime } from "@/utils/tool";
 
-type tableDataItem = {
-  roleName: string;
-  remark: string;
-  updateTime: Date;
-};
-
 const defaultProps = {
   children: "children",
   label: "name",

@@ -1,8 +1,13 @@
 import { dayjs } from "element-plus";
 import { ElMapExportTable } from "table-excel";
 
+type ColumnData = {
+  title: string;
+  dataIndex: string;
+};
+
 const exportTale = (
-  column: string[],
+  column: ColumnData[],
   data: unknown[],
   name = "导出数据",
   progressCallBack: (progress: number) => void
