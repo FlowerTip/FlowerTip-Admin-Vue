@@ -1,18 +1,19 @@
-import type { RouteRecordRaw } from "vue-router";
 /**
  * 路由meta对象参数说明
  * meta: {
  *      title:          菜单与面包屑的标题
  *      hidden：        是否隐藏菜单此路由
  *      icon：          菜单标题左侧的图标
+ *      parentName:     父级菜单的路由路径
  * }
  */
 // 目前模版项目中的全部的路由
 // login登录   一级路由
 // 404页面     一级路由
 // 任意路由    一级路由重定向404
+
 // 根路由      一级路由(layout/index.vue)
-export const staticRoutes: RouteRecordRaw[] = [
+export const staticRoutes = [
   {
     path: "/login",
     name: "Login",

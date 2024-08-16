@@ -21,11 +21,13 @@ const useUserStore = defineStore({
     };
   },
   getters: {
-    flatMenuList: (state) =>
-      getFlatMenuList([
+    flatMenuList: (state) => {
+      const menuParams = [
         ...staticRoutes.filter((item) => !item.meta?.hidden),
         ...state.backMenuList,
-      ] as any),
+      ];
+      return getFlatMenuList(menuParams)
+    }
   },
   actions: {
     async login({ username, password }: Req.loginParam) {
@@ -45,11 +47,11 @@ const useUserStore = defineStore({
           let menuList = [];
           if (process.env.NODE_ENV === "production") {
             menuList = filterAsyncRoutes(
-              asyncRoute as unknown as RouteRecordRaw[],
+              asyncRoute as RouteRecordRaw[],
               data.list.map((item) => item.code)
             );
           } else {
-            menuList = [...(asyncRoute as unknown as RouteRecordRaw[])];
+            menuList = [...asyncRoute] as RouteRecordRaw[];
           }
           this.backMenuList = menuList;
           this.permissionButtonList = data.buttons;
@@ -64,7 +66,7 @@ const useUserStore = defineStore({
             redirect: this.authMenuList[0].redirect!,
           });
           this.authMenuList.forEach((item) => {
-            router.addRoute(item as unknown as RouteRecordRaw);
+            router.addRoute(item);
           });
         } else {
           ElMessage.error("无权限访问任何页面，请联系管理员处理");

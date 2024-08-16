@@ -1,5 +1,7 @@
 // 本地存储
 
+import { RouteRecordRaw } from "vue-router";
+
 export const setToken = (token: string) => {
   localStorage.setItem("token", token);
 };
@@ -18,9 +20,9 @@ export const removeToken = () => {
  * @returns {Array}
  */
 export const getFlatMenuList = (
-  menuList: AppTypeConfig.MenuOption[]
-): AppTypeConfig.MenuOption[] => {
-  let result: AppTypeConfig.MenuOption[] = [];
+  menuList: RouteRecordRaw[]
+): RouteRecordRaw[] => {
+  let result: RouteRecordRaw[] = [];
   menuList.forEach((item) => {
     result.push(item);
     if (item.children) {

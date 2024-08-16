@@ -145,15 +145,15 @@ export function getPageTitle({ meta }: RouteLocationNormalized): string {
  * @returns Array
  */
 export function flatChildren(
-  data: AppTypeConfig.MenuOption[]
-): AppTypeConfig.MenuOption[] {
+  data: RouteRecordRaw[]
+): RouteRecordRaw[] {
   return data.map((item) => {
     return {
       ...item,
-      title: item.meta.title,
-      icon: item.meta.icon,
+      title: item.meta?.title,
+      icon: item.meta?.icon,
       redirect: item.redirect ? item.redirect : "--",
-      hidden: item.meta.hidden ? "隐藏" : "显示",
+      hidden: item.meta?.hidden ? "隐藏" : "显示",
       type: item.redirect ? "目录" : "页面",
       children:
         item.children && item.children.length > 0

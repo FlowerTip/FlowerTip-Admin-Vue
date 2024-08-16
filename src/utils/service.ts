@@ -15,7 +15,6 @@ interface ResultData<T> extends Result {
 const config = {
   baseURL: import.meta.env.VITE_APP_BASE_API as string, // 请求基础路径
   timeout: 5000, // 请求超时时间，这里的单位是毫秒
-  withCredentials: true, // 跨域时候允许携带凭证
 };
 
 const errorHandler = (statusCode: number) => {
