@@ -26,8 +26,8 @@ const useUserStore = defineStore({
         ...staticRoutes.filter((item) => !item.meta?.hidden),
         ...state.backMenuList,
       ];
-      return getFlatMenuList(menuParams)
-    }
+      return getFlatMenuList(menuParams);
+    },
   },
   actions: {
     async login({ username, password }: Req.loginParam) {

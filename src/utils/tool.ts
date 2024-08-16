@@ -144,9 +144,7 @@ export function getPageTitle({ meta }: RouteLocationNormalized): string {
  * @param data Array
  * @returns Array
  */
-export function flatChildren(
-  data: RouteRecordRaw[]
-): RouteRecordRaw[] {
+export function flatChildren(data: RouteRecordRaw[]): RouteRecordRaw[] {
   return data.map((item) => {
     return {
       ...item,
