@@ -133,7 +133,6 @@ export function resolve(...args: IArguments[]) {
  * @returns title
  */
 
-
 export function getPageTitle({ meta }: RouteLocationNormalized): string {
   return meta && meta.title
     ? `${meta.title} - ${defaultSetting.title}`
