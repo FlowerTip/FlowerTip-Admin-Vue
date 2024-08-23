@@ -12,7 +12,6 @@ import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 // https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfigExport => {
   console.log(command);
-
   // 获取各种环境下对应的变量
   const env = loadEnv(mode, process.cwd());
   return {
@@ -59,7 +58,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         //   rewrite: (path: string) => path.replace(/^\/api/, ""),
         // },
         [env.VITE_APP_BASE_API]: {
-          target: "http://154.8.195.58:9000",
+          target: "http://www.flowertip.site:9000",
           // 需要代理跨域
           changeOrigin: true,
           rewrite: (path: string) => path.replace(/^\/api/, ""),
