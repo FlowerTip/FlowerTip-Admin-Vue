@@ -17,7 +17,7 @@ const PreviewDialogRef = ref();
 
 const previewDoc = () => {
   const params = {
-    url: "http://static.shanhuxueyuan.com/test.docx",
+    url: "https://www.flowertip.site/docs/test.docx",
     type: "docx",
   };
   PreviewDialogRef.value.acceptParams(params);
@@ -25,7 +25,7 @@ const previewDoc = () => {
 
 const previewPdf = () => {
   const params = {
-    url: "http://static.shanhuxueyuan.com/test.pdf",
+    url: "https://www.flowertip.site/docs/test.pdf",
     type: "pdf",
   };
   PreviewDialogRef.value.acceptParams(params);
@@ -33,7 +33,7 @@ const previewPdf = () => {
 
 const previewExcel = () => {
   const params = {
-    url: "http://static.shanhuxueyuan.com/test.xlsx",
+    url: "https://www.flowertip.site/docs/test.xlsx",
     type: "excel",
   };
   PreviewDialogRef.value.acceptParams(params);
