@@ -5,13 +5,25 @@
     </template>
     <template #default>
       <div class="form-layout-wrapper">
-        <el-tree ref="treeRef" style="max-width: 600px" :data="treeData" show-checkbox default-expand-all node-key="id"
-          :props="defaultProps" check-strictly @check="hanleCheck" @check-change="checkChange" />
+        <el-tree
+          ref="treeRef"
+          style="max-width: 600px"
+          :data="treeData"
+          show-checkbox
+          default-expand-all
+          node-key="id"
+          :props="defaultProps"
+          check-strictly
+          @check="hanleCheck"
+          @check-change="checkChange"
+        />
       </div>
     </template>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="drawerConfirm" :loading="loading">保存</el-button>
+        <el-button type="primary" @click="drawerConfirm" :loading="loading"
+          >保存</el-button
+        >
         <el-button @click="drawerCancel">取消</el-button>
       </div>
     </template>
@@ -24,7 +36,10 @@ import { ElMessage } from "element-plus";
 import { reqMenuList } from "@/api/menu";
 import { reqGetPermission } from "@/api/role";
 import { formatTime } from "@/utils/tool";
-import { TreeNode, TreeNodeData } from "element-plus/es/components/tree-v2/src/types";
+import {
+  TreeNode,
+  TreeNodeData,
+} from "element-plus/es/components/tree-v2/src/types";
 
 const defaultProps = {
   children: "children",
@@ -146,7 +161,11 @@ const hanleCheck = (data: TreeNodeData, node: TreeNode) => {
     });
   }
 };
-const checkChange = (data: TreeNodeData, checked: boolean, indeterminate: boolean) => {
+const checkChange = (
+  data: TreeNodeData,
+  checked: boolean,
+  indeterminate: boolean
+) => {
   console.log(data, checked, indeterminate);
   // 选中全部子节点，父节点也默认选中，但是子节点再次取消勾选或者全部子节点取消勾选也不会影响父节点勾选状态
   let checkNode = treeRef.value!.getNode(data); //获取当前节点
