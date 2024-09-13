@@ -1,24 +1,10 @@
 <template>
-  <el-drawer
-    v-model="drawerVisible"
-    direction="rtl"
-    :destroy-on-close="true"
-    :title="title"
-    size="600px"
-  >
+  <el-drawer v-model="drawerVisible" direction="rtl" :destroy-on-close="true" :title="title" size="600px">
     <div class="form-layout-wrapper">
-      <el-form
-        ref="dialogFormRef"
-        :model="dialogForm"
-        :rules="dialogFormRules"
-        label-width="auto"
-        class="form-container"
-      >
+      <el-form ref="dialogFormRef" :model="dialogForm" :rules="dialogFormRules" label-width="auto"
+        class="form-container">
         <el-form-item label="姓名：" prop="username">
-          <el-input
-            v-model="dialogForm.username"
-            placeholder="请输入学员名称"
-          />
+          <el-input v-model="dialogForm.username" placeholder="请输入学员名称" />
         </el-form-item>
         <el-form-item label="年龄：" prop="age">
           <el-input v-model="dialogForm.age" placeholder="请输入学员年龄" />
@@ -39,10 +25,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="性格色彩：" prop="color">
-          <el-input
-            v-model="dialogForm.color"
-            placeholder="请输入16进制颜色值"
-          />
+          <el-input v-model="dialogForm.color" placeholder="请输入16进制颜色值" />
         </el-form-item>
         <el-form-item label="兴趣爱好：" prop="hobby">
           <el-input v-model="dialogForm.hobby" placeholder="请输入兴趣爱好" />
@@ -51,25 +34,13 @@
           <el-input v-model="dialogForm.school" placeholder="请输入学校名称" />
         </el-form-item>
         <el-form-item label="档案时间：" prop="time">
-          <el-date-picker
-            v-model="dialogForm.time"
-            type="datetime"
-            value-format="YYYY-MM-DD HH:mm:ss"
-            placeholder="请选择入档时间"
-            style="width: 100%"
-          />
+          <el-date-picker v-model="dialogForm.time" type="datetime" value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="请选择入档时间" style="width: 100%" />
         </el-form-item>
         <el-form-item prop="avatarUrl" label="学员头像：">
-          <AvatarUpload
-            width="80"
-            height="80"
-            type="round"
-            ref="UserAvatarRef"
-            :disabled="false"
-            v-model:image-url="dialogForm.avatarUrl"
-            v-model:successed="uploadSuccessed"
-            :uploadParam="uploadParam"
-          >
+          <AvatarUpload width="80" height="80" type="round" ref="UserAvatarRef" :disabled="false"
+            v-model:image-url="dialogForm.avatarUrl" v-model:successed="uploadSuccessed" v-model:isModifyed="isModifyed"
+            :uploadParam="uploadParam">
             <template #tip>限制为2MB，只能上传PNG，JPG，GIF格式</template>
           </AvatarUpload>
         </el-form-item>
@@ -77,9 +48,7 @@
     </div>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="drawerConfirm" :loading="loading"
-          >保存</el-button
-        >
+        <el-button type="primary" @click="drawerConfirm" :loading="loading">保存</el-button>
         <el-button @click="drawerCancel">取消</el-button>
       </div>
     </template>
@@ -174,6 +143,8 @@ const uploadParam = ref({
 // 图片上传成功，处理后续逻辑
 const uploadSuccessed = ref(false);
 
+const isModifyed = ref(false);
+
 watch(
   () => uploadSuccessed.value,
   (newVal) => {
@@ -185,12 +156,12 @@ watch(
       });
       drawerVisible.value = false;
       loading.value = false;
+      isModifyed.value = false;
       // 重置表单
       resetForm(dialogFormRef.value);
     }
   }
 );
-
 const drawerVisible = ref(false);
 const loading = ref(false);
 
@@ -208,10 +179,24 @@ const drawerConfirm = async () => {
         const res = await dialogProps.value.api(req);
         if (res?.code === 200) {
           uploadParam.value.id = res.data.id as unknown as string;
-          UserAvatarRef.value!.uploadServer();
+          if (isModifyed.value) {
+            UserAvatarRef.value!.uploadServer();
+          } else {
+            ElMessage.success({ message: `${title.value}成功` });
+            dialogProps.value.getTableList({
+              currentPage: 1,
+              pageSize: 20,
+            });
+            drawerVisible.value = false;
+            loading.value = false;
+            isModifyed.value = false;
+            // 重置表单
+            resetForm(dialogFormRef.value);
+          }
         }
       } catch (err) {
         loading.value = false;
+        isModifyed.value =false;
         console.log(err);
       }
     } else {

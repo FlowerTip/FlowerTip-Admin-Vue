@@ -124,6 +124,7 @@ const fileList = ref<any[]>([]);
 const emit = defineEmits<{
   "update:imageUrl": [value: string];
   "update:successed": [value: boolean];
+  "update:isModifyed": [value: boolean];
 }>();
 
 const isEditModel = ref(false);
@@ -160,6 +161,7 @@ const handleAvatarChange: UploadProps["onChange"] = (
     fileList.value = [];
     return;
   }
+  emit("update:isModifyed", true);
   console.log(uploadFile, "uploadFile@@@");
   if (uploadFile.response) {
     const { code, data }: any = uploadFile.response;

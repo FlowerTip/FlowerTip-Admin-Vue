@@ -189,7 +189,7 @@ const batchPermission = (row: AccountItem) => {
 
 const modifiyInfo = (row: AccountItem) => {
   UserDialogRef.value!.acceptParams({
-    api: reqDelAccount,
+    api: reqSaveAccount,
     rowData: { ...row },
     getTableList: updateTableList,
   });
