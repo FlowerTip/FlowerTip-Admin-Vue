@@ -106,9 +106,8 @@ const useThemeColor = () => {
     );
     document.documentElement.style.setProperty(
       "--el-menu-base-level-padding",
-      '12px'
+      "12px"
     );
-
 
     currentTheme.value = colorThemeName as string;
     currentColor.value = primaryColor;

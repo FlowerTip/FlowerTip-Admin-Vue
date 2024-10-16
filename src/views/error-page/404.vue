@@ -11,14 +11,16 @@
         <h4>抱歉, 没找到您想要访问的页面</h4>
       </template>
       <template #extra>
-        <el-button type="primary" @click="backHome" :icon="Back">返回首页</el-button>
+        <el-button type="primary" @click="backHome" :icon="Back"
+          >返回首页</el-button
+        >
       </template>
     </el-result>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Back } from '@element-plus/icons-vue';
+import { Back } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
