@@ -11,7 +11,7 @@
         <h4>抱歉, 您没有权限访问该页面，请联系管理员</h4>
       </template>
       <template #extra>
-        <el-button type="primary" @click="backHome">返回首页</el-button>
+        <el-button type="primary" @click="backHome" :icon="Back">返回首页</el-button>
       </template>
     </el-result>
   </div>
@@ -19,6 +19,7 @@
 
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
+import { Back } from '@element-plus/icons-vue';
 import useUserStore from "@/store/modules/userStore";
 
 const userStore = useUserStore();
@@ -37,8 +38,8 @@ const backHome = () => {
 
 <style lang="scss" scoped>
 .page-container {
-  background-color: #f2f3f5;
-  height: 100vh;
+  background-color: #fff;
+  height: 100%;
 }
 
 img {

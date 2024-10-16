@@ -301,7 +301,7 @@ export const asyncRoute = [
             path: "list",
             component: () => import("@/views/form/test/list/index.vue"),
             meta: {
-              title: "列表页面",
+              title: "菜单1",
               icon: "ele-Reading",
               parentName: "test",
             },
@@ -311,7 +311,7 @@ export const asyncRoute = [
             path: "detail",
             component: () => import("@/views/form/test/detail/index.vue"),
             meta: {
-              title: "添加页面",
+              title: "菜单2",
               icon: "ele-Reading",
               parentName: "test",
             },
@@ -321,7 +321,7 @@ export const asyncRoute = [
             path: "demo",
             component: () => import("@/views/form/test/demo/index.vue"),
             meta: {
-              title: "详情页面",
+              title: "菜单3",
               icon: "ele-Reading",
               parentName: "test",
             },
@@ -332,7 +332,7 @@ export const asyncRoute = [
                 component: () =>
                   import("@/views/form/test/demo/demo01/index.vue"),
                 meta: {
-                  title: "人员详情",
+                  title: "菜单3-1",
                   icon: "ele-Reading",
                   parentName: "test/demo",
                 },
@@ -343,12 +343,54 @@ export const asyncRoute = [
                 component: () =>
                   import("@/views/form/test/demo/demo02/index.vue"),
                 meta: {
-                  title: "公司详情",
+                  title: "菜单3-2",
                   icon: "ele-Reading",
                   parentName: "test/demo",
                 },
               },
             ],
+          },
+        ],
+      },
+      {
+        name: "error-page",
+        path: "error-page",
+        component: () => import("@/views/error-page/index.vue"),
+        meta: {
+          title: "错误页面",
+          icon: "ele-DocumentDelete",
+        },
+        redirect: "/tool/error-page/404",
+        children: [
+          {
+            name: "404",
+            path: "404",
+            component: () => import("@/views/error-page/404.vue"),
+            meta: {
+              title: "404页面",
+              icon: "ele-DocumentDelete",
+              parentName: "error-page",
+            },
+          },
+          {
+            name: "403",
+            path: "403",
+            component: () => import("@/views/error-page/403.vue"),
+            meta: {
+              title: "403页面",
+              icon: "ele-DocumentDelete",
+              parentName: "error-page",
+            },
+          },
+          {
+            name: "500",
+            path: "500",
+            component: () => import("@/views/error-page/500.vue"),
+            meta: {
+              title: "500页面",
+              icon: "ele-DocumentDelete",
+              parentName: "error-page",
+            },
           },
         ],
       },

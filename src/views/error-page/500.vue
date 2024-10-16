@@ -11,13 +11,14 @@
         <h4>抱歉, 网络异常，请耐心等待，稍后再试</h4>
       </template>
       <template #extra>
-        <el-button type="primary" @click="backHome">返回首页</el-button>
+        <el-button type="primary" @click="backHome" :icon="Back">返回首页</el-button>
       </template>
     </el-result>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { Back } from '@element-plus/icons-vue';
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -29,8 +30,8 @@ const backHome = () => {
 
 <style lang="scss" scoped>
 .page-container {
-  background-color: #f2f3f5;
-  height: 100vh;
+  background-color: #fff;
+  height: 100%;
 }
 
 img {

@@ -104,6 +104,11 @@ const useThemeColor = () => {
       "--el-color-primary-light-9",
       primaryLightColor9
     );
+    document.documentElement.style.setProperty(
+      "--el-menu-base-level-padding",
+      '12px'
+    );
+
 
     currentTheme.value = colorThemeName as string;
     currentColor.value = primaryColor;
