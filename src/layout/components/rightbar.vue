@@ -412,7 +412,7 @@
           </div>
           <div class="project-layout">
             博客地址：<el-link
-              href="https://flowertip.github.io/vitepress-blog/"
+              href="https://www.flowertip.site/vitepress-blog/"
               target="_blank"
               type="primary"
               >狗尾巴花的知识库</el-link
@@ -420,10 +420,10 @@
           </div>
           <div class="project-layout">
             源码地址：<el-link
-              href="https://gitee.com/CodeTV/guigu-admin-template"
+              href="https://gitee.com/CodeTV/FlowerTip-Admin"
               target="_blank"
               type="primary"
-              >后台管理系统模版</el-link
+              >FlowerTip Admin(Vue版本)源码地址</el-link
             >
           </div>
         </div>
