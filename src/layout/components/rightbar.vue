@@ -397,7 +397,7 @@
         <div class="wrapper">
           <div class="author-layout">
             <h1>高级前端进阶</h1>
-            <h2>深夜改BUG，专注于前端开发</h2>
+            <h2>狗尾巴花的尖，专注于前端开发</h2>
             <h3>
               一个前端进阶路上的学习者，有输入就要有输出，愿你前端技术学习的热忱永远不会被辜负
             </h3>
@@ -423,7 +423,7 @@
               href="https://gitee.com/CodeTV/FlowerTip-Admin"
               target="_blank"
               type="primary"
-              >FlowerTip Admin(Vue版本)源码地址</el-link
+              >FlowerTip Admin</el-link
             >
           </div>
         </div>
