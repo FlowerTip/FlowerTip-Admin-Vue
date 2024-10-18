@@ -1,5 +1,5 @@
 <template>
-  <div class="">列表页面</div>
+  <div class="">菜单1</div>
 </template>
 
 <script lang="ts" setup></script>

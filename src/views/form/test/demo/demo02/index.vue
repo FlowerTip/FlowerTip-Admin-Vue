@@ -1,5 +1,5 @@
 <template>
-  <div class="">子页面2</div>
+  <div class="">菜单3-2</div>
 </template>
 
 <script lang="ts" setup></script>
