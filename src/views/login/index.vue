@@ -88,8 +88,7 @@
 
 <script lang="ts" setup>
 import { User, Lock, Picture } from "@element-plus/icons-vue";
-import { reactive, ref, watch } from "vue";
-import { useToggle } from "@vueuse/core";
+import { reactive, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import VerifyCode from "@/components/VerifyCode/index.vue";
 import defaultSetting from "@/setting";
@@ -104,7 +103,6 @@ const appStore = useAppStore();
 const lang = ref(appStore.lang !== "zh-cn");
 
 const toggleLanguage = (flag: boolean) => {
-  console.log(flag, "mmmm");
   lang.value = flag;
   const currLang = lang.value ? "en-us" : "zh-cn";
   locale.value = currLang;
