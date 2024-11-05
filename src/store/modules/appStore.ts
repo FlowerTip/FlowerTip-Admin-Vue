@@ -5,12 +5,17 @@ const useAppStore = defineStore({
   state: () => {
     return {
       isCollapsed: false,
+      lang: 'zh-cn'
     };
   },
   actions: {
     updateCollapseMenu() {
       this.isCollapsed = !this.isCollapsed;
     },
+    toggleLang(lang: string) {
+      this.lang = lang;
+      sessionStorage.setItem('lang', this.lang);
+    }
   },
 });
 

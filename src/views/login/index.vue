@@ -1,5 +1,9 @@
 <template>
   <div class="login-container">
+    <div class="right-toolbar">
+      <el-switch v-model="lang" active-text="英" inactive-text="中" inline-prompt @change="toggleLanguage">
+      </el-switch>
+    </div>
     <el-row class="row-container" justify="center">
       <el-col :span="14" :xs="0">
         <div class="left-logo">
@@ -22,52 +26,30 @@
       <el-col :span="10" :xs="22">
         <div class="right-form">
           <h3 class="login-logo">{{ defaultSetting.title }}</h3>
-          <el-form
-            :model="loginFormData"
-            :rules="loginFormRules"
-            class="login-form"
-          >
+          <el-form :model="loginFormData" :rules="loginFormRules" class="login-form">
             <el-form-item prop="username">
-              <el-input
-                v-model="loginFormData.username"
-                :prefix-icon="User"
-                placeholder="账户名不能为空"
-              />
+              <el-input v-model="loginFormData.username" :prefix-icon="User" :placeholder="$t('loginText.username')" />
             </el-form-item>
             <el-form-item prop="password">
-              <el-input
-                type="password"
-                show-password
-                v-model="loginFormData.password"
-                :prefix-icon="Lock"
-                placeholder="密码不能为空"
-              />
+              <el-input type="password" show-password v-model="loginFormData.password" :prefix-icon="Lock"
+                :placeholder="$t('loginText.password')" />
             </el-form-item>
             <el-form-item prop="code">
               <div class="code-wrapper">
-                <el-input
-                  v-model="loginFormData.code"
-                  :prefix-icon="Picture"
-                  placeholder="图形验证码"
-                />
+                <el-input v-model="loginFormData.code" :prefix-icon="Picture" :placeholder="$t('loginText.msg')" />
                 <VerifyCode :updateImgCode="updateImgCode"></VerifyCode>
               </div>
             </el-form-item>
 
             <el-form-item>
-              <el-button
-                class="login-btn"
-                type="primary"
-                :loading="loginLoading"
-                @click="handleLogin"
-                >登录</el-button
-              >
+              <el-button class="login-btn" type="primary" :loading="loginLoading" @click="handleLogin">{{
+                $t('loginText.login') }}</el-button>
             </el-form-item>
             <el-form-item class="tip">
-              <h4>温馨提示：</h4>
-              <p>1.系统管理员登入添加系统用户账号分配角色权限使用</p>
-              <p>2.权限操作涉及的页面在系统管理的权限管理模块使用</p>
-              <p>3.系统服务器配置不稳定，速度慢，仅限学习技术使用</p>
+              <h4>{{ $t('loginText.tips.h1') }}：</h4>
+              <p>1.{{ $t('loginText.tips.p1') }}</p>
+              <p>2.{{ $t('loginText.tips.p2') }}</p>
+              <p>3.{{ $t('loginText.tips.p3') }}</p>
             </el-form-item>
           </el-form>
         </div>
@@ -78,15 +60,28 @@
 
 <script lang="ts" setup>
 import { User, Lock, Picture } from "@element-plus/icons-vue";
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
+import { useToggle } from "@vueuse/core";
 import { useRouter, useRoute } from "vue-router";
 import VerifyCode from "@/components/VerifyCode/index.vue";
 import defaultSetting from "@/setting";
 import useUserStore from "@/store/modules/userStore";
+import useAppStore from "@/store/modules/appStore";
 import { ElMessage } from "element-plus";
+import { useI18n } from 'vue-i18n'
+const { locale } = useI18n()
 
 const userStore = useUserStore();
+const appStore = useAppStore();
+const lang = ref(appStore.lang !== 'zh-cn')
 
+const toggleLanguage = (flag: boolean) => {
+  console.log(flag, 'mmmm');
+  lang.value = flag;
+  const currLang = lang.value ? 'en-us' : 'zh-cn';
+  locale.value = currLang;
+  appStore.toggleLang(currLang)
+}
 const router = useRouter();
 const route = useRoute();
 const loginFormData = reactive({
@@ -140,6 +135,13 @@ const handleLogin = async () => {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+
+  .right-toolbar {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+  }
 
   .row-container {
     width: 1000px;

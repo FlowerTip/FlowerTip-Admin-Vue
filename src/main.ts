@@ -8,6 +8,7 @@ import "virtual:svg-icons-register";
 import router from "@/router";
 import pinia from "@/store";
 import directives from "@/directives/index";
+import i18n from './language';
 // 引入全局的样式
 import "@/styles/index.scss";
 // 2. 应用App根组件
@@ -29,6 +30,9 @@ app.use(ElementPlus, {
 
 // 使用路由器管理路由菜单
 app.use(router);
+
+// 使用国际化功能
+app.use(i18n);
 
 // 使用pinia管理状态数据
 app.use(pinia);
