@@ -8,7 +8,7 @@ import "virtual:svg-icons-register";
 import router from "@/router";
 import pinia from "@/store";
 import directives from "@/directives/index";
-import i18n from './language';
+import i18n from "./language";
 // 引入全局的样式
 import "@/styles/index.scss";
 // 2. 应用App根组件

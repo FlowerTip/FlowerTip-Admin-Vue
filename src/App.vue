@@ -7,8 +7,8 @@
 <script setup lang="ts" name="App">
 import { ref, onMounted, computed } from "vue";
 import { ElConfigProvider } from "element-plus";
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import en from 'element-plus/dist/locale/en.mjs'
+import zhCn from "element-plus/dist/locale/zh-cn.mjs";
+import en from "element-plus/dist/locale/en.mjs";
 import defaultSetting from "@/setting";
 import useThemeColor from "@/hooks/useThemeColor";
 import useAppStore from "@/store/modules/appStore";
@@ -16,8 +16,8 @@ import useAppStore from "@/store/modules/appStore";
 const appStore = useAppStore();
 
 const lang = computed(() => {
-  return appStore.lang === 'zh-cn'? zhCn : en
-})
+  return appStore.lang === "zh-cn" ? zhCn : en;
+});
 
 const size = ref<AppTypeConfig.ElementPlusSizeType>("default");
 const btnConfig = ref({

@@ -5,7 +5,7 @@ const useAppStore = defineStore({
   state: () => {
     return {
       isCollapsed: false,
-      lang: 'zh-cn'
+      lang: "zh-cn",
     };
   },
   actions: {
@@ -14,8 +14,8 @@ const useAppStore = defineStore({
     },
     toggleLang(lang: string) {
       this.lang = lang;
-      sessionStorage.setItem('lang', this.lang);
-    }
+      sessionStorage.setItem("lang", this.lang);
+    },
   },
 });
 

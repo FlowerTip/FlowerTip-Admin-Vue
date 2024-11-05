@@ -1,7 +1,13 @@
 <template>
   <div class="login-container">
     <div class="right-toolbar">
-      <el-switch v-model="lang" active-text="英" inactive-text="中" inline-prompt @change="toggleLanguage">
+      <el-switch
+        v-model="lang"
+        active-text="英"
+        inactive-text="中"
+        inline-prompt
+        @change="toggleLanguage"
+      >
       </el-switch>
     </div>
     <el-row class="row-container" justify="center">
@@ -26,30 +32,52 @@
       <el-col :span="10" :xs="22">
         <div class="right-form">
           <h3 class="login-logo">{{ defaultSetting.title }}</h3>
-          <el-form :model="loginFormData" :rules="loginFormRules" class="login-form">
+          <el-form
+            :model="loginFormData"
+            :rules="loginFormRules"
+            class="login-form"
+          >
             <el-form-item prop="username">
-              <el-input v-model="loginFormData.username" :prefix-icon="User" :placeholder="$t('loginText.username')" />
+              <el-input
+                v-model="loginFormData.username"
+                :prefix-icon="User"
+                :placeholder="$t('loginText.username')"
+              />
             </el-form-item>
             <el-form-item prop="password">
-              <el-input type="password" show-password v-model="loginFormData.password" :prefix-icon="Lock"
-                :placeholder="$t('loginText.password')" />
+              <el-input
+                type="password"
+                show-password
+                v-model="loginFormData.password"
+                :prefix-icon="Lock"
+                :placeholder="$t('loginText.password')"
+              />
             </el-form-item>
             <el-form-item prop="code">
               <div class="code-wrapper">
-                <el-input v-model="loginFormData.code" :prefix-icon="Picture" :placeholder="$t('loginText.msg')" />
+                <el-input
+                  v-model="loginFormData.code"
+                  :prefix-icon="Picture"
+                  :placeholder="$t('loginText.msg')"
+                />
                 <VerifyCode :updateImgCode="updateImgCode"></VerifyCode>
               </div>
             </el-form-item>
 
             <el-form-item>
-              <el-button class="login-btn" type="primary" :loading="loginLoading" @click="handleLogin">{{
-                $t('loginText.login') }}</el-button>
+              <el-button
+                class="login-btn"
+                type="primary"
+                :loading="loginLoading"
+                @click="handleLogin"
+                >{{ $t("loginText.login") }}</el-button
+              >
             </el-form-item>
             <el-form-item class="tip">
-              <h4>{{ $t('loginText.tips.h1') }}：</h4>
-              <p>1.{{ $t('loginText.tips.p1') }}</p>
-              <p>2.{{ $t('loginText.tips.p2') }}</p>
-              <p>3.{{ $t('loginText.tips.p3') }}</p>
+              <h4>{{ $t("loginText.tips.h1") }}：</h4>
+              <p>1.{{ $t("loginText.tips.p1") }}</p>
+              <p>2.{{ $t("loginText.tips.p2") }}</p>
+              <p>3.{{ $t("loginText.tips.p3") }}</p>
             </el-form-item>
           </el-form>
         </div>
@@ -68,20 +96,20 @@ import defaultSetting from "@/setting";
 import useUserStore from "@/store/modules/userStore";
 import useAppStore from "@/store/modules/appStore";
 import { ElMessage } from "element-plus";
-import { useI18n } from 'vue-i18n'
-const { locale } = useI18n()
+import { useI18n } from "vue-i18n";
+const { locale } = useI18n();
 
 const userStore = useUserStore();
 const appStore = useAppStore();
-const lang = ref(appStore.lang !== 'zh-cn')
+const lang = ref(appStore.lang !== "zh-cn");
 
 const toggleLanguage = (flag: boolean) => {
-  console.log(flag, 'mmmm');
+  console.log(flag, "mmmm");
   lang.value = flag;
-  const currLang = lang.value ? 'en-us' : 'zh-cn';
+  const currLang = lang.value ? "en-us" : "zh-cn";
   locale.value = currLang;
-  appStore.toggleLang(currLang)
-}
+  appStore.toggleLang(currLang);
+};
 const router = useRouter();
 const route = useRoute();
 const loginFormData = reactive({
@@ -140,7 +168,6 @@ const handleLogin = async () => {
     position: absolute;
     right: 20px;
     top: 20px;
-
   }
 
   .row-container {
