@@ -1,15 +1,5 @@
 <template>
   <div class="login-container">
-    <div class="right-toolbar">
-      <el-switch
-        v-model="lang"
-        active-text="英"
-        inactive-text="中"
-        inline-prompt
-        @change="toggleLanguage"
-      >
-      </el-switch>
-    </div>
     <el-row class="row-container" justify="center">
       <el-col :span="14" :xs="0">
         <div class="left-logo">
@@ -93,21 +83,10 @@ import { useRouter, useRoute } from "vue-router";
 import VerifyCode from "@/components/VerifyCode/index.vue";
 import defaultSetting from "@/setting";
 import useUserStore from "@/store/modules/userStore";
-import useAppStore from "@/store/modules/appStore";
 import { ElMessage } from "element-plus";
 import { useI18n } from "vue-i18n";
-const { locale } = useI18n();
-
 const userStore = useUserStore();
-const appStore = useAppStore();
-const lang = ref(appStore.lang !== "zh-cn");
-
-const toggleLanguage = (flag: boolean) => {
-  lang.value = flag;
-  const currLang = lang.value ? "en-us" : "zh-cn";
-  locale.value = currLang;
-  appStore.toggleLang(currLang);
-};
+const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
 const loginFormData = reactive({
@@ -117,15 +96,15 @@ const loginFormData = reactive({
 });
 const loginFormRules = reactive({
   username: [
-    { required: true, message: "请输入用户名", trigger: "blur" },
+    { required: true, message: t('loginText.username'), trigger: "blur" },
     { min: 2, max: 6, message: "长度只能输入2到6位", trigger: "blur" },
   ],
   password: [
-    { required: true, message: "请输入密码", trigger: "blur" },
+    { required: true, message: t('loginText.password'), trigger: "blur" },
     { min: 6, max: 8, message: "长度只能输入6到8位", trigger: "blur" },
   ],
   code: [
-    { required: true, message: "请输入图形验证码", trigger: "blur" },
+    { required: true, message: t('loginText.msg'), trigger: "blur" },
     { min: 4, max: 4, message: "图形验证码错误", trigger: "blur" },
   ],
 });
@@ -161,12 +140,6 @@ const handleLogin = async () => {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-
-  .right-toolbar {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-  }
 
   .row-container {
     width: 1000px;

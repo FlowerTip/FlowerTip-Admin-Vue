@@ -8,9 +8,14 @@ const messages = {
   "en-us": en,
 };
 
+// const language =
+//   sessionStorage.getItem("lang") ||
+//   (navigator.language || "en-us").toLocaleLowerCase(); // 这是获取浏览器的语言
+
+
 const language =
-  sessionStorage.getItem("lang") ||
-  (navigator.language || "en-us").toLocaleLowerCase(); // 这是获取浏览器的语言
+  (navigator.language + '-us' || "en-us").toLocaleLowerCase();
+  console.log(navigator.language, language, 'navigator.language');
 // 获取浏览器当前使用的语言，并进行处理
 const i18n = createI18n({
   legacy: false,

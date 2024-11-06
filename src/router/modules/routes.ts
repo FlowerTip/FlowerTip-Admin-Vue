@@ -1,3 +1,6 @@
+import zh from "@/language/modules/zh";
+import en from "@/language/modules/en";
+const lang = navigator.language === 'en' ? en : zh;
 /**
  * 路由meta对象参数说明
  * meta: {
@@ -20,7 +23,7 @@ export const staticRoutes = [
     component: () => import("@/views/login/index.vue"),
     meta: {
       hidden: true,
-      title: "登录",
+      title: lang.menu.login,
     },
   },
   {
@@ -60,7 +63,7 @@ export const asyncRoute = [
     component: () => import("@/layout/index.vue"),
     redirect: "/home/cockpit",
     meta: {
-      title: "驾驶舱",
+      title: lang.menu.cockpit,
       icon: "ele-Stopwatch",
     },
     children: [
@@ -69,7 +72,7 @@ export const asyncRoute = [
         name: "cockpit",
         component: () => import("@/views/cockpit/index.vue"),
         meta: {
-          title: "驾驶舱",
+          title: lang.menu.cockpit,
           icon: "ele-Stopwatch",
         },
       },
@@ -80,7 +83,7 @@ export const asyncRoute = [
     component: () => import("@/layout/index.vue"),
     name: "table",
     meta: {
-      title: "表格组件",
+      title: lang.menu.table,
       icon: "ele-Grid",
     },
     redirect: "/table/advanced-table",
@@ -90,7 +93,7 @@ export const asyncRoute = [
         path: "advanced-table",
         component: () => import("@/views/table/advanced-table/index.vue"),
         meta: {
-          title: "高级表格",
+          title: lang.menu.advancedTable,
           icon: "ele-Film",
         },
       },
@@ -99,7 +102,7 @@ export const asyncRoute = [
         path: "dialog-table",
         component: () => import("@/views/table/dialog-table/index.vue"),
         meta: {
-          title: "表格筛选",
+          title: lang.menu.dialogTable,
           icon: "ele-Postcard",
         },
       },
@@ -110,7 +113,7 @@ export const asyncRoute = [
     component: () => import("@/layout/index.vue"),
     name: "upload",
     meta: {
-      title: "上传组件",
+      title: lang.menu.upload,
       icon: "ele-UploadFilled",
     },
     redirect: "/upload/avatar-upload",
@@ -120,7 +123,7 @@ export const asyncRoute = [
         path: "avatar-upload",
         component: () => import("@/views/upload/avatar-upload/index.vue"),
         meta: {
-          title: "头像上传",
+          title: lang.menu.avatarUpload,
           icon: "ele-Avatar",
         },
       },
@@ -129,7 +132,7 @@ export const asyncRoute = [
         path: "image-upload",
         component: () => import("@/views/upload/image-upload/index.vue"),
         meta: {
-          title: "图片上传",
+          title: lang.menu.imageUpload,
           icon: "ele-PictureFilled",
         },
       },
@@ -138,7 +141,7 @@ export const asyncRoute = [
         path: "file-upload",
         component: () => import("@/views/upload/file-upload/index.vue"),
         meta: {
-          title: "文件上传",
+          title: lang.menu.fileUpload,
           icon: "ele-Files",
         },
       },
@@ -149,7 +152,7 @@ export const asyncRoute = [
     component: () => import("@/layout/index.vue"),
     name: "form",
     meta: {
-      title: "表单组件",
+      title: lang.menu.form,
       icon: "ele-EditPen",
     },
     redirect: "/form/basic-form",
@@ -159,7 +162,7 @@ export const asyncRoute = [
         path: "basic-form",
         component: () => import("@/views/form/basic-form/index.vue"),
         meta: {
-          title: "基础表单",
+          title: lang.menu.basicForm,
           icon: "ele-Tickets",
         },
       },
@@ -168,7 +171,7 @@ export const asyncRoute = [
         path: "step-form",
         component: () => import("@/views/form/step-form/index.vue"),
         meta: {
-          title: "分步表单",
+          title: lang.menu.stepForm,
           icon: "ele-Reading",
         },
       },
@@ -179,7 +182,7 @@ export const asyncRoute = [
     component: () => import("@/layout/index.vue"),
     name: "chart",
     meta: {
-      title: "图表组件",
+      title: lang.menu.chart,
       icon: "ele-TrendCharts",
     },
     redirect: "/chart/pie-chart",
@@ -189,7 +192,7 @@ export const asyncRoute = [
         path: "pie-chart",
         component: () => import("@/views/chart/pie/index.vue"),
         meta: {
-          title: "饼图图表",
+          title: lang.menu.pieChart,
           icon: "ele-PieChart",
         },
       },
@@ -198,7 +201,7 @@ export const asyncRoute = [
         path: "bar-chart",
         component: () => import("@/views/chart/bar/index.vue"),
         meta: {
-          title: "柱状图表",
+          title: lang.menu.barChart,
           icon: "ele-Histogram",
         },
       },
@@ -207,7 +210,7 @@ export const asyncRoute = [
         path: "line-chart",
         component: () => import("@/views/chart/line/index.vue"),
         meta: {
-          title: "折线图表",
+          title: lang.menu.lineChart,
           icon: "ele-TrendCharts",
         },
       },
@@ -216,7 +219,7 @@ export const asyncRoute = [
         path: "map-chart",
         component: () => import("@/views/chart/map/index.vue"),
         meta: {
-          title: "地图图表",
+          title: lang.menu.mapChart,
           icon: "ele-WindPower",
         },
       },
@@ -225,7 +228,7 @@ export const asyncRoute = [
         path: "mix-chart",
         component: () => import("@/views/chart/mix/index.vue"),
         meta: {
-          title: "混合图表",
+          title: lang.menu.mixChart,
           icon: "ele-Football",
         },
       },
@@ -234,7 +237,7 @@ export const asyncRoute = [
         path: "moreLine-chart",
         component: () => import("@/views/chart/moreLine/index.vue"),
         meta: {
-          title: "多折线图表",
+          title: lang.menu.moreLineChart,
           icon: "ele-Collection",
         },
       },
@@ -243,7 +246,7 @@ export const asyncRoute = [
         path: "moreBar-chart",
         component: () => import("@/views/chart/moreBar/index.vue"),
         meta: {
-          title: "多柱状图表",
+          title: lang.menu.moreBarChart,
           icon: "ele-DataBoard",
         },
       },
@@ -254,7 +257,7 @@ export const asyncRoute = [
     component: () => import("@/layout/index.vue"),
     name: "tool",
     meta: {
-      title: "常用功能",
+      title: lang.menu.tool,
       icon: "ele-Menu",
     },
     redirect: "/tool/dayjs-tool",
@@ -264,7 +267,7 @@ export const asyncRoute = [
         path: "dayjs-tool",
         component: () => import("@/views/tool/dayjs/index.vue"),
         meta: {
-          title: "时间操作",
+          title: lang.menu.dayjsTool,
           icon: "ele-Calendar",
         },
       },
@@ -273,7 +276,7 @@ export const asyncRoute = [
         path: "throttle-tool",
         component: () => import("@/views/tool/throttle/index.vue"),
         meta: {
-          title: "防抖节流",
+          title: lang.menu.throttleTool,
           icon: "ele-Timer",
         },
       },
@@ -282,7 +285,7 @@ export const asyncRoute = [
         path: "preview-file",
         component: () => import("@/views/tool/preview/index.vue"),
         meta: {
-          title: "文档预览",
+          title: lang.menu.previewFile,
           icon: "ele-Printer",
         },
       },
@@ -291,7 +294,7 @@ export const asyncRoute = [
         path: "test",
         component: () => import("@/views/form/test/index.vue"),
         meta: {
-          title: "多级菜单",
+          title: lang.menu.levelMenu,
           icon: "ele-Reading",
         },
         redirect: "/tool/test/list",
@@ -301,7 +304,7 @@ export const asyncRoute = [
             path: "list",
             component: () => import("@/views/form/test/list/index.vue"),
             meta: {
-              title: "菜单1",
+              title: lang.menu.menu1,
               icon: "ele-Reading",
               parentName: "test",
             },
@@ -311,7 +314,7 @@ export const asyncRoute = [
             path: "detail",
             component: () => import("@/views/form/test/detail/index.vue"),
             meta: {
-              title: "菜单2",
+              title: lang.menu.menu2,
               icon: "ele-Reading",
               parentName: "test",
             },
@@ -321,7 +324,7 @@ export const asyncRoute = [
             path: "demo",
             component: () => import("@/views/form/test/demo/index.vue"),
             meta: {
-              title: "菜单3",
+              title: lang.menu.menu3,
               icon: "ele-Reading",
               parentName: "test",
             },
@@ -332,7 +335,7 @@ export const asyncRoute = [
                 component: () =>
                   import("@/views/form/test/demo/demo01/index.vue"),
                 meta: {
-                  title: "菜单3-1",
+                  title: lang.menu.menu31,
                   icon: "ele-Reading",
                   parentName: "test/demo",
                 },
@@ -343,7 +346,7 @@ export const asyncRoute = [
                 component: () =>
                   import("@/views/form/test/demo/demo02/index.vue"),
                 meta: {
-                  title: "菜单3-2",
+                  title: lang.menu.menu32,
                   icon: "ele-Reading",
                   parentName: "test/demo",
                 },
@@ -357,7 +360,7 @@ export const asyncRoute = [
         path: "error-page",
         component: () => import("@/views/error-page/index.vue"),
         meta: {
-          title: "错误页面",
+          title: lang.menu.errorPage,
           icon: "ele-DocumentDelete",
         },
         redirect: "/tool/error-page/404",
@@ -367,7 +370,7 @@ export const asyncRoute = [
             path: "404",
             component: () => import("@/views/error-page/404.vue"),
             meta: {
-              title: "404页面",
+              title: lang.menu.notFound,
               icon: "ele-DocumentDelete",
               parentName: "error-page",
             },
@@ -377,7 +380,7 @@ export const asyncRoute = [
             path: "403",
             component: () => import("@/views/error-page/403.vue"),
             meta: {
-              title: "403页面",
+              title: lang.menu.notPermission,
               icon: "ele-DocumentDelete",
               parentName: "error-page",
             },
@@ -387,7 +390,7 @@ export const asyncRoute = [
             path: "500",
             component: () => import("@/views/error-page/500.vue"),
             meta: {
-              title: "500页面",
+              title: lang.menu.notNetwork,
               icon: "ele-DocumentDelete",
               parentName: "error-page",
             },
@@ -400,7 +403,7 @@ export const asyncRoute = [
     path: "/document",
     name: "document",
     meta: {
-      title: "在线文档",
+      title: lang.menu.online,
       icon: "ele-Link",
       hidden: false,
     },
@@ -410,7 +413,7 @@ export const asyncRoute = [
       {
         path: "https://juejin.cn/column/7388686221892976703",
         name: "vitepress-blog",
-        meta: { title: "在线文档", icon: "ele-Link", hidden: false },
+        meta: { title: lang.menu.online, icon: "ele-Link", hidden: false },
       },
     ],
   },
@@ -418,7 +421,7 @@ export const asyncRoute = [
     path: "/project",
     name: "project",
     meta: {
-      title: "开源项目",
+      title: lang.menu.project,
       icon: "ele-HelpFilled",
       hidden: false,
     },
@@ -428,7 +431,7 @@ export const asyncRoute = [
       {
         path: "https://gitee.com/CodeTV",
         name: "CodeTV",
-        meta: { title: "开源项目", icon: "ele-HelpFilled", hidden: false },
+        meta: { title: lang.menu.project, icon: "ele-HelpFilled", hidden: false },
       },
     ],
   },
@@ -437,13 +440,13 @@ export const asyncRoute = [
     path: "/setting",
     component: () => import("@/layout/index.vue"),
     redirect: "/setting/permission",
-    meta: { title: "系统管理", icon: "ele-Setting" },
+    meta: { title: lang.menu.system, icon: "ele-Setting" },
     children: [
       {
         name: "permission",
         path: "/setting/permission",
         component: () => import("@/views/setting/permission/index.vue"),
-        meta: { title: "权限管理", icon: "ele-UserFilled" },
+        meta: { title: lang.menu.permission, icon: "ele-UserFilled" },
         redirect: "/setting/permission/menu",
         children: [
           {
@@ -452,7 +455,7 @@ export const asyncRoute = [
             component: () =>
               import("@/views/setting/permission/menu/index.vue"),
             meta: {
-              title: "菜单管理",
+              title: lang.menu.menu,
               icon: "ele-Menu",
             },
           },
@@ -462,7 +465,7 @@ export const asyncRoute = [
             component: () =>
               import("@/views/setting/permission/role/index.vue"),
             meta: {
-              title: "角色管理",
+              title: lang.menu.role,
               icon: "ele-Promotion",
             },
           },
@@ -472,7 +475,7 @@ export const asyncRoute = [
             component: () =>
               import("@/views/setting/permission/user/index.vue"),
             meta: {
-              title: "用户管理",
+              title: lang.menu.user,
               icon: "ele-Avatar",
             },
           },
@@ -482,7 +485,7 @@ export const asyncRoute = [
         name: "department",
         path: "/setting/department",
         component: () => import("@/views/setting/department/index.vue"),
-        meta: { title: "部门管理", icon: "ele-Postcard" },
+        meta: { title: lang.menu.department, icon: "ele-Postcard" },
         redirect: "/setting/department/software",
         children: [
           {
@@ -491,7 +494,7 @@ export const asyncRoute = [
             component: () =>
               import("@/views/setting/department/software/index.vue"),
             meta: {
-              title: "软件人员",
+              title: lang.menu.software,
               icon: "ele-Management",
             },
           },
@@ -501,7 +504,7 @@ export const asyncRoute = [
             component: () =>
               import("@/views/setting/department/maintenance/index.vue"),
             meta: {
-              title: "运维人员",
+              title: lang.menu.maintenance,
               icon: "ele-VideoCamera",
             },
           },

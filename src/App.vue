@@ -11,12 +11,9 @@ import zhCn from "element-plus/dist/locale/zh-cn.mjs";
 import en from "element-plus/dist/locale/en.mjs";
 import defaultSetting from "@/setting";
 import useThemeColor from "@/hooks/useThemeColor";
-import useAppStore from "@/store/modules/appStore";
-
-const appStore = useAppStore();
 
 const lang = computed(() => {
-  return appStore.lang === "zh-cn" ? zhCn : en;
+  return navigator.language === 'en' ? en : zhCn;
 });
 
 const size = ref<AppTypeConfig.ElementPlusSizeType>("default");

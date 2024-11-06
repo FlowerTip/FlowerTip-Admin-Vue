@@ -77,7 +77,6 @@ const useUserStore = defineStore({
     },
     async logout(isRefresh = true) {
       removeToken();
-      sessionStorage.clear();
       this.$reset();
       if (isRefresh) {
         await reqLogout(true);
