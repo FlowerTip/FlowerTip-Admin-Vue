@@ -96,15 +96,15 @@ const loginFormData = reactive({
 });
 const loginFormRules = reactive({
   username: [
-    { required: true, message: t('loginText.username'), trigger: "blur" },
+    { required: true, message: t("loginText.username"), trigger: "blur" },
     { min: 2, max: 6, message: "长度只能输入2到6位", trigger: "blur" },
   ],
   password: [
-    { required: true, message: t('loginText.password'), trigger: "blur" },
+    { required: true, message: t("loginText.password"), trigger: "blur" },
     { min: 6, max: 8, message: "长度只能输入6到8位", trigger: "blur" },
   ],
   code: [
-    { required: true, message: t('loginText.msg'), trigger: "blur" },
+    { required: true, message: t("loginText.msg"), trigger: "blur" },
     { min: 4, max: 4, message: "图形验证码错误", trigger: "blur" },
   ],
 });

@@ -13,7 +13,7 @@ import defaultSetting from "@/setting";
 import useThemeColor from "@/hooks/useThemeColor";
 
 const lang = computed(() => {
-  return navigator.language === 'en' ? en : zhCn;
+  return navigator.language === "en" ? en : zhCn;
 });
 
 const size = ref<AppTypeConfig.ElementPlusSizeType>("default");

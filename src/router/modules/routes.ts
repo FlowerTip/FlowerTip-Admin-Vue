@@ -1,6 +1,6 @@
 import zh from "@/language/modules/zh";
 import en from "@/language/modules/en";
-const lang = navigator.language === 'en' ? en : zh;
+const lang = navigator.language === "en" ? en : zh;
 /**
  * 路由meta对象参数说明
  * meta: {
@@ -431,7 +431,11 @@ export const asyncRoute = [
       {
         path: "https://gitee.com/CodeTV",
         name: "CodeTV",
-        meta: { title: lang.menu.project, icon: "ele-HelpFilled", hidden: false },
+        meta: {
+          title: lang.menu.project,
+          icon: "ele-HelpFilled",
+          hidden: false,
+        },
       },
     ],
   },
