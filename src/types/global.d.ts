@@ -80,6 +80,19 @@ declare namespace Req {
     time?: Date;
   }
 
+  interface DepartMentListParam {
+    pageSize?: number;
+    currentPage?: number;
+    departmentName?: string;
+  }
+
+  interface WorkPostListParam {
+    pageSize?: number;
+    currentPage?: number;
+    workPostName?: string;
+    departmentId?: number;
+  }
+
   interface GetRoleParam {
     userId: number;
   }
@@ -129,12 +142,16 @@ declare namespace Req {
 interface DefaultData<T> {
   list: T[];
   message: string;
+  total?: number;
+  origin?: T[];
 }
 
 declare type AccountItem = {
   id?: number;
   username: string;
   password: string;
+  departmentId?: number;
+  workPostId?: number;
 };
 
 declare type MenuItem = {
@@ -142,6 +159,26 @@ declare type MenuItem = {
   code: string;
   level: number;
   updateTime: Date | string;
+};
+
+declare type DepartMentItem = {
+  departmentId: number;
+  departmentName: string;
+  parentId: number;
+  sort: number;
+  description?: string;
+  createdAt? : Date | string;
+  updatedAt? : Date | string;
+};
+
+declare type WorkPostItem = {
+  workPostNum: number;
+  workPostName: string;
+  workPostId: number;
+  departmentId: number;
+  description?: string;
+  createdAt? : Date | string;
+  updatedAt? : Date | string;
 };
 
 declare type StudentItem = {
@@ -197,6 +234,10 @@ declare namespace Res {
   }
   type MenuListData = DefaultData<MenuItem>;
 
+  type DepartMentListData = DefaultData<DepartMentItem>;
+
+  type WorkPostListData = DefaultData<WorkPostItem>;
+
   /**
    * 保存学员信息接口返回的数据格式
    */
@@ -234,6 +275,24 @@ declare namespace Res {
   }
 
   interface SaveAccountRes extends ResponseData {
+    data: {
+      message: string;
+    };
+  }
+
+  interface SaveDepartMentRes extends ResponseData {
+    data: {
+      message: string;
+    };
+  }
+
+  interface SaveWorkPostRes extends ResponseData {
+    data: {
+      message: string;
+    };
+  }
+
+  interface DelWorkPostRes extends ResponseData {
     data: {
       message: string;
     };

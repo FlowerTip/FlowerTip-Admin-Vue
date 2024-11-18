@@ -56,8 +56,8 @@ export default {
     menu: "菜单管理",
     role: "角色管理",
     user: "用户管理",
-    department: "部门管理",
-    software: "软件人员",
-    maintenance: "运维人员",
+    department: "组织架构",
+    software: "部门管理",
+    maintenance: "岗位管理",
   },
 };

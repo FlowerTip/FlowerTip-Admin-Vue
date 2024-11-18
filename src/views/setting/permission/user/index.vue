@@ -100,7 +100,21 @@ const columns = reactive([
     width: 140,
   },
   {
+    id: 3,
+    prop: "workPostName",
+    label: "所属岗位",
+    isShowColumn: true,
+    width: 140,
+  },
+  {
     id: 4,
+    prop: "departmentName",
+    label: "所属部门",
+    isShowColumn: true,
+    width: 140,
+  },
+  {
+    id: 5,
     prop: "operation",
     label: "操作",
     fixed: "right",
