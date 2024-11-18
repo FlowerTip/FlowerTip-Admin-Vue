@@ -16,9 +16,7 @@ export const reqSaveWorkPost = (data: WorkPostItem) =>
   instance.post<Res.SaveWorkPostRes>(API.ADD_WORK_POST, data);
 
 // 删除岗位信息数据接口
-export const reqDelWorkPost = (data: {
-  ids: number[];
-}) =>
+export const reqDelWorkPost = (data: { ids: number[] }) =>
   instance.delete<Res.DelWorkPostRes>(API.DELETE_WORK_POST, {
     params: data,
   });

@@ -167,8 +167,8 @@ declare type DepartMentItem = {
   parentId: number;
   sort: number;
   description?: string;
-  createdAt? : Date | string;
-  updatedAt? : Date | string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 };
 
 declare type WorkPostItem = {
@@ -177,8 +177,8 @@ declare type WorkPostItem = {
   workPostId: number;
   departmentId: number;
   description?: string;
-  createdAt? : Date | string;
-  updatedAt? : Date | string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 };
 
 declare type StudentItem = {

@@ -11,14 +11,11 @@ enum API {
 export const reqDepartmentList = (data: Req.DepartMentListParam) =>
   instance.post<Res.DepartMentListData>(API.DEPART_MENT_LIST, data);
 
-
 // 保存部门信息数据接口
 export const reqSaveDepartment = (data: DepartMentItem) =>
   instance.post<Res.SaveDepartMentRes>(API.ADD_DEPART_MENT__INFO, data);
 
-export const reqDelDepartMent = (data: {
-  departmentId: number;
-}) =>
+export const reqDelDepartMent = (data: { departmentId: number }) =>
   instance.delete<Res.DelRoleData>(API.DELETE_DEPART_MENT, {
     params: data,
   });
