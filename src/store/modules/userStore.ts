@@ -18,6 +18,9 @@ const useUserStore = defineStore({
       permissionButtonList: [], // 按钮列表
       authMenuList: [], // 权限菜单
       sidebarMenuList: [], // 侧边栏菜单
+      roleNames: '', // 角色名称
+      workPostName: '', // 岗位名称
+      departmentName: '', // 部门名称
     };
   },
   getters: {
@@ -43,6 +46,9 @@ const useUserStore = defineStore({
       const { code, data } = await reqUserInfo();
       if (code === 200) {
         this.username = data.checkUser.username;
+        this.roleNames = data.checkUser.roleNames;
+        this.workPostName = data.checkUser.workPostName;
+        this.departmentName = data.checkUser.departmentName;
         if (data.list.length > 0) {
           let menuList = [];
           if (process.env.NODE_ENV === "production") {

@@ -221,6 +221,9 @@ declare namespace Res {
     id: string;
     checkUser: {
       username: string;
+      roleNames: string;
+      workPostName: string;
+      departmentName: string;
     };
     list: MenuItem[];
     buttons: string[];

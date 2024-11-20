@@ -7,6 +7,9 @@ export interface StatePermission {
   backMenuList: RouteRecordRaw[];
   authMenuList: RouteRecordRaw[];
   sidebarMenuList: RouteRecordRaw[];
+  roleNames: string;
+  workPostName: string;
+  departmentName: string;
 }
 
 export interface LayoutType {
