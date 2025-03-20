@@ -290,6 +290,15 @@ export const asyncRoute = [
         },
       },
       {
+        name: "watermark",
+        path: "watermark",
+        component: () => import("@/views/tool/watermark/index.vue"),
+        meta: {
+          title: lang.menu.watermark,
+          icon: "ele-Watermelon",
+        },
+      },
+      {
         name: "test",
         path: "test",
         component: () => import("@/views/form/test/index.vue"),

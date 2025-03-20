@@ -119,10 +119,11 @@ const handleLogin = async () => {
   const { redirect } = route.query;
   loginLoading.value = true;
   const res = await userStore.login(loginFormData);
-  if (res.token) {
+  if (res && res.token) {
     loginLoading.value = false;
     const redirectUrl = (redirect || "/") as string;
     router.replace(redirectUrl);
+    ElMessage.success(res.message);
   } else {
     ElMessage.warning("账号或密码错误");
   }

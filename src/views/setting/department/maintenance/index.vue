@@ -1,33 +1,130 @@
 <template>
   <div class="table-box">
-    <ProTable
-      ref="proTableRef"
-      :tableColumns="columns"
-      :conditionList="conditionList"
-      :tableData="tableData"
-      :total="total"
-      :updateTableList="updateTableList"
-      :loading="loading"
-      :selectionChange="selectionChange"
-      rowKey="id"
-    >
-      <el-table-column
-        type="selection"
-        align="center"
-        width="55"
-        :reserve-selection="true"
-        fixed="left"
-      ></el-table-column>
+    <div class="tree-box" ref="treeDiv">
+      <div class="search-wrapper">
+        <el-input v-model="filterText" placeholder="输入关键字进行过滤" class="search-input" :prefix-icon="Search" />
+        <el-dropdown ref="dropdownRef" trigger="contextmenu" @command="dropCommand">
+          <span class="el-dropdown-link">
+            <el-icon class="more-btn" @click="openMore">
+              <More />
+            </el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="unfold">展开全部</el-dropdown-item>
+              <el-dropdown-item command="fold">折叠全部</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
+      <el-scrollbar :max-height="maxHeight">
+        <el-tree ref="treeRef" node-key="departmentId" :data="data" :props="defaultProps" @node-click="handleNodeClick"
+          :default-expand-all="expandAll" highlight-current :filter-node-method="filterNode"
+          :current-node-key="currentNodeKey"
+          :expand-on-click-node="false"
+          :show-checkbox="false" />
+      </el-scrollbar>
+    </div>
+    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
+      :total="total" :updateTableList="updateTableList" :loading="loading" :selectionChange="selectionChange"
+      rowKey="id" class="diy-table">
+      <el-table-column type="selection" align="center" width="55" :reserve-selection="true"
+        fixed="left"></el-table-column>
     </ProTable>
   </div>
 </template>
 
 <script setup lang="ts" name="AdvancedTable">
-import { onMounted, reactive, ref } from "vue";
+import { ElTree, DropdownInstance } from "element-plus";
+import { More, Search } from "@element-plus/icons-vue";
+import { ref, reactive, watch, onMounted, nextTick } from "vue";
+import { useElementSize } from "@vueuse/core";
+import { FilterNodeMethodFunction } from "element-plus/es/components/tree/src/tree.type";
 import { PagainationType } from "@/types";
 import { reqWorkPostList } from "@/api/workPost";
+import { reqDepartmentList } from '@/api/department';
 import ProTable from "@/components/ProTable/index.vue";
 import { dayjs } from "element-plus";
+
+
+
+const dropdownRef = ref<DropdownInstance>();
+const expandAll = ref(true); // 初始时展开所有
+const filterText = ref("");
+const treeRef = ref<InstanceType<typeof ElTree>>();
+const data = ref<any>([]);
+const currentNodeKey = ref();
+
+const maxHeight = ref();
+const openMore = () => {
+  if (!dropdownRef.value) return;
+  dropdownRef.value.handleOpen();
+};
+
+const dropCommand = (command: string) => {
+  expandAll.value = command === "unfold";
+  updateTreeExpansion(); // 更新树节点展开状态
+};
+const updateTreeExpansion = async () => {
+  await nextTick(); // 等待 DOM 更新
+  const store = treeRef.value?.store;
+  const nodesMap = store ? store.nodesMap : {};
+  if (expandAll.value) {
+    Object.values(nodesMap).forEach((v) => v.expand());
+  } else {
+    Object.values(nodesMap).forEach((v) => v.collapse());
+  }
+  const currSelectRow = data.value[0] as any;
+  currentNodeKey.value = currSelectRow.children[0].departmentId;
+  updateTableList({ pageSize: 20, currentPage: 1, departmentId: currentNodeKey.value });
+};
+
+const filterNode: FilterNodeMethodFunction = (value, data) => {
+  if (!value) return true;
+  return data.label.includes(value);
+};
+
+interface Tree {
+  departmentId?: number;
+  departmentName: string;
+  id?: number;
+  label: string;
+  children?: Tree[];
+}
+
+const treeDiv = ref(null);
+onMounted(() => {
+  getTreeData();
+});
+
+const getTreeData = async () => {
+  const result = await reqDepartmentList({
+    departmentName: filterText.value,
+  });
+  if (result.code === 200) {
+    data.value = result.data.list as any;
+    // 这里可以确保新的数据处于展开状态
+    updateTreeExpansion();
+    const { height } = useElementSize(treeDiv);
+    maxHeight.value = height.value - 48 + "px";
+  }
+}
+
+
+const defaultProps = {
+  children: "children",
+  label: "departmentName",
+};
+
+const handleNodeClick = (data: Tree) => {
+  console.log(data.departmentId);
+  currentNodeKey.value = data.departmentId;
+  updateTableList({ pageSize: 20, currentPage: 1, departmentId: currentNodeKey.value });
+};
+
+watch(filterText, () => {
+  getTreeData();
+});
 
 const proTableRef = ref();
 const loading = ref(false);
@@ -99,7 +196,7 @@ const columns = reactive([
 let tableData = ref<WorkPostItem[]>([]);
 const total = ref(0);
 
-const updateTableList = async (reqParams: PagainationType) => {
+const updateTableList = async (reqParams: PagainationType & {departmentId: number}) => {
   proTableRef.value.pagination.currentPage = reqParams.currentPage;
   proTableRef.value.pagination.pageSize = reqParams.pageSize;
   loading.value = true;
@@ -118,9 +215,6 @@ const updateTableList = async (reqParams: PagainationType) => {
   }
 };
 
-onMounted(() => {
-  updateTableList({ pageSize: 20, currentPage: 1 });
-});
 const selectRow = ref<WorkPostItem[]>([]);
 const selectionChange = (val: WorkPostItem[]) => {
   selectRow.value = val;
@@ -130,46 +224,56 @@ const selectionChange = (val: WorkPostItem[]) => {
 <style lang="scss" scoped>
 .table-box {
   height: 100%;
+  display: flex;
 }
 
-.form-layout-wrapper {
-  .form-container {
-    .form-item {
-      display: flex;
-      align-items: center;
-      font-size: 14px;
+.diy-table {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.tree-box {
+  width: 220px;
+  background-color: #fff;
+  padding: 10px 5px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .more-btn {
+      font-size: 18px;
       height: 32px;
       line-height: 32px;
-      margin-bottom: 20px;
-
-      &.image {
-        height: 148px;
-
-        .value {
-          border: 0;
-          padding: 0;
-        }
-
-        img {
-          display: block;
-          width: 148px;
-          height: 148px;
-        }
-      }
-
-      .label {
-        width: 120px;
-        padding-right: 10px;
-        text-align: right;
-      }
-
-      .value {
-        flex: 1;
-        background-color: #fff;
-        padding: 0 10px;
-        border: 1px solid #ebeef5;
-      }
+      margin-left: 10px;
+      cursor: pointer;
+      transform: rotate(90deg);
     }
+  }
+}
+
+/* 处理el-tree文本过长的问题 */
+:deep(.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content) {
+  background-color: var(--el-color-primary);
+  color: #fff;
+
+  .el-icon {
+    color: #fff;
+  }
+}
+
+:deep(.el-tree-node__content) {
+  height: auto;
+  min-height: var(--el-tree-node-content-height);
+
+  .el-tree-node__label {
+    text-wrap: wrap;
+    padding: 6px 0;
   }
 }
 </style>

@@ -42,6 +42,7 @@ export default {
     dayjsTool: " dayjs",
     throttleTool: "throttle",
     previewFile: "preview",
+    watermark: "watermark",
     levelMenu: "level",
     menu1: "menu1",
     menu2: "menu2",

@@ -34,13 +34,15 @@ const useUserStore = defineStore({
   },
   actions: {
     async login({ username, password }: Req.loginParam) {
-      const result = await reqLogin({
+      const { code, data } = await reqLogin({
         username,
         password,
       });
-      this.token = result.data.token;
-      setToken(result.data.token);
-      return Promise.resolve(result.data);
+      if (code === 200) {
+        this.token = data.token;
+        setToken(data.token);
+        return Promise.resolve(data);
+      }
     },
     async getUserInfo() {
       const { code, data } = await reqUserInfo();
