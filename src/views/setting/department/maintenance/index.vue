@@ -2,8 +2,17 @@
   <div class="table-box">
     <div class="tree-box" ref="treeDiv">
       <div class="search-wrapper">
-        <el-input v-model="filterText" placeholder="输入关键字进行过滤" class="search-input" :prefix-icon="Search" />
-        <el-dropdown ref="dropdownRef" trigger="contextmenu" @command="dropCommand">
+        <el-input
+          v-model="filterText"
+          placeholder="输入关键字进行过滤"
+          class="search-input"
+          :prefix-icon="Search"
+        />
+        <el-dropdown
+          ref="dropdownRef"
+          trigger="contextmenu"
+          @command="dropCommand"
+        >
           <span class="el-dropdown-link">
             <el-icon class="more-btn" @click="openMore">
               <More />
@@ -18,18 +27,40 @@
         </el-dropdown>
       </div>
       <el-scrollbar :max-height="maxHeight">
-        <el-tree ref="treeRef" node-key="departmentId" :data="data" :props="defaultProps" @node-click="handleNodeClick"
-          :default-expand-all="expandAll" highlight-current :filter-node-method="filterNode"
+        <el-tree
+          ref="treeRef"
+          node-key="departmentId"
+          :data="data"
+          :props="defaultProps"
+          @node-click="handleNodeClick"
+          :default-expand-all="expandAll"
+          highlight-current
+          :filter-node-method="filterNode"
           :current-node-key="currentNodeKey"
           :expand-on-click-node="false"
-          :show-checkbox="false" />
+          :show-checkbox="false"
+        />
       </el-scrollbar>
     </div>
-    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
-      :total="total" :updateTableList="updateTableList" :loading="loading" :selectionChange="selectionChange"
-      rowKey="id" class="diy-table">
-      <el-table-column type="selection" align="center" width="55" :reserve-selection="true"
-        fixed="left"></el-table-column>
+    <ProTable
+      ref="proTableRef"
+      :tableColumns="columns"
+      :conditionList="conditionList"
+      :tableData="tableData"
+      :total="total"
+      :updateTableList="updateTableList"
+      :loading="loading"
+      :selectionChange="selectionChange"
+      rowKey="id"
+      class="diy-table"
+    >
+      <el-table-column
+        type="selection"
+        align="center"
+        width="55"
+        :reserve-selection="true"
+        fixed="left"
+      ></el-table-column>
     </ProTable>
   </div>
 </template>
@@ -42,11 +73,9 @@ import { useElementSize } from "@vueuse/core";
 import { FilterNodeMethodFunction } from "element-plus/es/components/tree/src/tree.type";
 import { PagainationType } from "@/types";
 import { reqWorkPostList } from "@/api/workPost";
-import { reqDepartmentList } from '@/api/department';
+import { reqDepartmentList } from "@/api/department";
 import ProTable from "@/components/ProTable/index.vue";
 import { dayjs } from "element-plus";
-
-
 
 const dropdownRef = ref<DropdownInstance>();
 const expandAll = ref(true); // 初始时展开所有
@@ -76,7 +105,11 @@ const updateTreeExpansion = async () => {
   }
   const currSelectRow = data.value[0] as any;
   currentNodeKey.value = currSelectRow.children[0].departmentId;
-  updateTableList({ pageSize: 20, currentPage: 1, departmentId: currentNodeKey.value });
+  updateTableList({
+    pageSize: 20,
+    currentPage: 1,
+    departmentId: currentNodeKey.value,
+  });
 };
 
 const filterNode: FilterNodeMethodFunction = (value, data) => {
@@ -108,8 +141,7 @@ const getTreeData = async () => {
     const { height } = useElementSize(treeDiv);
     maxHeight.value = height.value - 48 + "px";
   }
-}
-
+};
 
 const defaultProps = {
   children: "children",
@@ -119,7 +151,11 @@ const defaultProps = {
 const handleNodeClick = (data: Tree) => {
   console.log(data.departmentId);
   currentNodeKey.value = data.departmentId;
-  updateTableList({ pageSize: 20, currentPage: 1, departmentId: currentNodeKey.value });
+  updateTableList({
+    pageSize: 20,
+    currentPage: 1,
+    departmentId: currentNodeKey.value,
+  });
 };
 
 watch(filterText, () => {
@@ -196,7 +232,9 @@ const columns = reactive([
 let tableData = ref<WorkPostItem[]>([]);
 const total = ref(0);
 
-const updateTableList = async (reqParams: PagainationType & {departmentId: number}) => {
+const updateTableList = async (
+  reqParams: PagainationType & { departmentId: number }
+) => {
   proTableRef.value.pagination.currentPage = reqParams.currentPage;
   proTableRef.value.pagination.pageSize = reqParams.pageSize;
   loading.value = true;
@@ -258,7 +296,11 @@ const selectionChange = (val: WorkPostItem[]) => {
 }
 
 /* 处理el-tree文本过长的问题 */
-:deep(.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content) {
+:deep(
+    .el-tree--highlight-current
+      .el-tree-node.is-current
+      > .el-tree-node__content
+  ) {
   background-color: var(--el-color-primary);
   color: #fff;
 
