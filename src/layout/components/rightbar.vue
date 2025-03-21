@@ -424,9 +424,7 @@ import screenfull from "screenfull";
 import { ref, computed, onBeforeUnmount, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { ElMessage, ElMessageBox, TabsPaneContext } from "element-plus";
-import {
-  SlackOutlined,
-} from '@ant-design/icons-vue';
+import { SlackOutlined } from "@ant-design/icons-vue";
 import {
   ArrowDown,
   Bell,
@@ -439,7 +437,7 @@ import {
   Avatar,
   SwitchButton,
 } from "@element-plus/icons-vue";
-import ChatAi from './chat.vue';
+import ChatAi from "./chat.vue";
 import useUserStore from "@/store/modules/userStore";
 import useSettingStore from "@/store/modules/settingStore";
 import useTagsViewStore from "@/store/modules/tagsViewStore";

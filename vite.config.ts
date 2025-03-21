@@ -7,7 +7,7 @@ import { viteMockServe } from "vite-plugin-mock";
 import DefineOptions from "unplugin-vue-define-options/vite";
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
 import path from "path";
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
+import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 // 引入svg
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 // https://vitejs.dev/config/
@@ -25,9 +25,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         resolvers: [ElementPlusResolver()],
       }),
       Components({
-        resolvers: [ElementPlusResolver(), AntDesignVueResolver({
-          importStyle: false, // css in js
-        })],
+        resolvers: [
+          ElementPlusResolver(),
+          AntDesignVueResolver({
+            importStyle: false, // css in js
+          }),
+        ],
       }),
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
