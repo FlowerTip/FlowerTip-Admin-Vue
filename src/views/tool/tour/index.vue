@@ -12,25 +12,37 @@
 
     <el-tour v-model="open">
       <el-tour-step :target="ref1?.$el" title="上传文件">
-        <img style="width: 240px" src="https://element-plus.org/images/element-plus-logo.svg" alt="tour.png" />
+        <img
+          style="width: 240px"
+          src="https://element-plus.org/images/element-plus-logo.svg"
+          alt="tour.png"
+        />
         <div>发布你的站点</div>
       </el-tour-step>
-      <el-tour-step :target="ref2?.$el" title="保存配置" description="保存你的配置" />
-      <el-tour-step :target="ref3?.$el" title="详情信息" description="查看你的详情信息" />
+      <el-tour-step
+        :target="ref2?.$el"
+        title="保存配置"
+        description="保存你的配置"
+      />
+      <el-tour-step
+        :target="ref3?.$el"
+        title="详情信息"
+        description="查看你的详情信息"
+      />
     </el-tour>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { MoreFilled } from '@element-plus/icons-vue'
-import type { ButtonInstance } from 'element-plus'
+import { ref } from "vue";
+import { MoreFilled } from "@element-plus/icons-vue";
+import type { ButtonInstance } from "element-plus";
 
-const ref1 = ref<ButtonInstance>()
-const ref2 = ref<ButtonInstance>()
-const ref3 = ref<ButtonInstance>()
+const ref1 = ref<ButtonInstance>();
+const ref2 = ref<ButtonInstance>();
+const ref3 = ref<ButtonInstance>();
 
-const open = ref(false)
+const open = ref(false);
 </script>
 
 <style lang="scss" scoped>

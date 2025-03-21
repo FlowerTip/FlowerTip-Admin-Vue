@@ -1,16 +1,44 @@
 <template>
   <div class="table-box">
-    <ProTable ref="proTable" :tableColumns="columns" :tableData="tableData" :conditionList="conditionList"
-      rowKey="departmentId" :loading="loading" :updateTableList="updateTableList" :total="total">
+    <ProTable
+      ref="proTable"
+      :tableColumns="columns"
+      :tableData="tableData"
+      :conditionList="conditionList"
+      rowKey="departmentId"
+      :loading="loading"
+      :updateTableList="updateTableList"
+      :total="total"
+    >
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button type="primary" :icon="CirclePlus" @click="openAddDepartment">新增部门</el-button>
+        <el-button type="primary" :icon="CirclePlus" @click="openAddDepartment"
+          >新增部门</el-button
+        >
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button type="primary" link :icon="Plus" @click="addChildrenInfo(slotData.scope.row)">添加部门</el-button>
-        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)">编辑部门</el-button>
-        <el-button type="danger" link :icon="Delete" @click="deleteRadio(slotData.scope.row)">删除部门</el-button>
+        <el-button
+          type="primary"
+          link
+          :icon="Plus"
+          @click="addChildrenInfo(slotData.scope.row)"
+          >添加部门</el-button
+        >
+        <el-button
+          type="primary"
+          link
+          :icon="EditPen"
+          @click="modifiyInfo(slotData.scope.row)"
+          >编辑部门</el-button
+        >
+        <el-button
+          type="danger"
+          link
+          :icon="Delete"
+          @click="deleteRadio(slotData.scope.row)"
+          >删除部门</el-button
+        >
       </template>
     </ProTable>
     <!-- 新增部门 || 编辑部门 -->
@@ -25,7 +53,11 @@ import { Plus, CirclePlus, Delete, EditPen } from "@element-plus/icons-vue";
 import ProTable from "@/components/ProTable/index.vue";
 import { dayjs } from "element-plus";
 import DepartmetnDialog from "./components/departmentDialog.vue";
-import { reqDepartmentList, reqDelDepartMent, reqSaveDepartment } from "@/api/department";
+import {
+  reqDepartmentList,
+  reqDelDepartMent,
+  reqSaveDepartment,
+} from "@/api/department";
 
 const DepartmetnDialogRef = ref();
 const openAddDepartment = () => {
@@ -34,7 +66,7 @@ const openAddDepartment = () => {
     rowData: {
       departmentName: "",
       description: "",
-      sort: '',
+      sort: "",
       parentId: 0,
     },
     getTableList: updateTableList,
@@ -42,14 +74,13 @@ const openAddDepartment = () => {
   DepartmetnDialogRef.value!.acceptParams(params);
 };
 
-
 const addChildrenInfo = (row: DepartMentItem) => {
   DepartmetnDialogRef.value!.acceptParams({
     api: reqSaveDepartment,
     rowData: {
       departmentName: "",
       description: "",
-      sort: '',
+      sort: "",
       parentId: row.departmentId,
     },
     getTableList: updateTableList,
@@ -154,7 +185,7 @@ const columns = reactive([
     isShowColumn: true,
     type: "slot",
     width: 120,
-  }
+  },
 ]);
 const loading = ref(false);
 

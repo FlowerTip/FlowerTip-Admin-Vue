@@ -1,22 +1,46 @@
 <template>
-  <el-dialog v-model="dialogVisible" :title="title" destroy-on-close width="500px">
+  <el-dialog
+    v-model="dialogVisible"
+    :title="title"
+    destroy-on-close
+    width="500px"
+  >
     <div class="form-layout-wrapper">
-      <el-form ref="dialogFormRef" label-suffix=" :" :model="dialogForm" :rules="dialogFormRules" label-width="auto"
-        class="form-container">
+      <el-form
+        ref="dialogFormRef"
+        label-suffix=" :"
+        :model="dialogForm"
+        :rules="dialogFormRules"
+        label-width="auto"
+        class="form-container"
+      >
         <el-form-item label="岗位名称" prop="workPostName">
-          <el-input v-model="dialogForm.workPostName" placeholder="请输入岗位名称" />
+          <el-input
+            v-model="dialogForm.workPostName"
+            placeholder="请输入岗位名称"
+          />
         </el-form-item>
         <el-form-item label="岗位编号" prop="workPostNum">
-          <el-input v-model="dialogForm.workPostNum" placeholder="请输入岗位编号" />
+          <el-input
+            v-model="dialogForm.workPostNum"
+            placeholder="请输入岗位编号"
+          />
         </el-form-item>
         <el-form-item label="岗位描述" prop="description">
-          <el-input type="textarea" :rows="3" v-model="dialogForm.description" placeholder="请填写岗位描述" />
+          <el-input
+            type="textarea"
+            :rows="3"
+            v-model="dialogForm.description"
+            placeholder="请填写岗位描述"
+          />
         </el-form-item>
       </el-form>
     </div>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="dialogConfirm" :loading="loading">保存</el-button>
+        <el-button type="primary" @click="dialogConfirm" :loading="loading"
+          >保存</el-button
+        >
         <el-button @click="dialogCancel">取消</el-button>
       </div>
     </template>
@@ -39,7 +63,7 @@ const dialogForm = ref<WorkPostItem>({
   workPostNum: "",
   description: "",
   departmentId: "",
-  workPostId: ''
+  workPostId: "",
 });
 
 const dialogFormRules = reactive({
