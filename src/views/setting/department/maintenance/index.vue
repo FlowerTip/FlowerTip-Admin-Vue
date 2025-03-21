@@ -97,7 +97,6 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { useElementSize } from "@vueuse/core";
 import { FilterNodeMethodFunction } from "element-plus/es/components/tree/src/tree.type";
 import WorkPostDialog from "./components/workPostDialog.vue";
-import { PagainationType } from "@/types";
 import {
   reqWorkPostList,
   reqSaveWorkPost,

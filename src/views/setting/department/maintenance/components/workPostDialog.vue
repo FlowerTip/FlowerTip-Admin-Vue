@@ -130,6 +130,7 @@ type AcceptParams = {
   getTableList: (params: {
     currentPage: number;
     pageSize: number;
+    departmentId: string | number; 
   }) => Promise<Res.WorkPostListData>;
 };
 // props定义
