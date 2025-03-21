@@ -90,7 +90,7 @@ declare namespace Req {
     pageSize?: number;
     currentPage?: number;
     workPostName?: string;
-    departmentId?: number;
+    departmentId?: string | number;
   }
 
   interface GetRoleParam {
@@ -172,10 +172,10 @@ declare type DepartMentItem = {
 };
 
 declare type WorkPostItem = {
-  workPostNum: number;
+  workPostNum: number | string;
   workPostName: string;
-  workPostId: number;
-  departmentId: number;
+  workPostId?: number | string;
+  departmentId: number | string;
   description?: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;

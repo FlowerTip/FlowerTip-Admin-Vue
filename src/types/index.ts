@@ -30,6 +30,7 @@ export type PagainationType = {
   sex?: number;
   address?: string;
   time?: Date;
+  departmentId?: string | number;
 };
 
 export type AvatarUploadType = "round" | "circle";

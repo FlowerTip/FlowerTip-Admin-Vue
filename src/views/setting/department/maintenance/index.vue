@@ -2,17 +2,8 @@
   <div class="table-box">
     <div class="tree-box" ref="treeDiv">
       <div class="search-wrapper">
-        <el-input
-          v-model="filterText"
-          placeholder="输入关键字进行过滤"
-          class="search-input"
-          :prefix-icon="Search"
-        />
-        <el-dropdown
-          ref="dropdownRef"
-          trigger="contextmenu"
-          @command="dropCommand"
-        >
+        <el-input v-model="filterText" placeholder="输入关键字进行过滤" class="search-input" :prefix-icon="Search" />
+        <el-dropdown ref="dropdownRef" trigger="contextmenu" @command="dropCommand">
           <span class="el-dropdown-link">
             <el-icon class="more-btn" @click="openMore">
               <More />
@@ -27,55 +18,96 @@
         </el-dropdown>
       </div>
       <el-scrollbar :max-height="maxHeight">
-        <el-tree
-          ref="treeRef"
-          node-key="departmentId"
-          :data="data"
-          :props="defaultProps"
-          @node-click="handleNodeClick"
-          :default-expand-all="expandAll"
-          highlight-current
-          :filter-node-method="filterNode"
-          :current-node-key="currentNodeKey"
-          :expand-on-click-node="false"
-          :show-checkbox="false"
-        />
+        <el-tree ref="treeRef" node-key="departmentId" :data="data" :props="defaultProps" @node-click="handleNodeClick"
+          :default-expand-all="expandAll" highlight-current :filter-node-method="filterNode"
+          :current-node-key="currentNodeKey" :expand-on-click-node="false" :show-checkbox="false" />
       </el-scrollbar>
     </div>
-    <ProTable
-      ref="proTableRef"
-      :tableColumns="columns"
-      :conditionList="conditionList"
-      :tableData="tableData"
-      :total="total"
-      :updateTableList="updateTableList"
-      :loading="loading"
-      :selectionChange="selectionChange"
-      rowKey="id"
-      class="diy-table"
-    >
-      <el-table-column
-        type="selection"
-        align="center"
-        width="55"
-        :reserve-selection="true"
-        fixed="left"
-      ></el-table-column>
+    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
+      :total="total" :updateTableList="updateTableList" :loading="loading" :selectionChange="selectionChange"
+      rowKey="id" class="diy-table">
+      <!-- 表格 header 按钮 -->
+      <template #tableHeaderLeft>
+        <el-button type="primary" :icon="CirclePlus" @click="openAddWorkPost">新增岗位</el-button>
+      </template>
+      <!-- 表格操作 -->
+      <template #operation="slotData">
+        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)">编辑岗位</el-button>
+        <el-button type="danger" link :icon="Delete" @click="deleteRadio(slotData.scope.row)">删除岗位</el-button>
+      </template>
     </ProTable>
+    <!-- 新增岗位 || 编辑方位 -->
+    <WorkPostDialog ref="WorkPostDialogRef" />
   </div>
 </template>
 
 <script setup lang="ts" name="AdvancedTable">
 import { ElTree, DropdownInstance } from "element-plus";
-import { More, Search } from "@element-plus/icons-vue";
+import { More, Search, CirclePlus, Delete, EditPen } from "@element-plus/icons-vue";
 import { ref, reactive, watch, onMounted, nextTick } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { useElementSize } from "@vueuse/core";
 import { FilterNodeMethodFunction } from "element-plus/es/components/tree/src/tree.type";
+import WorkPostDialog from "./components/workPostDialog.vue";
 import { PagainationType } from "@/types";
-import { reqWorkPostList } from "@/api/workPost";
+import { reqWorkPostList, reqSaveWorkPost, reqDelWorkPost } from "@/api/workPost";
 import { reqDepartmentList } from "@/api/department";
 import ProTable from "@/components/ProTable/index.vue";
 import { dayjs } from "element-plus";
+
+const WorkPostDialogRef = ref();
+const openAddWorkPost = () => {
+  const params = {
+    api: reqSaveWorkPost,
+    rowData: {
+      workPostName: '',
+      workPostNum: '',
+      description: '',
+      departmentId: currentNodeKey.value,
+    },
+    getTableList: updateTableList,
+  };
+  WorkPostDialogRef.value!.acceptParams(params);
+};
+
+const deleteRadio = (row: AccountItem) => {
+  ElMessageBox.confirm("此操作将删除该岗位，是否继续?", "删除提示", {
+    cancelButtonText: "取消",
+    confirmButtonText: "确认",
+    type: "warning",
+  })
+    .then(async () => {
+      const { code } = await reqDelWorkPost({
+        ids: [row.workPostId!],
+      });
+      if (code === 200) {
+        ElMessage({
+          type: "success",
+          message: "删除成功",
+        });
+        updateTableList({
+          pageSize: 20,
+          currentPage: 1,
+          departmentId: currentNodeKey.value,
+        });
+      }
+    })
+    .catch(() => {
+      ElMessage({
+        type: "info",
+        message: "取消删除",
+      });
+    });
+};
+
+const modifiyInfo = (row: AccountItem) => {
+  WorkPostDialogRef.value!.acceptParams({
+    api: reqSaveWorkPost,
+    rowData: { ...row },
+    getTableList: updateTableList,
+  });
+};
+
 
 const dropdownRef = ref<DropdownInstance>();
 const expandAll = ref(true); // 初始时展开所有
@@ -103,13 +135,6 @@ const updateTreeExpansion = async () => {
   } else {
     Object.values(nodesMap).forEach((v) => v.collapse());
   }
-  const currSelectRow = data.value[0] as any;
-  currentNodeKey.value = currSelectRow.children[0].departmentId;
-  updateTableList({
-    pageSize: 20,
-    currentPage: 1,
-    departmentId: currentNodeKey.value,
-  });
 };
 
 const filterNode: FilterNodeMethodFunction = (value, data) => {
@@ -140,6 +165,14 @@ const getTreeData = async () => {
     updateTreeExpansion();
     const { height } = useElementSize(treeDiv);
     maxHeight.value = height.value - 48 + "px";
+    await nextTick()
+    const currSelectRow = data.value[0] as any;
+    currentNodeKey.value = currSelectRow.children[0].departmentId;
+    updateTableList({
+      pageSize: 20,
+      currentPage: 1,
+      departmentId: currentNodeKey.value,
+    });
   }
 };
 
@@ -217,6 +250,7 @@ const columns = reactive([
     width: 120,
     isShowColumn: true,
     sortable: true,
+    type: "datetime",
   },
   {
     id: 6,
@@ -225,6 +259,16 @@ const columns = reactive([
     width: 120,
     isShowColumn: true,
     sortable: true,
+    type: "datetime",
+  },
+  {
+    id: 7,
+    prop: "operation",
+    label: "操作",
+    fixed: "right",
+    isShowColumn: true,
+    type: "slot",
+    width: 120,
   },
 ]);
 
@@ -233,7 +277,7 @@ let tableData = ref<WorkPostItem[]>([]);
 const total = ref(0);
 
 const updateTableList = async (
-  reqParams: PagainationType & { departmentId: number }
+  reqParams: Req.WorkPostListParam
 ) => {
   proTableRef.value.pagination.currentPage = reqParams.currentPage;
   proTableRef.value.pagination.pageSize = reqParams.pageSize;
@@ -296,11 +340,7 @@ const selectionChange = (val: WorkPostItem[]) => {
 }
 
 /* 处理el-tree文本过长的问题 */
-:deep(
-    .el-tree--highlight-current
-      .el-tree-node.is-current
-      > .el-tree-node__content
-  ) {
+:deep(.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content) {
   background-color: var(--el-color-primary);
   color: #fff;
 

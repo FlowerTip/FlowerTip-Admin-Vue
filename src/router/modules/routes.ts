@@ -268,7 +268,7 @@ export const asyncRoute = [
         component: () => import("@/views/tool/dayjs/index.vue"),
         meta: {
           title: lang.menu.dayjsTool,
-          icon: "ele-Calendar",
+          icon: "ele-Stopwatch",
         },
       },
       {
@@ -296,6 +296,42 @@ export const asyncRoute = [
         meta: {
           title: lang.menu.watermark,
           icon: "ele-Watermelon",
+        },
+      },
+      {
+        name: "calendar",
+        path: "calendar",
+        component: () => import("@/views/tool/calendar/index.vue"),
+        meta: {
+          title: lang.menu.calendar,
+          icon: "ele-Calendar",
+        },
+      },
+      {
+        name: "tour",
+        path: "tour",
+        component: () => import("@/views/tool/tour/index.vue"),
+        meta: {
+          title: lang.menu.tour,
+          icon: "ele-ReadingLamp",
+        },
+      },
+      {
+        name: "qrcode",
+        path: "qrcode",
+        component: () => import("@/views/tool/qrcode/index.vue"),
+        meta: {
+          title: lang.menu.qrcode,
+          icon: "ele-Link",
+        },
+      },
+      {
+        name: "aieditor",
+        path: "aieditor",
+        component: () => import("@/views/tool/aieditor/index.vue"),
+        meta: {
+          title: lang.menu.aieditor,
+          icon: "ele-EditPen",
         },
       },
       {
