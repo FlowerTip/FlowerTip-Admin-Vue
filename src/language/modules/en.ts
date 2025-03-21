@@ -46,7 +46,7 @@ export default {
     tour: "tour",
     calendar: "calendar",
     qrcode: "qrcode",
-    aieditor: "aieditor",
+    aiEditor: "aiEditor",
     levelMenu: "level",
     menu1: "menu1",
     menu2: "menu2",

@@ -326,11 +326,11 @@ export const asyncRoute = [
         },
       },
       {
-        name: "aieditor",
-        path: "aieditor",
-        component: () => import("@/views/tool/aieditor/index.vue"),
+        name: "aiEditor",
+        path: "aiEditor",
+        component: () => import("@/views/tool/aiEditor/index.vue"),
         meta: {
-          title: lang.menu.aieditor,
+          title: lang.menu.aiEditor,
           icon: "ele-EditPen",
         },
       },

@@ -46,7 +46,7 @@ export default {
     tour: "漫游式导航",
     calendar: "日历待办",
     qrcode: "二维码功能",
-    aieditor: "富文本编辑器",
+    aiEditor: "富文本编辑器",
     levelMenu: "多级菜单",
     menu1: "菜单1",
     menu2: "菜单2",
