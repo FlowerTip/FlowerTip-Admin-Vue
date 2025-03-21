@@ -147,7 +147,8 @@
     @click="openRightSetting"
   >
     <el-icon class="setting-icon">
-      <Setting />
+      <!-- <Setting /> -->
+      <SlackOutlined />
     </el-icon>
   </div>
   <!-- 偏好设置抽屉 -->
@@ -405,6 +406,17 @@
       </div>
     </div>
   </el-drawer>
+  <!-- AI助手抽屉 -->
+  <el-drawer
+    append-to-body
+    modal-class="drawer-wrapper"
+    v-model="aiDrawer"
+    title="FlowerTip Admin 智能对话交互助手"
+    direction="rtl"
+    :size="600"
+  >
+    <ChatAi />
+  </el-drawer>
 </template>
 
 <script lang="ts" setup>
@@ -412,6 +424,9 @@ import screenfull from "screenfull";
 import { ref, computed, onBeforeUnmount, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { ElMessage, ElMessageBox, TabsPaneContext } from "element-plus";
+import {
+  SlackOutlined,
+} from '@ant-design/icons-vue';
 import {
   ArrowDown,
   Bell,
@@ -424,6 +439,7 @@ import {
   Avatar,
   SwitchButton,
 } from "@element-plus/icons-vue";
+import ChatAi from './chat.vue';
 import useUserStore from "@/store/modules/userStore";
 import useSettingStore from "@/store/modules/settingStore";
 import useTagsViewStore from "@/store/modules/tagsViewStore";
@@ -444,6 +460,7 @@ onBeforeUnmount(() => {
 });
 const drawer = ref(false);
 let userDrawer = ref(false);
+const aiDrawer = ref(false);
 
 const {
   themeColorName,
@@ -465,7 +482,7 @@ const changeThemeColor = (colorThemeName: string, showTip = true) => {
 };
 
 const openRightSetting = () => {
-  drawer.value = true;
+  aiDrawer.value = true;
 };
 
 const handleCommand = (command: string) => {

@@ -220,3 +220,18 @@ export function formatTime(date = new Date(), type = "datetime") {
   }
   return dayjs(date).format(formatStr);
 }
+
+/**
+ * 判断一个字符串是否为有效的 JSON 字符串
+ * @param {string} str - 待判断的字符串
+ * @returns {boolean} - 如果是有效的 JSON 字符串返回 true，否则返回 false
+ */
+export function isIndexOfFiles(str: string): boolean {
+  return str.includes('files')
+}
+
+export function isMdelement(element: any): boolean {
+  console.log(element, 'e@@@@')
+  const markdownRegex = /(#+ .+)|(\* .+)|(- .+)|(\d+\. .+)|(\[.+\]\(.+\))|(\*\*.*?\*\*)|(`.*?`)/;
+  return !element.type && markdownRegex.test(element as unknown as string);
+}
