@@ -90,13 +90,22 @@ import { ElMessage } from "element-plus";
 import markdownit from "markdown-it";
 import { isIndexOfFiles, isMdelement } from "@/utils/tool";
 import { Attachment } from "ant-design-x-vue/dist/typings/attachments/interface";
+import { FileType } from "ant-design-vue/es/upload/interface";
 
 defineOptions({ name: "SampleChat" });
+
+const getBase64 = (img: FileType, callback: (url: string) => void) => {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => callback(reader.result as string));
+  reader.readAsDataURL(img);
+};
 
 const md = markdownit({ html: true, breaks: true });
 
 const renderMarkdown = (content: any) =>
-  isMdelement(content) ? h("p", { "v-html": md.render(content) }) : content;
+  isMdelement(content)
+    ? h("p", { domProps: { innerHTML: md.render(content) } })
+    : content;
 
 // https://api.siliconflow.cn/v1/chat/completions
 // https://api.chatanywhere.tech/v1/chat/completions
@@ -277,12 +286,17 @@ const setHeaderOpen = (flag: boolean) => {
 const setAttachedFiles = (paramFiles: any) => {
   console.log(paramFiles, "paramFiles111");
   attachedFiles.value = paramFiles;
+  return paramFiles;
 };
+
+const hasDot = computed(() => {
+  return attachedFiles.value.length > 0 && !headerOpen.value;
+});
 
 const attachmentsNode = h(
   Badge,
   {
-    dot: attachedFiles.value.length > 0 && !headerOpen,
+    dot: hasDot.value,
   },
   [
     h(Button, {
@@ -297,18 +311,17 @@ const attachmentsNode = h(
 
 const attachmentsRef = ref(null);
 
-const handleFileChange = (info: any) => {
+const handleFileChange = async (info: any) => {
   console.log(info, "info附件");
   if (info.file.size) {
-    const currentFile = Object.assign(
-      info.file,
-      {},
-      {
-        name: info.file.name,
-        url: URL.createObjectURL(info.file),
-      }
-    );
-    return setAttachedFiles([...attachedFiles.value, currentFile]);
+    let fileUrl = "";
+    await getBase64(info.file as FileType, (url) => {
+      fileUrl = url;
+    });
+    return setAttachedFiles([
+      ...attachedFiles.value,
+      { ...info.file, url: fileUrl },
+    ]);
   } else {
     return setAttachedFiles(info.fileList);
   }
@@ -428,8 +441,9 @@ const placeholderNode = h(
           flex: 1,
         },
       },
-      onItemClick: () => {
+      onItemClick: (info: any) => {
         console.log("onItemClick");
+        onRequest(info.data.description);
       },
     }),
   ]
@@ -452,8 +466,8 @@ const items = computed<any>(() => {
         h(
           Button,
           {
-            color: "primary",
-            variant: "outlined",
+            type: "primary",
+            ghost: true,
             size: "small",
             icon: h(SyncOutlined),
             onClick: () => onReplyRequest(msgContent),
@@ -466,8 +480,8 @@ const items = computed<any>(() => {
         h(
           Button,
           {
-            color: "primary",
-            variant: "outlined",
+            type: "primary",
+            ghost: true,
             size: "small",
             icon: h(CopyOutlined),
             onClick: () => onCopyResult(item.message),
@@ -475,14 +489,6 @@ const items = computed<any>(() => {
           ["复制内容"]
         ),
       ]),
-
-      // (<Space size="small">
-      //   <Button color="primary" variant="outlined" size="small" icon={<SyncOutlined />} onClick={() => onReplyRequest(msgContent)}>再试一次</Button>
-      // </Space>),
-      // loading: null,
-      // ai: (<Space size="small">
-      //   <Button color="primary" variant="outlined" size="small" icon={<CopyOutlined />} onClick={() => onCopyResult(item.message)}>复制内容</Button>
-      // </Space>)
     };
 
     return {
@@ -592,6 +598,7 @@ const roles: BubbleListProps["roles"] = {
 
   ::v-deep(.ant-bubble-list) {
     flex: 1;
+    margin-bottom: 20px;
   }
 
   .sender {
