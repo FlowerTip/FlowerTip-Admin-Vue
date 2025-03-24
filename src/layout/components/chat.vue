@@ -343,7 +343,11 @@ const placeholderPromptsItems: PromptsProps["items"] = [
         gap: 8,
       },
       [
-        h(ProfileOutlined),
+        h(ProfileOutlined, {
+            style: {
+              color: '#3170ff'
+            },
+          },),
         h(
           "span",
           {
@@ -384,7 +388,11 @@ const placeholderPromptsItems: PromptsProps["items"] = [
         gap: 8,
       },
       [
-        h(NotificationOutlined),
+        h(NotificationOutlined, {
+          style: {
+            color: 'rgb(255, 77, 79)'
+          }
+        }),
         h(
           "span",
           {
