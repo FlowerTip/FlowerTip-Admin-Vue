@@ -1,14 +1,27 @@
 <template>
   <div class="chat_layout">
-    <div class="chat" style="
+    <div
+      class="chat"
+      style="
         white-space: pre-line;
         height: calc(100vh - 110px);
         overflow-y: auto;
-      ">
+      "
+    >
       <Bubble.List :items="fItems" :roles="roles" />
       <!-- 清空对话按钮 -->
-      <Flex :gap="12" align="start" :vertical="false" style="width: 100%; padding-bottom: 10px">
-        <Button type="primary" ghost :icon="h(SendOutlined)" @click="handlerClearSubmit">
+      <Flex
+        :gap="12"
+        align="start"
+        :vertical="false"
+        style="width: 100%; padding-bottom: 10px"
+      >
+        <Button
+          type="primary"
+          ghost
+          :icon="h(SendOutlined)"
+          @click="handlerClearSubmit"
+        >
           清空输入
         </Button>
         <Button danger :icon="h(ClearOutlined)" @click="handlerClearSession">
@@ -16,12 +29,26 @@
         </Button>
       </Flex>
       <!-- 输入框 -->
-      <Sender :value="content" :onSubmit="onSubmit" :onChange="setContent" :prefix="attachmentsNode"
-        :loading="agent.isRequesting()">
+      <Sender
+        :value="content"
+        :onSubmit="onSubmit"
+        :onChange="setContent"
+        :prefix="attachmentsNode"
+        :loading="agent.isRequesting()"
+      >
         <template #header>
-          <Sender.Header title="图片上传" :open="headerOpen" @open-change="setHeaderOpen">
-            <Attachments ref="attachmentsRef" :items="attachedFiles" :beforeUpload="() => false"
-              :onChange="handleFileChange" :placeholder="placeholderFn" />
+          <Sender.Header
+            title="图片上传"
+            :open="headerOpen"
+            @open-change="setHeaderOpen"
+          >
+            <Attachments
+              ref="attachmentsRef"
+              :items="attachedFiles"
+              :beforeUpload="() => false"
+              :onChange="handleFileChange"
+              :placeholder="placeholderFn"
+            />
           </Sender.Header>
         </template>
       </Sender>
@@ -71,15 +98,13 @@ type FileType = File;
 const getBase64 = (img: FileType, callback: (url: string) => void) => {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result as string));
-  reader.readAsDataURL(img)
+  reader.readAsDataURL(img);
 };
 
 const md = markdownit({ html: true, breaks: true });
 
 const renderMarkdown = (content: any) =>
-  isMdelement(content)
-    ? h("p", { innerHTML: md.render(content) })
-    : content;
+  isMdelement(content) ? h("p", { innerHTML: md.render(content) }) : content;
 
 // https://api.siliconflow.cn/v1/chat/completions
 // https://api.chatanywhere.tech/v1/chat/completions
@@ -106,8 +131,8 @@ const [agent] = useXAgent({
     const params: {
       role: string;
       content:
-      | Attachment[]
-      | { type: string; text: string | undefined | any }[];
+        | Attachment[]
+        | { type: string; text: string | undefined | any }[];
     } = {
       role: "user",
       content: [],
@@ -119,7 +144,8 @@ const [agent] = useXAgent({
       items,
       "ceshi"
     );
-    const messageStr = typeof message === 'object' ? JSON.stringify(message) : message;
+    const messageStr =
+      typeof message === "object" ? JSON.stringify(message) : message;
     if (isIndexOfFiles(messageStr as string)) {
       const jsContentObj = JSON.parse(messageStr as string);
       console.log(jsContentObj, "参数附件");
@@ -240,10 +266,10 @@ const placeholderFn = (type: string) => {
   return type === "drop"
     ? { title: "选取图片" }
     : {
-      icon: h(CloudUploadOutlined),
-      title: "上传图片",
-      description: "点击上传图片",
-    };
+        icon: h(CloudUploadOutlined),
+        title: "上传图片",
+        description: "点击上传图片",
+      };
 };
 
 const content = ref("");
@@ -290,12 +316,18 @@ const handleFileChange = (info: any) => {
   console.log(info, "info附件");
   if (info.file.size) {
     getBase64(info.file as FileType, (url: string) => {
-      const raw = { uid: info.file.uid, lastModified: info.file.lastModified, name: info.file.name, size: info.file.size, type: info.file.type, webkitRelativePath: info.file.webkitRelativePath, lastModifiedDate: info.file.lastModifiedDate, url };
+      const raw = {
+        uid: info.file.uid,
+        lastModified: info.file.lastModified,
+        name: info.file.name,
+        size: info.file.size,
+        type: info.file.type,
+        webkitRelativePath: info.file.webkitRelativePath,
+        lastModifiedDate: info.file.lastModifiedDate,
+        url,
+      };
       console.log(url, raw, "fileUrl");
-      return setAttachedFiles([
-        ...attachedFiles.value,
-        raw
-      ]);
+      return setAttachedFiles([...attachedFiles.value, raw]);
     });
   } else {
     return setAttachedFiles(info.fileList);
@@ -475,8 +507,8 @@ const items = computed<any>(() => {
         status == "local"
           ? renderFooterContent[status]
           : message == "loading"
-            ? renderFooterContent["loading"]
-            : renderFooterContent["ai"],
+          ? renderFooterContent["loading"]
+          : renderFooterContent["ai"],
       messageRender: (content: any) => {
         if (status == "local") {
           if (content.files && content.files.length > 0) {
@@ -493,7 +525,7 @@ const items = computed<any>(() => {
                     key: index,
                     width: 250,
                     src: item.url,
-                    'preview-src-list': [item.url],
+                    "preview-src-list": [item.url],
                     style: { display: "block" },
                   });
                 }),

@@ -10,9 +10,9 @@
 
 ## 新增功能
 
- - 新增AI功能
- 
- ![AI助手](docs/ai.png)
+- 新增 AI 功能
+
+![AI助手](docs/ai.png)
 
 ## 项目模块
 
@@ -70,7 +70,7 @@
 4. 主题设置
    ![主题设置](docs/image-5.png)
 
-5. AI助手功能
+5. AI 助手功能
 
    ![AI助手](docs/ai.png)
 

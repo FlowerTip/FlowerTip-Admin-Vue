@@ -227,7 +227,7 @@ export function formatTime(date = new Date(), type = "datetime") {
  * @returns {boolean} - 如果是有效的 JSON 字符串返回 true，否则返回 false
  */
 export function isIndexOfFiles(str: string): boolean {
-  return typeof str == 'string' && str.includes("files");
+  return typeof str == "string" && str.includes("files");
 }
 
 export function isMdelement(element: any): boolean {
