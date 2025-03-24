@@ -129,9 +129,7 @@ const [agent] = useXAgent({
   request: async ({ message }, { onSuccess, onUpdate }) => {
     const params: {
       role: string;
-      content:
-        | any[]
-        | { type: string; text: string | undefined | any }[];
+      content: any[] | { type: string; text: string | undefined | any }[];
     } = {
       role: "user",
       content: [],
