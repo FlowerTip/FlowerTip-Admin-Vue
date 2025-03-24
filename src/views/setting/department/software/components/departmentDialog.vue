@@ -16,7 +16,7 @@
       >
         <el-form-item label="上级部门" prop="parentId">
           <el-cascader
-            :disabled="dialogForm?.parentId"
+            :disabled="dialogForm?.parentId ? true: false"
             :props="{
               value: 'departmentId',
               label: 'departmentName',

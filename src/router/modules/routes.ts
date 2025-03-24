@@ -328,7 +328,7 @@ export const asyncRoute = [
       {
         name: "aiEditor",
         path: "aiEditor",
-        component: () => import("@/views/tool/aiEditor/index.vue"),
+        component: () => import("@/views/tool/aieditor/index.vue"),
         meta: {
           title: lang.menu.aiEditor,
           icon: "ele-EditPen",

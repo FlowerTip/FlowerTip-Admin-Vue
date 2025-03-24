@@ -71,7 +71,6 @@ import {
   SSEFields,
   type PromptsProps,
   type BubbleListProps,
-  type Attachment, // 添加这一行
 } from "ant-design-x-vue";
 import { ref, h, computed } from "vue";
 import {
@@ -131,7 +130,7 @@ const [agent] = useXAgent({
     const params: {
       role: string;
       content:
-        | Attachment[]
+        | any[]
         | { type: string; text: string | undefined | any }[];
     } = {
       role: "user",

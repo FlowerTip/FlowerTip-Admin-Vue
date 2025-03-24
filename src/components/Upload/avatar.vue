@@ -1,28 +1,10 @@
 <template>
   <div class="avatar-container">
-    <el-upload
-      :id="uuid"
-      ref="avatarRef"
-      class="avatar-uploader"
-      :class="uploadClassName"
-      :style="avatarStyle"
-      action="#"
-      :auto-upload="false"
-      :show-file-list="false"
-      :accept="fileType.join(',')"
-      :on-change="handleAvatarChange"
-      :http-request="httpRequest"
-      :file-list="fileList"
-      :disabled="hiddenTip"
-    >
+    <el-upload :id="uuid" ref="avatarRef" class="avatar-uploader" :class="uploadClassName" :style="avatarStyle"
+      action="#" :auto-upload="false" :show-file-list="false" :accept="fileType.join(',')"
+      :on-change="handleAvatarChange" :http-request="httpRequest" :file-list="fileList" :disabled="hiddenTip">
       <!-- 图片显示区域 -->
-      <img
-        v-if="imageUrl"
-        :src="imageUrl"
-        class="avatar"
-        :style="avatarStyle"
-        alt="avatar"
-      />
+      <img v-if="imageUrl" :src="imageUrl" class="avatar" :style="avatarStyle" alt="avatar" />
       <!-- 上传图标显示区域 -->
       <el-icon v-else class="avatar-uploader-icon" :style="avatarStyle">
         <Plus />
@@ -37,22 +19,18 @@
         </div>
         <div class="btn-item" @click.stop="previewAvatar">
           <el-icon class="icon-style">
-            <ZoomIn /> </el-icon
-          >查看
+            <ZoomIn />
+          </el-icon>查看
         </div>
         <div class="btn-item" @click.stop="delAvatar">
           <el-icon class="icon-style">
-            <Delete /> </el-icon
-          >删除
+            <Delete />
+          </el-icon>删除
         </div>
       </div>
     </el-upload>
     <!-- 大图预览 -->
-    <el-image-viewer
-      v-if="imgViewVisible"
-      :url-list="[imageUrl]"
-      @close="imgViewVisible = false"
-    />
+    <el-image-viewer v-if="imgViewVisible" :url-list="[imageUrl]" @close="imgViewVisible = false" />
     <!-- 提示文案 -->
     <div v-if="!hiddenTip" class="el-upload__tip">
       <slot name="tip"></slot>
@@ -80,15 +58,14 @@ const attrs = useAttrs();
 // 接收外部传入的组件属性
 const props = withDefaults(
   defineProps<{
-    width?: number;
-    height?: number;
+    width?: string | number;
+    height?: string | number;
     type?: "round" | "circle";
     disabled?: boolean;
     fileType?: string[];
     fileSize?: number;
     uploadParam?: {
-      id: string;
-      [key: string]: any;
+      id: number | string;
     };
   }>(),
   {
