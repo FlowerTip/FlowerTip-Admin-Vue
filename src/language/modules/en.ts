@@ -22,7 +22,7 @@ export default {
     form: "Form",
     chart: "Chart",
     tool: "Tool",
-    online: "Online",
+    online: "Knowledge",
     project: "Project",
     system: "System",
     advancedTable: "advanced",

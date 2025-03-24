@@ -314,20 +314,20 @@ const dimenAnalysisOption2 = reactive({
         position: relative;
         font-size: 18px;
         font-weight: 700;
-        padding-left: 10px;
-        color: var(--el-color-primary);
+        // padding-left: 10px;
+        // color: var(--el-color-primary);
 
-        &::before {
-          position: absolute;
-          left: 0;
-          top: 0;
-          content: "";
-          display: inline-block;
-          width: 6px;
-          height: 18px;
-          background-color: var(--el-color-primary);
-          border-radius: 6px;
-        }
+        // &::before {
+        //   position: absolute;
+        //   left: 0;
+        //   top: 0;
+        //   content: "";
+        //   display: inline-block;
+        //   width: 6px;
+        //   height: 18px;
+        //   background-color: var(--el-color-primary);
+        //   border-radius: 6px;
+        // }
       }
 
       .chart-children-wrapper {

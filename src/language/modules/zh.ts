@@ -22,7 +22,7 @@ export default {
     form: "表单组件",
     chart: "图表组件",
     tool: "常用功能",
-    online: "在线文档",
+    online: "知识库",
     project: "开源项目",
     system: "系统管理",
     advancedTable: "高级表格",

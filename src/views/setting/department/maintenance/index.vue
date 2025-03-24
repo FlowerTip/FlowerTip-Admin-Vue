@@ -318,7 +318,7 @@ const columns = reactive([
     fixed: "right",
     isShowColumn: true,
     type: "slot",
-    width: 120,
+    width: 160,
   },
 ]);
 

@@ -49,3 +49,7 @@ body,
 .el-button:focus {
   outline: none !important;
 }
+
+.el-menu--popup {
+  min-width: 140px !important;
+}
