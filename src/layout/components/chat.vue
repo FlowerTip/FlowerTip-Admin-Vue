@@ -344,10 +344,10 @@ const placeholderPromptsItems: PromptsProps["items"] = [
       },
       [
         h(ProfileOutlined, {
-            style: {
-              color: '#3170ff'
-            },
-          },),
+          style: {
+            color: "#3170ff",
+          },
+        }),
         h(
           "span",
           {
@@ -390,8 +390,8 @@ const placeholderPromptsItems: PromptsProps["items"] = [
       [
         h(NotificationOutlined, {
           style: {
-            color: 'rgb(255, 77, 79)'
-          }
+            color: "rgb(255, 77, 79)",
+          },
         }),
         h(
           "span",
