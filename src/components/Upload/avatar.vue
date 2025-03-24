@@ -36,14 +36,10 @@
           编辑
         </div>
         <div class="btn-item" @click.stop="previewAvatar">
-          <el-icon class="icon-style">
-            <ZoomIn /> </el-icon
-          >查看
+          <el-icon class="icon-style"> <ZoomIn /> </el-icon>查看
         </div>
         <div class="btn-item" @click.stop="delAvatar">
-          <el-icon class="icon-style">
-            <Delete /> </el-icon
-          >删除
+          <el-icon class="icon-style"> <Delete /> </el-icon>删除
         </div>
       </div>
     </el-upload>
