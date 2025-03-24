@@ -360,10 +360,11 @@ const selectionChange = (val: WorkPostItem[]) => {
 .diy-table {
   flex: 1;
   margin-left: 10px;
+  width: calc(100% - 220px);
 }
 
 .tree-box {
-  width: 220px;
+  min-width: 220px;
   background-color: #fff;
   padding: 10px 5px;
   height: 100%;

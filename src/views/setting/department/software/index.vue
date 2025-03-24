@@ -88,7 +88,7 @@ const addChildrenInfo = (row: DepartMentItem) => {
 };
 
 const deleteRadio = (row: DepartMentItem) => {
-  ElMessageBox.confirm("此操作将删除该岗位，是否继续?", "删除提示", {
+  ElMessageBox.confirm("此操作将删除该部门，是否继续?", "删除提示", {
     cancelButtonText: "取消",
     confirmButtonText: "确认",
     type: "warning",
