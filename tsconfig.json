@@ -23,7 +23,12 @@
       //路径映射，相对于baseUrl
       "@/*": ["src/*"]
     },
-    "types": ["vite/client", "element-plus/global", "./src/types/global.d.ts", "./src/types/index.ts"]
+    "types": [
+      "vite/client",
+      "element-plus/global",
+      "./src/types/global.d.ts",
+      "./src/types/index.ts"
+    ]
   },
   "include": [
     "src/**/*.ts",

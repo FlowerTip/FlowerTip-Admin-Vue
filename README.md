@@ -10,28 +10,32 @@
 
 ## 新增功能
 
- - 新增AI功能
- 
- ![AI助手](docs/image-ai.png)
+- 新增 AI 功能
+
+![AI助手](docs/image-ai.png)
 
 ## 项目模块
 
 1. 驾驶舱
 
 2. 表格组件
+
    - 高级表格
    - 表格筛选
 
 3. 上传组件
+
    - 头像上传
    - 图片上传
    - 文件上传
 
 4. 表单组件
+
    - 基础表单
    - 分步表单
 
 5. 图表组件
+
    - 饼图图表
    - 柱状图表
    - 折线图表
@@ -41,6 +45,7 @@
    - 多柱状图表
 
 6. 常用功能
+
    - 时间操作
    - 防抖节流
    - 文档预览
@@ -50,15 +55,15 @@
    - 漫游式导航
    - 富文本编辑器
    - 多级菜单
-      - 菜单1
-      - 菜单2
-      - 菜单3
-         - 菜单3-1
-         - 菜单3-2
+     - 菜单 1
+     - 菜单 2
+     - 菜单 3
+       - 菜单 3-1
+       - 菜单 3-2
    - 错误页面
-      - 403页面
-      - 404页面
-      - 500页面
+     - 403 页面
+     - 404 页面
+     - 500 页面
 
 7. 知识库
 
@@ -66,12 +71,12 @@
 
 9. 系统管理
    - 权限管理
-      - 菜单管理
-      - 角色管理
-      - 用户管理
+     - 菜单管理
+     - 角色管理
+     - 用户管理
    - 组织架构
-      - 部门管理
-      - 岗位管理
+     - 部门管理
+     - 岗位管理
 
 ## 安装启动
 
@@ -90,6 +95,7 @@
 ```
 
 ## 目录结构
+
 ![目录结构](docs/image-dir.png)
 
 - docs 目录存放项目文档
@@ -108,17 +114,17 @@
   - index.html 入口页面
   - settings.ts 配置文件
   - README.md 项目说明文件
-  - tsconfig.json ts配置文件
-  - vite.config.ts vite配置文件
+  - tsconfig.json ts 配置文件
+  - vite.config.ts vite 配置文件
   - index.d.ts 全局声明文件
   - package.json 项目配置文件
-  - pnpm-lock.yaml pnpm锁文件
+  - pnpm-lock.yaml pnpm 锁文件
   - .env.development 开发环境配置文件
   - .env.production 生产环境配置文件
   - .env.test 测试环境配置文件
-  - .gitignore git忽略文件
-  - .eslintrc.cjs eslint配置文件
-  - .prettierrc.js prettier配置文件
+  - .gitignore git 忽略文件
+  - .eslintrc.cjs eslint 配置文件
+  - .prettierrc.js prettier 配置文件
 
 ## 项目静态展示
 
@@ -150,7 +156,7 @@
 
    ![主题设置](docs/image-5.png)
 
-8. AI助手功能
+8. AI 助手功能
 
    ![AI助手](docs/image-ai.png)
 

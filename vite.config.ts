@@ -45,7 +45,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         // prodEnabled: false
       }),
     ],
-    resolve: { alias: { '@': path.resolve(__dirname, './src') } },
+    resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
     css: {
       preprocessorOptions: {
         scss: {
