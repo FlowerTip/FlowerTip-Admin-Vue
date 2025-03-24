@@ -128,19 +128,13 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="user"
-              ><el-icon>
-                <Avatar /> </el-icon
-              >个人中心</el-dropdown-item
+              ><el-icon> <Avatar /> </el-icon>个人中心</el-dropdown-item
             >
             <el-dropdown-item command="setting"
-              ><el-icon>
-                <ChromeFilled /> </el-icon
-              >偏好设置</el-dropdown-item
+              ><el-icon> <ChromeFilled /> </el-icon>偏好设置</el-dropdown-item
             >
             <el-dropdown-item command="logout" divided
-              ><el-icon>
-                <SwitchButton /> </el-icon
-              >退出登录</el-dropdown-item
+              ><el-icon> <SwitchButton /> </el-icon>退出登录</el-dropdown-item
             >
           </el-dropdown-menu>
         </template>
