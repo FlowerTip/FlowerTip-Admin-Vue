@@ -1,61 +1,29 @@
 <template>
-  <el-dialog
-    v-model="dialogVisible"
-    :title="title"
-    destroy-on-close
-    width="500px"
-  >
+  <el-dialog v-model="dialogVisible" :title="title" destroy-on-close width="500px">
     <div class="form-layout-wrapper">
-      <el-form
-        ref="dialogFormRef"
-        label-suffix=" :"
-        :model="dialogForm"
-        :rules="dialogFormRules"
-        label-width="auto"
-        class="form-container"
-      >
+      <el-form ref="dialogFormRef" label-suffix=" :" :model="dialogForm" :rules="dialogFormRules" label-width="auto"
+        class="form-container">
         <el-form-item label="上级部门" prop="parentId">
-          <el-cascader
-            :disabled="dialogForm?.parentId ? true : false"
-            :props="{
+          <el-tree-select :disabled="canSelected" v-model="dialogForm.parentId"
+            :data="departmentList" :props="{
               value: 'departmentId',
               label: 'departmentName',
-              checkStrictly: true,
-            }"
-            :show-all-levels="false"
-            :options="departmentList"
-            v-model="dialogForm.parentId"
-            placeholder="请选择上级部门"
-            style="width: 100%"
-          />
+            }" check-strictly :render-after-expand="false" placeholder="请选择上级部门" style="width: 100%;" />
         </el-form-item>
         <el-form-item label="部门名称" prop="departmentName">
-          <el-input
-            v-model="dialogForm.departmentName"
-            placeholder="请输入部门名称"
-          />
+          <el-input v-model="dialogForm.departmentName" placeholder="请输入部门名称" />
         </el-form-item>
         <el-form-item label="排列序号" prop="sort">
-          <el-input
-            v-model.number="dialogForm.sort"
-            placeholder="请输入排列序号"
-          />
+          <el-input v-model.number="dialogForm.sort" placeholder="请输入排列序号" />
         </el-form-item>
         <el-form-item label="部门描述" prop="description">
-          <el-input
-            type="textarea"
-            :rows="3"
-            v-model="dialogForm.description"
-            placeholder="请填写部门描述"
-          />
+          <el-input type="textarea" :rows="3" v-model="dialogForm.description" placeholder="请填写部门描述" />
         </el-form-item>
       </el-form>
     </div>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="dialogConfirm" :loading="loading"
-          >保存</el-button
-        >
+        <el-button type="primary" @click="dialogConfirm" :loading="loading">保存</el-button>
         <el-button @click="dialogCancel">取消</el-button>
       </div>
     </template>
@@ -68,6 +36,7 @@ import { ElMessage, FormInstance } from "element-plus";
 import { formatTime } from "@/utils/tool";
 import { reqDepartmentList } from "@/api/department";
 import { onMounted } from "vue";
+import { computed } from "vue";
 
 const getDepartmentList = async () => {
   const { code, data } = await reqDepartmentList({});
@@ -89,6 +58,12 @@ const getDepartmentList = async () => {
 onMounted(() => {
   getDepartmentList();
 });
+
+const rowFormItem = ref<DepartMentItem>();
+
+const canSelected = computed(() => {
+  return rowFormItem.value?.parentId ? true : rowFormItem.value?.departmentId ? true: false;
+})
 
 // 弹窗是否显示状态
 const dialogVisible = ref(false);
@@ -187,6 +162,9 @@ const dialogProps = ref<AcceptParams>();
 // 接收父组件参数
 const acceptParams = (params: AcceptParams) => {
   const row = params.rowData;
+  rowFormItem.value = {
+    ...row
+  };
   title.value = row!.departmentId ? "编辑部门" : "新增部门";
   dialogForm.value = row!;
   dialogProps.value = params;
