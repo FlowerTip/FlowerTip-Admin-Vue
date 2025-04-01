@@ -147,19 +147,22 @@ const columns = reactive([
     label: "部门名称",
     isShowColumn: true,
     align: "left",
+    width: 160,
   },
-  { id: 2, prop: "departmentId", label: "部门编号", isShowColumn: true },
+  { id: 2, prop: "departmentId", label: "部门编号", isShowColumn: true, width: 120 },
   {
     id: 3,
     prop: "description",
     label: "部门描述",
     isShowColumn: true,
+    width: 200,
   },
   {
     id: 4,
     prop: "parentName",
     label: "上级部门",
     isShowColumn: true,
+    width: 120,
   },
   {
     id: 5,
@@ -168,6 +171,7 @@ const columns = reactive([
     isShowColumn: true,
     sortable: true,
     type: "datetime",
+    width: 160,
   },
   {
     id: 6,
@@ -176,6 +180,7 @@ const columns = reactive([
     isShowColumn: true,
     sortable: true,
     type: "datetime",
+    width: 160,
   },
   {
     id: 7,
@@ -184,7 +189,7 @@ const columns = reactive([
     fixed: "right",
     isShowColumn: true,
     type: "slot",
-    width: 120,
+    width: 300,
   },
 ]);
 const loading = ref(false);

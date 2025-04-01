@@ -269,14 +269,14 @@ const columns = reactive([
     prop: "workPostName",
     label: "岗位名称",
     fixed: "left",
-    width: 120,
+    width: 200,
     isShowColumn: true,
   },
   {
     id: 2,
     prop: "workPostNum",
     label: "岗位编号",
-    width: 80,
+    width:140,
     isShowColumn: true,
   },
   {
@@ -297,7 +297,7 @@ const columns = reactive([
     id: 5,
     prop: "createdAt",
     label: "创建时间",
-    width: 120,
+    width: 200,
     isShowColumn: true,
     sortable: true,
     type: "datetime",
@@ -306,7 +306,7 @@ const columns = reactive([
     id: 6,
     prop: "updatedAt",
     label: "更新时间",
-    width: 120,
+    width: 200,
     isShowColumn: true,
     sortable: true,
     type: "datetime",
@@ -318,7 +318,7 @@ const columns = reactive([
     fixed: "right",
     isShowColumn: true,
     type: "slot",
-    width: 160,
+    width: 220,
   },
 ]);
 
