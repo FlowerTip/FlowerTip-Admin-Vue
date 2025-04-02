@@ -149,7 +149,13 @@ const columns = reactive([
     align: "left",
     width: 160,
   },
-  { id: 2, prop: "departmentId", label: "部门编号", isShowColumn: true, width: 120 },
+  {
+    id: 2,
+    prop: "departmentId",
+    label: "部门编号",
+    isShowColumn: true,
+    width: 120,
+  },
   {
     id: 3,
     prop: "description",

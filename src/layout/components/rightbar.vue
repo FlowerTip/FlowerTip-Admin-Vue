@@ -148,7 +148,7 @@
       shape="square"
       :style="{
         right: '0px',
-        bottom: '430px',
+        bottom: '45%',
       }"
     >
       <template #icon>

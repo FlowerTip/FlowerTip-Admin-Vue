@@ -276,7 +276,7 @@ const columns = reactive([
     id: 2,
     prop: "workPostNum",
     label: "岗位编号",
-    width:140,
+    width: 140,
     isShowColumn: true,
   },
   {
