@@ -355,12 +355,13 @@ const selectionChange = (val: WorkPostItem[]) => {
 .table-box {
   height: 100%;
   display: flex;
+  overflow: hidden;
 }
 
 .diy-table {
   flex: 1;
   margin-left: 10px;
-  width: calc(100% - 220px);
+  overflow: auto;
 }
 
 .tree-box {

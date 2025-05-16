@@ -3,6 +3,8 @@
     <div class="mixbar-header" :class="[hasShowHeaderBar ? 'hide-header' : '']">
       <!-- 左侧logo -->
       <Logo v-if="settingStore.showHeaderLogo" />
+      <!-- 中间菜单占位区域 -->
+      <div class="header-menu"></div>
       <!-- 右侧区域 -->
       <Rightbar />
     </div>
@@ -109,6 +111,10 @@ const contentRightBarClassName = computed(() => {
 
     &.hide-header {
       display: none;
+    }
+
+    .header-menu {
+      flex: 1;
     }
   }
 
