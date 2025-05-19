@@ -5,25 +5,13 @@
     </template>
     <template #default>
       <div class="form-layout-wrapper">
-        <el-tree
-          ref="treeRef"
-          style="max-width: 600px"
-          :data="treeData"
-          show-checkbox
-          default-expand-all
-          node-key="id"
-          :props="defaultProps"
-          check-strictly
-          @check="hanleCheck"
-          @check-change="checkChange"
-        />
+        <el-tree ref="treeRef" style="max-width: 600px" :data="treeData" show-checkbox default-expand-all node-key="id"
+          :props="defaultProps" check-strictly @check="hanleCheck" @check-change="checkChange" />
       </div>
     </template>
     <template #footer>
       <div style="flex: auto">
-        <el-button type="primary" @click="drawerConfirm" :loading="loading"
-          >保存</el-button
-        >
+        <el-button type="primary" @click="drawerConfirm" :loading="loading">保存</el-button>
         <el-button @click="drawerCancel">取消</el-button>
       </div>
     </template>
@@ -136,7 +124,7 @@ defineExpose({
 
 // 父子不关联，实现非最后一级，选中关联子数据功能
 const hanleCheck = (data: TreeNodeData, node: TreeNode) => {
-  console.log(data, node);
+  console.log(data, node, '触发关键数据2问');
   // 获取当前节点是否被选中
   const isChecked = treeRef.value!.getNode(data).checked;
   // 如果当前节点被选中，则遍历下级子节点并选中，如果当前节点取消选中，则遍历下级节点并取消
@@ -166,17 +154,26 @@ const checkChange = (
   checked: boolean,
   indeterminate: boolean
 ) => {
-  console.log(data, checked, indeterminate);
+  console.log(data, checked, indeterminate, '触发关键数据');
   // 选中全部子节点，父节点也默认选中，但是子节点再次取消勾选或者全部子节点取消勾选也不会影响父节点勾选状态
   let checkNode = treeRef.value!.getNode(data); //获取当前节点
 
-  // 勾选部分子节点，父节点变为半选状态
+  // 勾选部分子节点，父节点变为半选状态(按钮级别)
   if (
     checkNode.parent &&
     checkNode.parent.childNodes.some((ele: TreeNodeData) => ele.checked)
   ) {
     checkNode.parent.indeterminate = true;
   }
+  
+  // 勾选部分子节点，父节点变为不选状态(非按钮级别，这里指的是菜单级别)
+  if (checkNode.parent &&
+    checkNode.parent.childNodes.every((ele: TreeNodeData) => !ele.checked && ele.data.type != 3)) {
+    console.log(checkNode.parent.childNodes, '不选')
+    checkNode.parent.indeterminate = false;
+    checkNode.parent.checked = false;
+  }
+
   // 勾选全部子节点，父节点变为全选状态
   if (
     checkNode.parent &&
