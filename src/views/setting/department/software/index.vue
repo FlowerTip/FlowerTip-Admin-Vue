@@ -1,16 +1,43 @@
 <template>
   <div class="table-box">
-    <ProTable ref="proTable" :tableColumns="columns" :tableData="tableData" :conditionList="conditionList"
-      rowKey="departmentId" :loading="loading" :updateTableList="updateTableList" :total="total">
+    <ProTable
+      ref="proTable"
+      :tableColumns="columns"
+      :tableData="tableData"
+      :conditionList="conditionList"
+      rowKey="departmentId"
+      :loading="loading"
+      :updateTableList="updateTableList"
+      :total="total"
+    >
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button type="primary" :icon="CirclePlus" @click="openAddDepartment">新增部门</el-button>
+        <el-button type="primary" :icon="CirclePlus" @click="openAddDepartment"
+          >新增部门</el-button
+        >
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button type="primary" link :icon="Plus" @click="addChildrenInfo(slotData.scope.row)">添加部门</el-button>
-        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)">编辑部门</el-button>
-        <el-popconfirm width="180" :icon="WarningFilled" title="确定要删除该部门吗?" @confirm="deleteRadio(slotData.scope.row)">
+        <el-button
+          type="primary"
+          link
+          :icon="Plus"
+          @click="addChildrenInfo(slotData.scope.row)"
+          >添加部门</el-button
+        >
+        <el-button
+          type="primary"
+          link
+          :icon="EditPen"
+          @click="modifiyInfo(slotData.scope.row)"
+          >编辑部门</el-button
+        >
+        <el-popconfirm
+          width="180"
+          :icon="WarningFilled"
+          title="确定要删除该部门吗?"
+          @confirm="deleteRadio(slotData.scope.row)"
+        >
           <template #reference>
             <el-button link type="danger" :icon="Delete">删除部门</el-button>
           </template>
@@ -25,7 +52,13 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
-import { Plus, CirclePlus, Delete, EditPen, WarningFilled } from "@element-plus/icons-vue";
+import {
+  Plus,
+  CirclePlus,
+  Delete,
+  EditPen,
+  WarningFilled,
+} from "@element-plus/icons-vue";
 import ProTable from "@/components/ProTable/index.vue";
 import { dayjs } from "element-plus";
 import DepartmetnDialog from "./components/departmentDialog.vue";

@@ -1,20 +1,52 @@
 <template>
   <div class="table-box">
-    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
-      :total="total" :updateTableList="updateTableList" :loading="loading">
+    <ProTable
+      ref="proTableRef"
+      :tableColumns="columns"
+      :conditionList="conditionList"
+      :tableData="tableData"
+      :total="total"
+      :updateTableList="updateTableList"
+      :loading="loading"
+    >
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button type="primary" :icon="CirclePlus" @click="openAddRoleDrawer">新增角色</el-button>
+        <el-button type="primary" :icon="CirclePlus" @click="openAddRoleDrawer"
+          >新增角色</el-button
+        >
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button type="primary" link :icon="User" @click="batchPermission(slotData.scope.row)"
-          :disabled="slotData.scope.row.roleName === '超级管理员'">分配权限</el-button>
-        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)"
-          :disabled="slotData.scope.row.roleName === '超级管理员'">编辑角色</el-button>
-        <el-popconfirm width="180" :icon="WarningFilled" title="确定要删除该角色吗?" @confirm="deleteRadio(slotData.scope.row)">
+        <el-button
+          type="primary"
+          link
+          :icon="User"
+          @click="batchPermission(slotData.scope.row)"
+          :disabled="slotData.scope.row.roleName === '超级管理员'"
+          >分配权限</el-button
+        >
+        <el-button
+          type="primary"
+          link
+          :icon="EditPen"
+          @click="modifiyInfo(slotData.scope.row)"
+          :disabled="slotData.scope.row.roleName === '超级管理员'"
+          >编辑角色</el-button
+        >
+        <el-popconfirm
+          width="180"
+          :icon="WarningFilled"
+          title="确定要删除该角色吗?"
+          @confirm="deleteRadio(slotData.scope.row)"
+        >
           <template #reference>
-            <el-button link type="danger" :icon="Delete" :disabled="slotData.scope.row.roleName === '超级管理员'">删除角色</el-button>
+            <el-button
+              link
+              type="danger"
+              :icon="Delete"
+              :disabled="slotData.scope.row.roleName === '超级管理员'"
+              >删除角色</el-button
+            >
           </template>
         </el-popconfirm>
       </template>
@@ -28,7 +60,13 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
-import { CirclePlus, WarningFilled, User, EditPen, Delete } from "@element-plus/icons-vue";
+import {
+  CirclePlus,
+  WarningFilled,
+  User,
+  EditPen,
+  Delete,
+} from "@element-plus/icons-vue";
 import { dayjs, ElMessage } from "element-plus";
 import { PagainationType } from "@/types";
 import ProTable from "@/components/ProTable/index.vue";

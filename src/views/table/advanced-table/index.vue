@@ -1,28 +1,74 @@
 <template>
   <div class="table-box">
-    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
-      :total="total" :updateTableList="updateTableList" :loading="loading" :selectionChange="selectionChange"
-      rowKey="id">
-      <el-table-column type="selection" align="center" width="55" :reserve-selection="true"
-        fixed="left"></el-table-column>
+    <ProTable
+      ref="proTableRef"
+      :tableColumns="columns"
+      :conditionList="conditionList"
+      :tableData="tableData"
+      :total="total"
+      :updateTableList="updateTableList"
+      :loading="loading"
+      :selectionChange="selectionChange"
+      rowKey="id"
+    >
+      <el-table-column
+        type="selection"
+        align="center"
+        width="55"
+        :reserve-selection="true"
+        fixed="left"
+      ></el-table-column>
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button v-permission="['btn.advanced-table.add']" type="primary" :icon="CirclePlus"
-          @click="openAddRoleDrawer">新增学员</el-button>
-        <el-button v-permission="['btn.advanced-table.del']" type="danger" :icon="Remove"
-          @click="deleteSelect">删除学员</el-button>
-        <el-button v-permission="['btn.advanced-table.import']" :icon="Upload" @click="importTable">导入数据</el-button>
-        <el-button v-permission="['btn.advanced-table.export']" :icon="Download" @click="exportTable">导出数据</el-button>
+        <el-button
+          v-permission="['btn.advanced-table.add']"
+          type="primary"
+          :icon="CirclePlus"
+          @click="openAddRoleDrawer"
+          >新增学员</el-button
+        >
+        <el-button
+          v-permission="['btn.advanced-table.del']"
+          type="danger"
+          :icon="Remove"
+          @click="deleteSelect"
+          >删除学员</el-button
+        >
+        <el-button
+          v-permission="['btn.advanced-table.import']"
+          :icon="Upload"
+          @click="importTable"
+          >导入数据</el-button
+        >
+        <el-button
+          v-permission="['btn.advanced-table.export']"
+          :icon="Download"
+          @click="exportTable"
+          >导出数据</el-button
+        >
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)">编辑</el-button>
-        <el-popconfirm width="180" :icon="WarningFilled" title="确定要删除该学员吗?" @confirm="deleteRadio(slotData.scope.row)">
+        <el-button
+          type="primary"
+          link
+          :icon="EditPen"
+          @click="modifiyInfo(slotData.scope.row)"
+          >编辑</el-button
+        >
+        <el-popconfirm
+          width="180"
+          :icon="WarningFilled"
+          title="确定要删除该学员吗?"
+          @confirm="deleteRadio(slotData.scope.row)"
+        >
           <template #reference>
             <el-button link type="danger">删除</el-button>
           </template>
         </el-popconfirm>
-        <el-button link :icon="View" @click="viewInfo(slotData.scope.row)">查看</el-button>
+        <el-button link :icon="View" @click="viewInfo(slotData.scope.row)"
+          >查看</el-button
+        >
       </template>
     </ProTable>
     <!-- 新增学员 || 编辑学员抽屉 -->
