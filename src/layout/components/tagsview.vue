@@ -34,9 +34,6 @@
           <el-dropdown-item command="refresh"
             ><el-icon> <Refresh /> </el-icon>刷新页面</el-dropdown-item
           >
-          <el-dropdown-item command="fullScreen"
-            ><el-icon> <FullScreen /> </el-icon>最大化</el-dropdown-item
-          >
           <!-- tab操作 -->
           <el-dropdown-item command="closeCurrent" divided
             ><el-icon> <Remove /> </el-icon>关闭当前</el-dropdown-item
@@ -61,13 +58,11 @@
 </template>
 
 <script lang="ts" setup>
-import screenfull from "screenfull";
 import { useRoute, useRouter } from "vue-router";
 import { computed, ref, watch, onMounted } from "vue";
 import {
   ArrowDown,
   Refresh,
-  FullScreen,
   Remove,
   DArrowLeft,
   DArrowRight,
@@ -90,11 +85,6 @@ const handleCommand = (command: string) => {
         window.location.reload();
       }, 0);
       break;
-    case "fullScreen": {
-      const dom: HTMLDivElement = document.querySelector(".view-layout")!;
-      screenfull.request(dom);
-      break;
-    }
     case "closeAll":
       closeAllTab();
       break;

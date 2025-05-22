@@ -34,7 +34,7 @@
           >编辑角色</el-button
         >
         <el-button
-          type="primary"
+          type="danger"
           link
           :icon="Delete"
           @click="deleteRadio(slotData.scope.row)"

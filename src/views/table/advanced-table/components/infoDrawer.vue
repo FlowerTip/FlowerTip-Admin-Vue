@@ -1,58 +1,78 @@
-<!-- 查看学员抽屉 -->
 <template>
-  <el-drawer v-model="drawerVisiable" direction="rtl">
-    <template #header>
-      <h4>学员信息</h4>
-    </template>
+  <el-dialog title="学员信息" v-model="drawerVisiable" width="800px" draggable>
     <template #default>
       <div class="form-layout-wrapper">
         <div class="form-container">
-          <div class="form-item">
-            <span class="label">姓名：</span>
-            <span class="value">{{ detailInfo.username }}</span>
-          </div>
-          <div class="form-item">
-            <span class="label">年龄：</span>
-            <span class="value">{{ detailInfo.age }}</span>
-          </div>
-          <div class="form-item">
-            <span class="label">地址：</span>
-            <span class="value">{{ detailInfo.address }}</span>
-          </div>
-          <div class="form-item">
-            <span class="label">性别：</span>
-            <span class="value">{{ detailInfo.sexLabel }}</span>
-          </div>
-          <div class="form-item">
-            <span class="label">个头大小：</span>
-            <span class="value">{{ detailInfo.bigLabel }}</span>
-          </div>
-          <div class="form-item">
-            <span class="label">性格色彩：</span>
-            <span class="value">{{ detailInfo.color }}</span>
-          </div>
-          <div class="form-item">
-            <span class="label">兴趣爱好：</span>
-            <span class="value">{{ detailInfo.hobby }}</span>
-          </div>
-          <div class="form-item">
-            <span class="label">学校名称：</span>
-            <span class="value">{{ detailInfo.school }}</span>
-          </div>
-          <div class="form-item">
-            <span class="label">档案时间：</span>
-            <span class="value">{{ detailInfo.time }}</span>
-          </div>
-          <div class="form-item image">
-            <span class="label">学员头像：</span>
-            <span class="value">
-              <img :src="detailInfo.avatarUrl" :alt="detailInfo.avatarUrl" />
-            </span>
-          </div>
+          <el-row :gutter="16">
+            <el-col :span="12">
+              <div class="form-item">
+                <span class="label">姓名：</span>
+                <span class="value">{{ detailInfo.username }}</span>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="form-item">
+                <span class="label">年龄：</span>
+                <span class="value">{{ detailInfo.age }}</span>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="form-item">
+                <span class="label">地址：</span>
+                <span class="value">{{ detailInfo.address }}</span>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="form-item">
+                <span class="label">性别：</span>
+                <span class="value">{{ detailInfo.sexLabel }}</span>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="form-item">
+                <span class="label">个头大小：</span>
+                <span class="value">{{ detailInfo.bigLabel }}</span>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="form-item">
+                <span class="label">性格色彩：</span>
+                <span class="value">{{ detailInfo.color }}</span>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="form-item">
+                <span class="label">兴趣爱好：</span>
+                <span class="value">{{ detailInfo.hobby }}</span>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="form-item">
+                <span class="label">学校名称：</span>
+                <span class="value">{{ detailInfo.school }}</span>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="form-item">
+                <span class="label">档案时间：</span>
+                <span class="value">{{ detailInfo.time }}</span>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="form-item image">
+                <span class="label">学员头像：</span>
+                <span class="value">
+                  <el-image class="img" :alt="detailInfo.avatarUrl" :src="detailInfo.avatarUrl" :zoom-rate="1.2" :max-scale="7"
+                    :min-scale="0.2" :preview-src-list="[detailInfo.avatarUrl]" show-progress :initial-index="4"
+                    fit="cover" />
+                </span>
+              </div>
+            </el-col>
+          </el-row>
         </div>
       </div>
     </template>
-  </el-drawer>
+  </el-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -84,6 +104,8 @@ defineExpose({
 
 <style lang="scss" scoped>
 .form-layout-wrapper {
+  padding: 20px 10px;
+
   .form-container {
     .form-item {
       display: flex;
@@ -96,23 +118,25 @@ defineExpose({
 
       &.image {
         height: 148px;
-
+        align-items: flex-start;
         .value {
           border: 0;
           padding: 0;
         }
 
-        img {
+        .img {
           display: block;
           width: 148px;
           height: 148px;
+          border: 1px dotted #ebeef5;
+          cursor: pointer;
         }
       }
 
       .label {
-        width: 120px;
+        width: 80px;
         padding-right: 10px;
-        text-align: right;
+        text-align: left;
       }
 
       .value {
@@ -120,6 +144,7 @@ defineExpose({
         background-color: #fff;
         padding: 0 10px;
         border: 1px solid #ebeef5;
+        border-radius: 4px;
       }
     }
   }

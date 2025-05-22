@@ -29,13 +29,13 @@
             <el-icon class="el-icon--right">
               <Refresh />
             </el-icon>
-            刷新列表
+            刷新表格
           </el-button>
           <el-button link v-popover="popoverRef" class="popover-btn">
             <el-icon class="el-icon--right">
               <Tools />
             </el-icon>
-            显示列
+            列设置
           </el-button>
           <el-popover
             ref="popoverRef"
@@ -51,7 +51,7 @@
                     :indeterminate="isIndeterminate"
                     @change="handleCheckAllChange"
                   ></el-checkbox
-                  ><span class="title-text">列设置</span></span
+                  ><span class="title-text">显示列</span></span
                 >
                 <el-button type="primary" link @click="resetColumn"
                   >重置</el-button
@@ -62,8 +62,8 @@
                 v-model="checkedCities"
                 @change="handleCheckedCitiesChange"
               >
-                <div class="item">
-                  <p class="switch-title">固定在左侧</p>
+                <div v-if="leftFixedColumns.length > 0" class="item">
+                  <p class="switch-title">固定左侧</p>
                   <div
                     v-for="col in leftFixedColumns"
                     :key="col.id"
@@ -76,7 +76,7 @@
                   </div>
                 </div>
                 <div class="item">
-                  <p class="switch-title">不固定</p>
+                  <p class="switch-title">列名称</p>
                   <div
                     v-for="col in noFixedColumns"
                     :key="col.id"
@@ -88,8 +88,8 @@
                     ></el-checkbox>
                   </div>
                 </div>
-                <div class="item">
-                  <p class="switch-title">固定在右侧</p>
+                <div v-if="rightFixedColumns.length > 0" class="item">
+                  <p class="switch-title">固定右侧</p>
                   <div
                     v-for="col in rightFixedColumns"
                     :key="col.id"

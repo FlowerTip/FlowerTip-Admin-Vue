@@ -12,7 +12,7 @@ import i18n from "./language";
 // 引入全局的样式
 import "@/styles/index.scss";
 // 2. 应用App根组件
-import App from "./App.vue";
+import App from "@/App.vue";
 import "./permission";
 
 // 3. 创建应用实例
