@@ -118,10 +118,9 @@ defineExpose({
   .form-container {
     .form-item {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      // align-items: center;
       font-size: 14px;
-      height: 32px;
-      line-height: 32px;
       margin-bottom: 20px;
       color: var(--el-text-color-regular);
 
@@ -144,12 +143,14 @@ defineExpose({
 
       .label {
         width: 80px;
-        padding-right: 10px;
         text-align: left;
+        margin-bottom: 10px;
       }
 
       .value {
         flex: 1;
+        height: 32px;
+        line-height: 32px;
         background-color: #fff;
         padding: 0 10px;
         border: 1px solid #ebeef5;
