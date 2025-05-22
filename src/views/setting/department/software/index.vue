@@ -1,44 +1,20 @@
 <template>
   <div class="table-box">
-    <ProTable
-      ref="proTable"
-      :tableColumns="columns"
-      :tableData="tableData"
-      :conditionList="conditionList"
-      rowKey="departmentId"
-      :loading="loading"
-      :updateTableList="updateTableList"
-      :total="total"
-    >
+    <ProTable ref="proTable" :tableColumns="columns" :tableData="tableData" :conditionList="conditionList"
+      rowKey="departmentId" :loading="loading" :updateTableList="updateTableList" :total="total">
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button type="primary" :icon="CirclePlus" @click="openAddDepartment"
-          >新增部门</el-button
-        >
+        <el-button type="primary" :icon="CirclePlus" @click="openAddDepartment">新增部门</el-button>
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button
-          type="primary"
-          link
-          :icon="Plus"
-          @click="addChildrenInfo(slotData.scope.row)"
-          >添加部门</el-button
-        >
-        <el-button
-          type="primary"
-          link
-          :icon="EditPen"
-          @click="modifiyInfo(slotData.scope.row)"
-          >编辑部门</el-button
-        >
-        <el-button
-          type="danger"
-          link
-          :icon="Delete"
-          @click="deleteRadio(slotData.scope.row)"
-          >删除部门</el-button
-        >
+        <el-button type="primary" link :icon="Plus" @click="addChildrenInfo(slotData.scope.row)">添加部门</el-button>
+        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)">编辑部门</el-button>
+        <el-popconfirm width="180" :icon="WarningFilled" title="确定要删除该部门吗?" @confirm="deleteRadio(slotData.scope.row)">
+          <template #reference>
+            <el-button link type="danger" :icon="Delete">删除部门</el-button>
+          </template>
+        </el-popconfirm>
       </template>
     </ProTable>
     <!-- 新增部门 || 编辑部门 -->
@@ -48,8 +24,8 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
-import { ElMessage, ElMessageBox } from "element-plus";
-import { Plus, CirclePlus, Delete, EditPen } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
+import { Plus, CirclePlus, Delete, EditPen, WarningFilled } from "@element-plus/icons-vue";
 import ProTable from "@/components/ProTable/index.vue";
 import { dayjs } from "element-plus";
 import DepartmetnDialog from "./components/departmentDialog.vue";
@@ -87,33 +63,20 @@ const addChildrenInfo = (row: DepartMentItem) => {
   });
 };
 
-const deleteRadio = (row: DepartMentItem) => {
-  ElMessageBox.confirm("此操作将删除该部门，是否继续?", "删除提示", {
-    cancelButtonText: "取消",
-    confirmButtonText: "确认",
-    type: "warning",
-  })
-    .then(async () => {
-      const { code } = await reqDelDepartMent({
-        departmentId: row.departmentId,
-      });
-      if (code === 200) {
-        ElMessage({
-          type: "success",
-          message: "删除成功",
-        });
-        updateTableList({
-          pageSize: 20,
-          currentPage: 1,
-        });
-      }
-    })
-    .catch(() => {
-      ElMessage({
-        type: "info",
-        message: "取消删除",
-      });
+const deleteRadio = async (row: DepartMentItem) => {
+  const { code } = await reqDelDepartMent({
+    departmentId: row.departmentId,
+  });
+  if (code === 200) {
+    ElMessage({
+      type: "success",
+      message: "删除成功",
     });
+    updateTableList({
+      pageSize: 20,
+      currentPage: 1,
+    });
+  }
 };
 
 const modifiyInfo = (row: DepartMentItem) => {

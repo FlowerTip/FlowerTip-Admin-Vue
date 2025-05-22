@@ -1,71 +1,28 @@
 <template>
   <div class="table-box">
-    <ProTable
-      ref="proTableRef"
-      :tableColumns="columns"
-      :conditionList="conditionList"
-      :tableData="tableData"
-      :total="total"
-      :updateTableList="updateTableList"
-      :loading="loading"
-      :selectionChange="selectionChange"
-      rowKey="id"
-    >
-      <el-table-column
-        type="selection"
-        align="center"
-        width="55"
-        :reserve-selection="true"
-        fixed="left"
-      ></el-table-column>
+    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
+      :total="total" :updateTableList="updateTableList" :loading="loading" :selectionChange="selectionChange"
+      rowKey="id">
+      <el-table-column type="selection" align="center" width="55" :reserve-selection="true"
+        fixed="left"></el-table-column>
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button
-          v-permission="['btn.advanced-table.add']"
-          type="primary"
-          :icon="CirclePlus"
-          @click="openAddRoleDrawer"
-          >新增学员</el-button
-        >
-        <el-button
-          v-permission="['btn.advanced-table.del']"
-          type="danger"
-          :icon="Remove"
-          @click="deleteSelect"
-          >删除学员</el-button
-        >
-        <el-button
-          v-permission="['btn.advanced-table.import']"
-          :icon="Upload"
-          @click="importTable"
-          >导入数据</el-button
-        >
-        <el-button
-          v-permission="['btn.advanced-table.export']"
-          :icon="Download"
-          @click="exportTable"
-          >导出数据</el-button
-        >
+        <el-button v-permission="['btn.advanced-table.add']" type="primary" :icon="CirclePlus"
+          @click="openAddRoleDrawer">新增学员</el-button>
+        <el-button v-permission="['btn.advanced-table.del']" type="danger" :icon="Remove"
+          @click="deleteSelect">删除学员</el-button>
+        <el-button v-permission="['btn.advanced-table.import']" :icon="Upload" @click="importTable">导入数据</el-button>
+        <el-button v-permission="['btn.advanced-table.export']" :icon="Download" @click="exportTable">导出数据</el-button>
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button
-          type="primary"
-          link
-          :icon="EditPen"
-          @click="modifiyInfo(slotData.scope.row)"
-          >编辑</el-button
-        >
-        <el-button
-          type="danger"
-          link
-          :icon="Delete"
-          @click="deleteRadio(slotData.scope.row)"
-          >删除</el-button
-        >
-        <el-button link :icon="View" @click="viewInfo(slotData.scope.row)"
-          >查看</el-button
-        >
+        <el-button type="primary" link :icon="EditPen" @click="modifiyInfo(slotData.scope.row)">编辑</el-button>
+        <el-popconfirm width="180" :icon="WarningFilled" title="确定要删除该学员吗?" @confirm="deleteRadio(slotData.scope.row)">
+          <template #reference>
+            <el-button link type="danger">删除</el-button>
+          </template>
+        </el-popconfirm>
+        <el-button link :icon="View" @click="viewInfo(slotData.scope.row)">查看</el-button>
       </template>
     </ProTable>
     <!-- 新增学员 || 编辑学员抽屉 -->
@@ -88,7 +45,7 @@ import ImportDialog from "@/components/Upload/importDialog.vue";
 import useExport from "@/hooks/useExport";
 import {
   CirclePlus,
-  Delete,
+  WarningFilled,
   View,
   Remove,
   Upload,
@@ -289,33 +246,20 @@ const selectionChange = (val: StudentItem[]) => {
   selectRow.value = val;
 };
 
-const deleteRadio = (row: StudentItem) => {
-  ElMessageBox.confirm("此操作将删除该学员，是否继续?", "删除提示", {
-    cancelButtonText: "取消",
-    confirmButtonText: "确认",
-    type: "warning",
-  })
-    .then(async () => {
-      const { code, data } = await reqDelStudent({
-        ids: [row.id as number],
-      });
-      if (code === 200) {
-        ElMessage({
-          type: "success",
-          message: data.message,
-        });
-        updateTableList({
-          pageSize: 20,
-          currentPage: 1,
-        });
-      }
-    })
-    .catch(() => {
-      ElMessage({
-        type: "info",
-        message: "取消删除",
-      });
+const deleteRadio = async (row: StudentItem) => {
+  const { code, data } = await reqDelStudent({
+    ids: [row.id as number],
+  });
+  if (code === 200) {
+    ElMessage({
+      type: "success",
+      message: data.message,
     });
+    updateTableList({
+      pageSize: 20,
+      currentPage: 1,
+    });
+  }
 };
 
 const deleteSelect = () => {
