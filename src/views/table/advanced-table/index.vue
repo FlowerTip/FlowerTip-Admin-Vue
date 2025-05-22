@@ -54,7 +54,7 @@
           link
           :icon="EditPen"
           @click="modifiyInfo(slotData.scope.row)"
-          >编辑</el-button
+          >编辑学员</el-button
         >
         <el-popconfirm
           width="180"
@@ -63,11 +63,11 @@
           @confirm="deleteRadio(slotData.scope.row)"
         >
           <template #reference>
-            <el-button link type="danger">删除</el-button>
+            <el-button :icon="Delete" link type="danger">删除学员</el-button>
           </template>
         </el-popconfirm>
         <el-button link :icon="View" @click="viewInfo(slotData.scope.row)"
-          >查看</el-button
+          >查看学员</el-button
         >
       </template>
     </ProTable>
@@ -97,6 +97,7 @@ import {
   Upload,
   Download,
   EditPen,
+  Delete
 } from "@element-plus/icons-vue";
 import { ElMessage, ElMessageBox, ElLoading, dayjs } from "element-plus";
 
