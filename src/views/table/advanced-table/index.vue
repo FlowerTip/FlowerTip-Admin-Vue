@@ -97,7 +97,7 @@ import {
   Upload,
   Download,
   EditPen,
-  Delete
+  Delete,
 } from "@element-plus/icons-vue";
 import { ElMessage, ElMessageBox, ElLoading, dayjs } from "element-plus";
 
