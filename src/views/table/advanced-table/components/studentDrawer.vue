@@ -100,7 +100,7 @@
                 v-model:successed="uploadSuccessed"
                 v-model:isModifyed="isModifyed"
                 :uploadParam="uploadParam"
-                style="align-items: flex-start;"
+                style="align-items: flex-start"
               >
                 <template #tip>限制为2MB，只能上传PNG，JPG，GIF格式</template>
               </AvatarUpload>
