@@ -54,7 +54,7 @@
           link
           :icon="EditPen"
           @click="modifiyInfo(slotData.scope.row)"
-          >编辑学员</el-button
+          >编辑</el-button
         >
         <el-popconfirm
           width="180"
@@ -63,11 +63,11 @@
           @confirm="deleteRadio(slotData.scope.row)"
         >
           <template #reference>
-            <el-button :icon="Delete" link type="danger">删除学员</el-button>
+            <el-button :icon="Delete" link type="danger">删除</el-button>
           </template>
         </el-popconfirm>
         <el-button link :icon="View" @click="viewInfo(slotData.scope.row)"
-          >查看学员</el-button
+          >查看</el-button
         >
       </template>
     </ProTable>
@@ -244,7 +244,7 @@ const columns = reactive([
     prop: "operation",
     label: "操作",
     fixed: "right",
-    width: 220,
+    width: 200,
     isShowColumn: true,
     type: "slot",
   },
