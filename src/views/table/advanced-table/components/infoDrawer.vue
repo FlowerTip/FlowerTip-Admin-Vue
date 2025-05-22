@@ -62,9 +62,18 @@
               <div class="form-item image">
                 <span class="label">学员头像：</span>
                 <span class="value">
-                  <el-image class="img" :alt="detailInfo.avatarUrl" :src="detailInfo.avatarUrl" :zoom-rate="1.2" :max-scale="7"
-                    :min-scale="0.2" :preview-src-list="[detailInfo.avatarUrl]" show-progress :initial-index="4"
-                    fit="cover" />
+                  <el-image
+                    class="img"
+                    :alt="detailInfo.avatarUrl"
+                    :src="detailInfo.avatarUrl"
+                    :zoom-rate="1.2"
+                    :max-scale="7"
+                    :min-scale="0.2"
+                    :preview-src-list="[detailInfo.avatarUrl]"
+                    show-progress
+                    :initial-index="4"
+                    fit="cover"
+                  />
                 </span>
               </div>
             </el-col>
