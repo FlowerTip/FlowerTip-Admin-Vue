@@ -244,7 +244,7 @@ const columns = reactive([
     prop: "operation",
     label: "操作",
     fixed: "right",
-    width: 200,
+    width: 220,
     isShowColumn: true,
     type: "slot",
   },
