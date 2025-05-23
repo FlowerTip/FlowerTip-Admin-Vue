@@ -151,7 +151,7 @@ declare type AccountItem = {
   username: string;
   password: string;
   departmentId?: number;
-  workPostId?: number;
+  workPostId?: number | string;
 };
 
 declare type MenuItem = {
