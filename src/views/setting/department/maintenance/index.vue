@@ -127,7 +127,7 @@ const openAddWorkPost = () => {
 
 const deleteRadio = async (row: AccountItem) => {
   const { code } = await reqDelWorkPost({
-    ids: [row.workPostId!],
+    ids: [(row.workPostId as number)!],
   });
   if (code === 200) {
     ElMessage({
