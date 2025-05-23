@@ -2,6 +2,7 @@ import { ElMessage } from "element-plus";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { getPageTitle } from "@/utils/tool";
+import { versionCheck } from "@/utils/versionCheck";
 import router from "./router";
 import store from "./store";
 import useUserStore from "./store/modules/userStore";
@@ -67,6 +68,7 @@ router.beforeEach(async (to, _, next) => {
   }
 });
 
-router.afterEach(() => {
+router.afterEach(async () => {
   NProgress.done();
+  await versionCheck();
 });
