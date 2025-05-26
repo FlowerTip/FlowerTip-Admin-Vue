@@ -10,9 +10,6 @@ import path from "path";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 // 引入svg
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
-// 导入版本刷新插件
-import versionPlugin from "./src/utils/refreshPlugin";
-const timeVersion = new Date().getTime();
 
 // https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfigExport => {
@@ -47,10 +44,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         // supportTs: true, //打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
         localEnabled: false,
         // prodEnabled: false
-      }),
-      versionPlugin({
-        version: timeVersion,
-      }),
+      })
     ],
     resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
     css: {
@@ -77,9 +71,6 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           rewrite: (path: string) => path.replace(/^\/api/, ""),
         },
       },
-    },
-    define: {
-      __APP_VERSION__: JSON.stringify(timeVersion),
-    },
+    }
   };
 };
