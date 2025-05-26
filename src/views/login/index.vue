@@ -22,46 +22,24 @@
       <el-col :span="10" :xs="22">
         <div class="right-form">
           <h3 class="login-logo">{{ defaultSetting.title }}</h3>
-          <el-form
-            :model="loginFormData"
-            :rules="loginFormRules"
-            class="login-form"
-          >
+          <el-form :model="loginFormData" :rules="loginFormRules" class="login-form">
             <el-form-item prop="username">
-              <el-input
-                v-model="loginFormData.username"
-                :prefix-icon="User"
-                :placeholder="$t('loginText.username')"
-              />
+              <el-input v-model="loginFormData.username" :prefix-icon="User" :placeholder="$t('loginText.username')" />
             </el-form-item>
             <el-form-item prop="password">
-              <el-input
-                type="password"
-                show-password
-                v-model="loginFormData.password"
-                :prefix-icon="Lock"
-                :placeholder="$t('loginText.password')"
-              />
+              <el-input type="password" show-password v-model="loginFormData.password" :prefix-icon="Lock"
+                :placeholder="$t('loginText.password')" />
             </el-form-item>
             <el-form-item prop="code">
               <div class="code-wrapper">
-                <el-input
-                  v-model="loginFormData.code"
-                  :prefix-icon="Picture"
-                  :placeholder="$t('loginText.msg')"
-                />
+                <el-input v-model="loginFormData.code" :prefix-icon="Picture" :placeholder="$t('loginText.msg')" />
                 <VerifyCode :updateImgCode="updateImgCode"></VerifyCode>
               </div>
             </el-form-item>
 
             <el-form-item>
-              <el-button
-                class="login-btn"
-                type="primary"
-                :loading="loginLoading"
-                @click="handleLogin"
-                >{{ $t("loginText.login") }}</el-button
-              >
+              <el-button class="login-btn" type="primary" :loading="loginLoading" @click="handleLogin">{{
+                $t("loginText.login") }}</el-button>
             </el-form-item>
             <el-form-item class="tip">
               <h4>{{ $t("loginText.tips.h1") }}：</h4>
@@ -83,7 +61,7 @@ import { useRouter, useRoute } from "vue-router";
 import VerifyCode from "@/components/VerifyCode/index.vue";
 import defaultSetting from "@/setting";
 import useUserStore from "@/store/modules/userStore";
-import { ElMessage } from "element-plus";
+import { ElNotification } from "element-plus";
 import { useI18n } from "vue-i18n";
 const userStore = useUserStore();
 const { t } = useI18n();
@@ -122,11 +100,14 @@ const handleLogin = async () => {
   if (res && res.token) {
     loginLoading.value = false;
     const redirectUrl = (redirect || "/") as string;
-    router.replace(redirectUrl).then(() => {
-      ElMessage.success(res.message);
-    });
+    router.replace(redirectUrl);
   } else {
-    ElMessage.warning("账号或密码错误");
+    ElNotification({
+      title: '登录提示',
+      message: '账号或密码错误',
+      type: 'warning',
+    })
+    loginLoading.value = false;
   }
 };
 </script>

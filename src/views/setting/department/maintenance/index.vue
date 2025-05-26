@@ -66,6 +66,7 @@
           type="primary"
           link
           :icon="EditPen"
+          :disabled="slotData.scope.row.workPostId == 21 || slotData.scope.row.workPostId == 22"
           @click="modifiyInfo(slotData.scope.row)"
           >编辑岗位</el-button
         >
@@ -76,7 +77,7 @@
           @confirm="deleteRadio(slotData.scope.row)"
         >
           <template #reference>
-            <el-button link type="danger" :icon="Delete">删除岗位</el-button>
+            <el-button link type="danger" :icon="Delete" :disabled="slotData.scope.row.workPostId == 21 || slotData.scope.row.workPostId == 22">删除岗位</el-button>
           </template>
         </el-popconfirm>
       </template>

@@ -123,8 +123,13 @@ const dialogConfirm = () => {
       };
       try {
         loading.value = true;
-        await dialogProps.value?.api(req);
-        ElMessage.success({ message: `${title.value}成功` });
+        const {code, data} = await dialogProps.value?.api(req);
+        if (code !== 200) {
+          ElMessage.error({ message: data.message });
+          loading.value = false;
+          return;
+        }
+        ElMessage.success({ message: data.message });
         dialogProps.value?.getTableList({
           currentPage: 1,
           pageSize: 20,
