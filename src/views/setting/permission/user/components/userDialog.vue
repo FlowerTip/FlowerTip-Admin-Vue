@@ -123,7 +123,7 @@ const dialogConfirm = () => {
       };
       try {
         loading.value = true;
-        const {code, data} = await dialogProps.value?.api(req);
+        const { code, data } = await dialogProps.value?.api(req);
         if (code !== 200) {
           ElMessage.error({ message: data.message });
           loading.value = false;

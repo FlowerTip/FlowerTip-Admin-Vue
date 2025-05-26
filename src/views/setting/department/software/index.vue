@@ -22,7 +22,11 @@
           type="primary"
           link
           :icon="Plus"
-          :disabled="slotData.scope.row.departmentId == 92 || slotData.scope.row.departmentId == 93 || slotData.scope.row.departmentId == 94"
+          :disabled="
+            slotData.scope.row.departmentId == 92 ||
+            slotData.scope.row.departmentId == 93 ||
+            slotData.scope.row.departmentId == 94
+          "
           @click="addChildrenInfo(slotData.scope.row)"
           >添加部门</el-button
         >
@@ -30,7 +34,11 @@
           type="primary"
           link
           :icon="EditPen"
-          :disabled="slotData.scope.row.departmentId == 92 || slotData.scope.row.departmentId == 93 || slotData.scope.row.departmentId == 94"
+          :disabled="
+            slotData.scope.row.departmentId == 92 ||
+            slotData.scope.row.departmentId == 93 ||
+            slotData.scope.row.departmentId == 94
+          "
           @click="modifiyInfo(slotData.scope.row)"
           >编辑部门</el-button
         >
@@ -41,7 +49,17 @@
           @confirm="deleteRadio(slotData.scope.row)"
         >
           <template #reference>
-            <el-button link type="danger" :icon="Delete" :disabled="slotData.scope.row.departmentId == 92 || slotData.scope.row.departmentId == 93 || slotData.scope.row.departmentId == 94">删除部门</el-button>
+            <el-button
+              link
+              type="danger"
+              :icon="Delete"
+              :disabled="
+                slotData.scope.row.departmentId == 92 ||
+                slotData.scope.row.departmentId == 93 ||
+                slotData.scope.row.departmentId == 94
+              "
+              >删除部门</el-button
+            >
           </template>
         </el-popconfirm>
       </template>
