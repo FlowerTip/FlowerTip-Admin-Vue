@@ -435,7 +435,7 @@ const placeholderNode = h(
   [
     h(Welcome, {
       variant: "borderless",
-      icon: "https://www.flowertip.site/admin/favicon.svg",
+      icon: "https://www.flowertip.site/upload/admin.png",
       title: "您好, 我是您的智能对话交互助手",
       description: "我是狗尾巴花的尖，FlowerTip Admin 智能对话交互助手",
       style: {
