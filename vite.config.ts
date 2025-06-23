@@ -49,7 +49,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       // 打包后查看资源占比,执行打包后会生成一个resource.html
       visualizer({
         open: true, // true 打包完自动打开分析页面，false 不会自动弹出
-        filename: './dist/resource.html', // 分析图生成的文件名
+        filename: "./dist/resource.html", // 分析图生成的文件名
         gzipSize: true, // 是否统计并显示gzip
         brotliSize: true, // 是否统计并显示brotli
       }),
@@ -85,12 +85,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       rollupOptions: {
         output: {
           manualChunks: {
-            'vue-vendor': ['vue', 'vue-router', 'pinia'],
-            'element-plus': ['element-plus'],
-            'echarts': ['echarts'],
+            "vue-vendor": ["vue", "vue-router", "pinia"],
+            "element-plus": ["element-plus"],
+            echarts: ["echarts"],
           },
         },
-      }
-    }
+      },
+    },
   };
 };

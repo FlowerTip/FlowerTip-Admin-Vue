@@ -52,7 +52,7 @@ export const staticRoutes = [
       hidden: true,
       title: "500",
     },
-  }
+  },
 ];
 
 // 异步路由
