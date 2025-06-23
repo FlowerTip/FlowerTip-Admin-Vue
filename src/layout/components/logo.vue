@@ -20,11 +20,10 @@ const settingStore = useSettingStore();
   height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 700;
-  font-size: 24px;
+  font-weight: 600;
+  font-size: 25px;
   color: #ffffff;
-  // letter-spacing: 0.5px;
-  margin-right: 20px;
+  margin-right: 15px;
 
   img {
     width: 100%;

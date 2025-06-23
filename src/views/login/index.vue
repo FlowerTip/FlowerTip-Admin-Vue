@@ -147,7 +147,7 @@ const handleLogin = async () => {
   background-size: cover;
 
   .row-container {
-    width: 1000px;
+    width: 1160px;
     height: 400px;
 
     .left-logo {

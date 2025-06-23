@@ -26,3 +26,9 @@ onMounted(() => {
   toggleThemeColor(defaultSetting.themeName);
 });
 </script>
+
+<style lang="scss">
+:root {
+  --el-menu-base-level-padding: 8px !important;
+}
+</style>
