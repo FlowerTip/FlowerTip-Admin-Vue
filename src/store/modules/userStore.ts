@@ -78,18 +78,15 @@ const useUserStore = defineStore({
           });
         } else {
           ElMessage.error("无权限访问任何页面，请联系管理员处理");
-          this.logout(false);
+          this.logout();
         }
       }
       return Promise.resolve(data.list);
     },
-    async logout(isRefresh = true) {
+    async logout() {
+      await reqLogout(true);
       removeToken();
       this.$reset();
-      if (isRefresh) {
-        await reqLogout(true);
-        window.location.reload();
-      }
     },
     updateLeftMenus(data: RouteRecordRaw[]) {
       this.sidebarMenuList = data;

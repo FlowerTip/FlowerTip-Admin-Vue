@@ -54,7 +54,7 @@ const route = useRoute();
 console.log(route.matched);
 
 const matched = computed(() => {
-  const firstAuthMenu = userStore.authMenuList[0];
+  const firstAuthMenu = userStore.authMenuList[0] || {};
   let firstEle = {
     ...firstAuthMenu,
     meta: {

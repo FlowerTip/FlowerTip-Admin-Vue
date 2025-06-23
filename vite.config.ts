@@ -6,6 +6,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { viteMockServe } from "vite-plugin-mock";
 import DefineOptions from "unplugin-vue-define-options/vite";
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
+import { visualizer } from "rollup-plugin-visualizer";
 import path from "path";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 // 引入svg
@@ -44,7 +45,14 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         // supportTs: true, //打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
         localEnabled: false,
         // prodEnabled: false
-      })
+      }),
+      // 打包后查看资源占比,执行打包后会生成一个resource.html
+      visualizer({
+        open: true, // true 打包完自动打开分析页面，false 不会自动弹出
+        filename: './dist/resource.html', // 分析图生成的文件名
+        gzipSize: true, // 是否统计并显示gzip
+        brotliSize: true, // 是否统计并显示brotli
+      }),
     ],
     resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
     css: {
@@ -71,6 +79,18 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           rewrite: (path: string) => path.replace(/^\/api/, ""),
         },
       },
+    },
+    // 分包策略
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vue-vendor': ['vue', 'vue-router', 'pinia'],
+            'element-plus': ['element-plus'],
+            'echarts': ['echarts'],
+          },
+        },
+      }
     }
   };
 };

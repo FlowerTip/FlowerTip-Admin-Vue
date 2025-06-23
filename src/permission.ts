@@ -9,9 +9,9 @@ import useUserStore from "./store/modules/userStore";
 // 进度条配置对象
 NProgress.configure({
   easing: "ease", // 动画方式
-  speed: 200, // 递增进度条的速度
+  speed: 150, // 递增进度条的速度
   showSpinner: false, // 是否显示加载ico
-  trickleSpeed: 300, // 自动递增间隔
+  trickleSpeed: 150, // 自动递增间隔
   minimum: 0.3, // 初始化时的最小百分比
 });
 
@@ -47,10 +47,8 @@ router.beforeEach(async (to, _, next) => {
             type: "error",
             message: "登录失败，页面自动刷新尝试重新登录",
           });
-          setTimeout(async () => {
-            await userStore.logout(false);
-            next({ path: "/login", query: { redirect: to?.path } });
-          }, 1000);
+          await userStore.logout();
+          next({ path: "/login", query: { redirect: to?.path } });
         }
       }
     }
@@ -60,13 +58,14 @@ router.beforeEach(async (to, _, next) => {
       next();
     } else {
       if (whiteRouteList.includes(to.path)) {
-        return next();
+        next();
+      } else {
+        next({ path: "/login", query: { redirect: to?.path } });
       }
-      next({ path: "/login", query: { redirect: to?.path } });
     }
   }
 });
 
-router.afterEach(async () => {
+router.afterEach(() => {
   NProgress.done();
 });

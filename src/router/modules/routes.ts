@@ -52,7 +52,7 @@ export const staticRoutes = [
       hidden: true,
       title: "500",
     },
-  },
+  }
 ];
 
 // 异步路由
@@ -565,7 +565,7 @@ export const asyncRoute = [
 
 // 任意路由
 export const anyRoute = {
-  path: "/:pathMatch(.*)",
+  path: "/:pathMatch(.*)*",
   name: "Any",
   component: () => import("@/views/error-page/404.vue"),
   meta: {
