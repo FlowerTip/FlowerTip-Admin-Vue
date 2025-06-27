@@ -23,7 +23,7 @@
           <Tagsview v-if="!hasHideTagsView" />
         </div>
         <!-- 二级路由占位区域 -->
-        <div class="view-layout">
+        <div class="view-layout" id="layout">
           <router-view v-slot="{ Component, route }">
             <transition appear name="fade-transform" mode="out-in">
               <keep-alive :include="cacheRouteViews">
