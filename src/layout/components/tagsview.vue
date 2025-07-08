@@ -68,7 +68,6 @@ import {
   DArrowRight,
   CircleClose,
   FolderDelete,
-  FullScreen,
 } from "@element-plus/icons-vue";
 import { TabPaneName, TabsPaneContext } from "element-plus";
 import useUserStore from "@/store/modules/userStore";

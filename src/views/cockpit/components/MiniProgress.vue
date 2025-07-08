@@ -21,9 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
-
-const props = withDefaults(
+withDefaults(
   defineProps<{
     percentage: number;
     height: number;

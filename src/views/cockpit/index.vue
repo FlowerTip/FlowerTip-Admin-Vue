@@ -344,7 +344,7 @@ const activeData = ref([40, 80, 50, 90, 60, 70, 50]);
 const orderData = ref([60, 70, 80, 40, 50, 90, 70]);
 
 // 时间范围
-const timeRange = ref("month");
+const timeRange = ref<"year" | "month" | "week" | undefined>("month");
 
 // 销售排行榜数据
 const salesRankType = ref("daily");
