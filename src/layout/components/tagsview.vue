@@ -21,9 +21,6 @@
       <template #dropdown>
         <el-dropdown-menu>
           <!-- 页面操作 -->
-          <el-dropdown-item command="fullscreen"><el-icon>
-              <FullScreen />
-            </el-icon>最大化</el-dropdown-item>
           <el-dropdown-item command="refresh"><el-icon>
               <Refresh />
             </el-icon>刷新页面</el-dropdown-item>
@@ -53,8 +50,6 @@
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router";
 import { computed, ref, watch, onMounted } from "vue";
-import { useFullscreen } from '@vueuse/core';
-
 import {
   ArrowDown,
   Refresh,
@@ -69,8 +64,6 @@ import { TabPaneName, TabsPaneContext } from "element-plus";
 import useUserStore from "@/store/modules/userStore";
 import useTagsViewStore from "@/store/modules/tagsViewStore";
 
-const { enter } = useFullscreen(document.getElementById('layout') as HTMLDivElement);
-
 const userStore = useUserStore();
 const tagsViewStore = useTagsViewStore();
 const router = useRouter();
@@ -80,9 +73,6 @@ const currRoute = useRoute();
 
 const handleCommand = (command: string) => {
   switch (command) {
-    case "fullscreen":
-      enter();
-      break;
     case "refresh":
       router.go(0);
       break;
