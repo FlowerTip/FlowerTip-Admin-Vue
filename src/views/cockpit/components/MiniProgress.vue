@@ -1,11 +1,15 @@
 <template>
-  <div ref="chartRef" :style="{ height: height + 'px' }" class="chart-container">
+  <div
+    ref="chartRef"
+    :style="{ height: height + 'px' }"
+    class="chart-container"
+  >
     <div class="progress-bar">
-      <div 
-        class="progress-inner" 
-        :style="{ 
+      <div
+        class="progress-inner"
+        :style="{
           width: percentage + '%',
-          background: `linear-gradient(90deg, ${startColor} 0%, ${endColor} 100%)`
+          background: `linear-gradient(90deg, ${startColor} 0%, ${endColor} 100%)`,
         }"
       ></div>
     </div>
@@ -17,17 +21,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
-const props = withDefaults(defineProps<{
-  percentage: number
-  height: number
-  startColor?: string
-  endColor?: string
-}>(), {
-  startColor: '#409EFF',
-  endColor: '#95d5ff'
-})
+const props = withDefaults(
+  defineProps<{
+    percentage: number;
+    height: number;
+    startColor?: string;
+    endColor?: string;
+  }>(),
+  {
+    startColor: "#409EFF",
+    endColor: "#95d5ff",
+  }
+);
 </script>
 
 <style scoped>

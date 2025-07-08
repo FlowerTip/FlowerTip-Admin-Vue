@@ -1,8 +1,18 @@
 <template>
   <div class="tab-box">
-    <el-tabs type="card" :closable="showClose" v-model="tabsMenuValue" class="tabsview" @tab-remove="removeTab"
-      @tab-click="tabClick">
-      <el-tab-pane v-for="item in tagsViewStore.tabsMenuList" :key="item.path" :name="item.path as string">
+    <el-tabs
+      type="card"
+      :closable="showClose"
+      v-model="tabsMenuValue"
+      class="tabsview"
+      @tab-remove="removeTab"
+      @tab-click="tabClick"
+    >
+      <el-tab-pane
+        v-for="item in tagsViewStore.tabsMenuList"
+        :key="item.path"
+        :name="item.path as string"
+      >
         <template #label>
           <span class="custom-tabs-label">
             <svg-icon v-if="item.icon" :name="item.icon"></svg-icon>
@@ -21,26 +31,38 @@
       <template #dropdown>
         <el-dropdown-menu>
           <!-- 页面操作 -->
-          <el-dropdown-item command="refresh"><el-icon>
-              <Refresh />
-            </el-icon>刷新页面</el-dropdown-item>
+          <el-dropdown-item command="refresh"
+            ><el-icon>
+              <Refresh /> </el-icon
+            >刷新页面</el-dropdown-item
+          >
           <!-- tab操作 -->
-          <el-dropdown-item command="closeCurrent" divided><el-icon>
-              <Remove />
-            </el-icon>关闭当前</el-dropdown-item>
-          <el-dropdown-item command="closeLeft"><el-icon>
-              <DArrowLeft />
-            </el-icon>关门左侧</el-dropdown-item>
-          <el-dropdown-item command="closeRight"><el-icon>
-              <DArrowRight />
-            </el-icon>关闭右侧</el-dropdown-item>
+          <el-dropdown-item command="closeCurrent" divided
+            ><el-icon>
+              <Remove /> </el-icon
+            >关闭当前</el-dropdown-item
+          >
+          <el-dropdown-item command="closeLeft"
+            ><el-icon>
+              <DArrowLeft /> </el-icon
+            >关门左侧</el-dropdown-item
+          >
+          <el-dropdown-item command="closeRight"
+            ><el-icon>
+              <DArrowRight /> </el-icon
+            >关闭右侧</el-dropdown-item
+          >
           <!-- 批量tab操作 -->
-          <el-dropdown-item command="closeOther" divided><el-icon>
-              <CircleClose />
-            </el-icon>关闭其他</el-dropdown-item>
-          <el-dropdown-item command="closeAll"><el-icon>
-              <FolderDelete />
-            </el-icon>关闭所有</el-dropdown-item>
+          <el-dropdown-item command="closeOther" divided
+            ><el-icon>
+              <CircleClose /> </el-icon
+            >关闭其他</el-dropdown-item
+          >
+          <el-dropdown-item command="closeAll"
+            ><el-icon>
+              <FolderDelete /> </el-icon
+            >关闭所有</el-dropdown-item
+          >
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -58,7 +80,7 @@ import {
   DArrowRight,
   CircleClose,
   FolderDelete,
-  FullScreen
+  FullScreen,
 } from "@element-plus/icons-vue";
 import { TabPaneName, TabsPaneContext } from "element-plus";
 import useUserStore from "@/store/modules/userStore";
