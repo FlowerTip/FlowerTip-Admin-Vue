@@ -32,36 +32,24 @@
         <el-dropdown-menu>
           <!-- 页面操作 -->
           <el-dropdown-item command="refresh"
-            ><el-icon>
-              <Refresh /> </el-icon
-            >刷新页面</el-dropdown-item
+            ><el-icon> <Refresh /> </el-icon>刷新页面</el-dropdown-item
           >
           <!-- tab操作 -->
           <el-dropdown-item command="closeCurrent" divided
-            ><el-icon>
-              <Remove /> </el-icon
-            >关闭当前</el-dropdown-item
+            ><el-icon> <Remove /> </el-icon>关闭当前</el-dropdown-item
           >
           <el-dropdown-item command="closeLeft"
-            ><el-icon>
-              <DArrowLeft /> </el-icon
-            >关门左侧</el-dropdown-item
+            ><el-icon> <DArrowLeft /> </el-icon>关门左侧</el-dropdown-item
           >
           <el-dropdown-item command="closeRight"
-            ><el-icon>
-              <DArrowRight /> </el-icon
-            >关闭右侧</el-dropdown-item
+            ><el-icon> <DArrowRight /> </el-icon>关闭右侧</el-dropdown-item
           >
           <!-- 批量tab操作 -->
           <el-dropdown-item command="closeOther" divided
-            ><el-icon>
-              <CircleClose /> </el-icon
-            >关闭其他</el-dropdown-item
+            ><el-icon> <CircleClose /> </el-icon>关闭其他</el-dropdown-item
           >
           <el-dropdown-item command="closeAll"
-            ><el-icon>
-              <FolderDelete /> </el-icon
-            >关闭所有</el-dropdown-item
+            ><el-icon> <FolderDelete /> </el-icon>关闭所有</el-dropdown-item
           >
         </el-dropdown-menu>
       </template>
