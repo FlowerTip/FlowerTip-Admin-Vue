@@ -1,7 +1,7 @@
 <template>
   <div class="header-right-info">
     <!-- 当前时间 -->
-    <div v-if="settingStore.showHeaderBar" class="current-time">
+    <div v-if="settingStore.layout == 'sidebar'" class="current-time">
       <span class="ymd">{{ ymd }}</span>
       <span class="hms">{{ hms }}</span>
     </div>
