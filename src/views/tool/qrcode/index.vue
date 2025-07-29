@@ -18,7 +18,7 @@
 import { VueQrcode } from "@sumdoo/vue-qrcode";
 import { ref } from "vue";
 
-const qrcode_value = ref("https://www.flowertip.site");
+const qrcode_value = ref("https://www.flowertipcn");
 </script>
 
 <style lang="scss" scoped>

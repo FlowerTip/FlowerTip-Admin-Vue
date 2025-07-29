@@ -453,10 +453,10 @@ export const asyncRoute = [
       hidden: false,
     },
     component: () => import("@/layout/index.vue"),
-    redirect: "https://www.flowertip.site",
+    redirect: "https://www.flowertip.cn",
     children: [
       {
-        path: "https://www.flowertip.site",
+        path: "https://www.flowertip.cn",
         name: "vitepress-blog",
         meta: { title: lang.menu.online, icon: "ele-Link", hidden: false },
       },

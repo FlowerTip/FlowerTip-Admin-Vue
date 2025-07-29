@@ -435,7 +435,7 @@ const placeholderNode = h(
   [
     h(Welcome, {
       variant: "borderless",
-      icon: "https://www.flowertip.site/upload/admin.png",
+      icon: "https://www.flowertipcn/upload/admin.png",
       title: "您好, 我是您的智能对话交互助手",
       description: "我是狗尾巴花的尖，FlowerTip Admin 智能对话交互助手",
       style: {
@@ -564,7 +564,7 @@ const roles: BubbleListProps["roles"] = {
     header: "狗尾巴花的尖",
     avatar: {
       icon: h("img", {
-        src: "https://www.flowertip.site/pro/favicon.svg",
+        src: "https://www.flowertipcn/pro/favicon.svg",
         alt: "logo",
       }),
       style: { background: "#fff" },
