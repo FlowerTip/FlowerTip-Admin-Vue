@@ -58,14 +58,16 @@ const drawerConfirm = async () => {
   const checkedKeys = treeRef.value.getCheckedKeys();
   const req = {
     roleId: dialogProps.value.roleId,
-    menusId: checkedKeys,
+    menuIds: checkedKeys,
   };
-  if (req.menusId && req.menusId.length === 0) {
+  if (req.menuIds && req.menuIds.length === 0) {
     ElMessage.warning("请分配权限");
   } else {
     try {
       loading.value = true;
-      await dialogProps.value.api!(req);
+      await dialogProps.value.api!(req.roleId, {
+        menuIds: req.menuIds,
+      });
       ElMessage.success({ message: `分配权限成功` });
       dialogProps.value.getTableList!({
         currentPage: 1,
@@ -100,11 +102,9 @@ const getPermission = async (reqParams: Req.MenuListParam) => {
 };
 
 const getSelectPerssion = async () => {
-  const { code, data } = await reqGetPermission({
-    roleId: dialogProps.value.roleId,
-  });
+  const { code, data } = await reqGetPermission(dialogProps.value.roleId);
   if (code === 200) {
-    const selectTreeIds = data.list;
+    const selectTreeIds = data.menus.map((item) => item.id);
     treeRef.value!.setCheckedKeys(selectTreeIds);
     // 处理回显选中Tree树结构逻辑
     await nextTick();

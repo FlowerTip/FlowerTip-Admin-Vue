@@ -528,6 +528,16 @@ export const asyncRoute = [
               icon: "ele-Avatar",
             },
           },
+          {
+            name: "logger",
+            path: "logger",
+            component: () =>
+              import("@/views/setting/permission/logger/index.vue"),
+            meta: {
+              title: "日志记录",
+              icon: "ele-Mouse",
+            },
+          },
         ],
       },
       {

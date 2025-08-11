@@ -5,6 +5,7 @@ import { getPageTitle } from "@/utils/tool";
 import router from "./router";
 import store from "./store";
 import useUserStore from "./store/modules/userStore";
+import { reqRefreshToken } from "@/api/user";
 
 // 进度条配置对象
 NProgress.configure({
@@ -41,14 +42,30 @@ router.beforeEach(async (to, _, next) => {
             replace: true,
           });
           NProgress.done(); // 结束进度条
-        } catch (error) {
+        } catch (error: Error | any) {
           console.log(error, "erer");
-          ElMessage({
-            type: "error",
-            message: "登录失败，页面自动刷新尝试重新登录",
-          });
-          await userStore.logout();
-          next({ path: "/login", query: { redirect: to?.path } });
+          if (error.response && error.response.status === 401) {
+            const { code, data } = await reqRefreshToken();
+            if (code === 200) {
+              console.log(data.token, router.currentRoute.value, "刷新token");
+              userStore.updateToken(data.token);
+              next(to.path || "/");
+            } else {
+              ElMessage({
+                type: "error",
+                message: "登录失败，页面自动刷新尝试重新登录",
+              });
+              await userStore.logout();
+              next({ path: "/login", query: { redirect: to?.path } });
+            }
+          } else {
+            ElMessage({
+              type: "error",
+              message: "登录失败，页面自动刷新尝试重新登录",
+            });
+            await userStore.logout();
+            next({ path: "/login", query: { redirect: to?.path } });
+          }
         }
       }
     }

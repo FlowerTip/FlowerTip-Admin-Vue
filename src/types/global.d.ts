@@ -45,6 +45,10 @@ declare interface DelDefaultData {
   ids: number[];
 }
 
+declare interface DelSingleData {
+  id: number;
+}
+
 /**
  * 请求参数类型声明
  */
@@ -71,13 +75,7 @@ declare namespace Req {
     avatarUrl: string;
   }
   interface MenuListParam {
-    pageSize?: number;
-    currentPage?: number;
-    username?: string;
-    big?: number;
-    sex?: number;
-    address?: string;
-    time?: Date;
+    name?: string;
   }
 
   interface DepartMentListParam {
@@ -127,7 +125,6 @@ declare namespace Req {
   }
 
   interface BatchPermissionData {
-    roleId: number;
     menusId: number[];
   }
 
@@ -139,6 +136,14 @@ declare namespace Req {
 /**
  * 列表接口的默认类型声明
  */
+
+interface DefaultExtendData<T> {
+  menus: T[];
+}
+
+interface DefaultExtend1Data<T> {
+  roles: T[];
+}
 interface DefaultData<T> {
   list: T[];
   message: string;
@@ -147,6 +152,15 @@ interface DefaultData<T> {
 }
 
 declare type AccountItem = {
+  description: any;
+  updateTime: any;
+  workPostName: any;
+  workPostNum: any;
+  archive_info?: any;
+  account_work_post_id?: any;
+  roles?: RoleItem[];
+  account_password?: any;
+  account_name?: any;
   id?: number;
   username: string;
   password: string;
@@ -155,6 +169,8 @@ declare type AccountItem = {
 };
 
 declare type MenuItem = {
+  id: any;
+  type: any;
   name: string;
   code: string;
   level: number;
@@ -162,7 +178,7 @@ declare type MenuItem = {
 };
 
 declare type DepartMentItem = {
-  departmentId: number;
+  departmentId?: number;
   departmentName: string;
   parentId: number;
   sort: number;
@@ -199,6 +215,7 @@ declare type StudentItem = {
 
 declare type RoleItem = {
   id?: number | string;
+  code: string;
   roleName: string;
   remark?: string;
   updateTime?: Date | string;
@@ -208,6 +225,10 @@ declare type RoleItem = {
  * 响应数据类型声明
  */
 declare namespace Res {
+  interface LoggerListData {
+    total: number;
+    list: any[];
+  }
   /**
    * 登录接口返回的数据格式
    */
@@ -247,6 +268,9 @@ declare namespace Res {
    */
   interface SaveStudentData {
     id?: number;
+    code: number;
+    data: StudentItem;
+    msg: string;
   }
   /**
    * 学员列表接口返回的数据格式
@@ -258,7 +282,7 @@ declare namespace Res {
   }
 
   interface DelStudentData {
-    message: string;
+    msg: string;
   }
 
   interface UploadAvatarData {
@@ -270,6 +294,15 @@ declare namespace Res {
   interface RoleListData extends DefaultData<RoleItem> {
     total: number;
   }
+
+  interface SelectRoleListData<T> {
+    roles: T[];
+  }
+
+  interface AllRoleListData<T> {
+    list: T[];
+  }
+
   interface DelRoleData {
     message: string;
   }
@@ -322,5 +355,5 @@ declare namespace Res {
     message: string;
   }
 
-  type GetPermissionData = DefaultData<MenuItem>;
+  type GetPermissionData = DefaultExtendData<MenuItem>;
 }

@@ -73,7 +73,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         //   rewrite: (path: string) => path.replace(/^\/api/, ""),
         // },
         [env.VITE_APP_BASE_API]: {
-          target: "https://www.flowertip.cn:9000/admin-api",
+          target: "http://localhost:3000/api",
           // 需要代理跨域
           changeOrigin: true,
           rewrite: (path: string) => path.replace(/^\/api/, ""),

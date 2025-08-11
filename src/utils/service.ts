@@ -1,4 +1,9 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
 import { ElMessage } from "element-plus";
 import router from "@/router";
 import useUserStore from "@/store/modules/userStore";
@@ -9,7 +14,9 @@ interface Result {
 }
 
 interface ResultData<T> extends Result {
+  code: number;
   data: T;
+  msg?: string; // 可选的消息字段
 }
 
 const config = {
@@ -17,15 +24,13 @@ const config = {
   timeout: 5000, // 请求超时时间，这里的单位是毫秒
 };
 
-const errorHandler = (statusCode: number) => {
-  switch (statusCode) {
+const errorHandler = async (response: AxiosResponse, error: AxiosError) => {
+  switch (response.status) {
     case 400:
       ElMessage.error("请求失败！请您稍后重试");
       break;
     case 401:
-      ElMessage.error("登录失效！请您重新登录");
-      router.replace("/login");
-      break;
+      return Promise.reject(error);
     case 403:
       ElMessage.error("当前账号无权限访问！");
       router.replace("/403");
@@ -68,7 +73,7 @@ class FlowerTipRequest {
     this.instance.interceptors.request.use((config) => {
       const userStore = useUserStore();
       if (userStore.token) {
-        config.headers["token"] = userStore.token;
+        config.headers["authorization"] = "Bearer " + userStore.token;
       }
       return config;
     });
@@ -87,7 +92,7 @@ class FlowerTipRequest {
         if (error.message.indexOf("Network Error") !== -1)
           ElMessage.error("网络错误！请您稍后重试");
         // 根据返回的状态码，处理对应的错误逻辑
-        if (response) errorHandler(response.status);
+        if (response) errorHandler(response, error);
         // 服务器结果都没有返回(可能服务器错误可能客户端断网)，断网处理:可以跳转到500页面
         if (!window.navigator.onLine) router.replace("/500");
         return Promise.reject(error);
@@ -96,7 +101,7 @@ class FlowerTipRequest {
   }
 
   get<T>(url: string, params?: object): Promise<ResultData<T>> {
-    return this.instance.get<typeof params, ResultData<T>>(url, params);
+    return this.instance.get<typeof params, ResultData<T>>(url, { params });
   }
 
   post<T>(
@@ -116,7 +121,13 @@ class FlowerTipRequest {
   }
 
   delete<T>(url: string, params?: object): Promise<ResultData<T>> {
-    return this.instance.delete<typeof params, ResultData<T>>(url, params);
+    return this.instance.delete<typeof params, ResultData<T>>(url, {
+      data: params,
+    });
+  }
+
+  patch<T>(url: string, params?: object): Promise<ResultData<T>> {
+    return this.instance.patch<typeof params, ResultData<T>>(url, params);
   }
 }
 

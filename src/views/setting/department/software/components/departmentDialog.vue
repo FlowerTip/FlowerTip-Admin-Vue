@@ -71,7 +71,10 @@ import { onMounted } from "vue";
 import { computed } from "vue";
 
 const getDepartmentList = async () => {
-  const { code, data } = await reqDepartmentList({});
+  const { code, data } = await reqDepartmentList({
+    currentPage: 1,
+    pageSize: 1000,
+  });
   if (code === 200) {
     departmentList.value = [
       {

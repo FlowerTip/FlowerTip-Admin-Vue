@@ -9,12 +9,37 @@
       :loading="loading"
       :updateTableList="updateTableList"
       :total="total"
+      :isOpenPage="false"
     >
+      <!-- 表格 header 按钮 -->
+      <template #tableHeaderLeft>
+        <el-button type="primary" :icon="CirclePlus" @click="openAddMenu"
+          >新增菜单</el-button
+        >
+      </template>
+      <!-- 表格操作 -->
+      <template #operation="slotData">
+        <el-button
+          type="primary"
+          link
+          :icon="EditPen"
+          @click="modifiyInfo(slotData.scope.row)"
+          >编辑菜单</el-button
+        >
+        <el-button
+          type="danger"
+          link
+          :icon="Delete"
+          @click="deleteInfo(slotData.scope.row)"
+          >删除菜单</el-button
+        >
+      </template>
     </ProTable>
   </div>
 </template>
 
 <script setup lang="ts">
+import { CirclePlus, Delete, EditPen } from "@element-plus/icons-vue";
 import { onMounted, reactive, ref } from "vue";
 import ProTable from "@/components/ProTable/index.vue";
 import { dayjs } from "element-plus";
@@ -50,6 +75,24 @@ const columns = reactive([
     prop: "typeLabel",
     label: "菜单类型",
     isShowColumn: true,
+    type: "tag",
+  },
+  {
+    id: 4,
+    prop: "updateTime",
+    label: "修改时间",
+    isShowColumn: true,
+    type: "datetime",
+    sortable: true,
+  },
+  {
+    id: 5,
+    prop: "operation",
+    label: "操作",
+    fixed: "right",
+    isShowColumn: true,
+    type: "slot",
+    width: 80,
   },
 ]);
 const loading = ref(false);
@@ -71,6 +114,19 @@ const updateTableList = async (reqParams: Req.MenuListParam) => {
       loading.value = false;
     }, 1000);
   }
+};
+
+const openAddMenu = () => {
+  console.log("打开新增菜单弹窗");
+  // 这里可以添加逻辑来打开一个弹窗或表单来添加新的菜单
+};
+
+const modifiyInfo = (row: MenuItem) => {
+  console.log("编辑菜单信息", row);
+};
+
+const deleteInfo = (row: MenuItem) => {
+  console.log("删除菜单信息", row);
 };
 
 onMounted(() => {

@@ -46,6 +46,7 @@
       ref="proTableRef"
       :tableColumns="columns"
       :conditionList="conditionList"
+      :treeList="treeList"
       :tableData="tableData"
       :total="total"
       :updateTableList="updateTableList"
@@ -109,7 +110,7 @@ import {
   EditPen,
   WarningFilled,
 } from "@element-plus/icons-vue";
-import { ref, reactive, watch, onMounted, nextTick } from "vue";
+import { ref, reactive, watch, onMounted, nextTick, computed } from "vue";
 import { ElMessage } from "element-plus";
 import { useElementSize } from "@vueuse/core";
 import { FilterNodeMethodFunction } from "element-plus/es/components/tree/src/tree.type";
@@ -121,7 +122,6 @@ import {
 } from "@/api/workPost";
 import { reqDepartmentList } from "@/api/department";
 import ProTable from "@/components/ProTable/index.vue";
-import { dayjs } from "element-plus";
 
 const WorkPostDialogRef = ref();
 const openAddWorkPost = () => {
@@ -131,7 +131,8 @@ const openAddWorkPost = () => {
       workPostName: "",
       workPostNum: "",
       description: "",
-      departmentId: currentNodeKey.value,
+      departmentId: currentTreeNode.value.departmentId,
+      departmentName: currentTreeNode.value.departmentName,
     },
     getTableList: updateTableList,
   };
@@ -139,9 +140,7 @@ const openAddWorkPost = () => {
 };
 
 const deleteRadio = async (row: AccountItem) => {
-  const { code } = await reqDelWorkPost({
-    ids: [(row.workPostId as number)!],
-  });
+  const { code } = await reqDelWorkPost(row.workPostId as number);
   if (code === 200) {
     ElMessage({
       type: "success",
@@ -150,7 +149,7 @@ const deleteRadio = async (row: AccountItem) => {
     updateTableList({
       pageSize: 20,
       currentPage: 1,
-      departmentId: currentNodeKey.value,
+      departmentId: currentTreeNode.value.departmentId,
     });
   }
 };
@@ -158,7 +157,14 @@ const deleteRadio = async (row: AccountItem) => {
 const modifiyInfo = (row: AccountItem) => {
   WorkPostDialogRef.value!.acceptParams({
     api: reqSaveWorkPost,
-    rowData: { ...row },
+    rowData: {
+      workPostId: row.workPostId,
+      departmentId: row.departmentId,
+      description: row.description,
+      updateTime: row.updateTime,
+      workPostName: row.workPostName,
+      workPostNum: row.workPostNum,
+    },
     getTableList: updateTableList,
   });
 };
@@ -168,7 +174,11 @@ const expandAll = ref(true); // 初始时展开所有
 const filterText = ref("");
 const treeRef = ref<InstanceType<typeof ElTree>>();
 const data = ref<any>([]);
-const currentNodeKey = ref();
+const currentTreeNode = ref();
+
+const currentNodeKey = computed(() => {
+  return currentTreeNode.value?.departmentId;
+});
 
 const maxHeight = ref();
 const openMore = () => {
@@ -203,7 +213,7 @@ interface Tree {
   label: string;
   children?: Tree[];
 }
-
+const treeList = ref<Array<{ departmentId: number }>>([]);
 const treeDiv = ref(null);
 onMounted(() => {
   getTreeData();
@@ -211,7 +221,8 @@ onMounted(() => {
 
 const getTreeData = async () => {
   const result = await reqDepartmentList({
-    departmentName: filterText.value,
+    currentPage: 1,
+    pageSize: 1000,
   });
   if (result.code === 200) {
     data.value = result.data.list as any;
@@ -221,11 +232,19 @@ const getTreeData = async () => {
     maxHeight.value = height.value - 48 + "px";
     await nextTick();
     const currSelectRow = data.value[0] as any;
-    currentNodeKey.value = currSelectRow.children[0].departmentId;
+    currentTreeNode.value = currSelectRow.children[0];
+
+    console.log(currentTreeNode.value, "Kjjsad");
+
+    treeList.value = [
+      {
+        departmentId: currentTreeNode.value.departmentId,
+      },
+    ];
     updateTableList({
       pageSize: 20,
       currentPage: 1,
-      departmentId: currentNodeKey.value,
+      departmentId: currentTreeNode.value.departmentId,
     });
   }
 };
@@ -236,12 +255,14 @@ const defaultProps = {
 };
 
 const handleNodeClick = (data: Tree) => {
-  console.log(data.departmentId);
-  currentNodeKey.value = data.departmentId;
+  const searchCondition = proTableRef.value.searchCondition;
+  console.log(data, searchCondition, "点击部门");
+  currentTreeNode.value = data;
   updateTableList({
     pageSize: 20,
     currentPage: 1,
-    departmentId: currentNodeKey.value,
+    departmentId: data.departmentId,
+    ...searchCondition,
   });
 };
 
@@ -338,8 +359,6 @@ const updateTableList = async (reqParams: Req.WorkPostListParam) => {
   if (code === 200) {
     tableData.value = data.list.map((item) => ({
       ...item,
-      updatedAt: dayjs(item.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
-      createdAt: dayjs(item.createdAt).format("YYYY-MM-DD HH:mm:ss"),
     }));
     total.value = data.total as number;
     proTableRef.value!.clearSelection();

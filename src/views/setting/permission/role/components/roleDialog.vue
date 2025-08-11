@@ -20,6 +20,9 @@
             placeholder="请输入角色名称"
           />
         </el-form-item>
+        <el-form-item label="角色权限码" prop="code">
+          <el-input v-model="dialogForm.code" placeholder="请输入角色权限码" />
+        </el-form-item>
         <el-form-item label="备注信息" prop="remark">
           <el-input
             v-model="dialogForm.remark"
@@ -45,6 +48,7 @@
 import { ref, reactive } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import { formatTime } from "@/utils/tool";
+import { id } from "element-plus/es/locale";
 
 // 弹窗是否显示状态
 const dialogVisible = ref(false);
@@ -53,6 +57,7 @@ const title = ref<string>();
 
 // 表单数据
 const dialogForm = ref<RoleItem>({
+  code: "",
   roleName: "",
   remark: "",
 });
@@ -65,6 +70,13 @@ const dialogFormRules = reactive({
       trigger: "blur",
     },
   ],
+  code: [
+    {
+      required: true,
+      message: "请输入角色权限码",
+      trigger: "blur",
+    },
+  ],
 });
 const dialogFormRef = ref<FormInstance>();
 const loading = ref<boolean>(false);
@@ -73,7 +85,10 @@ const dialogConfirm = () => {
   dialogFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       const req = {
-        ...dialogForm.value,
+        id: dialogForm.value.id,
+        code: dialogForm.value.code,
+        roleName: dialogForm.value.roleName,
+        remark: dialogForm.value.remark,
         updateTime: formatTime(),
       };
       try {

@@ -124,7 +124,7 @@
 import { ref, reactive, watch } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import AvatarUpload from "@/components/Upload/avatar.vue";
-import { reqStudentList, reqSaveStudent } from "@/api/student";
+import { reqStudentList, reqUpdateStudent } from "@/api/student";
 
 const dialogForm = ref();
 
@@ -236,12 +236,20 @@ const UserAvatarRef = ref();
 const drawerConfirm = async () => {
   dialogFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
+      const reqId = dialogForm.value.id;
       const req = {
         ...dialogForm.value,
       };
+      delete req.id; // 删除id字段，避免提交时出错
+      delete req.bigLabel; // 删除bigLabel字段，避免提交时出错
+      delete req.sexLabel; // 删除sexLabel字段，避免提交时出错
+
       try {
         loading.value = true;
-        const res = await dialogProps.value.api(req);
+        let res = null;
+        reqId && (res = await dialogProps.value.api(req, reqId));
+        !reqId && (res = await dialogProps.value.api(req));
+
         if (res?.code === 200) {
           uploadParam.value.id = res.data.id as unknown as string;
           if (isModifyed.value) {
@@ -282,7 +290,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 type AcceptParams = {
   dialogForm: Req.SaveStudentParam;
   getTableList: typeof reqStudentList;
-  api: typeof reqSaveStudent;
+  api: typeof reqUpdateStudent;
 };
 
 const dialogProps = ref<AcceptParams>({
@@ -299,7 +307,7 @@ const dialogProps = ref<AcceptParams>({
     avatarUrl: "",
   },
   getTableList: reqStudentList,
-  api: reqSaveStudent,
+  api: reqUpdateStudent,
 });
 
 // 接收父组件参数

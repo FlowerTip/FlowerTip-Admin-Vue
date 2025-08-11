@@ -2,10 +2,14 @@
   <div class="pro-table-wrapper">
     <!-- 搜索条件区域 -->
     <SearchForm
+      ref="searchFormRef"
       :toggleFoldCallBack="toggleFoldCallBack"
       :updateTableList="updateTableList"
       :conditionList="conditionList"
       :hiddenSearch="hiddenSearch"
+      :isOpenPage="isOpenPage"
+      :treeList="treeList"
+      @update:search-form="getSearchForm"
     />
     <div class="pro-table">
       <!-- 工具栏区域 -->
@@ -166,13 +170,67 @@
               </div>
             </template>
           </el-table-column>
+          <!-- tag标签 -->
+          <el-table-column
+            v-else-if="item.type === 'tag'"
+            :prop="item.prop"
+            :label="item.label"
+            align="center"
+            :sortable="item.sortable ?? false"
+            :width="item.width ?? 'auto'"
+            :fixed="item.fixed ?? false"
+          >
+            <template #default="scope">
+              <div class="tag-group">
+                <el-tag type="primary" round v-if="scope.row[item.prop]">{{
+                  scope.row[item.prop]
+                }}</el-tag>
+              </div>
+            </template>
+          </el-table-column>
+          <!-- tags标签 -->
+          <el-table-column
+            v-else-if="item.type === 'tags'"
+            :prop="item.prop"
+            :label="item.label"
+            align="center"
+            :sortable="item.sortable ?? false"
+            :width="item.width ?? 'auto'"
+            :fixed="item.fixed ?? false"
+          >
+            <template #default="scope">
+              <div class="tags-group" v-if="scope.row[item.prop]">
+                <el-tag
+                  type="primary"
+                  round
+                  v-for="tag in scope.row[item.prop].split(',')"
+                  style="margin-right: 4px"
+                  >{{ tag }}</el-tag
+                >
+              </div>
+            </template>
+          </el-table-column>
+          <!-- expand列 -->
+          <el-table-column
+            v-else-if="item.type === 'expand'"
+            type="expand"
+            :label="item.label"
+            :width="item.width ?? 'auto'"
+            align="center"
+          >
+            <template #default="scope">
+              <div class="content">
+                {{ scope.row }}
+              </div>
+            </template>
+          </el-table-column>
           <!-- 操作按钮列 -->
           <el-table-column
             v-else-if="item.type === 'slot'"
             label="操作"
             align="center"
             :fixed="item.fixed"
-            :min-width="item.width"
+            :min-width="item.width || 'auto'"
           >
             <template #default="scope">
               <slot name="operation" :scope="scope"></slot>
@@ -187,7 +245,7 @@
             :min-width="item.width ?? 'auto'"
             :fixed="item.fixed ?? false"
           >
-            <template v-slot="scope">
+            <template #default="scope">
               {{
                 item.type === "date" || item.type === "datetime"
                   ? formatTime(scope.row[item.prop], item.type)
@@ -242,6 +300,7 @@ import { Refresh, Tools, Search } from "@element-plus/icons-vue";
 import SearchForm from "@/components/SearchForm/index.vue";
 import { useBreakpoint } from "@/hooks/useBreakpoint.ts";
 import { ColumnItem } from "./types";
+import { SearchFormInterFace } from "@/types";
 
 const { currentBreakpoint } = useBreakpoint();
 
@@ -252,7 +311,7 @@ const heightDefaultObj = {
   sm: 50,
   xs: 50,
 };
-
+const searchFormRef = ref();
 const elTableRef = ref();
 const clearSelection = () => {
   elTableRef.value!.clearSelection();
@@ -268,6 +327,8 @@ const props = defineProps([
   "total",
   "selectionChange",
   "rowKey",
+  "isOpenPage",
+  "treeList",
 ]);
 
 const selfColumns = ref(props.tableColumns);
@@ -351,7 +412,19 @@ const handleCurrentChange = (val: number) => {
 
 // 刷新表格
 const refreshTable = () => {
-  props.updateTableList(pagination);
+  const search = {
+    ...searchCondition.value,
+    ...pagination,
+  };
+  if (props.treeList && props.treeList.length > 0) {
+    props.treeList.forEach((treeItem: { [x: string]: any }) => {
+      Object.keys(treeItem).forEach((key) => {
+        search[key as keyof typeof search] = treeItem[key];
+      });
+    });
+    console.log("props.treeList", props.treeList, search);
+  }
+  props.updateTableList(search);
 };
 // 切换是否显示搜索条件
 const toggleSearch = () => {
@@ -421,10 +494,17 @@ onBeforeUnmount(() => {
   );
 });
 
+const searchCondition = ref<SearchFormInterFace>({});
+
+const getSearchForm = (form: SearchFormInterFace) => {
+  searchCondition.value = form;
+};
+
 // 提供内部数据，给外部组件调用
 defineExpose({
   pagination,
   clearSelection,
+  searchCondition,
 });
 </script>
 
@@ -432,6 +512,14 @@ defineExpose({
 /* 表格loading层级 */
 :deep(.el-loading-mask) {
   z-index: 98;
+}
+
+.tags-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  box-sizing: border-box;
 }
 
 .pro-table-wrapper {

@@ -3,7 +3,7 @@ import { getToken } from "@/utils/auth";
 
 // 文件上传相关接口的枚举类型
 enum API {
-  UPLOAD_AVATAR = "/upload/avatar",
+  UPLOAD_AVATAR = "/upload",
 }
 
 // 上传学员头像数据接口

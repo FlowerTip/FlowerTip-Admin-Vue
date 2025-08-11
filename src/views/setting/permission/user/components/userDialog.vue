@@ -37,7 +37,7 @@
             <el-option
               v-for="item in workPostOptions"
               :key="item.workPostId"
-              :label="item.description"
+              :label="item.workPostName"
               :value="item.workPostId!"
             />
           </el-select>
@@ -59,7 +59,7 @@
 import { ref, reactive, onMounted } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import { formatTime } from "@/utils/tool";
-import { reqWorkPostList } from "@/api/workPost.ts";
+import { reqAllWorkPostList } from "@/api/workPost";
 
 // 弹窗是否显示状态
 const dialogVisible = ref(false);
@@ -69,10 +69,7 @@ const title = ref<string>();
 const workPostOptions = ref<WorkPostItem[]>([]);
 
 onMounted(async () => {
-  const { code, data } = await reqWorkPostList({
-    currentPage: 1,
-    pageSize: 100,
-  });
+  const { code, data } = await reqAllWorkPostList();
   if (code === 200) {
     workPostOptions.value = data.list;
   } else {
@@ -85,6 +82,10 @@ const dialogForm = ref<AccountItem>({
   username: "",
   password: "",
   workPostId: "",
+  description: undefined,
+  updateTime: undefined,
+  workPostName: undefined,
+  workPostNum: undefined,
 });
 
 const dialogFormRules = reactive({

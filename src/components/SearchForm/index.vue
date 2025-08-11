@@ -104,9 +104,11 @@ import {
   ArrowDown,
   ArrowUp,
 } from "@element-plus/icons-vue";
-import { reactive, ref, computed, onMounted, onUnmounted } from "vue";
+import { reactive, ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { SearchFormInterFace } from "@/types";
 import { useBreakpoint } from "@/hooks/useBreakpoint.ts";
+
+const emit = defineEmits(["update:searchForm"]);
 
 const foldDefaultObj = {
   xl: 3,
@@ -129,7 +131,13 @@ const props = defineProps([
   "updateTableList",
   "conditionList",
   "hiddenSearch",
+  "isOpenPage",
+  "treeList",
 ]);
+
+const isOpenPage = computed(() => {
+  props.isOpenPage !== undefined ? props.isOpenPage : true;
+});
 
 const searchFormRef = ref();
 
@@ -320,6 +328,14 @@ const sliceCodList = computed(() => {
 
 const searchForm = reactive<SearchFormInterFace>({});
 
+watch(
+  () => searchForm,
+  (newVal) => {
+    emit("update:searchForm", newVal);
+  },
+  { deep: true }
+);
+
 onMounted(() => {
   props.conditionList.forEach(
     (cond: { prop: string | number; type: string }) => {
@@ -337,20 +353,44 @@ const setCondFoldHeight = () => {
   initConditionFoldLen.value = foldDefaultObj[currentBreakpoint.value];
 };
 const search = () => {
-  props.updateTableList({
-    pageSize: 20,
-    currentPage: 1,
+  const search = {
     ...searchForm,
-  });
+  };
+  if (props.treeList && props.treeList.length > 0) {
+    props.treeList.forEach((treeItem: { [x: string]: any }) => {
+      Object.keys(treeItem).forEach((key) => {
+        search[key as keyof typeof search] = treeItem[key];
+      });
+    });
+  }
+  isOpenPage
+    ? props.updateTableList({
+        pageSize: 20,
+        currentPage: 1,
+        ...search,
+      })
+    : props.updateTableList(search);
 };
 
 const reset = () => {
   searchFormRef.value.resetFields();
-  props.updateTableList({
-    pageSize: 20,
-    currentPage: 1,
+  const search = {
     ...searchForm,
-  });
+  };
+  if (props.treeList && props.treeList.length > 0) {
+    props.treeList.forEach((treeItem: { [x: string]: any }) => {
+      Object.keys(treeItem).forEach((key) => {
+        search[key as keyof typeof search] = treeItem[key];
+      });
+    });
+  }
+  isOpenPage
+    ? props.updateTableList({
+        pageSize: 20,
+        currentPage: 1,
+        ...search,
+      })
+    : props.updateTableList(search);
 };
 </script>
 

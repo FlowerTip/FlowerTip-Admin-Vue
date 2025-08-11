@@ -41,7 +41,7 @@
 <script setup lang="ts" name="menuDialog">
 import { ref } from "vue";
 import { ElMessage, CheckboxValueType } from "element-plus";
-import { reqRoleList } from "@/api/role";
+import { reqAllRoleList } from "@/api/role";
 import { reqGetRole } from "@/api/user";
 
 let treeData = ref<RoleItem[]>([]);
@@ -62,8 +62,8 @@ const handleCheckedCitiesChange = (value: CheckboxValueType[]) => {
     checkedCount > 0 && checkedCount < treeData.value.length;
 };
 
-const getPermission = async (reqParams: AccountItem) => {
-  const { code, data } = await reqRoleList(reqParams);
+const getPermission = async () => {
+  const { code, data } = await reqAllRoleList();
   if (code === 200) {
     const menus = data.list.map((item) => ({
       ...item,
@@ -74,11 +74,9 @@ const getPermission = async (reqParams: AccountItem) => {
 };
 
 const getSelectPerssion = async () => {
-  const { code, data } = await reqGetRole({
-    userId: dialogProps.value.userId,
-  });
+  const { code, data } = await reqGetRole(dialogProps.value.userId);
   if (code === 200) {
-    const selectTreeIds = data.list;
+    const selectTreeIds = data.roles.map((item) => item.id);
     checkedCities.value = selectTreeIds as never[];
     if (
       checkedCities.value.length > 0 &&
@@ -100,15 +98,17 @@ const loading = ref<boolean>(false);
 const dialogConfirm = async () => {
   const req = {
     userId: dialogProps.value.userId,
-    rolesId: checkedCities.value,
+    roleIds: checkedCities.value,
   };
-  if (req.rolesId && req.rolesId.length === 0) {
+  if (req.roleIds && req.roleIds.length === 0) {
     ElMessage.warning("请分配角色");
     return;
   }
   try {
     loading.value = true;
-    await dialogProps.value.api!(req);
+    await dialogProps.value.api!(req.userId, {
+      roleIds: req.roleIds,
+    });
     ElMessage.success({ message: `分配成功` });
     dialogProps.value.getTableList!({
       currentPage: 1,
@@ -140,7 +140,7 @@ const acceptParams = (params: AcceptParams) => {
   checkedCities.value = [];
   dialogProps.value = params;
   dialogVisible.value = true;
-  getPermission({} as AccountItem);
+  getPermission();
 };
 
 // 暴露给父组件的方法

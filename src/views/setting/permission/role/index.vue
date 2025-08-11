@@ -108,13 +108,20 @@ const columns = reactive([
   },
   {
     id: 2,
+    prop: "code",
+    label: "角色权限码",
+    isShowColumn: true,
+    width: 100,
+  },
+  {
+    id: 3,
     prop: "remark",
     label: "备注信息",
     isShowColumn: true,
     width: 120,
   },
   {
-    id: 3,
+    id: 4,
     prop: "updateTime",
     label: "更新时间",
     isShowColumn: true,
@@ -144,7 +151,7 @@ const updateTableList = async (reqParams: PagainationType) => {
       ...item,
       updateTime: dayjs(item.updateTime).format("YYYY-MM-DD HH:mm:ss"),
     }));
-    total.value = data.total;
+    total.value = data.list.length;
     setTimeout(() => {
       loading.value = false;
     }, 1000);
@@ -165,6 +172,7 @@ const openAddRoleDrawer = () => {
   RoleDialogRef.value!.acceptParams({
     api: reqSaveRole,
     rowData: {
+      code: "",
       roleName: "",
       remark: "",
     },
@@ -181,13 +189,11 @@ const modifiyInfo = (row: RoleItem) => {
 };
 
 const deleteRadio = async (row: RoleItem) => {
-  const { code, data } = await reqDelRole({
-    ids: [row.id as number],
-  });
+  const { code, msg } = await reqDelRole(row.id as number);
   if (code === 200) {
     ElMessage({
       type: "success",
-      message: data.message,
+      message: msg,
     });
     updateTableList({
       pageSize: 20,

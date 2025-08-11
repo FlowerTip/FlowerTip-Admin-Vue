@@ -84,12 +84,16 @@ const useUserStore = defineStore({
       return Promise.resolve(data.list);
     },
     async logout() {
-      await reqLogout(true);
+      await reqLogout();
       removeToken();
       this.$reset();
     },
     updateLeftMenus(data: RouteRecordRaw[]) {
       this.sidebarMenuList = data;
+    },
+    updateToken(token: string) {
+      this.token = token;
+      setToken(token);
     },
   },
 });

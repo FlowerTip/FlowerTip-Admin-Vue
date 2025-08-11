@@ -83,7 +83,13 @@
 <script setup lang="ts" name="AdvancedTable">
 import { onMounted, reactive, ref } from "vue";
 import { PagainationType } from "@/types";
-import { reqStudentList, reqSaveStudent, reqDelStudent } from "@/api/student";
+import {
+  reqStudentList,
+  reqSaveStudent,
+  reqUpdateStudent,
+  reqDelStudent,
+  reqBatchDelStudent,
+} from "@/api/student";
 import ProTable from "@/components/ProTable/index.vue";
 import InfoDrawer from "./components/infoDrawer.vue";
 import StudentDrawer from "./components/studentDrawer.vue";
@@ -294,13 +300,11 @@ const selectionChange = (val: StudentItem[]) => {
 };
 
 const deleteRadio = async (row: StudentItem) => {
-  const { code, data } = await reqDelStudent({
-    ids: [row.id as number],
-  });
+  const { code, msg } = await reqDelStudent(row.id as number);
   if (code === 200) {
     ElMessage({
       type: "success",
-      message: data.message,
+      message: msg,
     });
     updateTableList({
       pageSize: 20,
@@ -320,13 +324,13 @@ const deleteSelect = () => {
     type: "warning",
   })
     .then(async () => {
-      const { code, data } = await reqDelStudent({
+      const { code, msg } = await reqBatchDelStudent({
         ids: selectRow.value.map((item) => item.id) as number[],
       });
       if (code === 200) {
         ElMessage({
           type: "success",
-          message: data.message,
+          message: msg,
         });
         updateTableList({
           pageSize: 20,
@@ -353,7 +357,7 @@ const viewInfo = (row: StudentItem) => {
 const modifiyInfo = (row: StudentItem) => {
   const params = {
     dialogForm: { ...row },
-    api: reqSaveStudent,
+    api: reqUpdateStudent,
     getTableList: updateTableList,
   };
   StudentDrawerRef.value!.acceptParams(params);

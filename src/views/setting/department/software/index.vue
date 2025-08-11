@@ -80,7 +80,6 @@ import {
   WarningFilled,
 } from "@element-plus/icons-vue";
 import ProTable from "@/components/ProTable/index.vue";
-import { dayjs } from "element-plus";
 import DepartmetnDialog from "./components/departmentDialog.vue";
 import {
   reqDepartmentList,
@@ -117,9 +116,7 @@ const addChildrenInfo = (row: DepartMentItem) => {
 };
 
 const deleteRadio = async (row: DepartMentItem) => {
-  const { code } = await reqDelDepartMent({
-    departmentId: row.departmentId,
-  });
+  const { code } = await reqDelDepartMent(row.departmentId as number);
   if (code === 200) {
     ElMessage({
       type: "success",
@@ -221,12 +218,13 @@ const total = ref(0);
 
 const updateTableList = async (reqParams: Req.DepartMentListParam) => {
   loading.value = true;
-  const { code, data } = await reqDepartmentList(reqParams);
+  !reqParams.departmentName && delete reqParams.departmentName;
+  const { code, data } = await reqDepartmentList({
+    ...reqParams,
+  });
   if (code === 200) {
     const menus = data.list.map((item) => ({
       ...item,
-      createdAt: dayjs(item.createdAt).format("YYYY-MM-DD HH:mm:ss"),
-      updatedAt: dayjs(item.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     }));
     tableData.value = menus as unknown as DepartMentItem[];
     total.value = 0;
@@ -237,7 +235,10 @@ const updateTableList = async (reqParams: Req.DepartMentListParam) => {
 };
 
 onMounted(() => {
-  updateTableList({});
+  updateTableList({
+    currentPage: 1,
+    pageSize: 20,
+  });
 });
 </script>
 

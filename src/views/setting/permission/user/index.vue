@@ -118,7 +118,8 @@ const columns = reactive([
     prop: "roleNames",
     label: "权限角色",
     isShowColumn: true,
-    width: 140,
+    width: 300,
+    type: "tags",
   },
   {
     id: 3,
@@ -129,8 +130,43 @@ const columns = reactive([
   },
   {
     id: 4,
-    prop: "departmentName",
-    label: "所属部门",
+    prop: "eprName",
+    label: "所属单位",
+    isShowColumn: true,
+    width: 140,
+  },
+  {
+    id: 4,
+    prop: "address",
+    label: "单位地址",
+    isShowColumn: true,
+    width: 140,
+  },
+  {
+    id: 4,
+    prop: "name",
+    label: "姓名",
+    isShowColumn: true,
+    width: 140,
+  },
+  {
+    id: 4,
+    prop: "age",
+    label: "年龄",
+    isShowColumn: true,
+    width: 140,
+  },
+  {
+    id: 4,
+    prop: "work_year_time",
+    label: "工作年限",
+    isShowColumn: true,
+    width: 140,
+  },
+  {
+    id: 4,
+    prop: "salary",
+    label: "薪资水平",
     isShowColumn: true,
     width: 140,
   },
@@ -154,6 +190,17 @@ const updateTableList = async (reqParams: Req.AccountListParam) => {
   if (code === 200) {
     tableData.value = data.list.map((item) => ({
       ...item,
+      username: item.account_name,
+      password: item.account_password,
+      workPostName: item.archive_info.work_post_name,
+      roleNames: item.roles!.map((role) => role.roleName).join(", "),
+      workPostId: item.account_work_post_id,
+      eprName: item.archive_info.epr_name,
+      name: item.archive_info.name,
+      age: item.archive_info.age + "岁",
+      address: item.archive_info.address,
+      work_year_time: item.archive_info.work_year_time + "年",
+      salary: item.archive_info.salary + "K",
     }));
     total.value = data.total;
     setTimeout(() => {
@@ -183,9 +230,7 @@ const openAddRoleDrawer = () => {
 };
 
 const deleteRadio = async (row: AccountItem) => {
-  const { code } = await reqDelAccount({
-    ids: [row.id!],
-  });
+  const { code } = await reqDelAccount(row.id as number);
   if (code === 200) {
     ElMessage({
       type: "success",
