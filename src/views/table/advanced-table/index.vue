@@ -111,9 +111,8 @@ import { ElMessage, ElMessageBox, ElLoading, dayjs } from "element-plus";
 const proTableRef = ref();
 const loading = ref(false);
 
-
 const isCanBatchDel = computed(() => {
-  return selectRow.value.length > 0
+  return selectRow.value.length > 0;
 });
 
 const conditionList = reactive([

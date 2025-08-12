@@ -1,7 +1,14 @@
 <template>
   <div class="table-box">
-    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
-      :total="total" :updateTableList="updateTableList" :loading="loading">
+    <ProTable
+      ref="proTableRef"
+      :tableColumns="columns"
+      :conditionList="conditionList"
+      :tableData="tableData"
+      :total="total"
+      :updateTableList="updateTableList"
+      :loading="loading"
+    >
     </ProTable>
   </div>
 </template>
@@ -114,8 +121,15 @@ const updateTableList = async (reqParams: Req.AccountListParam) => {
   if (code === 200) {
     tableData.value = data.list.map((item: any) => ({
       ...item,
-      requestParams: item.method === 'GET' ? (item.queryParams ? JSON.parse(item.queryParams) : {}) : (item.requestBody ? JSON.parse(item.requestBody) : {}),
-      responseTime: item.responseTime + 'ms'
+      requestParams:
+        item.method === "GET"
+          ? item.queryParams
+            ? JSON.parse(item.queryParams)
+            : {}
+          : item.requestBody
+          ? JSON.parse(item.requestBody)
+          : {},
+      responseTime: item.responseTime + "ms",
     }));
     total.value = data.total;
     setTimeout(() => {
