@@ -90,7 +90,7 @@ const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
 const loginFormData = reactive({
-  username: "系统管理员",
+  username: "狗尾巴花的尖",
   password: "123456",
   code: "",
 });

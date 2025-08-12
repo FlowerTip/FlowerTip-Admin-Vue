@@ -564,7 +564,7 @@ const roles: BubbleListProps["roles"] = {
     header: "狗尾巴花的尖",
     avatar: {
       icon: h("img", {
-        src: "https://www.flowertipcn/pro/favicon.svg",
+        src: "https://www.flowertip.cn/upload/admin.png",
         alt: "logo",
       }),
       style: { background: "#fff" },

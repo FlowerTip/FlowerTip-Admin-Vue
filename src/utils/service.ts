@@ -21,7 +21,7 @@ interface ResultData<T> extends Result {
 
 const config = {
   baseURL: import.meta.env.VITE_APP_BASE_API as string, // 请求基础路径
-  timeout: 5000, // 请求超时时间，这里的单位是毫秒
+  timeout: 20000, // 请求超时时间，这里的单位是毫秒
 };
 
 const errorHandler = async (response: AxiosResponse, error: AxiosError) => {

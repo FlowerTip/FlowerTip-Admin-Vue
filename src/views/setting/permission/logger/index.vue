@@ -1,14 +1,7 @@
 <template>
   <div class="table-box">
-    <ProTable
-      ref="proTableRef"
-      :tableColumns="columns"
-      :conditionList="conditionList"
-      :tableData="tableData"
-      :total="total"
-      :updateTableList="updateTableList"
-      :loading="loading"
-    >
+    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :tableData="tableData"
+      :total="total" :updateTableList="updateTableList" :loading="loading">
     </ProTable>
   </div>
 </template>
@@ -25,9 +18,9 @@ const conditionList = reactive([
   {
     id: 1,
     type: "input",
-    label: "请求地址",
-    prop: "url",
-    placeholder: "请输入请求地址",
+    label: "操作人",
+    prop: "username",
+    placeholder: "请输入操作人名称",
     span: 6,
     lgSpan: 8,
     mdSpan: 12,
@@ -39,9 +32,10 @@ const conditionList = reactive([
 const columns = reactive([
   {
     id: 100,
-    label: "展开操作",
+    label: "",
+    prop: "requestParams",
     isShowColumn: true,
-    width: 100,
+    width: 60,
     type: "expand",
   },
   {
@@ -120,7 +114,8 @@ const updateTableList = async (reqParams: Req.AccountListParam) => {
   if (code === 200) {
     tableData.value = data.list.map((item: any) => ({
       ...item,
-      responseBody: JSON.parse(item.responseBody),
+      requestParams: item.method === 'GET' ? (item.queryParams ? JSON.parse(item.queryParams) : {}) : (item.requestBody ? JSON.parse(item.requestBody) : {}),
+      responseTime: item.responseTime + 'ms'
     }));
     total.value = data.total;
     setTimeout(() => {

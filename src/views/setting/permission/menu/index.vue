@@ -76,6 +76,12 @@ const columns = reactive([
     label: "菜单类型",
     isShowColumn: true,
     type: "tag",
+    keyProp: 'type',
+    tagColor: {
+      ['1']: 'warning',
+      ['2']: 'success',
+      ['3']: 'primary',
+    }
   },
   {
     id: 4,

@@ -29,10 +29,11 @@
         >
         <el-button
           v-permission="['btn.advanced-table.del']"
+          :disabled="!isCanBatchDel"
           type="danger"
           :icon="Remove"
           @click="deleteSelect"
-          >删除学员</el-button
+          >批量删除</el-button
         >
         <el-button
           v-permission="['btn.advanced-table.import']"
@@ -81,7 +82,7 @@
 </template>
 
 <script setup lang="ts" name="AdvancedTable">
-import { onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import { PagainationType } from "@/types";
 import {
   reqStudentList,
@@ -109,6 +110,11 @@ import { ElMessage, ElMessageBox, ElLoading, dayjs } from "element-plus";
 
 const proTableRef = ref();
 const loading = ref(false);
+
+
+const isCanBatchDel = computed(() => {
+  return selectRow.value.length > 0
+});
 
 const conditionList = reactive([
   {

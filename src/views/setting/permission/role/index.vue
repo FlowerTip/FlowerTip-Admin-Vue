@@ -34,6 +34,7 @@
           >编辑角色</el-button
         >
         <el-popconfirm
+          v-if="slotData.scope.row.accounts.length === 0"
           width="180"
           :icon="WarningFilled"
           title="确定要删除该角色吗?"
@@ -135,7 +136,7 @@ const columns = reactive([
     fixed: "right",
     isShowColumn: true,
     type: "slot",
-    width: 300,
+    width: 160,
   },
 ]);
 
