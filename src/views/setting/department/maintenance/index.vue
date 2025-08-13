@@ -2,17 +2,8 @@
   <div class="table-box">
     <div class="tree-box" ref="treeDiv">
       <div class="search-wrapper">
-        <el-input
-          v-model="filterText"
-          placeholder="输入关键字进行过滤"
-          class="search-input"
-          :prefix-icon="Search"
-        />
-        <el-dropdown
-          ref="dropdownRef"
-          trigger="contextmenu"
-          @command="dropCommand"
-        >
+        <el-input v-model="filterText" placeholder="输入关键字进行过滤" class="search-input" :prefix-icon="Search" />
+        <el-dropdown ref="dropdownRef" trigger="contextmenu" @command="dropCommand">
           <span class="el-dropdown-link">
             <el-icon class="more-btn" @click="openMore">
               <More />
@@ -27,70 +18,28 @@
         </el-dropdown>
       </div>
       <el-scrollbar :max-height="maxHeight">
-        <el-tree
-          ref="treeRef"
-          node-key="departmentId"
-          :data="data"
-          :props="defaultProps"
-          @node-click="handleNodeClick"
-          :default-expand-all="expandAll"
-          highlight-current
-          :filter-node-method="filterNode"
-          :current-node-key="currentNodeKey"
-          :expand-on-click-node="false"
-          :show-checkbox="false"
-        />
+        <el-tree ref="treeRef" node-key="departmentId" :data="data" :props="defaultProps" @node-click="handleNodeClick"
+          :default-expand-all="expandAll" highlight-current :filter-node-method="filterNode"
+          :current-node-key="currentNodeKey" :expand-on-click-node="false" :show-checkbox="false" />
       </el-scrollbar>
     </div>
-    <ProTable
-      ref="proTableRef"
-      :tableColumns="columns"
-      :conditionList="conditionList"
-      :treeList="treeList"
-      :tableData="tableData"
-      :total="total"
-      :updateTableList="updateTableList"
-      :loading="loading"
-      :selectionChange="selectionChange"
-      rowKey="id"
-      class="diy-table"
-    >
+    <ProTable ref="proTableRef" :tableColumns="columns" :conditionList="conditionList" :treeList="treeList"
+      :tableData="tableData" :total="total" :updateTableList="updateTableList" :loading="loading"
+      :selectionChange="selectionChange" rowKey="id" class="diy-table">
       <!-- 表格 header 按钮 -->
       <template #tableHeaderLeft>
-        <el-button type="primary" :icon="CirclePlus" @click="openAddWorkPost"
-          >新增岗位</el-button
-        >
+        <el-button type="primary" :icon="CirclePlus" @click="openAddWorkPost">新增岗位</el-button>
       </template>
       <!-- 表格操作 -->
       <template #operation="slotData">
-        <el-button
-          type="primary"
-          link
-          :icon="EditPen"
-          :disabled="
-            slotData.scope.row.workPostId == 21 ||
-            slotData.scope.row.workPostId == 22
-          "
-          @click="modifiyInfo(slotData.scope.row)"
-          >编辑岗位</el-button
-        >
-        <el-popconfirm
-          width="180"
-          :icon="WarningFilled"
-          title="确定要删除该岗位吗?"
-          @confirm="deleteRadio(slotData.scope.row)"
-        >
+        <el-button type="primary" link :icon="EditPen" :disabled="slotData.scope.row.workPostId == 21 ||
+          slotData.scope.row.workPostId == 22
+          " @click="modifiyInfo(slotData.scope.row)">编辑岗位</el-button>
+        <el-popconfirm width="180" :icon="WarningFilled" title="确定要删除该岗位吗?" @confirm="deleteRadio(slotData.scope.row)">
           <template #reference>
-            <el-button
-              link
-              type="danger"
-              :icon="Delete"
-              :disabled="
-                slotData.scope.row.workPostId == 21 ||
-                slotData.scope.row.workPostId == 22
-              "
-              >删除岗位</el-button
-            >
+            <el-button link type="danger" :icon="Delete" :disabled="slotData.scope.row.workPostId == 21 ||
+              slotData.scope.row.workPostId == 22
+              ">删除岗位</el-button>
           </template>
         </el-popconfirm>
       </template>
@@ -413,13 +362,12 @@ const selectionChange = (val: WorkPostItem[]) => {
 }
 
 /* 处理el-tree文本过长的问题 */
-:deep(
-    .el-tree--highlight-current
-      .el-tree-node.is-current
-      > .el-tree-node__content
-  ) {
+:deep(.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content) {
   background-color: var(--el-color-primary);
-  color: #fff;
+
+  .el-tree-node__label {
+    color: #fff;
+  }
 
   .el-icon {
     color: #fff;

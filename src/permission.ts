@@ -63,7 +63,7 @@ router.beforeEach(async (to, _, next) => {
               type: "error",
               message: "登录失败，页面自动刷新尝试重新登录",
             });
-            await userStore.logout();
+            userStore.clearToken();
             next({ path: "/login", query: { redirect: to?.path } });
           }
         }

@@ -2,17 +2,8 @@
   <div class="dialog-table">
     <div class="tree-box" ref="treeDiv">
       <div class="search-wrapper">
-        <el-input
-          v-model="filterText"
-          placeholder="输入关键字进行过滤"
-          class="search-input"
-          :prefix-icon="Search"
-        />
-        <el-dropdown
-          ref="dropdownRef"
-          trigger="contextmenu"
-          @command="dropCommand"
-        >
+        <el-input v-model="filterText" placeholder="输入关键字进行过滤" class="search-input" :prefix-icon="Search" />
+        <el-dropdown ref="dropdownRef" trigger="contextmenu" @command="dropCommand">
           <span class="el-dropdown-link">
             <el-icon class="more-btn" @click="openMore">
               <More />
@@ -27,32 +18,17 @@
         </el-dropdown>
       </div>
       <el-scrollbar :max-height="maxHeight">
-        <el-tree
-          ref="treeRef"
-          node-key="id"
-          :data="data"
-          :props="defaultProps"
-          @node-click="handleNodeClick"
-          :default-expand-all="expandAll"
-          highlight-current
-          :filter-node-method="filterNode"
-          :current-node-key="-1"
-          :expand-on-click-node="false"
-          :show-checkbox="false"
-        />
+        <el-tree ref="treeRef" node-key="id" :data="data" :props="defaultProps" @node-click="handleNodeClick"
+          :default-expand-all="expandAll" highlight-current :filter-node-method="filterNode" :current-node-key="-1"
+          :expand-on-click-node="false" :show-checkbox="false" />
       </el-scrollbar>
     </div>
     <div class="right-wrapper">
       <div class="condition">
         <span class="label">账单状态（单选）：</span>
         <div class="radio-group" @click="radioClick">
-          <div
-            class="radio-item"
-            :class="{ active: radio.id === radioIndex }"
-            v-for="radio in radioList"
-            :key="radio.id"
-            :data-id="radio.id"
-          >
+          <div class="radio-item" :class="{ active: radio.id === radioIndex }" v-for="radio in radioList"
+            :key="radio.id" :data-id="radio.id">
             <el-icon v-if="radio.icon" class="radio-icon">
               <component :is="radio.icon"></component>
             </el-icon>
@@ -63,13 +39,8 @@
       <div class="condition">
         <span class="label">报销状态（多选）：</span>
         <div class="checkbox-group" @click="checkboxClick">
-          <div
-            class="radio-item"
-            :class="{ active: checkboxIndex.includes(checkbox.id) }"
-            v-for="checkbox in radioList"
-            :key="checkbox.id"
-            :data-id="checkbox.id"
-          >
+          <div class="radio-item" :class="{ active: checkboxIndex.includes(checkbox.id) }" v-for="checkbox in radioList"
+            :key="checkbox.id" :data-id="checkbox.id">
             <el-icon v-if="checkbox.icon" class="radio-icon">
               <component :is="checkbox.icon"></component>
             </el-icon>
@@ -442,13 +413,12 @@ watch(filterText, (val) => {
 }
 
 /* 处理el-tree文本过长的问题 */
-:deep(
-    .el-tree--highlight-current
-      .el-tree-node.is-current
-      > .el-tree-node__content
-  ) {
+:deep(.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content) {
   background-color: var(--el-color-primary);
-  color: #fff;
+
+  .el-tree-node__label {
+    color: #fff;
+  }
 
   .el-icon {
     color: #fff;
