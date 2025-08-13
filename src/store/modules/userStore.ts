@@ -98,7 +98,7 @@ const useUserStore = defineStore({
     clearToken() {
       removeToken();
       this.$reset();
-    }
+    },
   },
 });
 
